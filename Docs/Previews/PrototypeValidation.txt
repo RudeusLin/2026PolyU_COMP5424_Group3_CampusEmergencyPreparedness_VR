@@ -1,0 +1,11 @@
+Verification mode: offline; no Unity Editor execution
+Scene objects: 2947
+Floors: 4; lift panels: 4; fire cabinets: 8; alarm points: 8
+Scene hierarchy and asset references: PASS
+C# compile against Unity 2022.3 DLLs: PASS
+Route test: ground support and sampled capsule clearance; doors temporarily considered open
+Route A: 718 samples
+Route B: 797 samples
+Offline geometry: PASS
+Unity execution: outside offline checks; see UnityValidation.txt and WorldTextValidation.txt
+VR headset performance and locomotion: NOT RUN

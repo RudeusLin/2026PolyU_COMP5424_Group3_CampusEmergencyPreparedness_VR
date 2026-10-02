@@ -111,6 +111,8 @@ InitTestScene*.unity*
 .DS_Store
 Thumbs.db
 Desktop.ini
+.playwright-mcp/
+__pycache__/
 .env
 .env.*
 !.env.example

@@ -1,0 +1,11 @@
+Unity 2022.3.62f3
+Lightmap UV overlaps after bake: 0 / PASS
+Baked atlases: 2
+Reflection probes: 5
+Six Unity capture views: PASS
+Ceiling cutaway regrouping world matrices and lighting reload: PASS
+Font color, lifetime and wall-occlusion pixels: PASS
+Scene references and synchronized asset hashes: PASS
+Offline six views: JavaScript errors 0, WebGL errors 0
+Evacuation routes: A 718 samples / B 797 samples / PASS
+VR headset performance: NOT RUN

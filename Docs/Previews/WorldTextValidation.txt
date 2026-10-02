@@ -1,0 +1,8 @@
+Unity 2022.3.62f3
+Original generated scene: PASS
+All sign text fits its panel: PASS
+Repeated initialization and saved scene reload: PASS
+Unity builder and route physics checks: PASS
+World text opaque-wall occlusion: PASS
+Font atlas refresh: PASS
+Label count: 96

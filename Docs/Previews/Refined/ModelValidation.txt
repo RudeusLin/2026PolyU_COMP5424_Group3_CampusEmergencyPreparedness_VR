@@ -1,0 +1,11 @@
+Unity 2022.3.62f3
+Refined scene build and route physics: PASS
+World text, sign fit and reload: PASS
+Beveled meshes, winding and bounds: PASS
+Seven prefab assets and prefab text: PASS
+Baked lighting, reflection reload, shaders and material state: PASS
+Text color, disabled initializer and opaque-wall pixel checks: PASS
+Lightmap atlases: 2
+Labels: 144
+Shared environment meshes: 276
+VR headset performance and locomotion: NOT RUN

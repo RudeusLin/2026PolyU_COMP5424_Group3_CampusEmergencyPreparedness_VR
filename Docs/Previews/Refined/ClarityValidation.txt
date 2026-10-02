@@ -1,0 +1,27 @@
+Unity 2022.3.62f3 / Built-in / Linear / Direct3D 11
+2026-10-02: Game view clarity and exterior shadow audit
+
+User screenshot: Free Aspect, display Scale 2x.
+Scene cameras: no target RenderTexture; no depth-of-field effect.
+Surface import: full texture resolution, mipmaps, trilinear and anisotropic filtering enabled.
+Same-view comparison: 1600x1000, 4x MSAA.
+
+Disable relief: exterior curved bands remain.
+Replace albedo textures with white: exterior curved bands remain.
+Replace detail textures with white: exterior curved bands remain.
+Remove baked lightmaps: exterior curved bands remain.
+Use built-in Standard shader: exterior curved bands remain.
+Disable sun realtime shadows: curved bands disappear, normal cast shadows also disappear.
+Sun Bias 0.05 / Normal Bias 0.4: curved bands disappear; normal cast shadows retained.
+Higher offsets 0.1/0.4 and 0.05/0.6 also checked; use the smaller verified 0.05/0.4 values.
+
+Builder and saved refined scene use the same corrected sun offsets: PASS.
+Runtime and Editor C# compilation: PASS.
+Saved scene object IDs and unique corrected solar shadow values: PASS.
+Six final Unity views refreshed without a new lightmap bake: PASS.
+Exterior, classroom and corridor images visually checked: PASS.
+Six delivered PNG files match the isolated validation project by SHA256: PASS.
+
+Only the sun realtime shadow offsets changed. Existing baked lighting and surface textures retained.
+The editor display Scale is a user interface setting; it was not changed programmatically.
+VR headset image quality and performance: NOT RUN.
