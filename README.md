@@ -4,7 +4,7 @@ A VR fire evacuation preparedness practice prototype for international students 
 
 ## Current campus scene
 
-Open `Assets/Scenes/TeachingBuildingCampus.unity` in Unity **2022.3.62f3**. This is the current campus environment, with scanned PBR surfaces, HDRI daylight, classroom furniture, physical signage, noticeboards and an optional localized smoke/alarm preview. Both evacuation routes are retained; headset performance remains unverified.
+Open `Assets/Scenes/TeachingBuildingCampus.unity` in Unity **2022.3.62f3**. This is the current campus environment, with scanned PBR surfaces, HDRI daylight, classroom furniture, physical signage, noticeboards, an articulated student and an optional localized smoke/alarm preview. Press **F4/F2** to walk and **V** to switch first/third person. Both evacuation routes support tested desktop stair ascent/descent; headset performance remains unverified.
 
 Open [the standalone campus preview](Docs/Previews/Campus/TeachingBuildingCampusPreview.html) without Unity, or read [campus scene instructions](Docs/TeachingBuildingCampus.md). Current Unity captures and validation reports are in `Docs/Previews/Campus`; earlier material comparisons are in `Docs/Previews/Campus/History`.
 

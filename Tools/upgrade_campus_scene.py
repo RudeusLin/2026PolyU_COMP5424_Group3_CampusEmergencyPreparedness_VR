@@ -21,6 +21,7 @@ import import_campus_pbr as pbr
 from campus_preview_lighting import upgrade_preview
 from campus_signage import prepare_signage
 from campus_preview_ui import restyle_preview
+from campus_student import prepare_walkthrough
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = "Assets/Environment/TeachingBuildingCampus"
@@ -445,12 +446,17 @@ def preview_html(data):
     template = template.replace("const descriptions={", "const descriptions={window:'窗洞随房间边界划分，隔墙接到实心窗间墙；玻璃在窗框内分块，室内设卷帘与窗台。',")
     template = template.replace("notice:'07 / 校园公告栏'", "notice:'07 / 校园公告栏',window:'08 / 外窗与隔墙'")
     template = template.replace("const views={", "const views={window:{eye:[-10.1,12.6,12.4],target:[-10.3,12.4,6],fov:1.13},")
+    template = template.replace('08</span>外窗与隔墙</button>', '08</span>外窗与隔墙</button><button data-view="student"><span class="number">09</span>学生角色</button>')
+    template = template.replace("const descriptions={", "const descriptions={student:'校园学生角色，身高约 1.73 米；Unity 中按 V 切换第三人称。',")
+    template = template.replace("window:'08 / 外窗与隔墙'", "window:'08 / 外窗与隔墙',student:'09 / 学生角色'")
+    template = template.replace("const views={", "const views={student:{eye:[-6.15,12.1,4.5],target:[-7.8,11.75,2.7],fov:.8},")
     template = template.replace("401 教室：课桌椅、白板、投影设备和安全告示。门扇设观察窗，门口保持通行空间。", "401 教室：软垫座椅、笔记本电脑、教学控制台、收纳柜与绿植，保留原有疏散通道。")
     template = template.replace("四楼走廊：墙裙、地砖、公告栏和消防设施，出口方向标识沿通道布置。", "四楼走廊：水磨石地面、校园活动公告栏、楼层识别和消防设施。可开启局部烟雾示意，观察标识可见性。")
     template = template.replace("document.getElementById('info').textContent=descriptions[value];", "document.getElementById('info').textContent=descriptions[value];document.querySelector('.top').style.display=['exterior','floor'].includes(value)?'block':'none';document.querySelector('.bottom').style.display=['exterior','floor'].includes(value)?'flex':'none';")
     # Open on the enhanced classroom; the remaining views are available in the panel.
     template = template.replace("setView('exterior');render();", "setView('classroom');render();")
     template = restyle_preview(template)
+    template = template.replace("window:'教室外窗'})", "window:'教室外窗',student:'学生角色 · Unity 中按 V 切换第三人称'})")
     # Printed glyphs use the same measured dimensions as their Unity decals.
     anchor = "function textTexture(n){"
     raster = """function printedTexture(n){
@@ -474,6 +480,7 @@ def main():
     pbr.prepare_scans()
     campus = art_pass(source)
     fitted_signs = prepare_signage(campus)
+    prepare_walkthrough(campus)
     assert campus["routes"] == original_routes, "Art pass changed route definitions"
     junctions = validate_window_junctions(campus)
     verify.validate_assets(campus)

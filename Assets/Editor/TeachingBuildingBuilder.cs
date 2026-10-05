@@ -228,6 +228,7 @@ namespace CampusEmergency.Editor
                 if (spec.component == "door") item.AddComponent<PrototypeDoor>().Configure(spec.openAngle, spec.startsOpen);
                 if (spec.component == "notice") item.AddComponent<FacilityNotice>().Configure((FacilityNotice.FacilityKind)spec.noticeKind);
                 if (spec.component == "bootstrap") item.AddComponent<PrototypeSceneBootstrap>();
+                if (spec.component == "studentAvatar") item.AddComponent<CampusStudentAvatar>();
                 if (spec.component == "campusAtmosphere")
                     CampusAtmosphereAssets.Configure(item, layout.assetFolder);
                 item.SetActive(spec.active);
@@ -271,6 +272,101 @@ namespace CampusEmergency.Editor
 
         private static Vector3 Vector(float[] value) => new Vector3(value[0], value[1], value[2]);
         private static Color ColorValue(float[] value) => new Color(value[0], value[1], value[2], value[3]);
+
+        [MenuItem("Campus Emergency/Update campus stairs and student")]
+        public static void UpdateCampusWalkthroughAndCapture()
+        {
+            UpdateCampusWalkthrough(true);
+        }
+
+        public static void RefreshCampusStudentAndCapture()
+        {
+            UpdateCampusWalkthrough(false);
+        }
+
+        private static void UpdateCampusWalkthrough(bool rebake)
+        {
+            Layout layout = JsonUtility.FromJson<Layout>(File.ReadAllText("Assets/Environment/TeachingBuildingCampusLayout.json"));
+            EditorSceneManager.OpenScene(layout.scenePath);
+            string meshFolder = layout.assetFolder + "/Meshes";
+            List<MaterialSpec> studentMaterials = new List<MaterialSpec>();
+            foreach (MaterialSpec spec in layout.materials)
+                if (spec.name.StartsWith("Student")) studentMaterials.Add(spec);
+            Dictionary<string, Material> materials = CreateMaterials(studentMaterials.ToArray(), layout.assetFolder + "/Materials");
+            Dictionary<string, Mesh> meshes = new Dictionary<string, Mesh>();
+            Dictionary<int, string> paths = new Dictionary<int, string>();
+            Dictionary<int, GameObject> studentObjects = new Dictionary<int, GameObject>();
+            foreach (NodeSpec spec in layout.nodes)
+            {
+                string path = spec.parent == 0 ? spec.name : paths[spec.parent] + "/" + spec.name;
+                paths.Add(spec.id, path);
+                bool student = spec.component == "studentAvatar" || studentObjects.ContainsKey(spec.parent);
+                if (!student && !spec.name.StartsWith("Step_First_") && !spec.name.StartsWith("Step_Second_")) continue;
+                GameObject item = GameObject.Find(path);
+                if (item == null && !student) throw new InvalidOperationException("Missing existing stair: " + path);
+                if (!student && !rebake && (Vector3.Distance(item.transform.localScale, Vector(spec.scale)) > .0001f
+                    || Vector3.Distance(item.transform.localPosition, Vector(spec.position)) > .0001f))
+                    throw new InvalidOperationException("Stair geometry changed; run the full stairs/student update with baking.");
+                if (item == null)
+                {
+                    if (spec.kind == "box" || spec.kind == "sphere" || spec.kind == "cylinder")
+                    {
+                        PrimitiveType type = spec.kind == "box" ? PrimitiveType.Cube
+                            : spec.kind == "sphere" ? PrimitiveType.Sphere : PrimitiveType.Cylinder;
+                        item = GameObject.CreatePrimitive(type);
+                        Object.DestroyImmediate(item.GetComponent<Collider>());
+                        if (spec.kind == "box" && spec.bevel > 0)
+                            item.GetComponent<MeshFilter>().sharedMesh = BeveledBox(Vector(spec.scale), spec.bevel, meshFolder, meshes);
+                        item.GetComponent<Renderer>().sharedMaterial = materials[spec.material];
+                    }
+                    else item = new GameObject(spec.name);
+                    item.name = spec.name;
+                    item.transform.SetParent(GameObject.Find(paths[spec.parent]).transform, false);
+                }
+                item.transform.localPosition = Vector(spec.position);
+                item.transform.localRotation = new Quaternion(spec.rotation[0], spec.rotation[1], spec.rotation[2], spec.rotation[3]);
+                item.transform.localScale = Vector(spec.scale);
+                if (student)
+                {
+                    studentObjects.Add(spec.id, item);
+                    if (spec.component == "studentAvatar" && item.GetComponent<CampusStudentAvatar>() == null)
+                        item.AddComponent<CampusStudentAvatar>();
+                }
+            }
+            foreach (CampusStudentAvatar avatar in Object.FindObjectsOfType<CampusStudentAvatar>()) avatar.InitializeRig();
+            SaveReusablePrefab("CampusStudent", studentObjects, layout.assetFolder + "/Prefabs");
+            foreach (string stair in new[] { "A", "B" })
+            {
+                string path = layout.assetFolder + "/Prefabs/Stairwell_" + stair + ".prefab";
+                GameObject prefab = PrefabUtility.LoadPrefabContents(path);
+                try
+                {
+                    foreach (Transform tread in prefab.GetComponentsInChildren<Transform>())
+                    {
+                        if (!tread.name.StartsWith("Step_First_") && !tread.name.StartsWith("Step_Second_")) continue;
+                        Vector3 size = tread.localScale, position = tread.localPosition;
+                        float top = position.y + size.y / 2;
+                        size.y = .15f;
+                        position.y = top - .075f;
+                        tread.localScale = size;
+                        tread.localPosition = position;
+                    }
+                    PrefabUtility.SaveAsPrefabAsset(prefab, path);
+                }
+                finally { PrefabUtility.UnloadPrefabContents(prefab); }
+            }
+            Physics.SyncTransforms();
+            List<string> errors = ValidateRoutes(layout.routes);
+            if (errors.Count > 0) throw new InvalidOperationException(string.Join("; ", errors));
+            EditorSceneManager.SaveScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene(), layout.scenePath);
+            AssetDatabase.SaveAssets();
+            if (rebake) TeachingBuildingLighting.Bake(layout.assetFolder, layout.scenePath, layout.skyTexture);
+            Dictionary<int, GameObject> captures = new Dictionary<int, GameObject>();
+            foreach (NodeSpec spec in layout.nodes)
+                if (spec.name == "Roof_CutawayToggle") captures.Add(spec.id, GameObject.Find(spec.name));
+            CapturePreviews(captures, layout.nodes, layout.previewFolder, layout.previewPrefix);
+            Debug.Log("CAMPUS_WALKTHROUGH_UPDATE_SUCCESS: thin treads and articulated student saved; rebake=" + rebake);
+        }
 
         private static void ConfigurePrintedInk(Material ink)
         {
@@ -484,6 +580,7 @@ namespace CampusEmergency.Editor
                 material.color = ColorValue(spec.color);
                 material.SetFloat("_Metallic", spec.metallic);
                 material.SetFloat("_Glossiness", spec.smoothness);
+                if (spec.name.StartsWith("Student")) material.enableInstancing = true;
                 material.mainTexture = null;
                 material.DisableKeyword("_ALPHATEST_ON");
                 material.DisableKeyword("_ALPHABLEND_ON");

@@ -38,7 +38,7 @@ def restyle_preview(template):
     template = re.sub(r"document.querySelector\('\.top'\)\.style.display=.*?document.querySelector\('\.bottom'\)\.style.display=.*?;", '', template)
     template = template.replace('四楼教室</button>', '401 教室</button>').replace('四楼走廊</button>', '走廊</button>')
     template = template.replace('校园公告栏</button>', '公告栏</button>').replace('外窗与隔墙</button>', '外窗</button>')
-    template = re.sub(r"(exterior|floor|lift|stair|classroom|corridor|notice|window):'\d\d / ", r"\1:'", template)
+    template = re.sub(r"(exterior|floor|lift|stair|classroom|corridor|notice|window|student):'\d\d / ", r"\1:'", template)
     template = template.replace('`02 / ${floor}F 楼层布局`', '`${floor}F · 楼层平面`')
     template = template.replace("document.getElementById('info').textContent=descriptions[value];", "document.getElementById('info').textContent=({exterior:'教学楼与室外集合点。',floor:'选择楼层查看平面与疏散路线。',lift:'火警时使用楼梯疏散。',stair:'楼梯通往一楼侧出口。',classroom:'401 · 教室',corridor:'4F · 教学楼走廊',notice:'4F · 学生公告栏',window:'教室外窗'})[value];")
     anchor = "window.addEventListener('resize',()=>dirty=true);"

@@ -82,6 +82,13 @@ namespace CampusEmergency.Editor
 
             foreach (MeshRenderer renderer in Object.FindObjectsOfType<MeshRenderer>())
             {
+                if (renderer.GetComponentInParent<CampusStudentAvatar>() != null)
+                {
+                    GameObjectUtility.SetStaticEditorFlags(renderer.gameObject, 0);
+                    renderer.receiveGI = ReceiveGI.LightProbes;
+                    renderer.lightmapIndex = -1;
+                    continue;
+                }
                 if (renderer.GetComponent<TextMesh>() != null || renderer.sharedMaterial.renderQueue >= 3000) continue;
                 if (renderer.GetComponentInParent<PrototypeDoor>() != null) continue;
                 GameObjectUtility.SetStaticEditorFlags(renderer.gameObject, StaticEditorFlags.ContributeGI);
@@ -112,6 +119,9 @@ namespace CampusEmergency.Editor
                 if (renderer.name == "Forecourt") renderer.scaleInLightmap = .25f;
             }
 
+            // Updating a saved scene must replace its generated probes, not duplicate them.
+            foreach (LightProbeGroup oldGroup in Object.FindObjectsOfType<LightProbeGroup>())
+                if (oldGroup.name == "BakedLightingAndProbes") Object.DestroyImmediate(oldGroup.gameObject);
             GameObject lighting = new GameObject("BakedLightingAndProbes");
             List<Vector3> points = new List<Vector3>();
             for (int floor = 0; floor < 4; floor++)

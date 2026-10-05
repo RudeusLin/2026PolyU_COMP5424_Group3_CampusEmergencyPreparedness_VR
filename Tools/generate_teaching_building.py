@@ -219,8 +219,9 @@ def stairwell(parent, center, identifier):
         for step in range(1, 13):
             rise = step * .15
             first_z, second_z = 1.8 - (step - .5) * .3, -1.8 + (step - .5) * .3
-            box(f"Step_First_{step}", level, (center - 1.08, rise / 2, first_z), (1.65, rise, .3), "Concrete")
-            box(f"Step_Second_{step}", level, (center + 1.08, 1.8 + rise / 2, second_z), (1.65, rise, .3), "Concrete")
+            # Constant tread thickness preserves headroom below stacked flights.
+            box(f"Step_First_{step}", level, (center - 1.08, rise - .075, first_z), (1.65, .15, .3), "Concrete")
+            box(f"Step_Second_{step}", level, (center + 1.08, 1.8 + rise - .075, second_z), (1.65, .15, .3), "Concrete")
             box("StepEdge", level, (center - 1.08, rise + .004, first_z + .14), (1.6, .008, .025), "Yellow", False)
             box("StepEdge", level, (center + 1.08, 1.8 + rise + .004, second_z - .14), (1.6, .008, .025), "Yellow", False)
         for offset, base, start, end in [(-1.95, 0, 1.8, -1.8), (-.22, 0, 1.8, -1.8),

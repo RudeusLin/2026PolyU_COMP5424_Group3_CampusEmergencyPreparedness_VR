@@ -24,6 +24,8 @@ namespace CampusEmergency.Prototype
         private float orbitDistance = 58f;
         private string notice = string.Empty;
         private float noticeUntil;
+        private CampusStudentAvatar avatar;
+        private bool thirdPerson;
         private IPrototypeInteractable focused;
         private GUIStyle titleStyle;
         private GUIStyle textStyle;
@@ -44,6 +46,7 @@ namespace CampusEmergency.Prototype
         private void Awake()
         {
             controller = GetComponent<CharacterController>();
+            avatar = GetComponentInChildren<CampusStudentAvatar>();
             currentSpawn = spawnFourthFloor;
             SetOverview();
         }
@@ -69,6 +72,7 @@ namespace CampusEmergency.Prototype
             if (Input.GetMouseButtonDown(0)) Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = Cursor.lockState != CursorLockMode.Locked;
             if (Input.GetKeyDown(KeyCode.R)) EnterFloor(currentSpawn);
+            if (Input.GetKeyDown(KeyCode.V) && avatar != null) ToggleCameraView();
 
             if (Cursor.lockState == CursorLockMode.Locked)
             {
@@ -78,8 +82,7 @@ namespace CampusEmergency.Prototype
                 Vector3 direction = transform.right * Input.GetAxisRaw("Horizontal")
                     + transform.forward * Input.GetAxisRaw("Vertical");
                 float speed = Input.GetKey(KeyCode.LeftShift) ? 4.2f : 2.6f;
-                verticalSpeed = controller.isGrounded && verticalSpeed < 0f ? -2f : verticalSpeed - 20f * Time.deltaTime;
-                controller.Move((direction.normalized * speed + Vector3.up * verticalSpeed) * Time.deltaTime);
+                MoveCharacter(direction, speed, Time.deltaTime);
                 UpdateFocus();
                 if (Input.GetKeyDown(KeyCode.E) && focused != null)
                 {
@@ -87,7 +90,12 @@ namespace CampusEmergency.Prototype
                     noticeUntil = Time.time + 6f;
                 }
             }
-            else focused = null;
+            else
+            {
+                focused = null;
+                if (avatar != null) avatar.Animate(Vector3.zero, controller.isGrounded, Time.deltaTime);
+            }
+            UpdateWalkCamera();
 
             if (transform.position.y < -5f) EnterFloor(currentSpawn);
             Vector3 groundOffset = transform.position - assemblyPoint.position;
@@ -100,10 +108,46 @@ namespace CampusEmergency.Prototype
             }
         }
 
+        public void MoveCharacter(Vector3 direction, float speed, float deltaTime)
+        {
+            Vector3 before = transform.position;
+            verticalSpeed = controller.isGrounded && verticalSpeed < 0f ? -2f : verticalSpeed - 20f * deltaTime;
+            controller.Move((direction.normalized * speed + Vector3.up * verticalSpeed) * deltaTime);
+            if (avatar != null && deltaTime > 0)
+                avatar.Animate(transform.InverseTransformDirection((transform.position - before) / deltaTime),
+                    controller.isGrounded, deltaTime);
+        }
+
+        public void ToggleCameraView()
+        {
+            thirdPerson = !thirdPerson;
+            if (walking) UpdateWalkCamera();
+        }
+
+        private void UpdateWalkCamera()
+        {
+            if (!thirdPerson)
+            {
+                walkCamera.transform.localPosition = new Vector3(0, 1.65f, 0);
+                if (avatar != null) avatar.SetVisible(false);
+                return;
+            }
+            Vector3 pivot = transform.position + Vector3.up * 1.5f;
+            Vector3 offset = transform.rotation * Quaternion.Euler(pitch, 0, 0) * new Vector3(.32f, .15f, -2.6f);
+            float distance = offset.magnitude;
+            if (Physics.SphereCast(pivot, .14f, offset.normalized, out RaycastHit hit, distance,
+                ~0, QueryTriggerInteraction.Ignore) && hit.collider != controller)
+                distance = Mathf.Max(.1f, hit.distance - .08f);
+            walkCamera.transform.position = pivot + offset.normalized * distance;
+            if (avatar != null) avatar.SetVisible(distance > .55f);
+        }
+
         private void UpdateFocus()
         {
             focused = null;
-            if (!Physics.Raycast(walkCamera.transform.position, walkCamera.transform.forward, out RaycastHit hit, 2.6f)) return;
+            // Interaction distance stays anchored to the student in either camera mode.
+            Vector3 eye = transform.position + Vector3.up * 1.65f;
+            if (!Physics.Raycast(eye, walkCamera.transform.forward, out RaycastHit hit, 2.6f)) return;
             foreach (MonoBehaviour component in hit.collider.GetComponentsInParent<MonoBehaviour>())
             {
                 if (component is IPrototypeInteractable interactable)
@@ -141,6 +185,7 @@ namespace CampusEmergency.Prototype
             walkCamera.enabled = true;
             overviewCamera.enabled = false;
             roof.SetActive(true);
+            UpdateWalkCamera();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             notice = "Follow EXIT signs to a stairwell. Press E to open the stair doors.";
@@ -154,6 +199,7 @@ namespace CampusEmergency.Prototype
             controller.enabled = false;
             walkCamera.enabled = false;
             overviewCamera.enabled = true;
+            if (avatar != null) avatar.SetVisible(true);
             ReleaseCursor();
         }
 
@@ -187,7 +233,7 @@ namespace CampusEmergency.Prototype
             GUI.Label(new Rect(38, 32, 315, 22), "HARBOURVIEW UNIVERSITY", badgeStyle);
             GUI.Label(new Rect(38, 56, 320, 34), "Teaching Block A", titleStyle);
             GUI.Label(new Rect(38, 94, 310, 38), walking
-                ? "WASD move / Mouse look / E interact\nTab overview / Esc release / R restart"
+                ? "WASD move / Mouse look / E interact\nV camera / Tab overview / R restart"
                 : "4 floors / 2 stairwells / 1 lift\nRight-drag orbit / Scroll zoom / C cutaway", textStyle);
             if (!walking)
             {
