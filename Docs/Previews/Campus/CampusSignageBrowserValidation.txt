@@ -1,0 +1,14 @@
+Campus signage and viewer UI — 2026-10-05
+Browser: Codex in-app WebGL 2, default 479 × 758 viewport.
+Eight view buttons: selected state and corresponding scene view PASS.
+Floor buttons 1F/2F/3F/4F: matching floor status PASS.
+Roof cutaway, evacuation routes, sunlight and smoke: checkbox enable/disable state PASS.
+Narrow layout starts collapsed; view/floor selection closes controls: PASS.
+Open panel: opaque white background, 218 px wide, within viewport bounds PASS.
+Escape collapses panel; aria-expanded matches hidden state: PASS.
+No horizontal page overflow: PASS.
+No recorded JavaScript/WebGL error logs during checks.
+Actual screenshots: Campus-ViewerTools.jpg, Campus-ViewerClassroom.jpg, Campus-ViewerNoticeboard.jpg.
+81 referenced PNG lettering textures: files and transparent alpha/mipmap coverage settings PASS.
+Browser lighting remains approximate; Unity runtime report records actual rendered lettering validation.
+Headset performance remains unverified.

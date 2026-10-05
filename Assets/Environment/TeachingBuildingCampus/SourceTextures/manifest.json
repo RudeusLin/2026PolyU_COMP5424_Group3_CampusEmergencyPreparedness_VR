@@ -1,0 +1,101 @@
+{
+  "provider": "Poly Haven",
+  "license": "CC0-1.0",
+  "licenseURL": "https://polyhaven.com/license",
+  "assets": [
+    {
+      "id": "terrazzo_tiles",
+      "author": "Amal Kumar",
+      "url": "https://polyhaven.com/a/terrazzo_tiles",
+      "tileMeters": 2
+    },
+    {
+      "id": "white_oak_veneer",
+      "author": "Jenelle van Heerden",
+      "url": "https://polyhaven.com/a/white_oak_veneer",
+      "tileMeters": 0.5
+    },
+    {
+      "id": "kloofendal_48d_partly_cloudy_puresky",
+      "url": "https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky",
+      "authors": [
+        "Greg Zaal",
+        "Jarod Guest"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "asset": "terrazzo_tiles",
+      "map": "Diffuse",
+      "path": "Assets/Environment/TeachingBuildingCampus/SourceTextures/terrazzo_tiles_diff_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/terrazzo_tiles/terrazzo_tiles_diff_1k.jpg",
+      "md5": "12c27a579c2ed49de854b8a86e33647b",
+      "size": 1166107
+    },
+    {
+      "asset": "terrazzo_tiles",
+      "map": "AO",
+      "path": "Assets/Environment/TeachingBuildingCampus/SourceTextures/terrazzo_tiles_ao_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/terrazzo_tiles/terrazzo_tiles_ao_1k.jpg",
+      "md5": "719a17284cde2ba75d1beb87f9752308",
+      "size": 327931
+    },
+    {
+      "asset": "terrazzo_tiles",
+      "map": "Displacement",
+      "path": "Assets/Environment/TeachingBuildingCampus/SourceTextures/terrazzo_tiles_disp_1k.png",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/terrazzo_tiles/terrazzo_tiles_disp_1k.png",
+      "md5": "5af5b5b6fa443e0417c180acf31edc19",
+      "size": 1266394
+    },
+    {
+      "asset": "terrazzo_tiles",
+      "map": "Rough",
+      "path": "Assets/Environment/TeachingBuildingCampus/SourceTextures/terrazzo_tiles_rough_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/terrazzo_tiles/terrazzo_tiles_rough_1k.jpg",
+      "md5": "e34bfd2f4fee1b2b9f310a71588aad17",
+      "size": 459022
+    },
+    {
+      "asset": "white_oak_veneer",
+      "map": "Diffuse",
+      "path": "Assets/Environment/TeachingBuildingCampus/SourceTextures/white_oak_veneer_diff_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_oak_veneer/white_oak_veneer_diff_1k.jpg",
+      "md5": "4ac6f031704bdc243f71cc61d692f823",
+      "size": 595257
+    },
+    {
+      "asset": "white_oak_veneer",
+      "map": "AO",
+      "path": "Assets/Environment/TeachingBuildingCampus/SourceTextures/white_oak_veneer_ao_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_oak_veneer/white_oak_veneer_ao_1k.jpg",
+      "md5": "4dc0d27e6a4b1f4f5b728a29800f4178",
+      "size": 554620
+    },
+    {
+      "asset": "white_oak_veneer",
+      "map": "Displacement",
+      "path": "Assets/Environment/TeachingBuildingCampus/SourceTextures/white_oak_veneer_disp_1k.png",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/white_oak_veneer/white_oak_veneer_disp_1k.png",
+      "md5": "5d306f0f1364ead7ea95a0958766110f",
+      "size": 1494942
+    },
+    {
+      "asset": "white_oak_veneer",
+      "map": "Rough",
+      "path": "Assets/Environment/TeachingBuildingCampus/SourceTextures/white_oak_veneer_rough_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_oak_veneer/white_oak_veneer_rough_1k.jpg",
+      "md5": "ae2a746fc106f6eb0f90c92d49bd7643",
+      "size": 520649
+    },
+    {
+      "asset": "kloofendal_48d_partly_cloudy_puresky",
+      "map": "HDRI",
+      "path": "Assets/Environment/TeachingBuildingCampus/SourceTextures/kloofendal_48d_partly_cloudy_puresky_1k.hdr",
+      "size": 1435119,
+      "url": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/kloofendal_48d_partly_cloudy_puresky_1k.hdr",
+      "md5": "c69498687e876bf68d2a8b8a62234eb9"
+    }
+  ]
+}

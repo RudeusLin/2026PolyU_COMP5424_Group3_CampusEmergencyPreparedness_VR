@@ -1,0 +1,3 @@
+Delivered campus scene local references: PASS
+Campus scene/material/prefab asset GUID references: PASS
+Duplicate asset GUIDs: zero

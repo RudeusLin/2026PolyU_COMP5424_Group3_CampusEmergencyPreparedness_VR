@@ -1,0 +1,3 @@
+Final Campus signage: 716 YAML scene/material/prefab/lighting assets; 82994 references PASS.
+No missing GUIDs, duplicate GUIDs or broken YAML local/external file IDs.
+Binary/imported asset references checked for GUID and file presence; Unity runtime validates loading.

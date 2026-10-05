@@ -1,0 +1,5 @@
+CC0 scanned textures loaded: PASS
+Solar shadow toggle: 110832 changed scene pixels PASS
+Console/WebGL errors or warnings: none recorded during check
+Browser uses approximate lighting; Unity images are the PBR reference.
+Eight view buttons and atmosphere enable/disable: PASS

@@ -19,7 +19,7 @@ namespace CampusEmergency.Editor
 
         [Serializable] private sealed class Layout
         {
-            public string scenePath, assetFolder, previewFolder, previewPrefix;
+            public string scenePath, assetFolder, previewFolder, previewPrefix, skyTexture;
             public string[] prefabNames;
             public bool bakeLighting;
             public MaterialSpec[] materials;
@@ -45,10 +45,10 @@ namespace CampusEmergency.Editor
         [Serializable] private sealed class NodeSpec
         {
             public int id, parent;
-            public string name, kind, material, text, component, tag;
+            public string name, kind, material, text, component, tag, printTexture;
             public float[] position, rotation, scale, textColor;
             public bool active, collision, enabled, audio, startsOpen, roof;
-            public float textSize, lightRange, lightIntensity, openAngle, bevel;
+            public float textSize, lightRange, lightIntensity, openAngle, bevel, printWidth, printHeight;
             public int noticeKind, spawnSecond, spawnFourth, assembly, roofNode, smokeNode, walkCamera, overviewCamera;
         }
 
@@ -62,6 +62,12 @@ namespace CampusEmergency.Editor
         public static void BuildRefinedAndCapture()
         {
             Build("Assets/Environment/TeachingBuildingRefinedLayout.json");
+        }
+
+        [MenuItem("Campus Emergency/Build campus teaching building")]
+        public static void BuildCampusAndCapture()
+        {
+            Build("Assets/Environment/TeachingBuildingCampusLayout.json");
         }
 
         private static void Build(string layoutPath)
@@ -128,7 +134,33 @@ namespace CampusEmergency.Editor
                 item.transform.localScale = Vector(spec.scale);
                 if (!string.IsNullOrEmpty(spec.tag)) item.tag = spec.tag;
 
-                if (spec.kind == "text")
+                if (spec.kind == "text" && !string.IsNullOrEmpty(spec.printTexture))
+                {
+                    // Campus printed lettering receives scene lighting and uses fixed UVs.
+                    GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                    Object.DestroyImmediate(quad.GetComponent<Collider>());
+                    quad.name = "PrintedLettering";
+                    quad.transform.SetParent(item.transform, false);
+                    quad.transform.localScale = new Vector3(spec.printWidth, spec.printHeight, 1);
+                    string key = Path.GetFileNameWithoutExtension(spec.printTexture) + "_"
+                        + ColorUtility.ToHtmlStringRGBA(ColorValue(spec.textColor));
+                    string path = materialFolder + "/Lettering_" + key + ".mat";
+                    Material ink = AssetDatabase.LoadAssetAtPath<Material>(path);
+                    if (ink == null)
+                    {
+                        ink = new Material(Shader.Find("Standard"));
+                        AssetDatabase.CreateAsset(ink, path);
+                    }
+                    ink.mainTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(spec.printTexture);
+                    if (ink.mainTexture == null) throw new InvalidOperationException("Missing printed sign: " + spec.printTexture);
+                    ink.color = ColorValue(spec.textColor);
+                    ConfigurePrintedInk(ink);
+                    MeshRenderer renderer = quad.GetComponent<MeshRenderer>();
+                    renderer.sharedMaterial = ink;
+                    renderer.shadowCastingMode = ShadowCastingMode.Off;
+                    renderer.receiveGI = ReceiveGI.LightProbes;
+                }
+                else if (spec.kind == "text")
                 {
                     TextMesh text = item.AddComponent<TextMesh>();
                     text.font = font;
@@ -152,6 +184,13 @@ namespace CampusEmergency.Editor
                     // Broad exterior surfaces need more offset to avoid self-shadowing in the overview.
                     light.shadowBias = spec.kind == "sun" ? .05f : .035f;
                     light.shadowNormalBias = spec.kind == "sun" ? .4f : .12f;
+                    if (!string.IsNullOrEmpty(layout.skyTexture) && spec.kind == "sun")
+                    {
+                        light.intensity = 1.5f;
+                        light.shadowBias = .025f;
+                        light.shadowNormalBias = .08f;
+                        light.shadowCustomResolution = 2048;
+                    }
                     light.lightmapBakeType = layout.bakeLighting ? LightmapBakeType.Mixed : LightmapBakeType.Realtime;
                     if (layout.bakeLighting && spec.kind == "light") light.lightmapBakeType = LightmapBakeType.Baked;
                     if (spec.kind == "sun") RenderSettings.sun = light;
@@ -182,6 +221,8 @@ namespace CampusEmergency.Editor
                 if (spec.component == "door") item.AddComponent<PrototypeDoor>().Configure(spec.openAngle, spec.startsOpen);
                 if (spec.component == "notice") item.AddComponent<FacilityNotice>().Configure((FacilityNotice.FacilityKind)spec.noticeKind);
                 if (spec.component == "bootstrap") item.AddComponent<PrototypeSceneBootstrap>();
+                if (spec.component == "campusAtmosphere")
+                    CampusAtmosphereAssets.Configure(item, layout.assetFolder);
                 item.SetActive(spec.active);
             }
             foreach (PrototypeSceneBootstrap bootstrap in Object.FindObjectsOfType<PrototypeSceneBootstrap>())
@@ -211,7 +252,7 @@ namespace CampusEmergency.Editor
             // The lightmapper exports persisted mesh/material assets, including their UV layout.
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            if (layout.bakeLighting) TeachingBuildingLighting.Bake(layout.assetFolder, scenePath);
+            if (layout.bakeLighting) TeachingBuildingLighting.Bake(layout.assetFolder, scenePath, layout.skyTexture);
             AssetDatabase.SaveAssets();
             CapturePreviews(objects, layout.nodes, previewFolder, prefix);
             File.WriteAllText(Path.Combine(previewFolder, prefix + "Validation.txt"),
@@ -223,6 +264,41 @@ namespace CampusEmergency.Editor
 
         private static Vector3 Vector(float[] value) => new Vector3(value[0], value[1], value[2]);
         private static Color ColorValue(float[] value) => new Color(value[0], value[1], value[2], value[3]);
+
+        private static void ConfigurePrintedInk(Material ink)
+        {
+            // Smooth alpha preserves fine strokes at a distance while receiving Standard lighting.
+            ink.SetFloat("_Mode", 2);
+            ink.SetFloat("_Glossiness", .08f);
+            ink.SetInt("_SrcBlend", (int)BlendMode.SrcAlpha);
+            ink.SetInt("_DstBlend", (int)BlendMode.OneMinusSrcAlpha);
+            ink.SetInt("_ZWrite", 0);
+            ink.DisableKeyword("_ALPHATEST_ON");
+            ink.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+            ink.EnableKeyword("_ALPHABLEND_ON");
+            ink.SetOverrideTag("RenderType", "Transparent");
+            ink.renderQueue = (int)RenderQueue.Transparent;
+            EditorUtility.SetDirty(ink);
+        }
+
+        public static void RefreshCampusLetteringAndCapture()
+        {
+            Layout layout = JsonUtility.FromJson<Layout>(File.ReadAllText("Assets/Environment/TeachingBuildingCampusLayout.json"));
+            EditorSceneManager.OpenScene(layout.scenePath);
+            foreach (MeshRenderer renderer in Object.FindObjectsOfType<MeshRenderer>(true))
+            {
+                if (renderer.name != "PrintedLettering") continue;
+                ConfigurePrintedInk(renderer.sharedMaterial);
+                renderer.receiveGI = ReceiveGI.LightProbes;
+            }
+            EditorSceneManager.SaveScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene(), layout.scenePath);
+            AssetDatabase.SaveAssets();
+            GameObject roof = GameObject.Find("Roof_CutawayToggle");
+            Dictionary<int, GameObject> objects = new Dictionary<int, GameObject>();
+            foreach (NodeSpec spec in layout.nodes) if (spec.name == roof.name) objects.Add(spec.id, roof);
+            CapturePreviews(objects, layout.nodes, layout.previewFolder, layout.previewPrefix);
+            Debug.Log("CAMPUS_LETTERING_REFRESH_SUCCESS");
+        }
 
         public static void RefreshRefinedPreviews()
         {
@@ -535,6 +611,11 @@ namespace CampusEmergency.Editor
             {
                 Capture(camera, folder, prefix + "-Classroom.png", new Vector3(-3.8f, 12.45f, 7.3f), new Vector3(-10.9f, 12.5f, 5.9f), 75);
                 Capture(camera, folder, prefix + "-Corridor.png", new Vector3(-10.9f, 12.45f, -.35f), new Vector3(8, 12.3f, 0), 70);
+            }
+            if (prefix == "Campus")
+            {
+                Capture(camera, folder, prefix + "-WindowJunction.png", new Vector3(-10.1f, 12.6f, 12.4f), new Vector3(-10.3f, 12.4f, 6), 65);
+                Capture(camera, folder, prefix + "-ClassroomWindows.png", new Vector3(-8.6f, 12.45f, 3.5f), new Vector3(-7.5f, 12.6f, 8.9f), 75);
             }
             Object.DestroyImmediate(holder);
         }

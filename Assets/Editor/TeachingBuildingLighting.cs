@@ -13,8 +13,9 @@ namespace CampusEmergency.Editor
 {
     public static class TeachingBuildingLighting
     {
-        public static void Bake(string assetFolder, string scenePath)
+        public static void Bake(string assetFolder, string scenePath, string skyTexture = null)
         {
+            bool scannedSky = !string.IsNullOrEmpty(skyTexture);
             string folder = assetFolder + "/Lighting";
             Directory.CreateDirectory(folder);
             AssetDatabase.Refresh();
@@ -30,13 +31,13 @@ namespace CampusEmergency.Editor
                 ? LightingSettings.Lightmapper.ProgressiveGPU : LightingSettings.Lightmapper.ProgressiveCPU;
             settings.mixedBakeMode = MixedLightingMode.IndirectOnly;
             settings.directionalityMode = LightmapsMode.CombinedDirectional;
-            settings.lightmapResolution = 10;
-            settings.lightmapMaxSize = 1024;
+            settings.lightmapResolution = scannedSky ? 14 : 10;
+            settings.lightmapMaxSize = scannedSky ? 2048 : 1024;
             settings.lightmapPadding = 4;
-            settings.directSampleCount = 32;
-            settings.indirectSampleCount = 64;
-            settings.environmentSampleCount = 32;
-            settings.maxBounces = 2;
+            settings.directSampleCount = scannedSky ? 64 : 32;
+            settings.indirectSampleCount = scannedSky ? 128 : 64;
+            settings.environmentSampleCount = scannedSky ? 128 : 32;
+            settings.maxBounces = scannedSky ? 4 : 2;
             settings.lightProbeSampleCountMultiplier = 2;
             settings.ao = true;
             settings.aoMaxDistance = .4f;
@@ -51,13 +52,32 @@ namespace CampusEmergency.Editor
                 sky = new Material(Shader.Find("Skybox/Procedural"));
                 AssetDatabase.CreateAsset(sky, folder + "/CampusSky.mat");
             }
-            sky.SetFloat("_Exposure", 1.05f);
-            sky.SetColor("_SkyTint", new Color(.5f, .5f, .5f));
-            sky.SetColor("_GroundColor", new Color(.36f, .37f, .38f));
+            if (!scannedSky)
+            {
+                sky.shader = Shader.Find("Skybox/Procedural");
+                sky.SetFloat("_Exposure", 1.05f);
+                sky.SetColor("_SkyTint", new Color(.5f, .5f, .5f));
+                sky.SetColor("_GroundColor", new Color(.36f, .37f, .38f));
+            }
+            if (scannedSky)
+            {
+                Texture2D hdri = AssetDatabase.LoadAssetAtPath<Texture2D>(skyTexture);
+                if (hdri == null) throw new InvalidOperationException("Missing campus HDRI: " + skyTexture);
+                sky.shader = Shader.Find("Skybox/Panoramic");
+                if (sky.shader == null) throw new InvalidOperationException("Missing panoramic sky shader.");
+                sky.SetTexture("_MainTex", hdri);
+                sky.SetColor("_Tint", Color.gray);
+                sky.SetFloat("_Exposure", .8f);
+                sky.SetFloat("_Mapping", 1);
+                sky.SetFloat("_ImageType", 0);
+                sky.SetFloat("_Layout", 0);
+                sky.SetFloat("_Rotation", 120);
+                sky.DisableKeyword("_MAPPING_6_FRAMES_LAYOUT");
+            }
             RenderSettings.skybox = sky;
             RenderSettings.ambientMode = AmbientMode.Skybox;
-            RenderSettings.ambientIntensity = .75f;
-            RenderSettings.reflectionIntensity = .65f;
+            RenderSettings.ambientIntensity = scannedSky ? .5f : .75f;
+            RenderSettings.reflectionIntensity = scannedSky ? .8f : .65f;
             EditorUtility.SetDirty(sky);
 
             foreach (MeshRenderer renderer in Object.FindObjectsOfType<MeshRenderer>())
@@ -105,6 +125,15 @@ namespace CampusEmergency.Editor
                 reflections.Add(CreateReflection(lighting.transform, "Reflection_F" + (floor + 1),
                     new Vector3(0, floor * 3.6f + 1.8f, 2.6f), new Vector3(36, 3.6f, 18)));
             reflections.Add(CreateReflection(lighting.transform, "Reflection_Exterior", new Vector3(0, 4, -16), new Vector3(78, 25, 72)));
+            if (scannedSky)
+            {
+                ReflectionProbe classroom = CreateReflection(lighting.transform, "Reflection_Classroom401",
+                    new Vector3(-6.75f, 12.4f, 5.15f), new Vector3(9.1f, 3.4f, 7.3f));
+                classroom.center = Vector3.zero;
+                classroom.resolution = 256;
+                classroom.importance = 10;
+                reflections.Add(classroom);
+            }
 
             EditorSceneManager.SaveScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene(), scenePath);
             AssetDatabase.SaveAssets();
@@ -122,7 +151,7 @@ namespace CampusEmergency.Editor
             }
             AssetDatabase.SaveAssets();
             EditorSceneManager.SaveScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene(), scenePath);
-            Debug.Log("TEACHING_LIGHTING_BAKE_SUCCESS: " + LightmapSettings.lightmaps.Length + " lightmaps, five reflection probes.");
+            Debug.Log("TEACHING_LIGHTING_BAKE_SUCCESS: " + LightmapSettings.lightmaps.Length + " lightmaps, " + reflections.Count + " reflection probes.");
         }
 
         private static void BakeLightmaps(string scenePath)
