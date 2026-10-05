@@ -8,6 +8,6 @@ CampusSmoke/ArchitecturalSurface/WorldSpaceText shaders: PASS
 Atmosphere starts disabled: PASS
 Three enable/disable cycles; one emitter/audio source, max 48 particles: PASS
 Smoke emission and stop/clear; quiet spatial alarm start/stop: PASS
-Visible smoke pixels from corridor: 7952 PASS
+Visible smoke pixels from corridor: 8218 PASS
 Generated desktop render captures: PASS
 Headset frame rate, stereo rendering, locomotion and manual M-key audio perception unverified.

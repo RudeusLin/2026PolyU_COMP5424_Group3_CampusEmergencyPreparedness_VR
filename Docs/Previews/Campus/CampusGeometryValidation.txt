@@ -1,4 +1,4 @@
-Campus layout: 7196 nodes, 36 shared materials.
+Campus layout: 7196 nodes, 35 shared materials.
 Facade wall/glass junctions: 49 masonry-contact and no-glass-overlap checks PASS
 Printed signs fitted within physical carriers: 146 PASS
 Original route definitions preserved.

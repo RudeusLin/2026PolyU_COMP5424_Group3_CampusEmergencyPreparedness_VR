@@ -1,5 +1,7 @@
-CC0 scanned textures loaded: PASS
-Solar shadow toggle: 110832 changed scene pixels PASS
-Console/WebGL errors or warnings: none recorded during check
-Browser uses approximate lighting; Unity images are the PBR reference.
-Eight view buttons and atmosphere enable/disable: PASS
+Campus cleanup regression — 2026-10-05
+Current preview: TeachingBuildingCampusPreview.html (7196 nodes, 35 material definitions).
+Codex in-app WebGL browser, default narrow viewport.
+Eight scene views and floors 1F–4F: PASS.
+Roof cutaway, evacuation routes, sunlight/shadows and smoke on/off: PASS.
+No recorded JavaScript/WebGL error logs during this check.
+Browser lighting is approximate; Unity captures and runtime report are the actual scene reference.

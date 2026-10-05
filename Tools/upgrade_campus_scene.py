@@ -12,7 +12,7 @@ import io
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image
 
 import generate_teaching_building as base
 import refine_teaching_building as refined
@@ -174,23 +174,10 @@ def create_textures():
     folder = ROOT / ASSETS / "Textures"
     folder.mkdir(parents=True, exist_ok=True)
     grain = rng.normal(0, 1, (size, size))
-    stone = np.repeat((246 + grain * .7)[..., None], 3, axis=2)
-    image = Image.fromarray(np.clip(stone, 0, 255).astype(np.uint8))
-    draw = ImageDraw.Draw(image)
-    for _ in range(2600):
-        px, py = rng.integers(0, size, 2)
-        radius = int(rng.choice([1, 1, 2, 2, 3]))
-        tone = tuple(int(v) for v in rng.choice([[203, 211, 210], [221, 209, 195], [187, 194, 193], [238, 231, 220]]))
-        for dx in [-size, 0, size]:
-            for dy in [-size, 0, size]:
-                draw.ellipse((px + dx, py + dy, px + dx + radius * 2, py + dy + radius), fill=tone)
-    tile = np.asarray(image).copy()
-    grout = (x % 256 < 2) | (y % 256 < 2)
-    tile[grout] = [202, 207, 205]
     weave = 236 + np.sin(x * math.tau / 4) * 7 + np.sin(y * math.tau / 4) * 7 + grain * 2
     cork = 238 + grain * 7 + np.sin((x * 11 + y * 13) * math.tau / size) * 3
-    wood = 244 + np.sin(x * math.tau / size * 11 + np.sin(y * math.tau / size) * .7) * 5 + grain
-    for name, array in [("Terrazzo", tile), ("Fabric", weave), ("Cork", cork), ("Oak", wood)]:
+    # Stone and wood come from the bundled scans; only these surfaces are procedural.
+    for name, array in [("Fabric", weave), ("Cork", cork)]:
         if array.ndim == 2:
             array = np.repeat(array[..., None], 3, axis=2)
         path = folder / (name + ".png")
@@ -198,9 +185,7 @@ def create_textures():
         refined.texture_metadata(path)
         ao = np.ones_like(grain) * .99
         height = np.clip(.6 + grain * .012, 0, 1)
-        smoothness = np.ones_like(grain) * (.7 if name == "Terrazzo" else .4)
-        if name == "Terrazzo":
-            height[grout], ao[grout], smoothness[grout] = .22, .88, .2
+        smoothness = np.ones_like(grain) * .4
         detail = folder / (name + "Detail.png")
         Image.fromarray((np.stack([ao, height, smoothness], axis=2) * 255).astype(np.uint8)).save(detail)
         refined.texture_metadata(detail, linear=True)
@@ -243,19 +228,13 @@ def art_pass(data):
     for material in data["materials"]:
         if material["name"] in colors:
             material["color"] = colors[material["name"]]
-        surface = {"Floor": "Terrazzo", "Corridor": "Terrazzo", "Wood": "Oak"}.get(material["name"])
-        if surface:
-            material.update(texture=f"{ASSETS}/Textures/{surface}.png",
-                            detailTexture=f"{ASSETS}/Textures/{surface}Detail.png",
-                            tileMeters=1.2 if surface == "Terrazzo" else .8,
-                            bumpMeters=.0008, smoothness=.23)
     for name, color, surface in [("SeatFabric", [.06, .26, .31, 1], "Fabric"),
                                   ("Cork", [.67, .48, .30, 1], "Cork")]:
         data["materials"].append(dict(name=name, color=color, texture=f"{ASSETS}/Textures/{surface}.png",
                                      detailTexture=f"{ASSETS}/Textures/{surface}Detail.png",
                                      tileMeters=.3 if surface == "Fabric" else 1, bumpMeters=.0005,
                                      metallic=0, smoothness=.06))
-    for name, color in [("PosterCream", [.96, .93, .85, 1]), ("PosterCoral", [.76, .26, .18, 1]),
+    for name, color in [("PosterCoral", [.76, .26, .18, 1]),
                         ("PosterBlue", [.12, .30, .47, 1])]:
         data["materials"].append(dict(name=name, color=color, metallic=0, smoothness=.12))
     for material in data["materials"]:
@@ -296,7 +275,7 @@ def art_pass(data):
 
     def poster(parent, position, headline, body, accent, width=.82, height=.94):
         group = n("Poster_" + headline, parent, position)
-        b("PosterPaper", group, (0, 0, 0), (width, height, .012), "PosterCream", False)
+        b("PosterPaper", group, (0, 0, 0), (width, height, .012), "Paper", False)
         b("PosterHeader", group, (0, height / 2 - .13, -.009), (width, .26, .009), accent, False)
         text(group, headline, (0, height / 2 - .13, -.02), .075, "White")
         text(group, body, (0, -.035, -.021), .058)

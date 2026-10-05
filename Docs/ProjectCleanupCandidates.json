@@ -1,0 +1,2088 @@
+{
+  "auditedAt": "2026-10-05",
+  "unityVersion": "2022.3.62f3",
+  "mode": "cleanup_complete",
+  "gitRevision": "801a20febab63c5e808304944ca31aacefd79fc9",
+  "basis": "Unity AssetDatabase.GetDependencies over every saved scene, prefab and Resources asset; protect layout texture inputs, PBR source manifest/license and source code; no incoming dependency edges from retained imported assets.",
+  "retainedRoots": [
+    "Assets/Environment/TeachingBuildingRefined/Prefabs/Classroom_Detailed.prefab",
+    "Assets/Environment/TeachingBuildingRefined/Prefabs/Stairwell_A.prefab",
+    "Assets/Resources/WorldSpaceText.shader",
+    "Assets/Environment/TeachingBuildingCampus/Prefabs/FireEquipmentPoint.prefab",
+    "Assets/Environment/TeachingBuildingCampus/Prefabs/Classroom_Detailed.prefab",
+    "Assets/Scenes/TeachingBuildingCampus.unity",
+    "Assets/Environment/TeachingBuildingCampus/Prefabs/CampusNoticeBoard.prefab",
+    "Assets/Environment/TeachingBuildingRefined/Prefabs/FireEquipmentPoint.prefab",
+    "Assets/Environment/TeachingBuildingCampus/Prefabs/Stairwell_B.prefab",
+    "Assets/Environment/TeachingBuildingCampus/Prefabs/CampusPlanter.prefab",
+    "Assets/Environment/TeachingBuildingCampus/Prefabs/ElevatorLanding.prefab",
+    "Assets/Environment/TeachingBuildingCampus/Prefabs/DeskAndChair.prefab",
+    "Assets/Scenes/TeachingBuilding.unity",
+    "Assets/Prefabs/Environment/TeachingBuilding/FireEquipmentPoint.prefab",
+    "Assets/Environment/TeachingBuildingCampus/Prefabs/Stairwell_A.prefab",
+    "Assets/Resources/CampusSmoke.shader",
+    "Assets/Prefabs/Environment/TeachingBuilding/DeskAndChair.prefab",
+    "Assets/Scenes/TeachingBuildingRefined.unity",
+    "Assets/Resources/ArchitecturalSurface.shader",
+    "Assets/Environment/TeachingBuildingCampus/Prefabs/WindowBay.prefab",
+    "Assets/Environment/TeachingBuildingRefined/Prefabs/Stairwell_B.prefab",
+    "Assets/Environment/TeachingBuildingRefined/Prefabs/ElevatorLanding.prefab",
+    "Assets/Environment/TeachingBuildingRefined/Prefabs/WindowBay.prefab",
+    "Assets/Environment/TeachingBuildingCampus/Prefabs/CampusDirectory.prefab",
+    "Assets/Environment/TeachingBuildingRefined/Prefabs/DeskAndChair.prefab"
+  ],
+  "protectedGeneratorInputs": [
+    "Assets/Environment/TeachingBuildingCampus/SourceTextures/LICENSE.md",
+    "Assets/Environment/TeachingBuildingCampus/SourceTextures/kloofendal_48d_partly_cloudy_puresky_1k.hdr",
+    "Assets/Environment/TeachingBuildingCampus/SourceTextures/manifest.json",
+    "Assets/Environment/TeachingBuildingCampus/SourceTextures/terrazzo_tiles_ao_1k.jpg",
+    "Assets/Environment/TeachingBuildingCampus/SourceTextures/terrazzo_tiles_diff_1k.jpg",
+    "Assets/Environment/TeachingBuildingCampus/SourceTextures/terrazzo_tiles_disp_1k.png",
+    "Assets/Environment/TeachingBuildingCampus/SourceTextures/terrazzo_tiles_rough_1k.jpg",
+    "Assets/Environment/TeachingBuildingCampus/SourceTextures/white_oak_veneer_ao_1k.jpg",
+    "Assets/Environment/TeachingBuildingCampus/SourceTextures/white_oak_veneer_diff_1k.jpg",
+    "Assets/Environment/TeachingBuildingCampus/SourceTextures/white_oak_veneer_disp_1k.png",
+    "Assets/Environment/TeachingBuildingCampus/SourceTextures/white_oak_veneer_rough_1k.jpg",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Cork.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/CorkDetail.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Fabric.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/FabricDetail.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/0264d32e4bfeec5a.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/03a0e29991062f3a.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/0452fd7aa08fef55.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/0595f07d2b0b0037.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/06d5a3607b444ce6.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/07374cc5ab1a1b98.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/0746c34b49a73345.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/0b46e5e0edd94bb5.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/0ca7ad7460bc6a1c.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/0e72385337f44d00.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/1660765bd4ff7215.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/182ca5632deb79fe.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/19f19e408ceaa900.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/1bb3ea0927ce4fc5.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/208ff3330e42ae11.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/230d685de3506d92.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/27d24d3ecbf38446.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/2d99624553d0c3d0.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/38e3dd6ffddb0ed1.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/3bdaafa74d00b920.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/3be0ee344c8b6129.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/42d38f5ed73ce595.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/46758ce8cea94178.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/4767aa8390a8c75d.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/47f89ef857fdd9c8.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/4c3124527e08cc17.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/52fc21d1ed766939.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/575872a445a3f991.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/57fdf39f1023c0d9.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/5a2fb13fc79d3412.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/5dc34329cdc61b37.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/5eaf549ca74427b5.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/618dd59d954d95d2.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/69d35b2af9a3da12.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/70410e2704756e0c.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/71204fae388117a2.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/78b8a7ff790660da.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/7d663b3a1cedcfc8.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/8142eb375cb319fd.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/82f6fe470080dc6c.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/83740510bd8bdc71.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/8459d9738a22333a.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/8871f243c9eb6833.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/89cc6d844466b883.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/8deeb2e19b0e7664.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/8e9b88b1a1f550f3.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/8eec8b03ba46b8d3.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/901b19519f957dfc.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/91648bca22911118.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/98226700b4090e82.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/98601cd95e90e725.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/9dd0c69cb1d877e5.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/9fd688393e008724.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/a1ca86e91cc48206.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/a2257c54390c7986.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/a727a58972fe79b4.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/a96ec3f9a7b5a22d.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/aa94ea45e2b12823.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/ac11c8c49896714c.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/ad42cbcf8f05cb81.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b32c3e871e967a91.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b8a1d60ee41f861d.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/ba3d7999f97498e2.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/bb9dd9a48f10f727.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/bc0f05592dcf91e5.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/bcecfa783782b2a9.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/be9a58fb1ccb940d.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/bedbe0be8bc9b91d.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d021f28b8d9c8b3c.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d1b1f3c7fc63f20a.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d31d80f86ada45af.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d32279b8c97f3a09.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d34bff7f2350a7bb.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/dba02bf5295678d4.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/df14d8afa7ca7b1e.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/df3d6b7ec39e9029.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/e6e0e07a2f7f3ade.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f4592798b0e61425.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f64be7ae13d49d9a.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f66ac521579ed1b4.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/fc4d53455c1fb2d6.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/PBR/ScannedOak.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/PBR/ScannedOakDetail.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/PBR/ScannedTerrazzo.png",
+    "Assets/Environment/TeachingBuildingCampus/Textures/PBR/ScannedTerrazzoDetail.png",
+    "Assets/Environment/TeachingBuildingCampusLayout.json",
+    "Assets/Environment/TeachingBuildingLayout.json",
+    "Assets/Environment/TeachingBuildingRefined/Textures/Bark.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/BarkDetail.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/Brick.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/BrickDetail.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/BrushedSteel.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/BrushedSteelDetail.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/Concrete.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/ConcreteDetail.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/Foliage.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/FoliageDetail.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/Grass.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/GrassDetail.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/Paving.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/PavingDetail.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/Plaster.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/PlasterDetail.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/Tiles.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/TilesDetail.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/WoodGrain.png",
+    "Assets/Environment/TeachingBuildingRefined/Textures/WoodGrainDetail.png",
+    "Assets/Environment/TeachingBuildingRefinedLayout.json",
+    "Tools/teaching_building_scene_settings.yaml"
+  ],
+  "summary": {
+    "unused_manual_reflection_exports": {
+      "assets": 6,
+      "filesWithMeta": 12,
+      "bytes": 2565463
+    },
+    "old_lettering_materials": {
+      "assets": 82,
+      "filesWithMeta": 164,
+      "bytes": 203480
+    },
+    "unused_campus_materials": {
+      "assets": 1,
+      "filesWithMeta": 2,
+      "bytes": 2403
+    },
+    "old_campus_meshes": {
+      "assets": 55,
+      "filesWithMeta": 110,
+      "bytes": 570444
+    },
+    "old_lettering_textures": {
+      "assets": 81,
+      "filesWithMeta": 162,
+      "bytes": 1181597
+    },
+    "superseded_procedural_pbr_textures": {
+      "assets": 4,
+      "filesWithMeta": 8,
+      "bytes": 628895
+    },
+    "unused_refined_outputs": {
+      "assets": 7,
+      "filesWithMeta": 14,
+      "bytes": 854480
+    },
+    "old_campus_lightmaps": {
+      "assets": 4,
+      "filesWithMeta": 8,
+      "bytes": 2824899
+    }
+  },
+  "assets": [
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Lighting/Reflection_Classroom401.exr",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Lighting/Reflection_Classroom401.exr.meta",
+      "category": "unused_manual_reflection_exports",
+      "bytes": 1044288,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Lighting/Reflection_Exterior.exr",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Lighting/Reflection_Exterior.exr.meta",
+      "category": "unused_manual_reflection_exports",
+      "bytes": 304235,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Lighting/Reflection_F1.exr",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Lighting/Reflection_F1.exr.meta",
+      "category": "unused_manual_reflection_exports",
+      "bytes": 304235,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Lighting/Reflection_F2.exr",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Lighting/Reflection_F2.exr.meta",
+      "category": "unused_manual_reflection_exports",
+      "bytes": 304235,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Lighting/Reflection_F3.exr",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Lighting/Reflection_F3.exr.meta",
+      "category": "unused_manual_reflection_exports",
+      "bytes": 304235,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Lighting/Reflection_F4.exr",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Lighting/Reflection_F4.exr.meta",
+      "category": "unused_manual_reflection_exports",
+      "bytes": 304235,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_02c53e3195494abf_094A4FFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_02c53e3195494abf_094A4FFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2480,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_03865a6fd6d3fab4_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_03865a6fd6d3fab4_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_0433bf2bd275254b_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_0433bf2bd275254b_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_059b7bf6e1c5ec5e_F0F2E6FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_059b7bf6e1c5ec5e_F0F2E6FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2509,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_059b7bf6e1c5ec5e_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_059b7bf6e1c5ec5e_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2501,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_0ba6925d1b65148d_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_0ba6925d1b65148d_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_0d80d9ec89049ca8_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_0d80d9ec89049ca8_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_1bc6906a897b9682_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_1bc6906a897b9682_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2501,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_1d8cf01006673941_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_1d8cf01006673941_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_23370e20265c8efe_1A2B30FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_23370e20265c8efe_1A2B30FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_2624b602a5060a2c_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_2624b602a5060a2c_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_2667a4904e645f7f_0E212EFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_2667a4904e645f7f_0E212EFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2511,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_29e432e528b3717f_F0F2E6FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_29e432e528b3717f_F0F2E6FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_2b09c9524131245a_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_2b09c9524131245a_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_2b963a60aaebb5c6_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_2b963a60aaebb5c6_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_304846105d99ec16_1A2B30FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_304846105d99ec16_1A2B30FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_329c7ebc7597b653_0E212EFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_329c7ebc7597b653_0E212EFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2480,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_37ecdaebf005e6dc_1F2926FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_37ecdaebf005e6dc_1F2926FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2479,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_39212bb2b7703308_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_39212bb2b7703308_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2501,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_3ad0b50f3f67fb08_99170FFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_3ad0b50f3f67fb08_99170FFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2509,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_3f5a6742f0d2eb0d_1A2B30FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_3f5a6742f0d2eb0d_1A2B30FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_44075450641f27bb_1A2B30FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_44075450641f27bb_1A2B30FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_440ae36d23a47dc4_0E212EFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_440ae36d23a47dc4_0E212EFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2480,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_457006d850a6c578_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_457006d850a6c578_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_4db7756afb064645_0E212EFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_4db7756afb064645_0E212EFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2480,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_4df78478877a73ba_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_4df78478877a73ba_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_52ff325fa2014878_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_52ff325fa2014878_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_546571c049e8da76_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_546571c049e8da76_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2501,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_553fa174c3d074ec_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_553fa174c3d074ec_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2501,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_5a437bfa33218c87_F0F2E6FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_5a437bfa33218c87_F0F2E6FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_5ba32e3881f91f31_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_5ba32e3881f91f31_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_6076921ceb35f906_F0F2E6FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_6076921ceb35f906_F0F2E6FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_6410fbcdc6c0bfca_1A2B30FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_6410fbcdc6c0bfca_1A2B30FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_71d45544fb174d61_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_71d45544fb174d61_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_77b3b191c1ba51d3_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_77b3b191c1ba51d3_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_7b5d37922dfa823b_263333FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_7b5d37922dfa823b_263333FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2508,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_88448c237f261f4d_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_88448c237f261f4d_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_91757bfe63182b02_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_91757bfe63182b02_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2501,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_9375168231278781_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_9375168231278781_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_9a37c96126a697a2_F0F2E6FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_9a37c96126a697a2_F0F2E6FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_9b91da6b5c70f3f5_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_9b91da6b5c70f3f5_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_9e0b6a0c442431fc_F0F2E6FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_9e0b6a0c442431fc_F0F2E6FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_a656957a122092fe_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_a656957a122092fe_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_a8ea28f18663727c_1A3845FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_a8ea28f18663727c_1A3845FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2509,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_ab9939698b39aa7c_1A2B30FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_ab9939698b39aa7c_1A2B30FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_ac418587bc26994f_F0F2E6FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_ac418587bc26994f_F0F2E6FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_ae13f9bb445463bc_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_ae13f9bb445463bc_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b09f03053050ee85_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b09f03053050ee85_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b1c3b0543c7471f6_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b1c3b0543c7471f6_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b4ce372383e74b2c_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b4ce372383e74b2c_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b633aaf466b1e684_F0F2E6FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b633aaf466b1e684_F0F2E6FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b6da0dd6b56ded45_0E212EFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b6da0dd6b56ded45_0E212EFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2480,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b867be361c9c456d_1A2B30FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b867be361c9c456d_1A2B30FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b9ff0ae94f9dc147_1A2B30FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b9ff0ae94f9dc147_1A2B30FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_ba95454f61d02af6_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_ba95454f61d02af6_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_bd534a14bb586f5a_1A2B30FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_bd534a14bb586f5a_1A2B30FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_bfba648839cbb28f_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_bfba648839cbb28f_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_c280e95a34e3a5e3_F0F2E6FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_c280e95a34e3a5e3_F0F2E6FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_c9cb34444e5e336b_1A2B30FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_c9cb34444e5e336b_1A2B30FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d008c0f52c23ac63_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d008c0f52c23ac63_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d49859951b30d49c_0E212EFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d49859951b30d49c_0E212EFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2480,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d5b9297b9ebcfc94_F0F2E6FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d5b9297b9ebcfc94_F0F2E6FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d85cfb10a5cb624f_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d85cfb10a5cb624f_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d9562abf8d7f4f89_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d9562abf8d7f4f89_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d95dbfe365547a24_1A2B30FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d95dbfe365547a24_1A2B30FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d9917ee6dcdb2305_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d9917ee6dcdb2305_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2501,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d9f2dfaecd9e9d30_1A2B30FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d9f2dfaecd9e9d30_1A2B30FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_dc4a73a0a9e52237_BD1814FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_dc4a73a0a9e52237_BD1814FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2511,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_e482b897218235e8_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_e482b897218235e8_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2501,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_efe6627ce7fea9d1_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_efe6627ce7fea9d1_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2501,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f17acc9a74781c40_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f17acc9a74781c40_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f1bef446f294eeab_F0F2E6FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f1bef446f294eeab_F0F2E6FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f35af300edee5639_F0F2E6FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f35af300edee5639_F0F2E6FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f6f8248dde4f2229_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f6f8248dde4f2229_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2501,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f7d583cfba6ddcf7_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f7d583cfba6ddcf7_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f7d6a9c7b7dd62f4_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f7d6a9c7b7dd62f4_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2501,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f7f35c0a43b0c738_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f7f35c0a43b0c738_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2470,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_fc874f8eb83cc625_1A2B30FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_fc874f8eb83cc625_1A2B30FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_fdb3213cf2d11682_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_fdb3213cf2d11682_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2501,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_fe7091f1de9c3a84_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_fe7091f1de9c3a84_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2501,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_feecf50f8228b9f5_FFFFFFFF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_feecf50f8228b9f5_FFFFFFFF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2501,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_ffef8e024f511f56_1A2B30FF.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_ffef8e024f511f56_1A2B30FF.mat.meta",
+      "category": "old_lettering_materials",
+      "bytes": 2478,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Materials/PosterCream.mat",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Materials/PosterCream.mat.meta",
+      "category": "unused_campus_materials",
+      "bytes": 2403,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_0_055_1_700_0_060_0_010.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_0_055_1_700_0_060_0_010.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 18738,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_0_480_0_550_0_060_0_015.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_0_480_0_550_0_060_0_015.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 15386,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_0_700_0_200_0_060_0_015.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_0_700_0_200_0_060_0_015.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 15722,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_0_750_0_950_0_060_0_015.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_0_750_0_950_0_060_0_015.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 15722,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_0_950_1_300_0_060_0_015.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_0_950_1_300_0_060_0_015.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 18076,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_1_300_0_300_0_060_0_015.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_1_300_0_300_0_060_0_015.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 17964,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_1_800_0_040_0_050_0_008.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_1_800_0_040_0_050_0_008.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 18976,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_1_880_0_060_0_060_0_012.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_1_880_0_060_0_060_0_012.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 18962,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_2_000_0_055_0_220_0_012.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_2_000_0_055_0_220_0_012.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 18066,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_2_000_0_650_0_060_0_015.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_2_000_0_650_0_060_0_015.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 18076,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_4_200_0_040_0_050_0_008.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_4_200_0_040_0_050_0_008.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 18976,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_4_280_0_060_0_060_0_012.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_4_280_0_060_0_060_0_012.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 18962,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_4_400_0_040_0_050_0_008.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_4_400_0_040_0_050_0_008.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 18976,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_4_400_0_055_0_220_0_012.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_4_400_0_055_0_220_0_012.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 18962,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_4_480_0_060_0_060_0_012.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_4_480_0_060_0_060_0_012.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 18962,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_4_600_0_055_0_220_0_012.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_4_600_0_055_0_220_0_012.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 19858,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_5_400_0_040_0_050_0_008.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_5_400_0_040_0_050_0_008.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 18976,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_5_480_0_060_0_060_0_012.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_5_480_0_060_0_060_0_012.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 18962,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_5_600_0_055_0_220_0_012.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Bevel_5_600_0_055_0_220_0_012.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 19858,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_0_280_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_0_280_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_0_300_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_0_300_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_0_300_1_700_0_220.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_0_300_1_700_0_220.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_0_600_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_0_600_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_0_680_0_015_0_008.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_0_680_0_015_0_008.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_0_820_0_260_0_009.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_0_820_0_260_0_009.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_0_820_0_940_0_012.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_0_820_0_940_0_012.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_1_000_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_1_000_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_1_100_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_1_100_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_1_350_1_400_0_060.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_1_350_1_400_0_060.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_1_500_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_1_500_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_1_600_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_1_600_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_1_800_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_1_800_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_1_800_1_700_0_035.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_1_800_1_700_0_035.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_2_060_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_2_060_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_2_400_0_800_0_220.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_2_400_0_800_0_220.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_2_400_1_000_0_220.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_2_400_1_000_0_220.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_2_400_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_2_400_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_2_900_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_2_900_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_3_310_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_3_310_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_3_893_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_3_893_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_053_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_053_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_060_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_060_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_110_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_110_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_200_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_200_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_200_1_700_0_035.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_200_1_700_0_035.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_400_1_700_0_035.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_400_1_700_0_035.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_800_0_800_0_220.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_800_0_800_0_220.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_800_1_000_0_220.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_4_800_1_000_0_220.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_5_000_0_800_0_220.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_5_000_0_800_0_220.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_5_000_1_000_0_220.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_5_000_1_000_0_220.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_5_000_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_5_000_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_5_400_1_040_0_014.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_5_400_1_040_0_014.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_5_400_1_700_0_035.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_5_400_1_700_0_035.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_6_000_0_800_0_220.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_6_000_0_800_0_220.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_6_000_1_000_0_220.asset",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Meshes/Box_6_000_1_000_0_220.asset.meta",
+      "category": "old_campus_meshes",
+      "bytes": 6174,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/02c53e3195494abf.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/02c53e3195494abf.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 11201,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_02c53e3195494abf_094A4FFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/03865a6fd6d3fab4.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/03865a6fd6d3fab4.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 14990,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_03865a6fd6d3fab4_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/0433bf2bd275254b.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/0433bf2bd275254b.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 16868,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_0433bf2bd275254b_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/059b7bf6e1c5ec5e.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/059b7bf6e1c5ec5e.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 3950,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_059b7bf6e1c5ec5e_F0F2E6FF.mat",
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_059b7bf6e1c5ec5e_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/0ba6925d1b65148d.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/0ba6925d1b65148d.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 5938,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_0ba6925d1b65148d_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/0d80d9ec89049ca8.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/0d80d9ec89049ca8.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 5553,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_0d80d9ec89049ca8_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/1bc6906a897b9682.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/1bc6906a897b9682.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 9229,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_1bc6906a897b9682_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/1d8cf01006673941.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/1d8cf01006673941.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 17671,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_1d8cf01006673941_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/23370e20265c8efe.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/23370e20265c8efe.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 4983,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_23370e20265c8efe_1A2B30FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/2624b602a5060a2c.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/2624b602a5060a2c.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 7619,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_2624b602a5060a2c_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/2667a4904e645f7f.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/2667a4904e645f7f.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 14613,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_2667a4904e645f7f_0E212EFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/29e432e528b3717f.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/29e432e528b3717f.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 13952,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_29e432e528b3717f_F0F2E6FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/2b09c9524131245a.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/2b09c9524131245a.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 6180,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_2b09c9524131245a_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/2b963a60aaebb5c6.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/2b963a60aaebb5c6.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 4138,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_2b963a60aaebb5c6_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/304846105d99ec16.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/304846105d99ec16.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 4814,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_304846105d99ec16_1A2B30FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/329c7ebc7597b653.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/329c7ebc7597b653.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 33236,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_329c7ebc7597b653_0E212EFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/37ecdaebf005e6dc.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/37ecdaebf005e6dc.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 25224,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_37ecdaebf005e6dc_1F2926FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/39212bb2b7703308.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/39212bb2b7703308.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 4335,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_39212bb2b7703308_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/3ad0b50f3f67fb08.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/3ad0b50f3f67fb08.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 25167,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_3ad0b50f3f67fb08_99170FFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/3f5a6742f0d2eb0d.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/3f5a6742f0d2eb0d.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 4982,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_3f5a6742f0d2eb0d_1A2B30FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/44075450641f27bb.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/44075450641f27bb.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 5117,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_44075450641f27bb_1A2B30FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/440ae36d23a47dc4.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/440ae36d23a47dc4.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 45466,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_440ae36d23a47dc4_0E212EFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/457006d850a6c578.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/457006d850a6c578.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 8350,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_457006d850a6c578_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/4db7756afb064645.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/4db7756afb064645.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 28866,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_4db7756afb064645_0E212EFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/4df78478877a73ba.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/4df78478877a73ba.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 13850,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_4df78478877a73ba_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/52ff325fa2014878.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/52ff325fa2014878.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 5715,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_52ff325fa2014878_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/546571c049e8da76.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/546571c049e8da76.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 33421,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_546571c049e8da76_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/553fa174c3d074ec.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/553fa174c3d074ec.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 2394,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_553fa174c3d074ec_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/5a437bfa33218c87.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/5a437bfa33218c87.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 58582,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_5a437bfa33218c87_F0F2E6FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/5ba32e3881f91f31.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/5ba32e3881f91f31.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 12162,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_5ba32e3881f91f31_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/6076921ceb35f906.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/6076921ceb35f906.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 8449,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_6076921ceb35f906_F0F2E6FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/6410fbcdc6c0bfca.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/6410fbcdc6c0bfca.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 5497,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_6410fbcdc6c0bfca_1A2B30FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/71d45544fb174d61.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/71d45544fb174d61.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 6335,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_71d45544fb174d61_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/77b3b191c1ba51d3.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/77b3b191c1ba51d3.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 6298,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_77b3b191c1ba51d3_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/7b5d37922dfa823b.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/7b5d37922dfa823b.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 45915,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_7b5d37922dfa823b_263333FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/88448c237f261f4d.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/88448c237f261f4d.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 17126,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_88448c237f261f4d_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/91757bfe63182b02.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/91757bfe63182b02.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 9884,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_91757bfe63182b02_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/9375168231278781.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/9375168231278781.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 13129,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_9375168231278781_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/9a37c96126a697a2.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/9a37c96126a697a2.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 10589,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_9a37c96126a697a2_F0F2E6FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/9b91da6b5c70f3f5.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/9b91da6b5c70f3f5.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 6981,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_9b91da6b5c70f3f5_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/9e0b6a0c442431fc.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/9e0b6a0c442431fc.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 11633,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_9e0b6a0c442431fc_F0F2E6FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/a656957a122092fe.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/a656957a122092fe.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 7817,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_a656957a122092fe_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/a8ea28f18663727c.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/a8ea28f18663727c.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 83714,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_a8ea28f18663727c_1A3845FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/ab9939698b39aa7c.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/ab9939698b39aa7c.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 4779,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_ab9939698b39aa7c_1A2B30FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/ac418587bc26994f.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/ac418587bc26994f.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 7844,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_ac418587bc26994f_F0F2E6FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/ae13f9bb445463bc.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/ae13f9bb445463bc.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 19549,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_ae13f9bb445463bc_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b09f03053050ee85.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b09f03053050ee85.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 17907,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b09f03053050ee85_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b1c3b0543c7471f6.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b1c3b0543c7471f6.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 19553,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b1c3b0543c7471f6_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b4ce372383e74b2c.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b4ce372383e74b2c.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 12105,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b4ce372383e74b2c_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b633aaf466b1e684.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b633aaf466b1e684.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 9557,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b633aaf466b1e684_F0F2E6FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b6da0dd6b56ded45.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b6da0dd6b56ded45.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 49276,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b6da0dd6b56ded45_0E212EFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b867be361c9c456d.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b867be361c9c456d.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 4590,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b867be361c9c456d_1A2B30FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b9ff0ae94f9dc147.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/b9ff0ae94f9dc147.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 5107,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_b9ff0ae94f9dc147_1A2B30FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/ba95454f61d02af6.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/ba95454f61d02af6.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 7109,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_ba95454f61d02af6_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/bd534a14bb586f5a.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/bd534a14bb586f5a.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 4930,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_bd534a14bb586f5a_1A2B30FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/bfba648839cbb28f.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/bfba648839cbb28f.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 25684,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_bfba648839cbb28f_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/c280e95a34e3a5e3.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/c280e95a34e3a5e3.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 10456,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_c280e95a34e3a5e3_F0F2E6FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/c9cb34444e5e336b.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/c9cb34444e5e336b.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 3993,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_c9cb34444e5e336b_1A2B30FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d008c0f52c23ac63.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d008c0f52c23ac63.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 7228,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d008c0f52c23ac63_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d49859951b30d49c.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d49859951b30d49c.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 92618,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d49859951b30d49c_0E212EFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d5b9297b9ebcfc94.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d5b9297b9ebcfc94.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 8279,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d5b9297b9ebcfc94_F0F2E6FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d85cfb10a5cb624f.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d85cfb10a5cb624f.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 14022,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d85cfb10a5cb624f_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d9562abf8d7f4f89.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d9562abf8d7f4f89.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 5762,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d9562abf8d7f4f89_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d95dbfe365547a24.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d95dbfe365547a24.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 4784,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d95dbfe365547a24_1A2B30FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d9917ee6dcdb2305.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d9917ee6dcdb2305.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 5335,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d9917ee6dcdb2305_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d9f2dfaecd9e9d30.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/d9f2dfaecd9e9d30.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 4410,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_d9f2dfaecd9e9d30_1A2B30FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/dc4a73a0a9e52237.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/dc4a73a0a9e52237.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 7101,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_dc4a73a0a9e52237_BD1814FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/e482b897218235e8.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/e482b897218235e8.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 6572,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_e482b897218235e8_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/efe6627ce7fea9d1.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/efe6627ce7fea9d1.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 21790,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_efe6627ce7fea9d1_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f17acc9a74781c40.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f17acc9a74781c40.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 13435,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f17acc9a74781c40_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f1bef446f294eeab.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f1bef446f294eeab.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 25684,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f1bef446f294eeab_F0F2E6FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f35af300edee5639.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f35af300edee5639.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 8034,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f35af300edee5639_F0F2E6FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f6f8248dde4f2229.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f6f8248dde4f2229.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 3717,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f6f8248dde4f2229_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f7d583cfba6ddcf7.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f7d583cfba6ddcf7.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 17922,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f7d583cfba6ddcf7_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f7d6a9c7b7dd62f4.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f7d6a9c7b7dd62f4.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 8935,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f7d6a9c7b7dd62f4_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f7f35c0a43b0c738.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/f7f35c0a43b0c738.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 6455,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_f7f35c0a43b0c738_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/fc874f8eb83cc625.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/fc874f8eb83cc625.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 4260,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_fc874f8eb83cc625_1A2B30FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/fdb3213cf2d11682.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/fdb3213cf2d11682.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 4489,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_fdb3213cf2d11682_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/fe7091f1de9c3a84.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/fe7091f1de9c3a84.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 7345,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_fe7091f1de9c3a84_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/feecf50f8228b9f5.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/feecf50f8228b9f5.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 13535,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_feecf50f8228b9f5_FFFFFFFF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/ffef8e024f511f56.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Lettering/ffef8e024f511f56.png.meta",
+      "category": "old_lettering_textures",
+      "bytes": 5513,
+      "incomingFromCandidates": [
+        "Assets/Environment/TeachingBuildingCampus/Materials/Lettering_ffef8e024f511f56_1A2B30FF.mat"
+      ]
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Oak.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Oak.png.meta",
+      "category": "superseded_procedural_pbr_textures",
+      "bytes": 131608,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/OakDetail.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/OakDetail.png.meta",
+      "category": "superseded_procedural_pbr_textures",
+      "bytes": 188814,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/Terrazzo.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/Terrazzo.png.meta",
+      "category": "superseded_procedural_pbr_textures",
+      "bytes": 121698,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Textures/TerrazzoDetail.png",
+      "meta": "Assets/Environment/TeachingBuildingCampus/Textures/TerrazzoDetail.png.meta",
+      "category": "superseded_procedural_pbr_textures",
+      "bytes": 186775,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingRefined/Lighting/Reflection_Exterior.exr",
+      "meta": "Assets/Environment/TeachingBuildingRefined/Lighting/Reflection_Exterior.exr.meta",
+      "category": "unused_refined_outputs",
+      "bytes": 166444,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingRefined/Lighting/Reflection_F1.exr",
+      "meta": "Assets/Environment/TeachingBuildingRefined/Lighting/Reflection_F1.exr.meta",
+      "category": "unused_refined_outputs",
+      "bytes": 166444,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingRefined/Lighting/Reflection_F2.exr",
+      "meta": "Assets/Environment/TeachingBuildingRefined/Lighting/Reflection_F2.exr.meta",
+      "category": "unused_refined_outputs",
+      "bytes": 166444,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingRefined/Lighting/Reflection_F3.exr",
+      "meta": "Assets/Environment/TeachingBuildingRefined/Lighting/Reflection_F3.exr.meta",
+      "category": "unused_refined_outputs",
+      "bytes": 166444,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingRefined/Lighting/Reflection_F4.exr",
+      "meta": "Assets/Environment/TeachingBuildingRefined/Lighting/Reflection_F4.exr.meta",
+      "category": "unused_refined_outputs",
+      "bytes": 166444,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingRefined/Materials/AccentGold.mat",
+      "meta": "Assets/Environment/TeachingBuildingRefined/Materials/AccentGold.mat.meta",
+      "category": "unused_refined_outputs",
+      "bytes": 2402,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingRefined/Meshes/Bevel_3_500_0_120_0_550_0_020.asset",
+      "meta": "Assets/Environment/TeachingBuildingRefined/Meshes/Bevel_3_500_0_120_0_550_0_020.asset.meta",
+      "category": "unused_refined_outputs",
+      "bytes": 19858,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/Lightmap-1_comp_dir.png",
+      "meta": "Assets/Scenes/TeachingBuildingCampus/Lightmap-1_comp_dir.png.meta",
+      "category": "old_campus_lightmaps",
+      "bytes": 656804,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/Lightmap-1_comp_light.exr",
+      "meta": "Assets/Scenes/TeachingBuildingCampus/Lightmap-1_comp_light.exr.meta",
+      "category": "old_campus_lightmaps",
+      "bytes": 2128305,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/Lightmap-2_comp_dir.png",
+      "meta": "Assets/Scenes/TeachingBuildingCampus/Lightmap-2_comp_dir.png.meta",
+      "category": "old_campus_lightmaps",
+      "bytes": 9086,
+      "incomingFromCandidates": []
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/Lightmap-2_comp_light.exr",
+      "meta": "Assets/Scenes/TeachingBuildingCampus/Lightmap-2_comp_light.exr.meta",
+      "category": "old_campus_lightmaps",
+      "bytes": 30704,
+      "incomingFromCandidates": []
+    }
+  ],
+  "limitation": "Desktop Unity and browser checks passed; headset performance, stereo rendering and VR locomotion remain unverified. Editor build scene list is unchanged and empty. Legacy generation workflows remain available and may intentionally recreate legacy outputs.",
+  "removedAssets": 240,
+  "removedFilesWithMeta": 482,
+  "archivedHistoricalCampusPreviews": [
+    "Docs/Previews/Campus/History/Campus-BrowserPBR.jpg",
+    "Docs/Previews/Campus/History/Campus-BrowserShadows-off.jpg",
+    "Docs/Previews/Campus/History/Campus-BrowserShadows-on.jpg",
+    "Docs/Previews/Campus/History/Campus-Classroom-BeforePBR.png",
+    "Docs/Previews/Campus/History/Campus-ClassroomWindows-BeforePBR.png",
+    "Docs/Previews/Campus/History/Campus-PBR-Comparison.png",
+    "Docs/Previews/Campus/History/Campus-WindowJunction-BeforePBR.png"
+  ],
+  "completedAt": "2026-10-05",
+  "removedDefaultScene": [
+    "Assets/Scenes/SampleScene.unity",
+    "Assets/Scenes/SampleScene.unity.meta"
+  ],
+  "archivedHistoricalCampusPreviewsFrom": [
+    "Docs/Previews/Campus/Campus-BrowserPBR.jpg",
+    "Docs/Previews/Campus/Campus-BrowserShadows-off.jpg",
+    "Docs/Previews/Campus/Campus-BrowserShadows-on.jpg",
+    "Docs/Previews/Campus/Campus-Classroom-BeforePBR.png",
+    "Docs/Previews/Campus/Campus-ClassroomWindows-BeforePBR.png",
+    "Docs/Previews/Campus/Campus-PBR-Comparison.png",
+    "Docs/Previews/Campus/Campus-WindowJunction-BeforePBR.png"
+  ],
+  "validation": {
+    "pythonGenerator": "PASS: 7196 nodes, 35 shared material definitions; route A 718 samples, route B 797 samples; 49 wall/glass junctions and 146 sign carriers",
+    "unityBuild": "PASS: 1 lightmap atlas, 6 reflection probes; no renderer UV overlaps after bake",
+    "unityPlayMode": "Unity 2022.3.62f3 desktop Play Mode\nSaved scene lighting/materials: PASS\nSaved wall/masonry contact and no crossing window glass: 49 PASS\n1K scanned PBR textures, linear detail maps, HDRI and classroom reflection probe: PASS\nVisible direct-daylight pixels in classroom: 887521 PASS\nPrinted sign carriers, lit textures and visible noticeboard lettering pixels: 8912 PASS\nCampusSmoke/ArchitecturalSurface/WorldSpaceText shaders: PASS\nAtmosphere starts disabled: PASS\nThree enable/disable cycles; one emitter/audio source, max 48 particles: PASS\nSmoke emission and stop/clear; quiet spatial alarm start/stop: PASS\nVisible smoke pixels from corridor: 8218 PASS\nGenerated desktop render captures: PASS\nHeadset frame rate, stereo rendering, locomotion and manual M-key audio perception unverified.",
+    "unityDependencies": "PASS: 3 scenes, 19 prefabs, 3 Resources shaders; all Assets dependencies exist; no deleted dependency and no deleted output recreated by Campus rebuild",
+    "browser": "PASS: eight views, floors 1F-4F, roof cutaway/routes/sunlight/smoke controls; no recorded JavaScript/WebGL errors",
+    "reports": [
+      "Docs/Previews/Campus/CampusValidation.txt",
+      "Docs/Previews/Campus/CampusRuntimeValidation.txt",
+      "Docs/Previews/Campus/CampusGeometryValidation.txt",
+      "Docs/ProjectFileAudit.md"
+    ],
+    "prototypeTemplate": "PASS: 55 generated outputs byte-identical before/after moving scene settings from SampleScene into Tools; generator succeeds with SampleScene absent",
+    "deletedGuidReferences": "PASS: 241 deleted GUIDs absent from retained serialized Assets"
+  }
+}

@@ -142,12 +142,9 @@ namespace CampusEmergency.Editor
             if (LightmapSettings.lightmaps.Length == 0) throw new InvalidOperationException("Bake produced no lightmaps.");
             foreach (ReflectionProbe probe in reflections)
             {
-                string path = folder + "/" + probe.name + ".exr";
-                if (!Lightmapping.BakeReflectionProbe(probe, path))
-                    throw new InvalidOperationException("Reflection bake failed: " + probe.name);
-                AssetDatabase.ImportAsset(path);
-                probe.bakedTexture = AssetDatabase.LoadAssetAtPath<Cubemap>(path);
-                if (probe.bakedTexture == null) throw new InvalidOperationException("Missing baked cubemap: " + path);
+                // The scene bake already persists these cubemaps through LightingData.
+                if (probe.bakedTexture == null)
+                    throw new InvalidOperationException("Missing scene-baked cubemap: " + probe.name);
             }
             AssetDatabase.SaveAssets();
             EditorSceneManager.SaveScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene(), scenePath);

@@ -594,8 +594,8 @@ def serialize_nodes(nodes):
 
 
 def write_scene():
-    sample = (ASSETS / 'Scenes/SampleScene.unity').read_text(encoding='utf-8')
-    settings = sample.split('--- !u!1 ')[0]
+    # Keep the Unity scene settings as a tool input, independent of example scenes.
+    settings = (ROOT / 'Tools/teaching_building_scene_settings.yaml').read_text(encoding='utf-8')
     settings = re.sub(r'  m_AmbientSkyColor: .*', '  m_AmbientSkyColor: ' + color([.6, .7, .76, 1]), settings)
     settings = re.sub(r'  m_AmbientEquatorColor: .*', '  m_AmbientEquatorColor: ' + color([.42, .49, .51, 1]), settings)
     settings = re.sub(r'  m_AmbientGroundColor: .*', '  m_AmbientGroundColor: ' + color([.3, .34, .32, 1]), settings)

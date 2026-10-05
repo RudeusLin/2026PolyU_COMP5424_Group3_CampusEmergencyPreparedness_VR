@@ -2,15 +2,27 @@
 
 A VR fire evacuation preparedness practice prototype for international students at fictional Harbourview University. The experience supports practice rather than formal assessment and does not replace official emergency training.
 
-The four-storey environment prototype is in `Assets/Scenes/TeachingBuilding.unity` (Unity 2022.3.62f3). Open `Docs/Previews/TeachingBuildingPreview.html` in a browser to inspect the shared layout without Unity. See [prototype instructions](Docs/TeachingBuildingPrototype.md) for controls and current validation limits.
+## Current campus scene
 
-The refined environment is in `Assets/Scenes/TeachingBuildingRefined.unity`, with textured surfaces, beveled models, classroom furnishings, detailed fire equipment, baked lighting and reflection probes. See [refined scene instructions](Docs/TeachingBuildingRefined.md) and [rendering fixes](Docs/TeachingBuildingRenderingAudit.md), or open `Docs/Previews/Refined/TeachingBuildingRefinedPreview.html` for the standalone 3D preview. Unity render captures and validation reports are in `Docs/Previews/Refined`. Include the scene's lighting folder when sharing assets.
+Open `Assets/Scenes/TeachingBuildingCampus.unity` in Unity **2022.3.62f3**. This is the current campus environment, with scanned PBR surfaces, HDRI daylight, classroom furniture, physical signage, noticeboards and an optional localized smoke/alarm preview. Both evacuation routes are retained; headset performance remains unverified.
 
-The campus art pass is in `Assets/Scenes/TeachingBuildingCampus.unity`, adding CC0 scanned terrazzo/oak surfaces, HDRI daylight and fabric surfaces, classroom props, campus noticeboards, wayfinding details and an optional localized smoke/alarm preview. See [campus scene instructions](Docs/TeachingBuildingCampus.md) or open `Docs/Previews/Campus/TeachingBuildingCampusPreview.html`. It retains the existing building and evacuation routes; headset performance remains unverified.
+Open [the standalone campus preview](Docs/Previews/Campus/TeachingBuildingCampusPreview.html) without Unity, or read [campus scene instructions](Docs/TeachingBuildingCampus.md). Current Unity captures and validation reports are in `Docs/Previews/Campus`; earlier material comparisons are in `Docs/Previews/Campus/History`.
+
+## Earlier scene versions
+
+- **Prototype:** `Assets/Scenes/TeachingBuilding.unity`; [instructions](Docs/TeachingBuildingPrototype.md), [browser preview](Docs/Previews/TeachingBuildingPreview.html).
+- **Refined:** `Assets/Scenes/TeachingBuildingRefined.unity`; [instructions](Docs/TeachingBuildingRefined.md), [rendering fixes](Docs/TeachingBuildingRenderingAudit.md), [browser preview](Docs/Previews/Refined/TeachingBuildingRefinedPreview.html).
+
+These versions remain available for iteration history. Campus still shares textures and generation helpers with Refined. Keep the scene lighting folders and the shared assets when distributing the Unity project.
+
+## Project maintenance
+
+See [file organization and cleanup](Docs/ProjectFileAudit.md) and [the cleanup record](Docs/ProjectCleanupCandidates.json). Unity caches, logs and generated IDE project files are excluded by `.gitignore`.
 
 ## Team Members
 
-|     Name     |  StudentID  | GitHub Account |  
+|     Name     |  StudentID  | GitHub Account |
+| --- | --- | --- |
 | Lin Zhiwei   |  26105448g  | RudeusLin      |  
 | Fu  Jiahao   |  26062063g  | FJH-123123     |  
 | Li  Yisheng  |  26124143g  | LiYS-08        |  

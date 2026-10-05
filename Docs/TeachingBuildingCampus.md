@@ -48,6 +48,8 @@ Play 后按 **F4** 进入四楼，WASD 移动，鼠标观察，E 开门或查看
 
 ## 修改与重新生成
 
+旧材质对比图集中在 `Docs/Previews/Campus/History/`。文件清理记录见 `Docs/ProjectFileAudit.md`。生成器只创建仍在使用的织物、软木和烟雾纹理；石材与木纹直接使用扫描资源。Unity 构建只保存被几何使用的材质，反射图由场景光照烘焙统一保存到场景光照目录。
+
 `Tools/upgrade_campus_scene.py` 读取已保存的 `TeachingBuildingRefinedLayout.json`，输出独立的 Campus 布局、原创纹理、已随项目保存的扫描材质、模拟警报和离线预览。`import_campus_pbr.py` 校验原始文件，并将 AO、凹凸高度和逆粗糙度打包为线性细节贴图；重新生成不需要联网。脚本需要 Python、NumPy 和 Pillow。
 
 ```shell

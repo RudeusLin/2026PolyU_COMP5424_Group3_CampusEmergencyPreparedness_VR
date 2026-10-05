@@ -97,7 +97,14 @@ namespace CampusEmergency.Editor
             if (!string.IsNullOrEmpty(layout.assetFolder)) Directory.CreateDirectory(meshFolder);
             AssetDatabase.Refresh();
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            Dictionary<string, Material> materials = CreateMaterials(layout.materials, materialFolder);
+            HashSet<string> usedMaterialNames = new HashSet<string>();
+            foreach (NodeSpec spec in layout.nodes)
+                if (spec.kind == "box" || spec.kind == "sphere" || spec.kind == "cylinder")
+                    usedMaterialNames.Add(spec.material);
+            List<MaterialSpec> usedMaterials = new List<MaterialSpec>();
+            foreach (MaterialSpec spec in layout.materials)
+                if (usedMaterialNames.Contains(spec.name)) usedMaterials.Add(spec);
+            Dictionary<string, Material> materials = CreateMaterials(usedMaterials.ToArray(), materialFolder);
             Dictionary<string, Mesh> meshes = new Dictionary<string, Mesh>();
             Dictionary<int, GameObject> objects = new Dictionary<int, GameObject>();
             Font font;
