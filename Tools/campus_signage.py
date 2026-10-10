@@ -14,6 +14,16 @@ FOLDER = Path('Assets/Environment/TeachingBuildingCampus/Textures/Lettering')
 FONTS = Path(os.environ.get('CAMPUS_FONT_DIR', '/System/Library/Fonts/Supplemental'))
 
 
+def signage_font(name):
+    candidates = [FONTS / name,
+                  Path('C:/Windows/Fonts') / ('segoepr.ttf' if name == 'Chalkboard.ttc' else 'arial.ttf'),
+                  Path('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf')]
+    path = next((p for p in candidates if p.is_file()), None)
+    if path is None:
+        raise RuntimeError('Set CAMPUS_FONT_DIR to a folder containing Arial.ttf and Chalkboard.ttc')
+    return ImageFont.truetype(str(path), 96)
+
+
 def prepare_signage(data):
     nodes = data['nodes']
     lookup = {n['id']: n for n in nodes}
@@ -112,7 +122,7 @@ def prepare_signage(data):
             # Decals sit 2 mm in front of the carrier, never a centimetre away.
             n['position'][2] = -panel['scale'][2] / 2 - .002
         font_name = 'Chalkboard.ttc' if handwriting else 'Arial.ttf'
-        font = ImageFont.truetype(str(FONTS / font_name), 96)
+        font = signage_font(font_name)
         lines = value.split('\n')
         if handwriting:
             lines = ['Fire evacuation drill', '', '1. Raise the alarm', '2. Nearest safe exit / stairs',

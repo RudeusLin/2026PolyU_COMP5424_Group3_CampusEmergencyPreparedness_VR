@@ -1,9 +1,10 @@
-Campus stairs/student regression — 2026-10-05
-Current preview: TeachingBuildingCampusPreview.html (7276 nodes, 44 material definitions).
-Codex in-app WebGL browser, default narrow viewport.
-Nine scene views including campus student: selected state and corresponding view PASS.
+Campus modeling browser regression — 2026-10-10
+Current preview: TeachingBuildingCampusPreview.html (7410 nodes, 48 material definitions).
+Codex in-app WebGL browser, served over local HTTP.
+Eleven scene views including washroom and refuge room: selected state and corresponding titles PASS.
 Floors 1F–4F: matching selected floor PASS.
 Roof cutaway, evacuation routes, sunlight/shadows and smoke on/off: PASS.
 No recorded JavaScript/WebGL error logs during this check.
-Model screenshot: Campus-StudentBrowser.jpg.
+No horizontal page overflow: PASS.
+Modeling screenshots: Campus-WashroomBrowser.png, Campus-RefugeRoomBrowser.png.
 Browser lighting is approximate; Unity captures and runtime reports are the actual scene reference.

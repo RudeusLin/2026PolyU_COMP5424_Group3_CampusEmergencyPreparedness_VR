@@ -12,6 +12,12 @@ namespace CampusEmergency.Prototype
         [SerializeField] private Transform assemblyPoint;
         [SerializeField] private GameObject roof;
         [SerializeField] private GameObject smokePreview;
+        [SerializeField] private float walkSpeed = 2.6f;
+        [SerializeField] private float sprintSpeed = 4.2f;
+        [SerializeField] private float acceleration = 14f;
+        [SerializeField] private float braking = 18f;
+        [SerializeField] private float jumpHeight = .75f;
+        [SerializeField] private float gravity = 20f;
 
         private CharacterController controller;
         private Transform currentSpawn;
@@ -25,11 +31,32 @@ namespace CampusEmergency.Prototype
         private string notice = string.Empty;
         private float noticeUntil;
         private CampusStudentAvatar avatar;
+        private CampusFirstPersonArms firstPersonArms;
+        private Vector3 horizontalVelocity;
+        private float groundedGrace, jumpBuffer;
         private bool thirdPerson;
         private IPrototypeInteractable focused;
         private GUIStyle titleStyle;
         private GUIStyle textStyle;
         private GUIStyle badgeStyle;
+
+        public CampusTowel HeldTowel { get; private set; }
+        public Transform TowelHoldPoint => thirdPerson && avatar != null ? avatar.RightHandHoldPoint
+            : firstPersonArms != null ? firstPersonArms.HoldPoint : walkCamera.transform;
+        public bool IsGrounded => controller != null && controller.enabled && controller.isGrounded;
+        public bool IsSprinting => horizontalVelocity.magnitude > walkSpeed + .15f;
+
+        public bool TryHoldTowel(CampusTowel towel)
+        {
+            if (HeldTowel != null) return false;
+            HeldTowel = towel;
+            return true;
+        }
+
+        public void ReleaseTowel(CampusTowel towel)
+        {
+            if (HeldTowel == towel) HeldTowel = null;
+        }
 
         public void Configure(Camera firstPerson, Camera overview, Transform secondFloor, Transform fourthFloor,
             Transform assembly, GameObject roofObject, GameObject smokeObject)
@@ -47,6 +74,12 @@ namespace CampusEmergency.Prototype
         {
             controller = GetComponent<CharacterController>();
             avatar = GetComponentInChildren<CampusStudentAvatar>();
+            if (avatar != null)
+            {
+                avatar.InitializeRig();
+                firstPersonArms = walkCamera.gameObject.AddComponent<CampusFirstPersonArms>();
+                firstPersonArms.Initialize(avatar);
+            }
             currentSpawn = spawnFourthFloor;
             SetOverview();
         }
@@ -79,21 +112,20 @@ namespace CampusEmergency.Prototype
                 transform.Rotate(0f, Input.GetAxis("Mouse X") * 1.8f, 0f);
                 pitch = Mathf.Clamp(pitch - Input.GetAxis("Mouse Y") * 1.8f, -80f, 80f);
                 walkCamera.transform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
-                Vector3 direction = transform.right * Input.GetAxisRaw("Horizontal")
-                    + transform.forward * Input.GetAxisRaw("Vertical");
-                float speed = Input.GetKey(KeyCode.LeftShift) ? 4.2f : 2.6f;
-                MoveCharacter(direction, speed, Time.deltaTime);
+                MoveWithInput(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")),
+                    Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift),
+                    Input.GetKeyDown(KeyCode.Space), Time.deltaTime);
                 UpdateFocus();
                 if (Input.GetKeyDown(KeyCode.E) && focused != null)
                 {
-                    notice = focused.Interact();
+                    notice = focused.Interact(this);
                     noticeUntil = Time.time + 6f;
                 }
             }
             else
             {
                 focused = null;
-                if (avatar != null) avatar.Animate(Vector3.zero, controller.isGrounded, Time.deltaTime);
+                MoveWithInput(Vector2.zero, false, false, Time.deltaTime);
             }
             UpdateWalkCamera();
 
@@ -108,24 +140,51 @@ namespace CampusEmergency.Prototype
             }
         }
 
+        public void MoveWithInput(Vector2 input, bool sprint, bool jump, float deltaTime)
+        {
+            input = Vector2.ClampMagnitude(input, 1);
+            Vector3 desired = (transform.right * input.x + transform.forward * input.y)
+                * (sprint ? sprintSpeed : walkSpeed);
+            horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, desired,
+                (input.sqrMagnitude > 0 ? acceleration : braking) * deltaTime);
+            if (jump) RequestJump();
+            MoveCharacter(horizontalVelocity, horizontalVelocity.magnitude, deltaTime);
+        }
+
+        public void RequestJump() => jumpBuffer = .12f;
+
         public void MoveCharacter(Vector3 direction, float speed, float deltaTime)
         {
+            if (!controller.enabled || deltaTime <= 0) return;
             Vector3 before = transform.position;
-            verticalSpeed = controller.isGrounded && verticalSpeed < 0f ? -2f : verticalSpeed - 20f * deltaTime;
-            controller.Move((direction.normalized * speed + Vector3.up * verticalSpeed) * deltaTime);
-            if (avatar != null && deltaTime > 0)
-                avatar.Animate(transform.InverseTransformDirection((transform.position - before) / deltaTime),
-                    controller.isGrounded, deltaTime);
+            groundedGrace = controller.isGrounded && verticalSpeed <= 0 ? .1f : Mathf.Max(0, groundedGrace - deltaTime);
+            if (jumpBuffer > 0 && groundedGrace > 0)
+            {
+                verticalSpeed = Mathf.Sqrt(2 * gravity * jumpHeight);
+                jumpBuffer = groundedGrace = 0;
+            }
+            else if (controller.isGrounded && verticalSpeed < 0) verticalSpeed = -2f;
+            jumpBuffer = Mathf.Max(0, jumpBuffer - deltaTime);
+            verticalSpeed -= gravity * deltaTime;
+            CollisionFlags contacts = controller.Move((direction.normalized * speed + Vector3.up * verticalSpeed) * deltaTime);
+            if ((contacts & CollisionFlags.Above) != 0 && verticalSpeed > 0) verticalSpeed = 0;
+            if ((contacts & CollisionFlags.Below) != 0 && verticalSpeed < 0) verticalSpeed = -2f;
+            Vector3 localVelocity = transform.InverseTransformDirection((transform.position - before) / deltaTime);
+            if (avatar != null) avatar.Animate(localVelocity, controller.isGrounded, deltaTime, HeldTowel != null);
+            if (firstPersonArms != null) firstPersonArms.Animate(localVelocity, controller.isGrounded,
+                HeldTowel != null, deltaTime);
         }
 
         public void ToggleCameraView()
         {
             thirdPerson = !thirdPerson;
+            if (HeldTowel != null) HeldTowel.RefreshHoldPose();
             if (walking) UpdateWalkCamera();
         }
 
         private void UpdateWalkCamera()
         {
+            if (firstPersonArms != null) firstPersonArms.SetVisible(walking && !thirdPerson);
             if (!thirdPerson)
             {
                 walkCamera.transform.localPosition = new Vector3(0, 1.65f, 0);
@@ -173,11 +232,16 @@ namespace CampusEmergency.Prototype
 
         private void EnterFloor(Transform spawn)
         {
+            ResetWashroomInteractions();
             currentSpawn = spawn;
             controller.enabled = false;
             transform.SetPositionAndRotation(spawn.position, spawn.rotation);
             pitch = 0f;
             verticalSpeed = 0f;
+            groundedGrace = jumpBuffer = 0;
+            horizontalVelocity = Vector3.zero;
+            if (avatar != null) avatar.ResetPose();
+            if (firstPersonArms != null) firstPersonArms.ResetPose();
             walkCamera.transform.localRotation = Quaternion.identity;
             controller.enabled = true;
             walking = true;
@@ -200,7 +264,14 @@ namespace CampusEmergency.Prototype
             walkCamera.enabled = false;
             overviewCamera.enabled = true;
             if (avatar != null) avatar.SetVisible(true);
+            if (firstPersonArms != null) firstPersonArms.SetVisible(false);
             ReleaseCursor();
+        }
+
+        public void ResetWashroomInteractions()
+        {
+            if (HeldTowel != null) HeldTowel.ResetToCounter();
+            foreach (CampusFaucet faucet in FindObjectsOfType<CampusFaucet>(true)) faucet.SetRunning(false);
         }
 
         private static void ReleaseCursor()
@@ -228,12 +299,12 @@ namespace CampusEmergency.Prototype
 
             Color previous = GUI.color;
             GUI.color = new Color(.03f, .12f, .16f, .92f);
-            GUI.DrawTexture(new Rect(20, 20, 350, walking ? 122 : 193), Texture2D.whiteTexture);
+            GUI.DrawTexture(new Rect(20, 20, 350, walking ? 142 : 193), Texture2D.whiteTexture);
             GUI.color = previous;
             GUI.Label(new Rect(38, 32, 315, 22), "HARBOURVIEW UNIVERSITY", badgeStyle);
             GUI.Label(new Rect(38, 56, 320, 34), "Teaching Block A", titleStyle);
-            GUI.Label(new Rect(38, 94, 310, 38), walking
-                ? "WASD move / Mouse look / E interact\nV camera / Tab overview / R restart"
+            GUI.Label(new Rect(38, 94, 310, 58), walking
+                ? "WASD move / Shift run / Space jump\nMouse look / E interact / V camera\nTab overview / R restart"
                 : "4 floors / 2 stairwells / 1 lift\nRight-drag orbit / Scroll zoom / C cutaway", textStyle);
             if (!walking)
             {
@@ -247,6 +318,9 @@ namespace CampusEmergency.Prototype
                 GUI.Label(new Rect(Screen.width / 2f - 4, Screen.height / 2f - 12, 12, 24), "+");
                 int floor = Mathf.Clamp(Mathf.FloorToInt((transform.position.y + .15f) / 3.6f) + 1, 1, 4);
                 GUI.Label(new Rect(Screen.width - 165, 24, 145, 25), "CURRENT FLOOR  " + floor.ToString("00"), badgeStyle);
+                if (HeldTowel != null)
+                    GUI.Label(new Rect(Screen.width - 165, 55, 145, 25),
+                        HeldTowel.IsWet ? "TOWEL  WET" : "TOWEL  DRY", badgeStyle);
                 if (focused != null) GUI.Label(new Rect(Screen.width / 2f - 150, Screen.height / 2f + 25, 300, 28), focused.Prompt, badgeStyle);
                 if (Time.time < noticeUntil && !string.IsNullOrEmpty(notice))
                 {

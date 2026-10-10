@@ -1,13 +1,13 @@
 Unity 2022.3.62f3 desktop Play Mode
 Saved scene lighting/materials: PASS
-Saved wall/masonry contact and no crossing window glass: 49 PASS
+Saved wall/masonry contact and no crossing window glass: 47 PASS
 1K scanned PBR textures, linear detail maps, HDRI and classroom reflection probe: PASS
-Visible direct-daylight pixels in classroom: 886929 PASS
-Printed sign carriers, lit textures and visible noticeboard lettering pixels: 8912 PASS
+Visible direct-daylight pixels in classroom: 886800 PASS
+Printed sign carriers, lit textures and visible noticeboard lettering pixels: 10516 PASS
 CampusSmoke/ArchitecturalSurface/WorldSpaceText shaders: PASS
 Atmosphere starts disabled: PASS
 Three enable/disable cycles; one emitter/audio source, max 48 particles: PASS
 Smoke emission and stop/clear; quiet spatial alarm start/stop: PASS
-Visible smoke pixels from corridor: 10359 PASS
+Visible smoke pixels from corridor: 9664 PASS
 Generated desktop render captures: PASS
 Headset frame rate, stereo rendering, locomotion and manual M-key audio perception unverified.

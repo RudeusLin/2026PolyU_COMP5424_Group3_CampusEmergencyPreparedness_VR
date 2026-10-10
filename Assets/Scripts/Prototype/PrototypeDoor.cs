@@ -5,7 +5,7 @@ namespace CampusEmergency.Prototype
     public interface IPrototypeInteractable
     {
         string Prompt { get; }
-        string Interact();
+        string Interact(PrototypeExplorer explorer);
     }
 
     public sealed class PrototypeDoor : MonoBehaviour, IPrototypeInteractable
@@ -36,7 +36,7 @@ namespace CampusEmergency.Prototype
             transform.localRotation = Quaternion.RotateTowards(transform.localRotation, target, 140f * Time.deltaTime);
         }
 
-        public string Interact()
+        public string Interact(PrototypeExplorer explorer = null)
         {
             isOpen = !isOpen;
             return string.Empty;

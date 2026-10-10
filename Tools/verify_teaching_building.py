@@ -50,7 +50,7 @@ def compile_scripts():
             print(result.stdout)
         return result.returncode == 0
 
-    runtime_ok = run('runtime-compile', list((ROOT / 'Assets/Scripts/Prototype').glob('*.cs')), references, compiled)
+    runtime_ok = run('runtime-compile', list((ROOT / 'Assets/Scripts').rglob('*.cs')), references, compiled)
     editor_refs = references + [compiled, EDITOR / 'Managed/UnityEditor.dll']
     editor_refs += list((EDITOR / 'Managed/UnityEditor').glob('*.dll'))
     editor_ok = runtime_ok and run('editor-compile', list((ROOT / 'Assets/Editor').glob('*.cs')),

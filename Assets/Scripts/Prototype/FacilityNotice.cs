@@ -27,7 +27,7 @@ namespace CampusEmergency.Prototype
             kind = facilityKind;
         }
 
-        public string Interact()
+        public string Interact(PrototypeExplorer explorer = null)
         {
             switch (kind)
             {

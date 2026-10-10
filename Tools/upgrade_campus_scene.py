@@ -22,6 +22,7 @@ from campus_preview_lighting import upgrade_preview
 from campus_signage import prepare_signage
 from campus_preview_ui import restyle_preview
 from campus_student import prepare_walkthrough
+from campus_modeling import apply_modeling_changes, upgrade_modeling_preview
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = "Assets/Environment/TeachingBuildingCampus"
@@ -457,6 +458,7 @@ def preview_html(data):
     template = template.replace("setView('exterior');render();", "setView('classroom');render();")
     template = restyle_preview(template)
     template = template.replace("window:'教室外窗'})", "window:'教室外窗',student:'学生角色 · Unity 中按 V 切换第三人称'})")
+    template = upgrade_modeling_preview(template)
     # Printed glyphs use the same measured dimensions as their Unity decals.
     anchor = "function textTexture(n){"
     raster = """function printedTexture(n){
@@ -481,8 +483,10 @@ def main():
     campus = art_pass(source)
     fitted_signs = prepare_signage(campus)
     prepare_walkthrough(campus)
+    apply_modeling_changes(campus)
     assert campus["routes"] == original_routes, "Art pass changed route definitions"
     junctions = validate_window_junctions(campus)
+    campus["facadeJunctionCount"] = junctions
     verify.validate_assets(campus)
     counts, errors = verify.validate_routes(campus)
     if errors:

@@ -17,32 +17,33 @@ namespace CampusEmergency.Editor
         private const string ScenePath = "Assets/Scenes/TeachingBuilding.unity";
         private const string PreviewFolder = "Docs/Previews";
 
-        [Serializable] private sealed class Layout
+        [Serializable] internal sealed class Layout
         {
             public string scenePath, assetFolder, previewFolder, previewPrefix, skyTexture;
             public string[] prefabNames;
             public bool bakeLighting;
+            public int facadeJunctionCount;
             public MaterialSpec[] materials;
             public NodeSpec[] nodes;
             public RouteSpec[] routes;
         }
 
-        [Serializable] private sealed class MaterialSpec
+        [Serializable] internal sealed class MaterialSpec
         {
             public string name, texture, detailTexture;
             public float[] color;
             public float tileMeters, metallic, smoothness, bumpMeters;
         }
 
-        [Serializable] private sealed class RouteSpec
+        [Serializable] internal sealed class RouteSpec
         {
             public string name;
             public RoutePoint[] points;
         }
 
-        [Serializable] private sealed class RoutePoint { public float[] position; }
+        [Serializable] internal sealed class RoutePoint { public float[] position; }
 
-        [Serializable] private sealed class NodeSpec
+        [Serializable] internal sealed class NodeSpec
         {
             public int id, parent;
             public string name, kind, material, text, component, tag, printTexture;
@@ -50,6 +51,7 @@ namespace CampusEmergency.Editor
             public bool active, collision, enabled, audio, startsOpen, roof;
             public float textSize, lightRange, lightIntensity, openAngle, bevel, printWidth, printHeight;
             public int noticeKind, spawnSecond, spawnFourth, assembly, roofNode, smokeNode, walkCamera, overviewCamera;
+            public int waterNode;
         }
 
         [MenuItem("Campus Emergency/Build teaching building prototype")]
@@ -116,21 +118,7 @@ namespace CampusEmergency.Editor
                 GameObject item;
                 if (spec.kind == "box" || spec.kind == "sphere" || spec.kind == "cylinder")
                 {
-                    PrimitiveType primitive = spec.kind == "box" ? PrimitiveType.Cube
-                        : spec.kind == "sphere" ? PrimitiveType.Sphere : PrimitiveType.Cylinder;
-                    item = GameObject.CreatePrimitive(primitive);
-                    if (spec.kind == "box" && spec.bevel > 0)
-                        item.GetComponent<MeshFilter>().sharedMesh = BeveledBox(Vector(spec.scale), spec.bevel, meshFolder, meshes);
-                    else if (spec.kind == "box" && layout.bakeLighting)
-                        item.GetComponent<MeshFilter>().sharedMesh = LightmapBox(Vector(spec.scale),
-                            item.GetComponent<MeshFilter>().sharedMesh, meshFolder, meshes);
-                    Object.DestroyImmediate(item.GetComponent<Collider>());
-                    if (spec.collision)
-                        item.AddComponent<BoxCollider>().size = spec.kind == "cylinder" ? new Vector3(1, 2, 1) : Vector3.one;
-                    Renderer renderer = item.GetComponent<Renderer>();
-                    renderer.sharedMaterial = materials[spec.material];
-                    if (spec.material == "Glass" || spec.material == "Smoke")
-                        renderer.shadowCastingMode = ShadowCastingMode.Off;
+                    item = CreateGeometry(spec, layout.bakeLighting, meshFolder, meshes, materials);
                 }
                 else item = new GameObject(spec.name);
                 item.name = spec.name;
@@ -143,29 +131,7 @@ namespace CampusEmergency.Editor
 
                 if (spec.kind == "text" && !string.IsNullOrEmpty(spec.printTexture))
                 {
-                    // Campus printed lettering receives scene lighting and uses fixed UVs.
-                    GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                    Object.DestroyImmediate(quad.GetComponent<Collider>());
-                    quad.name = "PrintedLettering";
-                    quad.transform.SetParent(item.transform, false);
-                    quad.transform.localScale = new Vector3(spec.printWidth, spec.printHeight, 1);
-                    string key = Path.GetFileNameWithoutExtension(spec.printTexture) + "_"
-                        + ColorUtility.ToHtmlStringRGBA(ColorValue(spec.textColor));
-                    string path = materialFolder + "/Lettering_" + key + ".mat";
-                    Material ink = AssetDatabase.LoadAssetAtPath<Material>(path);
-                    if (ink == null)
-                    {
-                        ink = new Material(Shader.Find("Standard"));
-                        AssetDatabase.CreateAsset(ink, path);
-                    }
-                    ink.mainTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(spec.printTexture);
-                    if (ink.mainTexture == null) throw new InvalidOperationException("Missing printed sign: " + spec.printTexture);
-                    ink.color = ColorValue(spec.textColor);
-                    ConfigurePrintedInk(ink);
-                    MeshRenderer renderer = quad.GetComponent<MeshRenderer>();
-                    renderer.sharedMaterial = ink;
-                    renderer.shadowCastingMode = ShadowCastingMode.Off;
-                    renderer.receiveGI = ReceiveGI.LightProbes;
+                    ApplyPrintedLabel(item, spec, materialFolder);
                 }
                 else if (spec.kind == "text")
                 {
@@ -180,27 +146,7 @@ namespace CampusEmergency.Editor
                 }
                 if (spec.kind == "light" || spec.kind == "sun")
                 {
-                    Light light = item.AddComponent<Light>();
-                    light.type = spec.kind == "sun" ? LightType.Directional : LightType.Point;
-                    light.range = spec.kind == "sun" ? 10f : spec.lightRange;
-                    light.intensity = spec.kind == "sun" ? 1.15f : spec.lightIntensity;
-                    light.color = spec.kind == "sun" ? new Color(1, .95f, .86f) : new Color(.98f, .985f, 1);
-                    light.shadows = spec.kind == "sun" || layout.bakeLighting ? LightShadows.Soft : LightShadows.None;
-                    light.shadowRadius = .12f;
-                    light.shadowStrength = .85f;
-                    // Broad exterior surfaces need more offset to avoid self-shadowing in the overview.
-                    light.shadowBias = spec.kind == "sun" ? .05f : .035f;
-                    light.shadowNormalBias = spec.kind == "sun" ? .4f : .12f;
-                    if (!string.IsNullOrEmpty(layout.skyTexture) && spec.kind == "sun")
-                    {
-                        light.intensity = 1.5f;
-                        light.shadowBias = .025f;
-                        light.shadowNormalBias = .08f;
-                        light.shadowCustomResolution = 2048;
-                    }
-                    light.lightmapBakeType = layout.bakeLighting ? LightmapBakeType.Mixed : LightmapBakeType.Realtime;
-                    if (layout.bakeLighting && spec.kind == "light") light.lightmapBakeType = LightmapBakeType.Baked;
-                    if (spec.kind == "sun") RenderSettings.sun = light;
+                    ConfigureLight(item, spec, layout);
                 }
                 if (spec.kind == "camera")
                 {
@@ -225,8 +171,7 @@ namespace CampusEmergency.Editor
                     controller.skinWidth = .025f;
                     controller.enabled = false;
                 }
-                if (spec.component == "door") item.AddComponent<PrototypeDoor>().Configure(spec.openAngle, spec.startsOpen);
-                if (spec.component == "notice") item.AddComponent<FacilityNotice>().Configure((FacilityNotice.FacilityKind)spec.noticeKind);
+                ConfigureInteraction(item, spec);
                 if (spec.component == "bootstrap") item.AddComponent<PrototypeSceneBootstrap>();
                 if (spec.component == "studentAvatar") item.AddComponent<CampusStudentAvatar>();
                 if (spec.component == "campusAtmosphere")
@@ -235,6 +180,7 @@ namespace CampusEmergency.Editor
             }
             foreach (PrototypeSceneBootstrap bootstrap in Object.FindObjectsOfType<PrototypeSceneBootstrap>())
                 bootstrap.InitializeText();
+            ConfigureFaucets(layout.nodes, objects);
             foreach (NodeSpec spec in layout.nodes)
             {
                 if (spec.component != "explorer") continue;
@@ -366,6 +312,109 @@ namespace CampusEmergency.Editor
                 if (spec.name == "Roof_CutawayToggle") captures.Add(spec.id, GameObject.Find(spec.name));
             CapturePreviews(captures, layout.nodes, layout.previewFolder, layout.previewPrefix);
             Debug.Log("CAMPUS_WALKTHROUGH_UPDATE_SUCCESS: thin treads and articulated student saved; rebake=" + rebake);
+        }
+
+        internal static void ConfigureLight(GameObject item, NodeSpec spec, Layout layout)
+        {
+            Light light = item.GetComponent<Light>();
+            if (light == null) light = item.AddComponent<Light>();
+            light.type = spec.kind == "sun" ? LightType.Directional : LightType.Point;
+            light.range = spec.kind == "sun" ? 10f : spec.lightRange;
+            light.intensity = spec.kind == "sun" ? 1.15f : spec.lightIntensity;
+            light.color = spec.kind == "sun" ? new Color(1, .95f, .86f) : new Color(.98f, .985f, 1);
+            light.shadows = spec.kind == "sun" || layout.bakeLighting ? LightShadows.Soft : LightShadows.None;
+            light.shadowRadius = .12f;
+            light.shadowStrength = .85f;
+            // Broad exterior surfaces need more offset to avoid self-shadowing in the overview.
+            light.shadowBias = spec.kind == "sun" ? .05f : .035f;
+            light.shadowNormalBias = spec.kind == "sun" ? .4f : .12f;
+            if (!string.IsNullOrEmpty(layout.skyTexture) && spec.kind == "sun")
+            {
+                light.intensity = 1.5f;
+                light.shadowBias = .025f;
+                light.shadowNormalBias = .08f;
+                light.shadowCustomResolution = 2048;
+            }
+            light.lightmapBakeType = layout.bakeLighting ? LightmapBakeType.Mixed : LightmapBakeType.Realtime;
+            if (layout.bakeLighting && spec.kind == "light") light.lightmapBakeType = LightmapBakeType.Baked;
+            if (spec.kind == "sun") RenderSettings.sun = light;
+        }
+
+        internal static GameObject CreateGeometry(NodeSpec spec, bool baked, string meshFolder,
+            Dictionary<string, Mesh> meshes, Dictionary<string, Material> materials)
+        {
+            PrimitiveType type = spec.kind == "box" ? PrimitiveType.Cube
+                : spec.kind == "sphere" ? PrimitiveType.Sphere : PrimitiveType.Cylinder;
+            GameObject item = GameObject.CreatePrimitive(type);
+            if (spec.kind == "box" && spec.bevel > 0)
+                item.GetComponent<MeshFilter>().sharedMesh = BeveledBox(Vector(spec.scale), spec.bevel, meshFolder, meshes);
+            else if (spec.kind == "box" && baked)
+                item.GetComponent<MeshFilter>().sharedMesh = LightmapBox(Vector(spec.scale),
+                    item.GetComponent<MeshFilter>().sharedMesh, meshFolder, meshes);
+            Object.DestroyImmediate(item.GetComponent<Collider>());
+            if (spec.collision)
+                item.AddComponent<BoxCollider>().size = spec.kind == "cylinder" ? new Vector3(1, 2, 1) : Vector3.one;
+            Renderer renderer = item.GetComponent<Renderer>();
+            renderer.sharedMaterial = materials[spec.material];
+            if (spec.material == "Glass" || spec.material == "Smoke" || spec.material == "TapWater")
+                renderer.shadowCastingMode = ShadowCastingMode.Off;
+            return item;
+        }
+
+        internal static void ApplyPrintedLabel(GameObject item, NodeSpec spec, string materialFolder)
+        {
+            // Campus printed lettering receives scene lighting and uses fixed UVs.
+            Transform existing = item.transform.Find("PrintedLettering");
+            GameObject quad = existing != null ? existing.gameObject : GameObject.CreatePrimitive(PrimitiveType.Quad);
+            if (existing == null)
+            {
+                Object.DestroyImmediate(quad.GetComponent<Collider>());
+                quad.name = "PrintedLettering";
+                quad.transform.SetParent(item.transform, false);
+            }
+            quad.transform.localScale = new Vector3(spec.printWidth, spec.printHeight, 1);
+            string key = Path.GetFileNameWithoutExtension(spec.printTexture) + "_"
+                + ColorUtility.ToHtmlStringRGBA(ColorValue(spec.textColor));
+            string path = materialFolder + "/Lettering_" + key + ".mat";
+            Material ink = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (ink == null)
+            {
+                ink = new Material(Shader.Find("Standard"));
+                AssetDatabase.CreateAsset(ink, path);
+            }
+            ink.mainTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(spec.printTexture);
+            if (ink.mainTexture == null) throw new InvalidOperationException("Missing printed sign: " + spec.printTexture);
+            ink.color = ColorValue(spec.textColor);
+            ConfigurePrintedInk(ink);
+            MeshRenderer renderer = quad.GetComponent<MeshRenderer>();
+            renderer.sharedMaterial = ink;
+            renderer.shadowCastingMode = ShadowCastingMode.Off;
+            renderer.receiveGI = ReceiveGI.LightProbes;
+            EditorUtility.SetDirty(ink);
+        }
+
+        internal static void ConfigureInteraction(GameObject item, NodeSpec spec)
+        {
+            if (spec.component == "door")
+            {
+                PrototypeDoor door = item.GetComponent<PrototypeDoor>();
+                if (door == null) door = item.AddComponent<PrototypeDoor>();
+                door.Configure(spec.openAngle, spec.startsOpen);
+            }
+            if (spec.component == "notice")
+            {
+                FacilityNotice notice = item.GetComponent<FacilityNotice>();
+                if (notice == null) notice = item.AddComponent<FacilityNotice>();
+                notice.Configure((FacilityNotice.FacilityKind)spec.noticeKind);
+            }
+            if (spec.component == "towel" && item.GetComponent<CampusTowel>() == null) item.AddComponent<CampusTowel>();
+            if (spec.component == "faucet" && item.GetComponent<CampusFaucet>() == null) item.AddComponent<CampusFaucet>();
+        }
+
+        internal static void ConfigureFaucets(NodeSpec[] nodes, Dictionary<int, GameObject> objects)
+        {
+            foreach (NodeSpec spec in nodes)
+                if (spec.component == "faucet") objects[spec.id].GetComponent<CampusFaucet>().Configure(objects[spec.waterNode]);
         }
 
         private static void ConfigurePrintedInk(Material ink)
@@ -562,7 +611,7 @@ namespace CampusEmergency.Editor
             EditorUtility.SetDirty(mesh);
         }
 
-        private static Dictionary<string, Material> CreateMaterials(MaterialSpec[] specs, string folder)
+        internal static Dictionary<string, Material> CreateMaterials(MaterialSpec[] specs, string folder)
         {
             Dictionary<string, Material> materials = new Dictionary<string, Material>();
             foreach (MaterialSpec spec in specs)
@@ -632,7 +681,7 @@ namespace CampusEmergency.Editor
             return materials;
         }
 
-        private static void SaveReusablePrefab(string name, Dictionary<int, GameObject> objects, string folder)
+        internal static void SaveReusablePrefab(string name, Dictionary<int, GameObject> objects, string folder)
         {
             foreach (GameObject candidate in objects.Values)
             {
@@ -653,7 +702,7 @@ namespace CampusEmergency.Editor
             }
         }
 
-        private static List<string> ValidateRoutes(RouteSpec[] routes)
+        internal static List<string> ValidateRoutes(RouteSpec[] routes)
         {
             List<string> errors = new List<string>();
             PrototypeDoor[] doors = Object.FindObjectsOfType<PrototypeDoor>();
@@ -724,7 +773,7 @@ namespace CampusEmergency.Editor
             Object.DestroyImmediate(holder);
         }
 
-        private static void Capture(Camera camera, string folder, string filename, Vector3 position, Vector3 target, float fov)
+        internal static void Capture(Camera camera, string folder, string filename, Vector3 position, Vector3 target, float fov)
         {
             camera.transform.SetPositionAndRotation(position, Quaternion.LookRotation(target - position));
             camera.fieldOfView = fov;

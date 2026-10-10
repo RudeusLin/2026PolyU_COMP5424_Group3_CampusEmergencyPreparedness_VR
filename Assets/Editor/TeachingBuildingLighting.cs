@@ -82,7 +82,8 @@ namespace CampusEmergency.Editor
 
             foreach (MeshRenderer renderer in Object.FindObjectsOfType<MeshRenderer>())
             {
-                if (renderer.GetComponentInParent<CampusStudentAvatar>() != null)
+                if (renderer.GetComponentInParent<CampusStudentAvatar>() != null
+                    || renderer.GetComponentInParent<CampusTowel>() != null)
                 {
                     GameObjectUtility.SetStaticEditorFlags(renderer.gameObject, 0);
                     renderer.receiveGI = ReceiveGI.LightProbes;
