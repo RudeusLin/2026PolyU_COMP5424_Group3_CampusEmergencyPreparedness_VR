@@ -18,6 +18,10 @@ PASS: A button switches to interaction ray and opens door
 PASS: A interaction never teleports
 PASS: Trigger aimed at door neither interacts nor teleports through obstacle
 PASS: Regaining focus with held trigger cannot teleport
+PASS: Left X hides HUD without disabling its input host
+PASS: Left X restores hidden HUD
+PASS: Keyboard H hides HUD
+PASS: Keyboard H restores HUD
 PASS: Tracking loss hides controllers and rays safely
 Simulated Input System devices + real teleport provider. Hardware NOT RUN.
 RESULT: PASS

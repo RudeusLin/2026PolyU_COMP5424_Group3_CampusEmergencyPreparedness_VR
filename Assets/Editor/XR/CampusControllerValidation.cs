@@ -219,6 +219,25 @@ namespace CampusEmergency.Editor
                 Check(Vector3.Distance(eye, origin.Camera.transform.position) < .001f,
                     "Regaining focus with held trigger cannot teleport");
                 CampusExtinguisherValidation.Run(input, right, left);
+                var hud = Object.FindObjectOfType<CampusXRFeedback>();
+                hud.SetVisible(true);
+                Queue(left.isTracked, 1f); Queue(left.primaryButton, 0f);
+                Queue(left.primaryButton, 1f); Tick(hud, "ProcessToggle", true);
+                Check(!hud.IsVisible && hud.gameObject.activeInHierarchy, "Left X hides HUD without disabling its input host");
+                Queue(left.primaryButton, 0f); Tick(hud, "ProcessToggle", true);
+                Queue(left.primaryButton, 1f); Tick(hud, "ProcessToggle", true);
+                Check(hud.IsVisible, "Left X restores hidden HUD");
+                Queue(left.primaryButton, 0f);
+                var hudKeyboard = InputSystem.AddDevice<Keyboard>();
+                try
+                {
+                    Queue(hudKeyboard.hKey, 1f); Tick(hud, "ProcessToggle", true);
+                    Check(!hud.IsVisible, "Keyboard H hides HUD");
+                    Queue(hudKeyboard.hKey, 0f); Tick(hud, "ProcessToggle", true);
+                    Queue(hudKeyboard.hKey, 1f); Tick(hud, "ProcessToggle", true);
+                    Check(hud.IsVisible, "Keyboard H restores HUD");
+                }
+                finally { InputSystem.RemoveDevice(hudKeyboard); }
                 Queue(left.isTracked, 0f);
                 Queue(right.isTracked, 0f);
                 InputSystem.Update();
