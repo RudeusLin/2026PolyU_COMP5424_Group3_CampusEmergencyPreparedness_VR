@@ -34,15 +34,20 @@ namespace CampusEmergency.Interaction
         private void Update() => ProcessInput(input.HasInteractionFocus);
         private void ProcessInput(bool hasFocus)
         {
-            if (!input.RightTracked || teleport.IsAiming || !hasFocus)
+            var extinguisher = GetComponent<CampusXRExtinguisherController>();
+            if (!input.RightTracked || teleport.IsAiming || !hasFocus || (extinguisher != null && extinguisher.Held != null && !input.InteractionHeld))
             { line.enabled = false; feedback.SetPrompt(string.Empty); return; }
             IPrototypeInteractable target = null;
             Vector3 end = rayOrigin.position + rayOrigin.forward * reach;
-            if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out var hit, reach, ~0, QueryTriggerInteraction.Ignore))
+            var hits = Physics.RaycastAll(rayOrigin.position, rayOrigin.forward, reach, ~0, QueryTriggerInteraction.Collide);
+            System.Array.Sort(hits, (a,b) => a.distance.CompareTo(b.distance));
+            foreach (var hit in hits)
             {
+                if (hit.collider.isTrigger && hit.collider.GetComponent<CampusEmergency.Interaction.FireSafety.CampusFireTarget>() == null) continue;
                 end = hit.point;
                 foreach (var component in hit.collider.GetComponentsInParent<MonoBehaviour>())
                     if (component is IPrototypeInteractable found) { target = found; break; }
+                break;
             }
             line.enabled = true;
             line.positionCount = 2;

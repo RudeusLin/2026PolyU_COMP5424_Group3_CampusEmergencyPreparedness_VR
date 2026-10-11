@@ -28,6 +28,12 @@ namespace CampusEmergency.Player.XR
                     status = "Controller tracking: LEFT " + (input.LeftTracked ? "OK" : "MISSING")
                         + " / RIGHT " + (input.RightTracked ? "OK" : "MISSING");
             }
+            var extinguisher = input != null ? input.GetComponent<CampusXRExtinguisherController>() : null;
+            if (extinguisher != null && extinguisher.Held != null)
+            {
+                label.text = extinguisher.Controls + "\n" + (Time.unscaledTime < noticeUntil || string.IsNullOrEmpty(extinguisher.Status) ? status : extinguisher.Status);
+                return;
+            }
             label.text = "RIGHT RAY: AIM / RIGHT TRIGGER: TELEPORT\n"
                 + "A: INTERACT / RIGHT STICK: TURN / RIGHT GRIP: RETURN TOWEL\n" + status;
         }

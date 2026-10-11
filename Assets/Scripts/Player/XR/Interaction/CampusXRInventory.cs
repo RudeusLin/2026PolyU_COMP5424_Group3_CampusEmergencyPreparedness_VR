@@ -40,7 +40,8 @@ namespace CampusEmergency.Player.XR
 
         public bool TryHoldTowel(CampusTowel towel)
         {
-            if (towel == null || HeldTowel != null || holdPoint == null) return false;
+            var extinguisher = GetComponent<CampusXRExtinguisherController>();
+            if (towel == null || HeldTowel != null || holdPoint == null || (extinguisher != null && extinguisher.Held != null)) return false;
             HeldTowel = towel;
             return true;
         }

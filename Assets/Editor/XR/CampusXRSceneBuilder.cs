@@ -93,6 +93,7 @@ namespace CampusEmergency.Editor
             root.AddComponent<CampusXRAvatar>().Configure(origin, avatar);
             ConfigureInventory(root);
             ConfigureControllerVisuals(root);
+            CampusExtinguisherSetup.ConfigureScene();
             var session = root.AddComponent<CampusXRSession>();
             PrefabUtility.SaveAsPrefabAssetAndConnect(root, RigPath, InteractionMode.AutomatedAction);
             // Scene anchors deliberately live on the instance, never inside the reusable rig prefab.

@@ -10,6 +10,10 @@ The player starts at the fourth-floor classroom 401 spawn. Aim the right-hand ra
 
 Editor and simulated-controller validation reports are in `Docs`. The current teleport behavior has also been confirmed working by the project owner on the headset.
 
+### Extinguisher workflow (feature/extinguisher)
+
+Eight extinguishers and nine fires support pickup, safety-pin removal, base aiming and a continuous three-second spray. While holding an extinguisher, **B** switches between action mode (trigger teleports) and spray mode (trigger sprays). Release the trigger after switching. Bring the left hand near the yellow pin and press left grip to remove it; right grip returns the item. See [workflow, controls and rollback](Docs/ExtinguisherWorkflow.md). The general controls below describe empty-hand operation.
+
 ### Quick start
 
 1. Check out the `XR` branch and open the project in Unity **2022.3.62f3**. Allow Unity to restore the packages recorded in `Packages/manifest.json` and `Packages/packages-lock.json`.

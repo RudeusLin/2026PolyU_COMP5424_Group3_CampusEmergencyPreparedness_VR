@@ -747,6 +747,7 @@ GameObject:
   - component: {fileID: 5287885886271566518}
   - component: {fileID: 927304366039859282}
   - component: {fileID: 8212336171909931845}
+  - component: {fileID: 4680894323455723201}
   m_Layer: 0
   m_Name: CampusXROrigin
   m_TagString: Untagged
@@ -966,6 +967,24 @@ MonoBehaviour:
   teleport: {fileID: 264616675156926811}
   holdPoint: {fileID: 7756943111350761171}
   feedback: {fileID: 3280067034027496842}
+--- !u!114 &4680894323455723201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3377963093712638186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ee2ce9feda06848832b0dc427eebbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 4010722999779335254}
+  inventory: {fileID: 8212336171909931845}
+  feedback: {fileID: 3280067034027496842}
+  rightHand: {fileID: 5654239946090585439}
+  leftHand: {fileID: 4566614157768546324}
+  head: {fileID: 7341668469834784946}
 --- !u!1 &3711501174714495843
 GameObject:
   m_ObjectHideFlags: 0

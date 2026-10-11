@@ -218,6 +218,7 @@ namespace CampusEmergency.Editor
                 Tick(provider, "Update");
                 Check(Vector3.Distance(eye, origin.Camera.transform.position) < .001f,
                     "Regaining focus with held trigger cannot teleport");
+                CampusExtinguisherValidation.Run(input, right, left);
                 Queue(left.isTracked, 0f);
                 Queue(right.isTracked, 0f);
                 InputSystem.Update();

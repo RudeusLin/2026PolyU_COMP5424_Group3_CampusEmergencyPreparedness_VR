@@ -29,7 +29,10 @@ namespace CampusEmergency.Player.XR
         private void Update() => ProcessInput(input.HasInteractionFocus);
         private void ProcessInput(bool hasFocus)
         {
-            if (!input.RightTracked || !hasFocus || input.CancelTeleport || input.InteractionHeld)
+            var extinguisher = GetComponent<CampusXRExtinguisherController>();
+            bool holding = extinguisher != null && extinguisher.Held != null;
+            if (!input.RightTracked || !hasFocus || (input.CancelTeleport && !holding) || input.InteractionHeld
+                || (extinguisher != null && extinguisher.BlocksTeleport))
             { Cancel(); armed = false; return; }
             bool held = input.TeleportHeld;
             if (!held) armed = true;
