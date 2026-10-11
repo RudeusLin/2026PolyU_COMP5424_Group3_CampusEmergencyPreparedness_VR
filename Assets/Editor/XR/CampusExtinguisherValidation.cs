@@ -53,9 +53,26 @@ namespace CampusEmergency.Editor
             Check(item.PinRemoved && !item.Pin.gameObject.activeSelf,"Tracked LEFT grip near pin removes pin");
             Queue(left.gripPressed,0f); Queue(right.triggerPressed,0f); Tick(c,"ProcessInput",true);
             var rightHand=item.transform.parent; rightHand.rotation=Quaternion.identity;
-            fire.transform.position=item.Nozzle.position+Vector3.forward*1.5f-Vector3.up*.12f;
+            fire.transform.position=item.Nozzle.position+Vector3.forward*2.8f-Vector3.up*.12f;
             Physics.SyncTransforms();
             Check(c.FindTarget(item.Nozzle.position,Vector3.forward,out _)==fire,"Spray nozzle ray identifies fire base");
+            var blocker=fire.GetComponent<BoxCollider>();
+            Check(blocker!=null && blocker.enabled && !blocker.isTrigger,"Live fire has a solid box blocker");
+            var guard=input.GetComponent<CampusXRFireBarrierGuard>();
+            typeof(CampusXRFireBarrierGuard).GetField("initialized",BindingFlags.NonPublic|BindingFlags.Instance).SetValue(guard,false);
+            Tick(guard,"Constrain");
+            var safeHead=origin.Camera.transform.position;
+            origin.transform.position+=Vector3.forward*6f;
+            Tick(guard,"Constrain");
+            Check(Vector3.Distance(safeHead,origin.Camera.transform.position)<.001f,"Tracked physical movement cannot cross fire box");
+            var oldOther=other.transform.position;
+            var oldBoxCenter=other.GetComponent<BoxCollider>().center;
+            other.transform.position=fire.transform.position+Vector3.right*.3f;
+            other.GetComponent<BoxCollider>().center=blocker.center;
+            Physics.SyncTransforms();
+            Check(c.FindTarget(item.Nozzle.position,Vector3.forward,out _)==fire,"Overlapping fire boxes do not deadlock base targeting");
+            other.transform.position=oldOther; other.GetComponent<BoxCollider>().center=oldBoxCenter;
+            Physics.SyncTransforms();
             Check(c.FindTarget(item.Nozzle.position,Vector3.up,out _)==null,"Aiming away misses fire base");
             var wall=GameObject.CreatePrimitive(PrimitiveType.Cube);
             wall.transform.position=item.Nozzle.position+Vector3.forward*.65f; wall.transform.localScale=new Vector3(1,1,.1f); Physics.SyncTransforms();
@@ -72,6 +89,7 @@ namespace CampusEmergency.Editor
             c.ApplyTarget(fire,.1f);
             Check(fire.Extinguished && fire.GetComponentsInChildren<ParticleSystem>().All(p=>!p.IsAlive())
                 && fire.GetComponentsInChildren<Light>().All(l=>!l.enabled),"Three continuous seconds clears particles and light immediately");
+            Check(!blocker.enabled,"Extinguishing disables solid box and reopens passage");
             Queue(right.triggerPressed,1f); Queue(right.secondaryButton,1f); Tick(c,"ProcessInput",true); Tick(movement,"ProcessInput",true);
             Check(!c.SprayMode && c.BlocksTeleport && !movement.IsAiming,"B switch with held trigger cannot teleport");
             Queue(right.secondaryButton,0f); Queue(right.triggerPressed,0f); Tick(c,"ProcessInput",true); Tick(movement,"ProcessInput",true);

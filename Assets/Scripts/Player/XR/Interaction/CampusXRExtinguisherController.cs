@@ -90,7 +90,7 @@ namespace CampusEmergency.Player.XR
         {
             direction.Normalize();
             float distance = 3f;
-            // Physical geometry blocks the stream; fire target triggers never block locomotion.
+            // The visible stream stops at the first solid surface, including the fire barrier.
             if (Physics.Raycast(start, direction, out var hit, distance, ~0, QueryTriggerInteraction.Ignore)) distance = hit.distance;
             end = start + direction * distance;
             if (head != null && (Physics.CheckSphere(start, .02f, ~0, QueryTriggerInteraction.Ignore)
@@ -107,10 +107,27 @@ namespace CampusEmergency.Player.XR
                 if (along < 0f || radial2 > r2) continue;
                 float entry = Mathf.Max(0f, along - Mathf.Sqrt(Mathf.Max(0f, r2 - radial2)));
                 // Verify unobstructed line to the base, not just the near side of its tolerance sphere.
-                if (entry > distance || entry >= nearest || Physics.Linecast(start, fire.AimPoint, ~0, QueryTriggerInteraction.Ignore)) continue;
+                if (entry > 3f || entry >= nearest || !CanReachBase(start, direction, fire, entry, distance)) continue;
                 best = fire; nearest = entry;
             }
             return best;
+        }
+        private static bool CanReachBase(Vector3 start, Vector3 direction, CampusFireTarget fire, float entry, float firstDistance)
+        {
+            var ownBox=fire.GetComponent<BoxCollider>();
+            // A solid fire volume encloses its own root. Permit aiming into that volume only
+            // at its exposed face. Overlapping boxes share a face and must not deadlock suppression.
+            Bounds own=ownBox!=null ? ownBox.bounds : new Bounds(); own.Expand(.04f);
+            if(entry>firstDistance && (ownBox==null || !own.Contains(start+direction*firstDistance))) return false;
+            Vector3 delta=fire.AimPoint-start;
+            foreach(var obstacle in Physics.RaycastAll(start,delta.normalized,delta.magnitude,~0,QueryTriggerInteraction.Ignore))
+            {
+                var other=obstacle.collider.GetComponent<CampusFireTarget>();
+                if(other==fire) continue;
+                if(other!=null && ownBox!=null && own.Contains(obstacle.point)) continue;
+                return false;
+            }
+            return true;
         }
         public void ReturnHeld()
         {

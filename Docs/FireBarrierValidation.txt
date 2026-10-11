@@ -1,0 +1,7 @@
+PASS: nine solid 4.2 x 3.45 x 4.2 metre fire boxes, based on supporting floors
+PASS: initial spawn remains outside fire volumes
+PASS: outdoor landing (0.00, 0.03, -12.00) on MainWalkway
+PASS: outdoor landing (0.00, 0.03, -19.00) on MainWalkway
+PASS: outdoor landing (5.00, 0.00, -20.00) on Forecourt
+PASS: outdoor landing (-21.00, 0.00, -5.00) on SideExitPath
+PASS: box ray and swept player path are blocked

@@ -1,5 +1,5 @@
 Campus XR teleport validation
-UTC: 2026-10-11T19:18:02.9636045Z
+UTC: 2026-10-11T19:45:12.0429725Z
 PASS: XR Origin is active
 PASS: Exactly one enabled camera
 PASS: Exactly one enabled audio listener
@@ -9,12 +9,12 @@ PASS: Saved tracking input references resolve
 PASS: Right controller interaction adapter present
 PASS: Persistent teleport and interaction input references
 PASS: Scene spawn and assembly references saved
-PASS: Only structural walkable colliders marked (186)
+PASS: Only structural walkable colliders marked (188)
 PASS: No missing scripts in TeachingBuilding
 PASS: No missing scripts in BakedLightingAndProbes
 PASS: No missing scripts in Campus XR Origin
 PASS: Original visual avatar retained without extra collision
-PASS: Clear destinations available in campus floors/landings (30)
+PASS: Clear destinations available in campus floors/landings (29)
 PASS: Clear floor accepted
 PASS: Out-of-range target rejected
 PASS: Excessive floor-height change rejected

@@ -160,7 +160,7 @@ namespace CampusEmergency.Editor
         }
 
         public static bool IsWalkableName(string name) =>
-            name == "FloorSlab" || name == "Ground" || name == "SideExitPath"
+            name == "FloorSlab" || name == "Ground" || name == "SideExitPath" || name == "Forecourt" || name == "MainWalkway"
             || name == "Landing" || name == "HalfLanding"
             || name.StartsWith("Step_First_", StringComparison.Ordinal)
             || name.StartsWith("Step_Second_", StringComparison.Ordinal);

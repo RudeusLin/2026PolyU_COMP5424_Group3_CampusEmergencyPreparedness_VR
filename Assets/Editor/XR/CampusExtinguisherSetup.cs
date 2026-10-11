@@ -50,10 +50,11 @@ namespace CampusEmergency.Editor
             foreach (var fire in UnityEngine.Object.FindObjectsOfType<CampusForecourtFire>())
             {
                 if (fire.GetComponent<CampusFireTarget>() == null) fire.gameObject.AddComponent<CampusFireTarget>();
-                if (fire.GetComponent<SphereCollider>() == null)
+                if (fire.GetComponent<SphereCollider>() == null && fire.GetComponent<BoxCollider>() == null)
                 { var trigger=fire.gameObject.AddComponent<SphereCollider>(); trigger.isTrigger=true; trigger.radius=.5f; trigger.center=Vector3.up*.12f; }
             }
             ConfigureRig(UnityEngine.Object.FindObjectOfType<CampusXRInput>().gameObject);
+            CampusFireBarrierSetup.ConfigureScene();
         }
         public static void ConfigureRig(GameObject rig)
         {

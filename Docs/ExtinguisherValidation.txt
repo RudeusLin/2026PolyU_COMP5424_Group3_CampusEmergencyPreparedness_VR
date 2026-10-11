@@ -8,6 +8,9 @@ PASS: Trigger before pin removal cannot extinguish
 PASS: Pin cannot be removed remotely
 PASS: Tracked LEFT grip near pin removes pin
 PASS: Spray nozzle ray identifies fire base
+PASS: Live fire has a solid box blocker
+PASS: Tracked physical movement cannot cross fire box
+PASS: Overlapping fire boxes do not deadlock base targeting
 PASS: Aiming away misses fire base
 PASS: Wall blocks spray
 PASS: Interrupted two-second hit resets progress
@@ -15,6 +18,7 @@ PASS: Changing targets resets previous progress
 PASS: Focus loss resets spray progress
 PASS: 2.9 seconds does not extinguish
 PASS: Three continuous seconds clears particles and light immediately
+PASS: Extinguishing disables solid box and reopens passage
 PASS: B switch with held trigger cannot teleport
 PASS: Release rearms ACTION mode
 PASS: Right grip returns model, resets pin and preserves extinguished fire

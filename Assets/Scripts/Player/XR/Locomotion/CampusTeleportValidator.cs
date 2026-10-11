@@ -13,12 +13,16 @@ namespace CampusEmergency.Player.XR
 
         public bool IsValid(RaycastHit hit, Vector3 feet, float headHeight, out string reason)
         {
+            if (hit.collider != null && hit.collider.GetComponent<CampusEmergency.Interaction.FireSafety.CampusFireTarget>() != null)
+                return Reject("Extinguish the fire to clear this passage", out reason);
             if (hit.collider == null || hit.collider.GetComponent<CampusTeleportSurface>() == null)
                 return Reject("Aim at a floor or stair landing", out reason);
             if (Vector3.Angle(hit.normal, Vector3.up) > maxSlope)
                 return Reject("Surface is too steep", out reason);
             if (Vector3.Distance(feet, hit.point) > maxDistance || Mathf.Abs(feet.y - hit.point.y) > maxHeightChange)
                 return Reject("Destination is too far away", out reason);
+            if (CampusEmergency.Interaction.FireSafety.CampusFireBarrier.BlocksTraversal(feet, hit.point, headHeight))
+                return Reject("Extinguish the fire before crossing this passage", out reason);
             return HasClearance(hit.point, headHeight, out reason);
         }
 
