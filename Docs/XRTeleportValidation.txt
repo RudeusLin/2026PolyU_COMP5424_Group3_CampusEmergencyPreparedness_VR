@@ -1,5 +1,5 @@
 Campus XR teleport validation
-UTC: 2026-10-11T02:00:48.9142396Z
+UTC: 2026-10-11T17:15:08.6508056Z
 PASS: XR Origin is active
 PASS: Exactly one enabled camera
 PASS: Exactly one enabled audio listener
