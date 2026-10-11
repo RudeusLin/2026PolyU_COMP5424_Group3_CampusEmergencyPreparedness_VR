@@ -1,0 +1,31 @@
+Campus XR teleport validation
+UTC: 2026-10-11T02:00:48.9142396Z
+PASS: XR Origin is active
+PASS: Exactly one enabled camera
+PASS: Exactly one enabled audio listener
+PASS: Desktop player inactive in XR scene
+PASS: Tracked HMD and both controller poses
+PASS: Saved tracking input references resolve
+PASS: Right controller interaction adapter present
+PASS: Persistent teleport and interaction input references
+PASS: Scene spawn and assembly references saved
+PASS: Only structural walkable colliders marked (186)
+PASS: No missing scripts in TeachingBuilding
+PASS: No missing scripts in BakedLightingAndProbes
+PASS: No missing scripts in Campus XR Origin
+PASS: Original visual avatar retained without extra collision
+PASS: Clear destinations available in campus floors/landings (30)
+PASS: Clear floor accepted
+PASS: Out-of-range target rejected
+PASS: Excessive floor-height change rejected
+PASS: Occupied destination rejected
+PASS: Low overhead clearance rejected
+PASS: Unsupported floor edge rejected
+PASS: Furniture not in whitelist rejected
+PASS: Ray stops at first wall/closed door, never selects floor behind it
+PASS: Controller reaching through a wall cannot teleport behind it
+PASS: Ray starting inside a collider rejected
+PASS: Real XRI provider compensates room-scale head offset and preserves eye height
+PASS: Locomotion lock released after teleport
+Headset/controller hardware test: NOT RUN. These are editor physics and real XRI provider tick checks.
+RESULT: PASS

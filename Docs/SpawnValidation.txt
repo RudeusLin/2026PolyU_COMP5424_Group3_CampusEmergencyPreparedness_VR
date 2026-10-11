@@ -1,0 +1,8 @@
+PASS: Actual desktop Awake starts at F4 without key press.
+Feet: (-7.800, 10.850, 2.700)
+Eye: (-7.800, 12.500, 2.700)
+PASS: Walking camera, facing, controller and floor support.
+PASS: XR spawn and saved origin use the same F4 point.
+PASS: Existing XR teleport regression.
+Editor checks only; headset test NOT RUN.
+RESULT: PASS

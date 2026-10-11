@@ -484,8 +484,14 @@ def material_assets():
 
 
 def script_ref(filename):
-    return asset_ref(11500000, guid('Assets/Scripts/Prototype/' + filename + '.cs'), 3)
-
+    # Existing Unity GUIDs remain authoritative when scripts are reorganized.
+    paths = {'PrototypeExplorer': 'Assets/Scripts/Player/Desktop/PrototypeExplorer.cs'}
+    relative = paths.get(filename, 'Assets/Scripts/Prototype/' + filename + '.cs')
+    metadata = ROOT / (relative + '.meta')
+    match = re.search(r'^guid: ([a-f0-9]{32})$', metadata.read_text(encoding='utf-8'), re.M)
+    if not match:
+        raise ValueError('Missing script GUID: ' + relative)
+    return asset_ref(11500000, match.group(1), 3)
 
 def serialize_nodes(nodes):
     chunks = []
@@ -627,9 +633,9 @@ def ensure_metadata():
         relative = path.relative_to(ROOT).as_posix()
         if path.is_dir() and not Path(str(path) + '.meta').exists():
             Path(str(path) + '.meta').write_text(f'fileFormatVersion: 2\nguid: {guid(relative)}\nfolderAsset: yes\nDefaultImporter:\n  externalObjects: {{}}\n  userData: \n  assetBundleName: \n  assetBundleVariant: \n', encoding='utf-8')
-        elif path.suffix == '.cs':
+        elif path.suffix == '.cs' and not Path(str(path) + '.meta').exists():
             asset_meta(relative, 'MonoImporter')
-        elif path.suffix == '.json':
+        elif path.suffix == '.json' and not Path(str(path) + '.meta').exists():
             asset_meta(relative)
 
 

@@ -118,3 +118,6 @@ __pycache__/
 !.env.example
 *.keystore
 *.jks
+
+# Local recovery snapshots from XR migrations
+/Tools/XRSetup/Before*/

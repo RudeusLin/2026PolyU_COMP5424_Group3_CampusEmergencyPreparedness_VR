@@ -1,0 +1,38 @@
+Campus1 -> Campus_XR sync validation
+UTC: 2026-10-11T02:00:48.9761916Z
+PASS: Four wash stations imported into XR scene
+PASS: XR towel anchor saved on tracked right controller
+PASS: Room 403 remodeled
+PASS: Four refuge rooms retained
+PASS: Fourth-floor washroom relocated near room 401
+PASS: Floor 1: empty-hand tap on
+PASS: Floor 1: empty-hand tap off
+PASS: XR pickup attaches towel; no held collision
+PASS: Second towel cannot replace held towel
+PASS: XR interface wets held towel
+PASS: Tap off preserves wet state
+PASS: Return restores pose, dry state and pickup colliders
+PASS: Floor 2: empty-hand tap on
+PASS: Floor 2: empty-hand tap off
+PASS: XR pickup attaches towel; no held collision
+PASS: Second towel cannot replace held towel
+PASS: XR interface wets held towel
+PASS: Tap off preserves wet state
+PASS: Return restores pose, dry state and pickup colliders
+PASS: Floor 3: empty-hand tap on
+PASS: Floor 3: empty-hand tap off
+PASS: XR pickup attaches towel; no held collision
+PASS: Second towel cannot replace held towel
+PASS: XR interface wets held towel
+PASS: Tap off preserves wet state
+PASS: Return restores pose, dry state and pickup colliders
+PASS: Floor 4: empty-hand tap on
+PASS: Floor 4: empty-hand tap off
+PASS: XR pickup attaches towel; no held collision
+PASS: Second towel cannot replace held towel
+PASS: XR interface wets held towel
+PASS: Tap off preserves wet state
+PASS: Return restores pose, dry state and pickup colliders
+PASS: Original door interaction works with XR actor
+Editor API/physics checks only. Headset input and rendering: NOT RUN.
+RESULT: PASS

@@ -1,5 +1,6 @@
-Campus layout: 7276 nodes, 44 shared materials.
-Facade wall/glass junctions: 49 masonry-contact and no-glass-overlap checks PASS
+Campus modeling geometry regression - 2026-10-10
+Campus layout: 7410 nodes, 48 shared materials.
+Facade wall/glass junctions: 47 masonry-contact and no-glass-overlap checks PASS
 Printed signs fitted within physical carriers: 146 PASS
 Original route definitions preserved.
 Route A: 718 geometry samples PASS

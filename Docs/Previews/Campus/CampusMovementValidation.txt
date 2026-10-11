@@ -1,0 +1,17 @@
+Unity 2022.3.62f3 saved-scene desktop Play Mode
+Keyboard movement path: acceleration, walk/sprint speeds, normalized diagonal input and braking PASS
+Jump/landing and airborne second-jump rejection at 30 Hz: 0.661 m apex PASS
+Jump/landing and airborne second-jump rejection at 60 Hz: 0.705 m apex PASS
+Jump/landing and airborne second-jump rejection at 120 Hz: 0.727 m apex PASS
+Brief jump grace after leaving a ledge PASS
+Jump input just before landing is buffered without an airborne extra jump PASS
+Low ceiling collision cancels ascent and returns to the floor PASS
+First-person sleeves/palms/fingers, hidden head/body, dynamic lighting and no hand colliders PASS
+Camera toggles transfer the held towel between hands; restart restores its original scale PASS
+Distinct run arm/knee pose, airborne tuck, landing recovery and idle reset PASS
+Saved Unity first-person hands, towel, sprint and jump render captures PASS
+Headset input, stereo comfort and performance remain unverified.
+
+Validation used an isolated copy; current scene and movement scripts match the tested files: PASS
+No duplicate Assets GUIDs: PASS
+First-person hands vs hidden-hands render: 143220 visible pixels across both halves PASS

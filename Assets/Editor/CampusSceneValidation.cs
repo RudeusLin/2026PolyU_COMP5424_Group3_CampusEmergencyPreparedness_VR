@@ -214,7 +214,9 @@ namespace CampusEmergency.Editor
                         "Window glass crosses a partition: " + contact);
                     count++;
                 }
-            Require(count == 49, "Unexpected number of wall/facade junctions: " + count);
+            var layout = JsonUtility.FromJson<TeachingBuildingBuilder.Layout>(File.ReadAllText("Assets/Environment/TeachingBuildingCampusLayout.json"));
+            Require(count == (layout.facadeJunctionCount > 0 ? layout.facadeJunctionCount : 49),
+                "Unexpected number of wall/facade junctions: " + count);
             return count;
         }
 

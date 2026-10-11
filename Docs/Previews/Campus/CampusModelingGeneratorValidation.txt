@@ -1,0 +1,7 @@
+Fresh generation from bundled Refined input: PASS
+Current generated layout: 7410 nodes, 48 shared materials.
+Windows font fallback and fitted lettering: PASS
+Parent import order and idempotent modeling: PASS
+Four taps, towels and refuge rooms; one fourth-floor task light: PASS
+A/B routes preserved; 718/797 samples PASS
+Facade wall/glass junctions: 47 PASS

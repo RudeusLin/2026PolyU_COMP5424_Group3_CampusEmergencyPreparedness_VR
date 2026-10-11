@@ -1,0 +1,23 @@
+Campus_XR PC VR dependency validation
+UTC: 2026-10-10T02:38:42.0616067Z
+Unity: 2022.3.62f3
+PASS: Unity version preserved
+PASS: com.unity.xr.openxr 1.14.3
+PASS: com.unity.xr.interaction.toolkit 2.6.4
+PASS: com.unity.xr.management 4.7.0
+PASS: com.unity.inputsystem 1.14.0
+PASS: com.unity.xr.core-utils 2.5.2
+PASS: com.unity.xr.legacyinputhelpers 2.1.12
+PASS: com.unity.mathematics 1.2.6
+PASS: Windows x86_64 build target
+PASS: OpenXR loader enabled at startup
+PASS: Oculus Touch controller profile
+PASS: Multi Pass for existing custom shaders
+PASS: Direct3D11
+PASS: Both input backends compiled and enabled
+PASS: Starter Assets input actions imported
+PASS: TeleportationProvider assembly available
+WARNING: [Optional] Switch to use InputSystem.XR.PoseControl instead of OpenXR.Input.PoseControl, which will be deprecated in a future release.
+WARNING: [Optional] Switch to use StickControl thumbsticks instead of Vector2Control, but may break existing projects that have code dependencies to the Vector2Control type. StickControl allows more input options for thumbstick-based control, such as acting as both a combined 2D vector, two independent axes or a four-way Dpad with 4 independent buttons.
+Headset/Link runtime test: NOT RUN; scene XR rig and teleportation not implemented in this step.
+RESULT: PASS

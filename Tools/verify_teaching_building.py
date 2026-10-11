@@ -1,5 +1,6 @@
 """Check generated assets and route geometry without requiring an Editor license."""
 import json
+import os
 import math
 import re
 import subprocess
@@ -8,7 +9,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
-EDITOR = Path('E:/Unity/Unity Hub/2022.3.62f3/Editor/Data')
+EDITOR = Path(os.environ.get('UNITY_EDITOR_DATA', 'C:/Program Files/Unity 2022.3.62f3/Editor/Data'))
 
 
 def matrix(item, open_doors=False):
@@ -50,7 +51,10 @@ def compile_scripts():
             print(result.stdout)
         return result.returncode == 0
 
-    runtime_ok = run('runtime-compile', list((ROOT / 'Assets/Scripts/Prototype').glob('*.cs')), references, compiled)
+    # Desktop-only offline check. XR packages/scene are validated inside Unity.
+    folders = ['Prototype', 'Player/Desktop', 'Player/Avatar', 'Interaction/Common', 'Session']
+    sources = [file for folder in folders for file in (ROOT / 'Assets/Scripts' / folder).glob('*.cs')]
+    runtime_ok = run('runtime-compile', sources, references, compiled)
     editor_refs = references + [compiled, EDITOR / 'Managed/UnityEditor.dll']
     editor_refs += list((EDITOR / 'Managed/UnityEditor').glob('*.dll'))
     editor_ok = runtime_ok and run('editor-compile', list((ROOT / 'Assets/Editor').glob('*.cs')),

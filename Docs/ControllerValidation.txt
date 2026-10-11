@@ -1,0 +1,23 @@
+Controller input and teleport integration test
+PASS: Headset focus works without desktop focus
+PASS: System menu blocks input despite desktop focus
+PASS: Desktop fallback respects focus
+PASS: Two saved controller visuals; no colliders obstructing rays
+PASS: Already-tracked headset and controllers read immediately after actions enabled
+PASS: Saved aim bindings resolve to actual Oculus Touch layout
+PASS: Tracked controllers become visible
+PASS: Saved teleport ray uses RIGHT controller
+PASS: Right teleport ray is visible without touching either stick; no overlapping interaction ray
+PASS: Right ray selects valid floor
+PASS: Left stick does not teleport
+PASS: RIGHT trigger press moves actual camera to right-ray destination, even without left tracking
+PASS: Teleport actually changes camera position
+PASS: Holding trigger cannot repeat teleport after cooldown
+PASS: Trigger RELEASE does not teleport
+PASS: A button switches to interaction ray and opens door
+PASS: A interaction never teleports
+PASS: Trigger aimed at door neither interacts nor teleports through obstacle
+PASS: Regaining focus with held trigger cannot teleport
+PASS: Tracking loss hides controllers and rays safely
+Simulated Input System devices + real teleport provider. Hardware NOT RUN.
+RESULT: PASS

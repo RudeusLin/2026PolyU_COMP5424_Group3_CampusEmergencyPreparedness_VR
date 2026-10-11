@@ -2,12 +2,6 @@ using UnityEngine;
 
 namespace CampusEmergency.Prototype
 {
-    public interface IPrototypeInteractable
-    {
-        string Prompt { get; }
-        string Interact();
-    }
-
     public sealed class PrototypeDoor : MonoBehaviour, IPrototypeInteractable
     {
         [SerializeField] private float openAngle = -100f;
@@ -36,7 +30,7 @@ namespace CampusEmergency.Prototype
             transform.localRotation = Quaternion.RotateTowards(transform.localRotation, target, 140f * Time.deltaTime);
         }
 
-        public string Interact()
+        public string Interact(ICampusInteractor explorer = null)
         {
             isOpen = !isOpen;
             return string.Empty;
