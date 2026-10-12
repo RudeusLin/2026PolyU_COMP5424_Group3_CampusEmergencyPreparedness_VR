@@ -748,7 +748,6 @@ GameObject:
   - component: {fileID: 927304366039859282}
   - component: {fileID: 8212336171909931845}
   - component: {fileID: 4680894323455723201}
-  - component: {fileID: 899807382826437961}
   m_Layer: 0
   m_Name: CampusXROrigin
   m_TagString: Untagged
@@ -986,18 +985,6 @@ MonoBehaviour:
   rightHand: {fileID: 5654239946090585439}
   leftHand: {fileID: 4566614157768546324}
   head: {fileID: 7341668469834784946}
---- !u!114 &899807382826437961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3377963093712638186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aba94b6d978bef0479db6900235ff62f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3711501174714495843
 GameObject:
   m_ObjectHideFlags: 0

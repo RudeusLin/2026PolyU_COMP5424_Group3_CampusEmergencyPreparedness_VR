@@ -21,10 +21,6 @@ namespace CampusEmergency.Player.XR
                 return Reject("Surface is too steep", out reason);
             if (Vector3.Distance(feet, hit.point) > maxDistance || Mathf.Abs(feet.y - hit.point.y) > maxHeightChange)
                 return Reject("Destination is too far away", out reason);
-            // Teleport is instantaneous: a diagonal body sweep is not a staircase route.
-            // Keep the same-level anti-bypass check; cross-level rays and destination clearance remain mandatory.
-            if (CampusEmergency.Interaction.FireSafety.CampusFireBarrier.BlocksTraversal(feet, hit.point, headHeight, true))
-                return Reject("Extinguish the fire before crossing this passage", out reason);
             return HasClearance(hit.point, headHeight, out reason);
         }
 

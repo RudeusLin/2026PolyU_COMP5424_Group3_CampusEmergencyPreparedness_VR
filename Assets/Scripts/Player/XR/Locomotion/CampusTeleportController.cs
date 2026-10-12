@@ -76,10 +76,17 @@ namespace CampusEmergency.Player.XR
             }
             count = 2;
             points[1] = start + rayOrigin.forward * rayDistance;
-            if (Physics.Raycast(start, rayOrigin.forward, out hit, rayDistance,
-                validator.EnvironmentMask, QueryTriggerInteraction.Ignore))
+            bool hasSurface = Physics.Raycast(start, rayOrigin.forward, out hit, rayDistance,
+                validator.EnvironmentMask, QueryTriggerInteraction.Ignore);
+            if (hasSurface) points[1] = hit.point;
+            if (CampusEmergency.Interaction.FireSafety.CampusFireBarrier.TryIntersect(start, points[1], out _))
             {
-                points[1] = hit.point;
+                // Keep drawing through the nonphysical fire region, but never queue a teleport.
+                reason = "Ray crosses fire: extinguish it before teleporting";
+                return false;
+            }
+            if (hasSurface)
+            {
                 Vector3 feet = origin.Camera.transform.position;
                 feet.y = origin.transform.position.y;
                 return validator.IsValid(hit, feet, origin.CameraInOriginSpaceHeight, out reason);

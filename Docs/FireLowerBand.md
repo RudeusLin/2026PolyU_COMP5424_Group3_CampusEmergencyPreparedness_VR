@@ -1,3 +1,5 @@
+> 历史方案，已停用。当前恢复根部瞄准，火焰没有碰撞体；参见 [当前逻辑](FireBarrierOutdoor.md)。以下记录仅供版本对照，不是当前操作说明。
+
 # Fire lower-band aiming
 
 Spray now targets the first solid fire box surface within 3 metres of the nozzle. The valid band spans its full width and the bottom 1 metre of its world-space height. The small central root sphere is no longer used. Aim high and the stream still stops at the box, but suppression does not accumulate.

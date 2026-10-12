@@ -100751,7 +100751,6 @@ GameObject:
   - component: {fileID: 316541593}
   - component: {fileID: 316541594}
   - component: {fileID: 316541596}
-  - component: {fileID: 316541598}
   - component: {fileID: 316541597}
   m_Layer: 0
   m_Name: Fire3
@@ -100811,27 +100810,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c531d33983bcda442bf421d2771ce653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &316541598
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 316541592}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.2, y: 1, z: 4.2}
-  m_Center: {x: 0, y: 0.16699982, z: 0}
+  localCenter: {x: 0, y: 0.16699982, z: 0}
+  localSize: {x: 4.2, y: 1, z: 4.2}
 --- !u!1 &316548454
 GameObject:
   m_ObjectHideFlags: 0
@@ -222020,7 +222000,6 @@ GameObject:
   - component: {fileID: 692601752}
   - component: {fileID: 692601753}
   - component: {fileID: 692601755}
-  - component: {fileID: 692601757}
   - component: {fileID: 692601756}
   m_Layer: 0
   m_Name: Fire3 (5)
@@ -222080,27 +222059,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c531d33983bcda442bf421d2771ce653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &692601757
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 692601751}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.2, y: 3.4, z: 4.2}
-  m_Center: {x: 0, y: 1.276, z: 0}
+  localCenter: {x: 0, y: 1.276, z: 0}
+  localSize: {x: 4.2, y: 3.4, z: 4.2}
 --- !u!1 &692684149
 GameObject:
   m_ObjectHideFlags: 0
@@ -258625,7 +258585,6 @@ GameObject:
   - component: {fileID: 817956481}
   - component: {fileID: 817956482}
   - component: {fileID: 817956484}
-  - component: {fileID: 817956486}
   - component: {fileID: 817956485}
   m_Layer: 0
   m_Name: Fire3 (2)
@@ -258685,27 +258644,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c531d33983bcda442bf421d2771ce653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &817956486
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817956480}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.2, y: 1.5999999, z: 4.2}
-  m_Center: {x: 0, y: 0.4069996, z: 0}
+  localCenter: {x: 0, y: 0.4069996, z: 0}
+  localSize: {x: 4.2, y: 1.5999999, z: 4.2}
 --- !u!1 &818177482
 GameObject:
   m_ObjectHideFlags: 0
@@ -303368,7 +303308,6 @@ GameObject:
   - component: {fileID: 968717133}
   - component: {fileID: 968717134}
   - component: {fileID: 968717136}
-  - component: {fileID: 968717138}
   - component: {fileID: 968717137}
   m_Layer: 0
   m_Name: Fire3 (3)
@@ -303428,27 +303367,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c531d33983bcda442bf421d2771ce653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &968717138
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 968717132}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.2, y: 1.5999999, z: 4.2}
-  m_Center: {x: 0, y: 0.4069996, z: 0}
+  localCenter: {x: 0, y: 0.4069996, z: 0}
+  localSize: {x: 4.2, y: 1.5999999, z: 4.2}
 --- !u!1 &969132383
 GameObject:
   m_ObjectHideFlags: 0
@@ -513933,7 +513853,6 @@ GameObject:
   - component: {fileID: 1668300662}
   - component: {fileID: 1668300663}
   - component: {fileID: 1668300665}
-  - component: {fileID: 1668300667}
   - component: {fileID: 1668300666}
   m_Layer: 0
   m_Name: Fire3 (6)
@@ -513993,27 +513912,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c531d33983bcda442bf421d2771ce653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &1668300667
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1668300661}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.2, y: 3.4, z: 4.2}
-  m_Center: {x: 0, y: 1.276, z: 0}
+  localCenter: {x: 0, y: 1.276, z: 0}
+  localSize: {x: 4.2, y: 3.4, z: 4.2}
 --- !u!1 &1669426670
 GameObject:
   m_ObjectHideFlags: 0
@@ -515711,7 +515611,6 @@ GameObject:
   - component: {fileID: 1675836106}
   - component: {fileID: 1675836107}
   - component: {fileID: 1675836109}
-  - component: {fileID: 1675836111}
   - component: {fileID: 1675836110}
   m_Layer: 0
   m_Name: Fire1
@@ -515771,27 +515670,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c531d33983bcda442bf421d2771ce653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &1675836111
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1675836105}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.2, y: 3.4500008, z: 4.2}
-  m_Center: {x: 0, y: 1.3490002, z: -0.474}
+  localCenter: {x: 0, y: 1.3490002, z: -0.474}
+  localSize: {x: 4.2, y: 3.4500008, z: 4.2}
 --- !u!1 &1676102555
 GameObject:
   m_ObjectHideFlags: 0
@@ -555883,7 +555763,6 @@ GameObject:
   - component: {fileID: 1815989891}
   - component: {fileID: 1815989892}
   - component: {fileID: 1815989894}
-  - component: {fileID: 1815989896}
   - component: {fileID: 1815989895}
   m_Layer: 0
   m_Name: Fire2
@@ -555943,27 +555822,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c531d33983bcda442bf421d2771ce653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &1815989896
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1815989890}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.2, y: 3.4500008, z: 4.2}
-  m_Center: {x: 0, y: 1.4250002, z: 0.65}
+  localCenter: {x: 0, y: 1.4250002, z: 0.65}
+  localSize: {x: 4.2, y: 3.4500008, z: 4.2}
 --- !u!1 &1817054079
 GameObject:
   m_ObjectHideFlags: 0
@@ -624974,7 +624834,6 @@ GameObject:
   - component: {fileID: 2047840000}
   - component: {fileID: 2047840001}
   - component: {fileID: 2047840003}
-  - component: {fileID: 2047840005}
   - component: {fileID: 2047840004}
   m_Layer: 0
   m_Name: Fire3 (1)
@@ -625034,27 +624893,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c531d33983bcda442bf421d2771ce653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &2047840005
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2047839999}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.2, y: 1, z: 4.2}
-  m_Center: {x: 0, y: 0.30699968, z: 0}
+  localCenter: {x: 0, y: 0.30699968, z: 0}
+  localSize: {x: 4.2, y: 1, z: 4.2}
 --- !u!1 &2048213942
 GameObject:
   m_ObjectHideFlags: 0
@@ -639202,7 +639042,6 @@ GameObject:
   - component: {fileID: 2091353875}
   - component: {fileID: 2091353876}
   - component: {fileID: 2091353878}
-  - component: {fileID: 2091353880}
   - component: {fileID: 2091353879}
   m_Layer: 0
   m_Name: Fire3 (4)
@@ -639262,27 +639101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c531d33983bcda442bf421d2771ce653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &2091353880
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091353874}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.2, y: 3.4, z: 4.2}
-  m_Center: {x: 0, y: 1.276, z: 0}
+  localCenter: {x: 0, y: 1.276, z: 0}
+  localSize: {x: 4.2, y: 3.4, z: 4.2}
 --- !u!1 &2091455617
 GameObject:
   m_ObjectHideFlags: 0

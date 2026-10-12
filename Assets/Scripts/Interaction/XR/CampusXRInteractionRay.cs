@@ -49,6 +49,9 @@ namespace CampusEmergency.Interaction
                     if (component is IPrototypeInteractable found) { target = found; break; }
                 break;
             }
+            // Fire is collider-free: preserve its interaction prompt via the analytic ray region.
+            if (CampusEmergency.Interaction.FireSafety.CampusFireBarrier.TryIntersect(rayOrigin.position, end, out var firePoint, out var fire))
+            { target = fire; end = firePoint; }
             line.enabled = true;
             line.positionCount = 2;
             line.SetPosition(0, rayOrigin.position);

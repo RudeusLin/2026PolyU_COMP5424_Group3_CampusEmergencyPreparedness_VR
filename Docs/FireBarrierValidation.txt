@@ -1,4 +1,4 @@
-PASS: nine solid fire boxes, 4.2m footprint, tops clipped below overhead floor slabs
+PASS: nine collider-free ray regions, 4.2m footprint, tops clipped below overhead floor slabs
 PASS: Fire3 vertical limits 5.95..6.95 below overhead slabs
 PASS: Fire3 (5) vertical limits -0.05..3.35 below overhead slabs
 PASS: Fire3 (2) vertical limits 5.35..6.95 below overhead slabs
@@ -13,4 +13,4 @@ PASS: outdoor landing (0.00, 0.03, -12.00) on MainWalkway
 PASS: outdoor landing (0.00, 0.03, -19.00) on MainWalkway
 PASS: outdoor landing (5.00, 0.00, -20.00) on Forecourt
 PASS: outdoor landing (-21.00, 0.00, -5.00) on SideExitPath
-PASS: box ray and swept player path are blocked
+PASS: analytic ray detects fire; no physical collider or tracked-body guard remains

@@ -1,5 +1,5 @@
 Campus XR teleport validation
-UTC: 2026-10-11T19:45:12.0429725Z
+UTC: 2026-10-12T05:29:45.5019959Z
 PASS: XR Origin is active
 PASS: Exactly one enabled camera
 PASS: Exactly one enabled audio listener
@@ -14,7 +14,7 @@ PASS: No missing scripts in TeachingBuilding
 PASS: No missing scripts in BakedLightingAndProbes
 PASS: No missing scripts in Campus XR Origin
 PASS: Original visual avatar retained without extra collision
-PASS: Clear destinations available in campus floors/landings (29)
+PASS: Clear destinations available in campus floors/landings (30)
 PASS: Clear floor accepted
 PASS: Out-of-range target rejected
 PASS: Excessive floor-height change rejected

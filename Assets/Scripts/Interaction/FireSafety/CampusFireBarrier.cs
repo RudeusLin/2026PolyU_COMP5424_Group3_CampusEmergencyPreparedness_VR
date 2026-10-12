@@ -3,39 +3,54 @@ using UnityEngine;
 
 namespace CampusEmergency.Interaction.FireSafety
 {
-    [RequireComponent(typeof(BoxCollider))]
+    /// <summary>Analytic teleport-ray exclusion region. No collider and no body movement constraint.</summary>
     public sealed class CampusFireBarrier : MonoBehaviour
     {
+        [SerializeField] private Vector3 localCenter;
+        [SerializeField] private Vector3 localSize = new Vector3(4.2f, 3.4f, 4.2f);
         private static readonly HashSet<CampusFireBarrier> active = new HashSet<CampusFireBarrier>();
-        private BoxCollider volume;
-        public BoxCollider Volume => volume != null ? volume : (volume = GetComponent<BoxCollider>());
         public CampusFireTarget Target => GetComponent<CampusFireTarget>();
+        public Bounds VolumeBounds
+        {
+            get
+            {
+                var bounds = new Bounds(transform.TransformPoint(localCenter), Vector3.zero);
+                for (int i = 0; i < 8; i++)
+                    bounds.Encapsulate(transform.TransformPoint(localCenter + Vector3.Scale(localSize * .5f,
+                        new Vector3((i & 1) == 0 ? -1 : 1, (i & 2) == 0 ? -1 : 1, (i & 4) == 0 ? -1 : 1))));
+                return bounds;
+            }
+        }
+        public void Configure(Vector3 center, Vector3 size) { localCenter = center; localSize = size; }
         private void OnEnable() => active.Add(this);
         private void OnDisable() => active.Remove(this);
 
-        // Swept virtual-body bounds close the loophole of aiming past an edge or above a fire.
-        public static bool BlocksTraversal(Vector3 fromFeet, Vector3 toFeet, float bodyHeight, bool teleport = false)
+        // Test only the visible ray segment, ending at the nearest wall/floor. Fire behind it is irrelevant.
+        // Contains handles a controller already inside the region, unlike a physics raycast.
+        public static bool TryIntersect(Vector3 start, Vector3 end, out Vector3 contact)
+            => TryIntersect(start, end, out contact, out _);
+        public static bool TryIntersect(Vector3 start, Vector3 end, out Vector3 contact, out CampusFireTarget target)
         {
-            IEnumerable<CampusFireBarrier> barriers = Application.isPlaying ? (IEnumerable<CampusFireBarrier>)active : FindObjectsOfType<CampusFireBarrier>();
-            foreach (var barrier in barriers)
+            contact = end; target = null;
+            Vector3 delta = end - start;
+            float length = delta.magnitude, nearest = float.PositiveInfinity;
+            var ray = new Ray(start, length > .000001f ? delta / length : Vector3.forward);
+            IEnumerable<CampusFireBarrier> regions = Application.isPlaying
+                ? (IEnumerable<CampusFireBarrier>)active : FindObjectsOfType<CampusFireBarrier>();
+            foreach (var region in regions)
             {
-                if (barrier == null || !barrier.Volume.enabled) continue;
-                Bounds bounds = barrier.Volume.bounds;
-                // A supported endpoint above the clipped fire belongs to the upper surface.
-                // A mere step-height difference inside the fire volume is not an exemption.
-                if (teleport && (fromFeet.y >= bounds.max.y + .02f || toFeet.y >= bounds.max.y + .02f)) continue;
-                bounds.SetMinMax(bounds.min - new Vector3(.22f, Mathf.Clamp(bodyHeight,1.25f,2.2f),.22f),
-                    bounds.max + new Vector3(.22f,0f,.22f));
-                if (Crosses(bounds,fromFeet,toFeet)) return true;
+                if (region == null || !region.isActiveAndEnabled) continue;
+                var fire = region.Target;
+                if (fire == null || !fire.isActiveAndEnabled || fire.Extinguished) continue;
+                var bounds = region.VolumeBounds;
+                float distance = 0f;
+                if (!bounds.Contains(start) && (!bounds.IntersectRay(ray, out distance) || distance > length)) continue;
+                if (distance >= nearest) continue;
+                nearest = distance; target = fire; contact = start + ray.direction * distance;
             }
-            return false;
+            return target != null;
         }
-        private static bool Crosses(Bounds bounds, Vector3 start, Vector3 end)
-        {
-            if (bounds.Contains(start) || bounds.Contains(end)) return true;
-            var delta=end-start;
-            return delta.sqrMagnitude>.000001f && bounds.IntersectRay(new Ray(start,delta.normalized),out float distance)
-                && distance<=delta.magnitude;
-        }
+        private void OnDrawGizmosSelected()
+        { Gizmos.color = new Color(1f, .3f, .1f, .7f); var b = VolumeBounds; Gizmos.DrawWireCube(b.center, b.size); }
     }
 }
