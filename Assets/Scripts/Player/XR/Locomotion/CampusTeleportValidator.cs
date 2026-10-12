@@ -1,4 +1,5 @@
 using UnityEngine;
+using CampusEmergency.Player;
 
 namespace CampusEmergency.Player.XR
 {
@@ -14,13 +15,13 @@ namespace CampusEmergency.Player.XR
         public bool IsValid(RaycastHit hit, Vector3 feet, float headHeight, out string reason)
         {
             if (hit.collider != null && hit.collider.GetComponent<CampusEmergency.Interaction.FireSafety.CampusFireTarget>() != null)
-                return Reject("Extinguish the fire to clear this passage", out reason);
+                return Reject(LanguageSelectionUI.T("Extinguish the fire to clear this passage", "请扑灭火源以清理通道", "請撲滅火源以清理通道"), out reason);
             if (hit.collider == null || hit.collider.GetComponent<CampusTeleportSurface>() == null)
-                return Reject("Aim at a floor or stair landing", out reason);
+                return Reject(LanguageSelectionUI.T("Aim at a floor or stair landing", "请瞄准地面或楼梯平台", "請瞄準地面或樓梯平台"), out reason);
             if (Vector3.Angle(hit.normal, Vector3.up) > maxSlope)
-                return Reject("Surface is too steep", out reason);
+                return Reject(LanguageSelectionUI.T("Surface is too steep", "目标表面坡度过大", "目標表面坡度過大"), out reason);
             if (Vector3.Distance(feet, hit.point) > maxDistance || Mathf.Abs(feet.y - hit.point.y) > maxHeightChange)
-                return Reject("Destination is too far away", out reason);
+                return Reject(LanguageSelectionUI.T("Destination is too far away", "目标位置距离过远", "目標位置距離過遠"), out reason);
             return HasClearance(hit.point, headHeight, out reason);
         }
 
@@ -30,7 +31,7 @@ namespace CampusEmergency.Player.XR
             Vector3 bottom = point + Vector3.up * (bodyRadius + .035f);
             Vector3 top = point + Vector3.up * (height - bodyRadius + .035f);
             if (Physics.CheckCapsule(bottom, top, bodyRadius, environmentMask, QueryTriggerInteraction.Ignore))
-                return Reject("Not enough standing space", out reason);
+                return Reject(LanguageSelectionUI.T("Not enough standing space", "目标处没有足够站立空间", "目標處沒有足夠站立空間"), out reason);
             // Require support around the feet: prevents choosing a railing or a slab edge.
             Vector3[] offsets = { Vector3.zero, Vector3.right * .16f, Vector3.left * .16f,
                 Vector3.forward * .16f, Vector3.back * .16f };
@@ -40,7 +41,7 @@ namespace CampusEmergency.Player.XR
                     environmentMask, QueryTriggerInteraction.Ignore)
                     || support.collider.GetComponent<CampusTeleportSurface>() == null
                     || Vector3.Angle(support.normal, Vector3.up) > maxSlope)
-                    return Reject("Move away from the edge", out reason);
+                    return Reject(LanguageSelectionUI.T("Move away from the edge", "请远离边缘", "請遠離邊緣"), out reason);
             }
             reason = string.Empty;
             return true;

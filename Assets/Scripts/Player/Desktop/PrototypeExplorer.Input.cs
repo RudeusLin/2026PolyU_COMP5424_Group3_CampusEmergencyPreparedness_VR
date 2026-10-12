@@ -1,4 +1,5 @@
 using UnityEngine;
+using CampusEmergency.Player;
 
 namespace CampusEmergency.Prototype
 {
@@ -6,6 +7,13 @@ namespace CampusEmergency.Prototype
     {
         private void Update()
         {
+            if (LanguageSelectionUI.IsBlocking)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                MoveWithInput(Vector2.zero, false, false, Time.deltaTime);
+                return;
+            }
             if (Input.GetKeyDown(KeyCode.F2)) EnterFloor(spawnSecondFloor);
             if (Input.GetKeyDown(KeyCode.F4)) EnterFloor(spawnFourthFloor);
             if (Input.GetKeyDown(KeyCode.Tab))
@@ -13,7 +21,6 @@ namespace CampusEmergency.Prototype
                 if (walking) SetOverview(); else EnterFloor(currentSpawn);
             }
             if (Input.GetKeyDown(KeyCode.C) && !walking) roof.SetActive(!roof.activeSelf);
-            if (Input.GetKeyDown(KeyCode.H)) smokePreview.SetActive(!smokePreview.activeSelf);
 
             if (!walking)
             {

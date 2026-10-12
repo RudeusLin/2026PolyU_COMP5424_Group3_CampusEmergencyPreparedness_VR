@@ -1,6 +1,7 @@
 using UnityEngine;
 using CampusEmergency.Prototype;
 using CampusEmergency.Player.XR;
+using CampusEmergency.Player;
 
 namespace CampusEmergency.Interaction
 {
@@ -57,8 +58,8 @@ namespace CampusEmergency.Interaction
             line.SetPosition(0, rayOrigin.position);
             line.SetPosition(1, end);
             line.startColor = line.endColor = target != null ? Color.cyan : new Color(.55f, .65f, .7f);
-            feedback.SetPrompt(target != null ? XRMessage(target.Prompt) : string.Empty);
-            if (target != null && input.InteractPressed) feedback.Notify(XRMessage(target.Interact(inventory)));
+            feedback.SetPrompt(target != null ? LanguageSelectionUI.Localize(XRMessage(target.Prompt)) : string.Empty);
+            if (target != null && input.InteractPressed) feedback.Notify(LanguageSelectionUI.Localize(XRMessage(target.Interact(inventory))));
         }
         private void OnDisable() { if (line != null) line.enabled = false; if (feedback != null) feedback.SetPrompt(string.Empty); }
     }

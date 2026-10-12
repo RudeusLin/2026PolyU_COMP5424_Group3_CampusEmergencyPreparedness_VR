@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.XR.CoreUtils;
+using CampusEmergency.Player;
 
 namespace CampusEmergency.Player.XR
 {
@@ -22,12 +23,20 @@ namespace CampusEmergency.Player.XR
                 origin.MatchOriginUpCameraForward(Vector3.up, spawn.forward);
                 origin.MoveCameraToWorldLocation(spawn.position + Vector3.up * origin.CameraInOriginSpaceHeight);
                 positioned = true;
-                feedback.Notify("Follow EXIT signs. Aim at the floor; green marks a clear destination.");
+                if (!LanguageSelectionUI.IsBlocking)
+                    feedback.Notify(LanguageSelectionUI.WelcomeMessage());
             }
             Vector3 delta = origin.Camera.transform.position - assembly.position;
             delta.y = 0;
             if (!reachedAssembly && origin.transform.position.y < 1f && delta.magnitude < 2.4f)
-            { reachedAssembly = true; feedback.Notify("ASSEMBLY POINT REACHED", 8f); }
+            {
+                reachedAssembly = true;
+                feedback.Notify(LanguageSelectionUI.T(
+                    "ASSEMBLY POINT REACHED. Take out your phone and call emergency services.",
+                    "已到达集合点。请掏出手机拨打紧急电话。",
+                    "已到達集合點。請掏出手機撥打緊急電話。"), 8f);
+                LanguageSelectionUI.ShowEmergencyCall();
+            }
         }
     }
 }

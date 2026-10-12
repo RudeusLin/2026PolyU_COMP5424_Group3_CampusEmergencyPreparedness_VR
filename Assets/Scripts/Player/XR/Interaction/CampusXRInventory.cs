@@ -2,10 +2,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.XR.CoreUtils;
 using CampusEmergency.Prototype;
+using CampusEmergency.Player;
 
 namespace CampusEmergency.Player.XR
 {
-    /// <summary>Left-hand towel inventory and hold-to-raise presentation. Desktop towel behavior is unchanged.</summary>
+    /// <summary>Left-hand towel inventory and toggle-to-cover presentation. Desktop towel behavior is unchanged.</summary>
     public sealed class CampusXRInventory : MonoBehaviour, ICampusInteractor
     {
         [SerializeField] private CampusXRInput input;
@@ -21,11 +22,14 @@ namespace CampusEmergency.Player.XR
         private Renderer[] surfaces;
         private bool[] originalVisibility;
         private float raisedBlend;
-        private bool raiseArmed, visible;
+        private bool visible;
         public CampusTowel HeldTowel { get; private set; }
         public Transform TowelHoldPoint => holdPoint;
         public bool IsTowelRaised { get; private set; }
-        public string Controls => "LEFT TRIGGER: HOLD TOWEL UP / RELEASE: LOWER\nRIGHT TRIGGER: TELEPORT / A: INTERACT / RIGHT GRIP: RETURN";
+        public string Controls => LanguageSelectionUI.T(
+            "LEFT TRIGGER: TOGGLE WET TOWEL COVER\nRIGHT TRIGGER: TELEPORT / A: INTERACT / RIGHT GRIP: RETURN",
+            "左扳机：切换湿毛巾捂住口鼻\n右扳机：传送 / A键：交互 / 右握把：归还",
+            "左扳機：切換濕毛巾捂住口鼻\n右扳機：傳送 / A鍵：互動 / 右握把：歸還");
 
         public void Configure(CampusXRInput controls, CampusTeleportController movement,
             Transform hand, CampusXRFeedback messages)
@@ -46,12 +50,30 @@ namespace CampusEmergency.Player.XR
             if (HeldTowel == null) return;
             visible = input != null && input.LeftTracked && focus;
             SetVisible(visible);
-            if (!visible) { raiseArmed = false; IsTowelRaised = false; raisedBlend = 0f; ResetAnchor(); return; }
-            bool pressed = raiseTowel.IsPressed();
-            if (!pressed) raiseArmed = true;
-            IsTowelRaised = raiseArmed && pressed;
-            if (input.RightTracked && !input.TeleportHeld && returnTowel.WasPressedThisFrame())
-            { ReturnHeldTowel(); feedback.Notify("Towel returned to the counter."); }
+            if (!visible) { IsTowelRaised = false; raisedBlend = 0f; ResetAnchor(); return; }
+            if (raiseTowel.WasPressedThisFrame())
+            {
+                if (!HeldTowel.IsWet)
+                {
+                    IsTowelRaised = false;
+                    feedback.Notify(LanguageSelectionUI.T(
+                        "Wet the towel before covering your mouth and nose.",
+                        "请先打湿毛巾，再用它捂住口鼻。",
+                        "請先打濕毛巾，再用它捂住口鼻。"));
+                }
+                else
+                {
+                    IsTowelRaised = !IsTowelRaised;
+                    feedback.Notify(IsTowelRaised
+                        ? LanguageSelectionUI.T("Wet towel covering mouth and nose.", "已用湿毛巾捂住口鼻。", "已用濕毛巾捂住口鼻。")
+                        : LanguageSelectionUI.T("Wet towel lowered.", "湿毛巾已放下。", "濕毛巾已放下。"));
+                }
+            }
+            var extinguisher = GetComponent<CampusXRExtinguisherController>();
+            bool extinguisherHandledGrip = extinguisher != null &&
+                (extinguisher.Held != null || extinguisher.LastReturnFrame == Time.frameCount);
+            if (input.RightTracked && !input.TeleportHeld && returnTowel.WasPressedThisFrame() && !extinguisherHandledGrip)
+            { ReturnHeldTowel(); feedback.Notify(LanguageSelectionUI.T("Towel returned to the counter.", "毛巾已放回台面。", "毛巾已放回檯面。")); }
         }
         private void LateUpdate()
         {
@@ -97,14 +119,14 @@ namespace CampusEmergency.Player.XR
             var origin = GetComponent<XROrigin>(); head = origin != null && origin.Camera != null ? origin.Camera.transform : null;
             surfaces = towel.GetComponentsInChildren<Renderer>(); originalVisibility = new bool[surfaces.Length];
             for(int i=0;i<surfaces.Length;i++) originalVisibility[i]=surfaces[i].enabled;
-            raisedBlend = 0f; IsTowelRaised = false; raiseArmed = false; visible = true;
+            raisedBlend = 0f; IsTowelRaised = false; visible = true;
             return true;
         }
         public void ReleaseTowel(CampusTowel towel)
         {
             if (HeldTowel != towel) return;
             SetVisible(true); ResetAnchor(); HeldTowel = null; surfaces = null; originalVisibility = null;
-            raisedBlend = 0f; IsTowelRaised = false; raiseArmed = false;
+            raisedBlend = 0f; IsTowelRaised = false;
         }
         public void ReturnHeldTowel() { if (HeldTowel != null) HeldTowel.ResetToCounter(); }
         private void OnDisable()

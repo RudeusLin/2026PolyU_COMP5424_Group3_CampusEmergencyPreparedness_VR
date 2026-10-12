@@ -16,7 +16,7 @@ namespace CampusEmergency.Prototype
                 switch (kind)
                 {
                     case FacilityKind.Lift: return "[E] Lift information";
-                    case FacilityKind.Alarm: return "[E] Inspect alarm point";
+                    case FacilityKind.Alarm: return "[E] Activate fire alarm";
                     default: return "[E] Inspect fire equipment";
                 }
             }
@@ -34,7 +34,13 @@ namespace CampusEmergency.Prototype
                 case FacilityKind.Lift:
                     return "LIFT OUT OF SERVICE\nDo not use the lift in case of fire. Use the stairs.";
                 case FacilityKind.Alarm:
-                    return "MANUAL FIRE ALARM\nInspection preview. Alarm logic will be connected by the gameplay team.";
+                    CampusDrillAtmosphere atmosphere = FindObjectOfType<CampusDrillAtmosphere>(true);
+                    if (atmosphere == null)
+                        return "FIRE ALARM UNAVAILABLE\nThe alarm system could not be found in this scene.";
+                    if (atmosphere.IsAlarmActive)
+                        return "SIMULATED FIRE ALARM ACTIVE\nThe alarm is already running.";
+                    atmosphere.ActivateAlarm();
+                    return "SIMULATED FIRE ALARM ACTIVATED\nEvacuate via the stairs.";
                 default:
                     return "FIRE EQUIPMENT\nEnvironment preview. The current practice route leads to the assembly point.";
             }

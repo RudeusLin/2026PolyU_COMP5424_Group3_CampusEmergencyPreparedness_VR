@@ -381,7 +381,7 @@ def layout():
         box("CanopyColumn", exterior, (x, 1.45, -11.7), (.17, 2.9, .17), "Navy")
     sign(exterior, "TEACHING BLOCK A", (0, 3.05, -12.13), 6.5, .5, size=.3)
 
-    smoke = node("Smoke_VisualOnly_ToggleH", root, active=False)
+    smoke = node("Smoke_VisualOnly_ToggleH", root, active=True)
     for i in range(9):
         node("SmokeVolume", smoke, (5.6 + i % 3 * .7, 11.5 + i // 3 * .6, i % 2 * .5 - .25),
              "sphere", (1.6, 1.5, 1.6), "Smoke", floor=4)

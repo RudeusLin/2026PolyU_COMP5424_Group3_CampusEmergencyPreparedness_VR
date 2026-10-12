@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.XR.CoreUtils;
 using UnityEngine.XR.Interaction.Toolkit;
+using CampusEmergency.Player;
 
 namespace CampusEmergency.Player.XR
 {
@@ -20,6 +21,7 @@ namespace CampusEmergency.Player.XR
         private bool armed;
         private float lastTeleport = -10f;
         public bool IsAiming { get; private set; }
+        public bool LastTraceBlockedByFire { get; private set; }
         public CampusTeleportValidator Validator => validator;
 
         public void Configure(CampusXRInput i, XROrigin o, Transform ray, TeleportationProvider p,
@@ -39,11 +41,22 @@ namespace CampusEmergency.Player.XR
             IsAiming = true;
             bool valid = Trace(out var hit, out int count, out string reason);
             visual.Show(points, count, valid, hit.point);
-            feedback.SetAim(valid ? "RIGHT TRIGGER: TELEPORT / A: INTERACT" : reason + " / A: INTERACT");
+            feedback.SetAim(valid
+                ? LanguageSelectionUI.T("RIGHT TRIGGER: TELEPORT / A: INTERACT", "右扳机：传送 / A键：交互", "右扳機：傳送 / A鍵：互動")
+                : reason + LanguageSelectionUI.T(" / A: INTERACT", " / A键：交互", " / A鍵：互動"));
             // Require a release before every click, including after focus/tracking loss.
             if (!held || !armed) return;
             armed = false;
-            if (!valid || Time.unscaledTime - lastTeleport < .25f
+            if (!valid)
+            {
+                if (LastTraceBlockedByFire)
+                    feedback.Notify(LanguageSelectionUI.T(
+                        "The route is blocked by fire. Please find a fire extinguisher.",
+                        "当前路线被火挡住，请寻找灭火器。",
+                        "目前路線被火擋住，請尋找滅火器。"), 5f);
+                return;
+            }
+            if (Time.unscaledTime - lastTeleport < .25f
                 || provider.system == null || provider.system.busy) return;
             if (provider.QueueTeleportRequest(new TeleportRequest {
                 destinationPosition = hit.point + Vector3.up * .035f,
@@ -54,6 +67,7 @@ namespace CampusEmergency.Player.XR
 
         public bool Trace(out RaycastHit hit, out int count, out string reason)
         {
+            LastTraceBlockedByFire = false;
             hit = default;
             count = 1;
             Vector3 start = rayOrigin.position;
@@ -71,7 +85,7 @@ namespace CampusEmergency.Player.XR
             {
                 points[1] = start + rayOrigin.forward * .1f;
                 count = 2;
-                reason = "Move your head and controller clear of the wall";
+                reason = LanguageSelectionUI.T("Move your head and controller clear of the wall", "请将头部和控制器移离墙体", "請將頭部和控制器移離牆體");
                 return false;
             }
             count = 2;
@@ -81,8 +95,9 @@ namespace CampusEmergency.Player.XR
             if (hasSurface) points[1] = hit.point;
             if (CampusEmergency.Interaction.FireSafety.CampusFireBarrier.TryIntersect(start, points[1], out _))
             {
+                LastTraceBlockedByFire = true;
                 // Keep drawing through the nonphysical fire region, but never queue a teleport.
-                reason = "Ray crosses fire: extinguish it before teleporting";
+                reason = LanguageSelectionUI.T("Ray crosses fire: extinguish it before teleporting", "射线穿过火区：请先灭火再传送", "射線穿過火區：請先滅火再傳送");
                 return false;
             }
             if (hasSurface)
@@ -91,7 +106,7 @@ namespace CampusEmergency.Player.XR
                 feet.y = origin.transform.position.y;
                 return validator.IsValid(hit, feet, origin.CameraInOriginSpaceHeight, out reason);
             }
-            reason = "Point the RIGHT controller at a floor within 12m";
+            reason = LanguageSelectionUI.T("Point the RIGHT controller at a floor within 12m", "请将右控制器指向12米内的地面", "請將右控制器指向12米內的地面");
             return false;
         }
 

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Management;
 using UnityEngine.XR.OpenXR;
+using CampusEmergency.Player;
 
 namespace CampusEmergency.Player.XR
 {
@@ -25,7 +26,8 @@ namespace CampusEmergency.Player.XR
                 bool openXR = XRGeneralSettings.Instance != null
                     && XRGeneralSettings.Instance.Manager != null
                     && XRGeneralSettings.Instance.Manager.activeLoader is OpenXRLoader;
-                return ResolveInteractionFocus(openXR, openXR && OpenXRUtility.IsSessionFocused, Application.isFocused);
+                return !LanguageSelectionUI.IsBlocking &&
+                    ResolveInteractionFocus(openXR, openXR && OpenXRUtility.IsSessionFocused, Application.isFocused);
             }
         }
         // A desktop window losing focus must not disable an active headset session.

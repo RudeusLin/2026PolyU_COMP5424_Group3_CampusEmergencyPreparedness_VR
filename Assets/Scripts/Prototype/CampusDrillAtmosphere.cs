@@ -1,8 +1,9 @@
 using UnityEngine;
+using CampusEmergency.Player;
 
 namespace CampusEmergency.Prototype
 {
-    // Optional H-key atmosphere preview. It does not change evacuation rules or routes.
+    // Persistent drill smoke. The manual alarm starts the audio separately.
     public sealed class CampusDrillAtmosphere : MonoBehaviour
     {
         [SerializeField] private Material smokeMaterial;
@@ -10,6 +11,30 @@ namespace CampusEmergency.Prototype
         private ParticleSystem smoke;
         private AudioSource alarm;
         private GUIStyle captionStyle;
+        public bool IsAlarmActive => gameObject.activeInHierarchy && alarm != null && alarm.isPlaying;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void EnsurePersistentSmoke()
+        {
+            foreach (CampusDrillAtmosphere atmosphere in FindObjectsOfType<CampusDrillAtmosphere>(true))
+                if (!atmosphere.gameObject.activeSelf) atmosphere.gameObject.SetActive(true);
+        }
+
+        public void ActivateAlarm()
+        {
+            if (!gameObject.activeSelf)
+            {
+                gameObject.SetActive(true);
+            }
+            // Re-activate an already visible drill object whose effects were stopped.
+            if (smoke == null || alarm == null) OnEnable();
+            else
+            {
+                if (!smoke.isPlaying) smoke.Play();
+                if (!alarm.isPlaying) alarm.Play();
+            }
+            if (alarm != null && !alarm.isPlaying) alarm.Play();
+        }
 
         public void Configure(Material material, AudioClip clip)
         {
@@ -69,7 +94,8 @@ namespace CampusEmergency.Prototype
                 alarm.rolloffMode = AudioRolloffMode.Linear;
             }
             smoke.Play();
-            alarm.Play();
+            // Smoke is always present; the alarm button starts the audio.
+            alarm.Stop();
         }
 
         private void OnDisable()
@@ -90,9 +116,15 @@ namespace CampusEmergency.Prototype
                 captionStyle = new GUIStyle(GUI.skin.box) { fontSize = 14, alignment = TextAnchor.MiddleLeft };
                 captionStyle.normal.textColor = Color.white;
             }
+            captionStyle.font = LanguageSelectionUI.CurrentFont;
             GUI.Box(new Rect(22, Screen.height - 76, 555, 30),
-                "  DRILL PREVIEW / SIMULATED ALARM / H OFF / M " +
-                (alarm != null && alarm.mute ? "UNMUTE" : "MUTE"), captionStyle);
+                LanguageSelectionUI.T(
+                    "  FIRE DRILL / PERSISTENT SMOKE / M ",
+                    "  消防演练 / 持续烟雾 / M ",
+                    "  消防演練 / 持續煙霧 / M ") +
+                (alarm != null && alarm.mute
+                    ? LanguageSelectionUI.T("UNMUTE", "取消静音", "取消靜音")
+                    : LanguageSelectionUI.T("MUTE", "静音", "靜音")), captionStyle);
         }
     }
 }
