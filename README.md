@@ -10,9 +10,20 @@ The player starts at the fourth-floor classroom 401 spawn. Aim the right-hand ra
 
 Editor and simulated-controller validation reports are in `Docs`. The current teleport behavior has also been confirmed working by the project owner on the headset.
 
-### Extinguisher workflow (feature/extinguisher)
+### Fire extinguisher controls
 
-Eight extinguishers and nine fires support pickup, safety-pin removal, base aiming and a continuous three-second spray. While holding an extinguisher, **B** switches between action mode (trigger teleports) and spray mode (trigger sprays). Release the trigger after switching. Bring the left hand near the yellow pin and press left grip to remove it; right grip returns the item. See [workflow, controls and rollback](Docs/ExtinguisherWorkflow.md). The general controls below describe empty-hand operation.
+**Pick up → pull the pin → aim at the fire base → spray for 3 seconds.**
+
+| Input | Function |
+| --- | --- |
+| Right **A** | Pick up an extinguisher |
+| Left **grip** near the yellow pin (within 18 cm) | Remove the safety pin |
+| Right **B** | Switch **Action ↔ Spray** mode; release the trigger after switching |
+| Right **trigger** in Action mode | Teleport while carrying the extinguisher |
+| Hold right **trigger** in Spray mode | Spray at the fire base within 3 m; green aim confirms a target |
+| Right **grip** | Return the extinguisher and reset its pin; release the trigger first |
+
+Hit the **same fire continuously for 3 seconds** to extinguish it immediately. Releasing, missing or switching targets resets progress. A teleport ray touching or crossing a live fire zone cannot confirm movement; extinguishing clears that zone. Towels and extinguishers cannot be carried together. [Full workflow and rollback](Docs/ExtinguisherWorkflow.md).
 
 ### Quick start
 
@@ -32,10 +43,12 @@ This project targets Windows PC VR, not a standalone Android build. The PC VR se
 | Right A button | Interact with doors, towels and taps; holding displays the short-range interaction ray |
 | Right stick left/right | Turn by 30 degrees; return to center before turning again |
 | Right grip | Return the held towel to its original counter |
+| Left trigger | Hold to raise the left-hand towel below the central view; release to lower |
+| Left X / keyboard H | Show or hide the instruction panel |
 | Left grip | Hold to suspend teleport aiming; release to resume |
 | Head movement | Look around using headset tracking |
 
-Green indicates a valid landing point; red indicates an invalid target. Teleportation checks obstructions, support and headroom, with a maximum ray distance of 12 metres and a maximum height difference of 4 metres. After tracking or application focus is restored, release the trigger before pressing it again. Holding the trigger pauses turning and towel return. Left stick, left trigger and B/X/Y have no campus gameplay bindings; system buttons retain their normal functions.
+Green indicates a valid landing point; red indicates an invalid target. Teleportation checks obstructions, support and headroom, with a maximum ray distance of 12 metres and a maximum height difference of 4 metres. After tracking or application focus is restored, release the trigger before pressing it again. Holding the trigger pauses turning and towel return. Left grip suspension applies when not carrying an extinguisher. B switches modes while carrying an extinguisher. Left stick and Y have no campus gameplay bindings; system buttons retain their normal functions. See [left-hand towel controls](Docs/XRTowelInteraction.md).
 
 ## Current campus scene (desktop controls)
 
