@@ -58,6 +58,25 @@ namespace CampusEmergency.Editor
             Check(c.FindTarget(item.Nozzle.position,Vector3.forward,out _)==fire,"Spray nozzle ray identifies fire base");
             var blocker=fire.GetComponent<BoxCollider>();
             Check(blocker!=null && blocker.enabled && !blocker.isTrigger,"Live fire has a solid box blocker");
+            var band=blocker.bounds;
+            var wideStart=new Vector3(band.max.x-.12f,band.min.y+.5f,band.min.z-.8f);
+            Check(c.FindTarget(wideStart,Vector3.forward,out var wideEnd)==fire,"Lower band accepts full box width, away from flame root");
+            Check(Mathf.Abs(wideEnd.z-band.min.z)<.02f,"Spray ends at solid front face, never through the fire");
+            var highStart=new Vector3(band.center.x,band.min.y+1.1f,band.min.z-.8f);
+            c.ApplyTarget(fire,1f);
+            var highTarget=c.FindTarget(highStart,Vector3.forward,out _);
+            c.ApplyTarget(highTarget,.1f);
+            Check(highTarget==null && fire.ContinuousSeconds==0f,"Above one metre is invalid and resets accumulated spray");
+            var edgeStart=new Vector3(band.center.x,band.min.y+.99f,band.min.z-.8f);
+            Check(c.FindTarget(edgeStart,Vector3.forward,out _)==fire,"Just below one-metre boundary remains valid");
+            var farStart=new Vector3(band.center.x,band.min.y+.5f,band.min.z-3.1f);
+            Check(c.FindTarget(farStart,Vector3.forward,out _)==null,"Maximum three-metre spray range remains enforced");
+            var sideStart=new Vector3(band.max.x+.8f,band.min.y+.5f,band.center.z);
+            var frontHead=origin.Camera.transform.position;
+            origin.Camera.transform.position=sideStart+Vector3.right*.3f;
+            Check(c.FindTarget(sideStart,Vector3.left,out _)==fire,"Side face lower band is also valid");
+            origin.Camera.transform.position=frontHead;
+            Check(c.FindTarget(item.Nozzle.position,Vector3.forward,out _)==fire,"Original nozzle aim remains valid with wider targeting");
             var guard=input.GetComponent<CampusXRFireBarrierGuard>();
             typeof(CampusXRFireBarrierGuard).GetField("initialized",BindingFlags.NonPublic|BindingFlags.Instance).SetValue(guard,false);
             Tick(guard,"Constrain");
@@ -70,7 +89,8 @@ namespace CampusEmergency.Editor
             other.transform.position=fire.transform.position+Vector3.right*.3f;
             other.GetComponent<BoxCollider>().center=blocker.center;
             Physics.SyncTransforms();
-            Check(c.FindTarget(item.Nozzle.position,Vector3.forward,out _)==fire,"Overlapping fire boxes do not deadlock base targeting");
+            for(int sample=0;sample<10;sample++)
+                Check(c.FindTarget(item.Nozzle.position,Vector3.forward,out _)==fire,"Coplanar overlapping boxes retain the selected fire");
             other.transform.position=oldOther; other.GetComponent<BoxCollider>().center=oldBoxCenter;
             Physics.SyncTransforms();
             Check(c.FindTarget(item.Nozzle.position,Vector3.up,out _)==null,"Aiming away misses fire base");

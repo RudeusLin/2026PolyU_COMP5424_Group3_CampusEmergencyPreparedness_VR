@@ -9,8 +9,24 @@ PASS: Pin cannot be removed remotely
 PASS: Tracked LEFT grip near pin removes pin
 PASS: Spray nozzle ray identifies fire base
 PASS: Live fire has a solid box blocker
+PASS: Lower band accepts full box width, away from flame root
+PASS: Spray ends at solid front face, never through the fire
+PASS: Above one metre is invalid and resets accumulated spray
+PASS: Just below one-metre boundary remains valid
+PASS: Maximum three-metre spray range remains enforced
+PASS: Side face lower band is also valid
+PASS: Original nozzle aim remains valid with wider targeting
 PASS: Tracked physical movement cannot cross fire box
-PASS: Overlapping fire boxes do not deadlock base targeting
+PASS: Coplanar overlapping boxes retain the selected fire
+PASS: Coplanar overlapping boxes retain the selected fire
+PASS: Coplanar overlapping boxes retain the selected fire
+PASS: Coplanar overlapping boxes retain the selected fire
+PASS: Coplanar overlapping boxes retain the selected fire
+PASS: Coplanar overlapping boxes retain the selected fire
+PASS: Coplanar overlapping boxes retain the selected fire
+PASS: Coplanar overlapping boxes retain the selected fire
+PASS: Coplanar overlapping boxes retain the selected fire
+PASS: Coplanar overlapping boxes retain the selected fire
 PASS: Aiming away misses fire base
 PASS: Wall blocks spray
 PASS: Interrupted two-second hit resets progress

@@ -16,7 +16,7 @@ namespace CampusEmergency.Player.XR
         private InputAction modeButton, leftGrip, rightGrip;
         private bool triggerReleased;
         private CampusFireTarget currentTarget;
-        private CampusFireTarget[] fires;
+        private CampusFireTarget aimedTarget, previewTarget;
         private ParticleSystem spray;
         private LineRenderer aim, ring;
         private Material visualMaterial;
@@ -25,7 +25,7 @@ namespace CampusEmergency.Player.XR
         public bool BlocksTeleport => Held != null && (SprayMode || !triggerReleased);
         public string Status { get; private set; }
         public string Controls => Held == null ? null : (SprayMode ? "MODE: SPRAY" : "MODE: ACTION")
-            + " / B: SWITCH / RIGHT GRIP: RETURN\n" + (SprayMode ? "TRIGGER: SPRAY AT FIRE BASE" : "TRIGGER: TELEPORT")
+            + " / B: SWITCH / RIGHT GRIP: RETURN\n" + (SprayMode ? "TRIGGER: SPRAY LOWER FIRE AREA" : "TRIGGER: TELEPORT")
             + (Held.PinRemoved ? " / PIN REMOVED" : " / LEFT GRIP NEAR PIN: PULL");
 
         public void Configure(CampusXRInput controls, CampusXRInventory items, CampusXRFeedback messages,
@@ -38,7 +38,7 @@ namespace CampusEmergency.Player.XR
             rightGrip = new InputAction("Return extinguisher", InputActionType.Button, "<XRController>{RightHand}/gripPressed");
             modeButton.Enable(); leftGrip.Enable(); rightGrip.Enable();
         }
-        private void Start() { fires = FindObjectsOfType<CampusFireTarget>(); BuildVisuals(); }
+        private void Start() { BuildVisuals(); }
         public bool TryPickup(CampusExtinguisher item)
         {
             if (Held != null || inventory.HeldTowel != null || item == null || item.IsHeld) return false;
@@ -77,8 +77,8 @@ namespace CampusEmergency.Player.XR
             else spray.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             ApplyTarget(spraying ? target : null, Time.deltaTime);
             Status = !Held.PinRemoved ? "STEP 2: pull the yellow safety pin with LEFT grip."
-                : target == null ? "STEP 3: aim at the fire BASE within 3m."
-                : "STEP 4: hold trigger on this base: " + target.ContinuousSeconds.ToString("0.0") + " / 3.0s";
+                : target == null ? "STEP 3: aim at the LOWER 1m of the fire box (within 3m)."
+                : "STEP 4: keep spraying this lower area: " + target.ContinuousSeconds.ToString("0.0") + " / 3.0s";
         }
         public void ApplyTarget(CampusFireTarget target, float seconds)
         {
@@ -88,46 +88,36 @@ namespace CampusEmergency.Player.XR
         }
         public CampusFireTarget FindTarget(Vector3 start, Vector3 direction, out Vector3 end)
         {
+            previewTarget = null;
+            end = start + direction.normalized * 3f;
+            if (direction.sqrMagnitude < .000001f) { aimedTarget = null; return null; }
             direction.Normalize();
-            float distance = 3f;
-            // The visible stream stops at the first solid surface, including the fire barrier.
-            if (Physics.Raycast(start, direction, out var hit, distance, ~0, QueryTriggerInteraction.Ignore)) distance = hit.distance;
-            end = start + direction * distance;
+            var hits = Physics.RaycastAll(start, direction, 3f, ~0, QueryTriggerInteraction.Ignore);
+            Array.Sort(hits, (a,b) => a.distance.CompareTo(b.distance));
+            if (hits.Length == 0) { aimedTarget = null; return null; }
+            float nearest = hits[0].distance;
+            end = hits[0].point;
             if (head != null && (Physics.CheckSphere(start, .02f, ~0, QueryTriggerInteraction.Ignore)
-                || Physics.Linecast(head.position, start, ~0, QueryTriggerInteraction.Ignore))) return null;
-            CampusFireTarget best = null; float nearest = float.MaxValue;
-            if (fires == null) fires = FindObjectsOfType<CampusFireTarget>();
-            foreach (var fire in fires)
+                || Physics.Linecast(head.position, start, ~0, QueryTriggerInteraction.Ignore)))
+            { aimedTarget = null; return null; }
+            CampusFireTarget best = null;
+            bool previousEligible = false;
+            // Only the first solid face is eligible. Millimetre tolerance resolves coplanar
+            // overlapping fire boxes, never a separate fire behind the front one.
+            foreach (var hit in hits)
             {
-                if (fire == null || !fire.isActiveAndEnabled || fire.Extinguished) continue;
-                Vector3 offset = fire.AimPoint - start;
-                float along = Vector3.Dot(offset, direction);
-                float radial2 = offset.sqrMagnitude - along * along;
-                float r2 = CampusFireTarget.BaseRadius * CampusFireTarget.BaseRadius;
-                if (along < 0f || radial2 > r2) continue;
-                float entry = Mathf.Max(0f, along - Mathf.Sqrt(Mathf.Max(0f, r2 - radial2)));
-                // Verify unobstructed line to the base, not just the near side of its tolerance sphere.
-                if (entry > 3f || entry >= nearest || !CanReachBase(start, direction, fire, entry, distance)) continue;
-                best = fire; nearest = entry;
+                if (hit.distance > nearest + .002f) break;
+                var fire = hit.collider.GetComponent<CampusFireTarget>();
+                if (fire == null || !fire.isActiveAndEnabled || fire.Extinguished)
+                { aimedTarget = null; previewTarget = null; return null; }
+                if (previewTarget == null) previewTarget = fire;
+                if (!fire.IsInSprayBand(hit.point)) continue;
+                if (fire == aimedTarget) previousEligible = true;
+                if (best == null || fire.GetInstanceID() < best.GetInstanceID()) best = fire;
             }
+            if (previousEligible) best = aimedTarget;
+            aimedTarget = best;
             return best;
-        }
-        private static bool CanReachBase(Vector3 start, Vector3 direction, CampusFireTarget fire, float entry, float firstDistance)
-        {
-            var ownBox=fire.GetComponent<BoxCollider>();
-            // A solid fire volume encloses its own root. Permit aiming into that volume only
-            // at its exposed face. Overlapping boxes share a face and must not deadlock suppression.
-            Bounds own=ownBox!=null ? ownBox.bounds : new Bounds(); own.Expand(.04f);
-            if(entry>firstDistance && (ownBox==null || !own.Contains(start+direction*firstDistance))) return false;
-            Vector3 delta=fire.AimPoint-start;
-            foreach(var obstacle in Physics.RaycastAll(start,delta.normalized,delta.magnitude,~0,QueryTriggerInteraction.Ignore))
-            {
-                var other=obstacle.collider.GetComponent<CampusFireTarget>();
-                if(other==fire) continue;
-                if(other!=null && ownBox!=null && own.Contains(obstacle.point)) continue;
-                return false;
-            }
-            return true;
         }
         public void ReturnHeld()
         {
@@ -138,7 +128,7 @@ namespace CampusEmergency.Player.XR
         }
         private void StopSpray()
         {
-            ApplyTarget(null, 0f); Status = string.Empty;
+            ApplyTarget(null, 0f); aimedTarget = previewTarget = null; Status = string.Empty;
             if (spray != null) spray.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             if (aim != null) aim.enabled = false;
             if (ring != null) ring.enabled = false;
@@ -167,10 +157,28 @@ namespace CampusEmergency.Player.XR
         {
             aim.enabled = true; aim.positionCount = 2; aim.SetPosition(0,start); aim.SetPosition(1,end);
             aim.startColor = aim.endColor = target != null ? Color.green : Color.red;
-            ring.enabled = target != null;
-            if (target == null) return;
-            ring.positionCount = 33; ring.startColor = ring.endColor = Color.green;
-            for(int i=0;i<33;i++) { float a=i*Mathf.PI*2f/32f; ring.SetPosition(i,target.transform.position+new Vector3(Mathf.Cos(a)*.5f,.04f,Mathf.Sin(a)*.5f)); }
+            var preview = target != null ? target : previewTarget;
+            ring.enabled = preview != null;
+            if (preview == null) return;
+            var box = preview.GetComponent<BoxCollider>();
+            if (box == null) { ring.enabled = false; return; }
+            var b = box.bounds;
+            float bottom = b.min.y + .06f, top = Mathf.Min(b.max.y,b.min.y+CampusFireTarget.SprayBandHeight);
+            float xFace = Mathf.Abs(end.x-b.min.x) < Mathf.Abs(end.x-b.max.x) ? b.min.x-.012f : b.max.x+.012f;
+            float zFace = Mathf.Abs(end.z-b.min.z) < Mathf.Abs(end.z-b.max.z) ? b.min.z-.012f : b.max.z+.012f;
+            Vector3 a, c, d, e;
+            if (Mathf.Abs(end.x-xFace) < Mathf.Abs(end.z-zFace))
+            {
+                a=new Vector3(xFace,bottom,b.min.z); c=new Vector3(xFace,bottom,b.max.z);
+                d=new Vector3(xFace,top,b.max.z); e=new Vector3(xFace,top,b.min.z);
+            }
+            else
+            {
+                a=new Vector3(b.min.x,bottom,zFace); c=new Vector3(b.max.x,bottom,zFace);
+                d=new Vector3(b.max.x,top,zFace); e=new Vector3(b.min.x,top,zFace);
+            }
+            ring.positionCount=5; ring.SetPositions(new[]{a,c,d,e,a});
+            ring.startColor=ring.endColor=target!=null ? Color.green : new Color(1f,.7f,.15f);
         }
         private void OnDisable()
         {
