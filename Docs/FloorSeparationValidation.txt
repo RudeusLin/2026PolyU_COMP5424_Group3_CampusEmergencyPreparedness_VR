@@ -1,0 +1,13 @@
+Cross-floor live-fire regression
+PASS: Fixture reproduces false diagonal sweep through lower fire
+PASS: Upper floor above live lower fire is a valid destination
+PASS: Walking on upper slab is independent of lower fire
+PASS: Downstairs destination outside fire is valid
+PASS: Same-level teleport still cannot bypass live fire
+PASS: A small step-height change cannot bypass fire
+PASS: Direct ray still stops on fire box
+PASS: Landing inside live fire remains forbidden
+PASS: Upper-floor teleport request accepted
+PASS: Real provider moves camera to upper floor
+PASS: Guard does not undo completed teleport as physical walking
+RESULT: PASS. Simulated headset; hardware NOT RUN.

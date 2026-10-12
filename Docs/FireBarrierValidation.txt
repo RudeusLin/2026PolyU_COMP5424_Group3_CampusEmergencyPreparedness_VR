@@ -1,4 +1,13 @@
-PASS: nine solid 4.2 x 3.45 x 4.2 metre fire boxes, based on supporting floors
+PASS: nine solid fire boxes, 4.2m footprint, tops clipped below overhead floor slabs
+PASS: Fire3 vertical limits 5.95..6.95 below overhead slabs
+PASS: Fire3 (5) vertical limits -0.05..3.35 below overhead slabs
+PASS: Fire3 (2) vertical limits 5.35..6.95 below overhead slabs
+PASS: Fire3 (3) vertical limits 5.35..6.95 below overhead slabs
+PASS: Fire3 (6) vertical limits -0.05..3.35 below overhead slabs
+PASS: Fire1 vertical limits 10.75..14.20 below overhead slabs
+PASS: Fire2 vertical limits 10.75..14.20 below overhead slabs
+PASS: Fire3 (1) vertical limits 5.95..6.95 below overhead slabs
+PASS: Fire3 (4) vertical limits -0.05..3.35 below overhead slabs
 PASS: initial spawn remains outside fire volumes
 PASS: outdoor landing (0.00, 0.03, -12.00) on MainWalkway
 PASS: outdoor landing (0.00, 0.03, -19.00) on MainWalkway

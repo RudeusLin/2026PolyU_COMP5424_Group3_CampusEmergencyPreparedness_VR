@@ -30,6 +30,7 @@ namespace CampusEmergency.Editor
         { if(rig.GetComponent<CampusXRFireBarrierGuard>()==null) rig.AddComponent<CampusXRFireBarrierGuard>(); }
         public static void ConfigureScene()
         {
+            Physics.SyncTransforms();
             foreach(var fire in UnityEngine.Object.FindObjectsOfType<CampusFireTarget>())
             {
                 foreach(var sphere in fire.GetComponents<SphereCollider>()) UnityEngine.Object.DestroyImmediate(sphere);
@@ -44,8 +45,20 @@ namespace CampusEmergency.Editor
                 // Main corridors are centered on z=0 and 3m wide. Center the barrier on the
                 // passage rather than an offset flame so even a few-centimetre ray gap is closed.
                 float centerZ=Mathf.Abs(fire.transform.position.x)<=13f ? 0f : fire.transform.position.z;
-                box.center=fire.transform.InverseTransformPoint(new Vector3(fire.transform.position.x,floorY+1.675f,centerZ));
-                box.size=new Vector3(4.2f,3.45f,4.2f);
+                float top=floorY+3.4f;
+                foreach(var surface in UnityEngine.Object.FindObjectsOfType<CampusTeleportSurface>())
+                {
+                    if(surface.name!="FloorSlab" && surface.name!="Landing" && surface.name!="HalfLanding") continue;
+                    var collider=surface.GetComponent<Collider>(); if(collider==null || collider.isTrigger) continue;
+                    var bounds=collider.bounds;
+                    if(bounds.min.y<=floorY+.5f || bounds.min.y-.05f>=top) continue;
+                    if(bounds.max.x<fire.transform.position.x-2.1f || bounds.min.x>fire.transform.position.x+2.1f
+                        || bounds.max.z<centerZ-2.1f || bounds.min.z>centerZ+2.1f) continue;
+                    top=Mathf.Min(top,bounds.min.y-.05f);
+                }
+                float bottom=floorY-.05f;
+                box.center=fire.transform.InverseTransformPoint(new Vector3(fire.transform.position.x,(bottom+top)*.5f,centerZ));
+                box.size=new Vector3(4.2f,top-bottom,4.2f);
                 if(fire.GetComponent<CampusFireBarrier>()==null) fire.gameObject.AddComponent<CampusFireBarrier>();
             }
             foreach(var t in UnityEngine.Object.FindObjectsOfType<Transform>().Where(t=>OutdoorSurfaces.Contains(t.name)))
@@ -63,7 +76,21 @@ namespace CampusEmergency.Editor
             var fires=UnityEngine.Object.FindObjectsOfType<CampusFireTarget>();
             if(fires.Length!=9 || fires.Any(f=>f.GetComponent<BoxCollider>()==null || f.GetComponent<BoxCollider>().isTrigger
                 || f.GetComponent<BoxCollider>().bounds.size.x<4f || f.GetComponent<BoxCollider>().bounds.size.z<4f)) throw new Exception("Fire boxes incomplete");
-            var lines=new System.Collections.Generic.List<string>{"PASS: nine solid 4.2 x 3.45 x 4.2 metre fire boxes, based on supporting floors"};
+            var lines=new System.Collections.Generic.List<string>{"PASS: nine solid fire boxes, 4.2m footprint, tops clipped below overhead floor slabs"};
+            foreach(var fire in fires)
+            {
+                var fireBounds=fire.GetComponent<BoxCollider>().bounds;
+                foreach(var surface in UnityEngine.Object.FindObjectsOfType<CampusTeleportSurface>())
+                {
+                    if(surface.name!="FloorSlab" && surface.name!="Landing" && surface.name!="HalfLanding") continue;
+                    var ceiling=surface.GetComponent<Collider>().bounds;
+                    if(ceiling.min.y<=fireBounds.min.y+.55f) continue;
+                    bool overlap=ceiling.max.x>=fireBounds.min.x && ceiling.min.x<=fireBounds.max.x
+                        && ceiling.max.z>=fireBounds.min.z && ceiling.min.z<=fireBounds.max.z;
+                    if(overlap && fireBounds.max.y>ceiling.min.y-.04f) throw new Exception("Fire penetrates overhead slab: "+fire.name+" box="+fireBounds+" ceiling="+ceiling+" object="+surface.name);
+                }
+                lines.Add("PASS: "+fire.name+" vertical limits "+fireBounds.min.y.ToString("F2")+".."+fireBounds.max.y.ToString("F2")+" below overhead slabs");
+            }
             var spawn=GameObject.Find("Spawn_F04_401").transform.position;
             if(CampusFireBarrier.BlocksTraversal(spawn,spawn,1.65f)) throw new Exception("Fire boxes cover initial spawn");
             lines.Add("PASS: initial spawn remains outside fire volumes");
