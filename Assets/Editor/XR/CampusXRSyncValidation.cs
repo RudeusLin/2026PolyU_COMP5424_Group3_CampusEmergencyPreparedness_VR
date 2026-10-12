@@ -29,6 +29,7 @@ namespace CampusEmergency.Editor
             if (origin == null) throw new InvalidOperationException("Saved XR rig missing.");
             if (origin.GetComponent<CampusXRInventory>() == null)
                 throw new InvalidOperationException("Inventory did not propagate from the preserved prefab.");
+            CampusXRSceneBuilder.ConfigureInventory(origin.gameObject);
             foreach (var collider in Object.FindObjectsOfType<Collider>())
                 if (CampusXRSceneBuilder.IsWalkableName(collider.name) && !collider.isTrigger
                     && collider.GetComponent<CampusTeleportSurface>() == null)
@@ -52,7 +53,7 @@ namespace CampusEmergency.Editor
             var towels = Object.FindObjectsOfType<CampusTowel>().OrderBy(t => t.transform.position.y).ToArray();
             var inventory = Object.FindObjectOfType<CampusXRInventory>();
             check(taps.Length == 4 && towels.Length == 4, "Four wash stations imported into XR scene");
-            check(inventory != null && inventory.TowelHoldPoint != null, "XR towel anchor saved on tracked right controller");
+            check(inventory != null && inventory.TowelHoldPoint != null && inventory.TowelHoldPoint.parent.name == "Left Controller Aim", "XR towel anchor saved on tracked left controller");
             check(GameObject.Find("Room403").transform.Find("CollaborationTable") != null, "Room 403 remodeled");
             check(Object.FindObjectsOfType<Transform>().Count(t => t.name.StartsWith("RefugeRoom_F")) == 4,
                 "Four refuge rooms retained");

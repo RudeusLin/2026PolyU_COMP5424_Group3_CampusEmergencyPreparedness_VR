@@ -1,0 +1,15 @@
+Left-hand towel + hold-to-raise simulated input
+PASS: Pickup uses left hand and disables held collision
+PASS: Pickup with trigger already held requires release
+PASS: Actual left trigger raises towel
+PASS: Rendered towel remains below central view at head pitch 0
+PASS: Rendered towel remains below central view at head pitch 60
+PASS: Rendered towel remains below central view at head pitch -60
+PASS: Raised towel never blocks ray or standing space
+PASS: Release lowers towel without losing wet state
+PASS: Focus loss lowers and hides held towel
+PASS: Focus recovery while trigger held does not auto-raise
+PASS: Left tracking loss hides towel
+PASS: Existing right grip returns raised towel and restores dry visible model
+PASS: Return restores resting anchor for next pickup
+RESULT: PASS. Synthetic controllers; headset comfort NOT RUN.

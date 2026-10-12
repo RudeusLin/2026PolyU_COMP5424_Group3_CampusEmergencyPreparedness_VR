@@ -1,7 +1,7 @@
 Campus1 -> Campus_XR sync validation
-UTC: 2026-10-12T05:29:45.5493772Z
+UTC: 2026-10-12T05:35:49.7173618Z
 PASS: Four wash stations imported into XR scene
-PASS: XR towel anchor saved on tracked right controller
+PASS: XR towel anchor saved on tracked left controller
 PASS: Room 403 remodeled
 PASS: Four refuge rooms retained
 PASS: Fourth-floor washroom relocated near room 401

@@ -30,7 +30,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7756943111350761171}
   - {fileID: 8632686222171463231}
   m_Father: {fileID: 1296757348901091469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -378,7 +377,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5654239946090585439}
+  m_Father: {fileID: 4566614157768546324}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2179676032479079882
 GameObject:
@@ -967,6 +966,8 @@ MonoBehaviour:
   teleport: {fileID: 264616675156926811}
   holdPoint: {fileID: 7756943111350761171}
   feedback: {fileID: 3280067034027496842}
+  raisedOffset: {x: -0.06, y: -0.24, z: 0.32}
+  raiseDuration: 0.2
 --- !u!114 &4680894323455723201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1392,6 +1393,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2710382388292065427}
+  - {fileID: 7756943111350761171}
   m_Father: {fileID: 1296757348901091469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9188416353528281111

@@ -74,6 +74,13 @@ namespace CampusEmergency.Player.XR
                 controls = extinguisher.Controls;
                 if (!string.IsNullOrEmpty(extinguisher.Status)) live = extinguisher.Status;
             }
+            var inventory = input != null ? input.GetComponent<CampusXRInventory>() : null;
+            if (inventory != null && inventory.HeldTowel != null)
+            {
+                controls = inventory.Controls;
+                live = (inventory.HeldTowel.IsWet ? "WET TOWEL" : "DRY TOWEL: use the tap")
+                    + (inventory.IsTowelRaised ? " / RAISED BELOW VIEW" : " / HELD IN LEFT HAND");
+            }
             string alert = Time.unscaledTime < noticeUntil ? notice : string.Empty;
             if (input != null)
             {

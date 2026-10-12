@@ -38,3 +38,7 @@ Tools/XRSetup/RunUnityCheck.ps1 -Method CampusEmergency.Editor.CampusControllerV
 通过模拟 Oculus Touch 按键驱动实际 Input System 与 TeleportationProvider。具体结果以 Docs/ControllerValidation.txt 为准。真机视觉和实际按键仍需 Quest 3 测试。
 
 修改前备份：Tools/XRSetup/BeforeRightTriggerTeleport。
+
+## 左手毛巾
+
+A 拿取后由左手持有；按住左手扳机抬到视野下缘表示遮住口鼻，松开放下。右扳机仍可传送，右握持键仍归还，水龙头仍用 A。详见 [毛巾操作与实现](XRTowelInteraction.md)。

@@ -113,8 +113,8 @@ namespace CampusEmergency.Editor
         public static void ConfigureInventory(GameObject root)
         {
             var hand = root.GetComponentsInChildren<Transform>(true)
-                .Single(t => t.name == "Right Controller Aim");
-            var point = hand.Find("Towel Hold Point");
+                .Single(t => t.name == "Left Controller Aim");
+            var point = root.GetComponentsInChildren<Transform>(true).SingleOrDefault(t => t.name == "Towel Hold Point");
             if (point == null)
             {
                 point = new GameObject("Towel Hold Point").transform;
@@ -122,6 +122,9 @@ namespace CampusEmergency.Editor
                 point.localPosition = new Vector3(0, -.04f, .12f);
                 point.localRotation = Quaternion.Euler(90, 0, 0);
             }
+            point.SetParent(hand, false);
+            point.localPosition = new Vector3(0, -.04f, .12f);
+            point.localRotation = Quaternion.Euler(90, 0, 0);
             var inventory = root.GetComponent<CampusXRInventory>();
             if (inventory == null) inventory = root.AddComponent<CampusXRInventory>();
             inventory.Configure(root.GetComponent<CampusXRInput>(), root.GetComponent<CampusTeleportController>(),
