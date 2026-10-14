@@ -95,11 +95,15 @@ namespace CampusEmergency.Editor
             ConfigureControllerVisuals(root);
             CampusExtinguisherSetup.ConfigureScene();
             var session = root.AddComponent<CampusXRSession>();
+            var guidance = root.AddComponent<CampusXRGuidancePointer>();
             PrefabUtility.SaveAsPrefabAssetAndConnect(root, RigPath, InteractionMode.AutomatedAction);
             // Scene anchors deliberately live on the instance, never inside the reusable rig prefab.
             session.Configure(origin, input, spawn, assembly, feedback);
+            guidance.Configure(head.transform, assembly);
             EditorUtility.SetDirty(session);
+            EditorUtility.SetDirty(guidance);
             PrefabUtility.RecordPrefabInstancePropertyModifications(session);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(guidance);
             if (!EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene(), XRScene))
                 throw new InvalidOperationException("Could not save XR scene.");
             var scenes = EditorBuildSettings.scenes.Where(s => s.path != XRScene).ToList();
