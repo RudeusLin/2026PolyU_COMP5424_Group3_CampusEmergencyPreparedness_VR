@@ -382,9 +382,6 @@ def layout():
     sign(exterior, "TEACHING BLOCK A", (0, 3.05, -12.13), 6.5, .5, size=.3)
 
     smoke = node("Smoke_VisualOnly_ToggleH", root, active=True)
-    for i in range(9):
-        node("SmokeVolume", smoke, (5.6 + i % 3 * .7, 11.5 + i // 3 * .6, i % 2 * .5 - .25),
-             "sphere", (1.6, 1.5, 1.6), "Smoke", floor=4)
     node("Hazard_F04_Corridor", anchors, (6.3, 10.8, 0))
     lighting = node("Lighting", root)
     node("Sun", lighting, kind="sun", rotation=look_rotation([0, 0, 0], [.5, -.75, .35]))

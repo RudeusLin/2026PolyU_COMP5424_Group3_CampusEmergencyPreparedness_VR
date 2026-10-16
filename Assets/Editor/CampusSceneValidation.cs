@@ -46,7 +46,7 @@ namespace CampusEmergency.Editor
             try
             {
                 CampusDrillAtmosphere atmosphere = Object.FindObjectsOfType<CampusDrillAtmosphere>(true).Single();
-                Require(atmosphere.gameObject.activeSelf, "Persistent smoke must start enabled");
+                Require(atmosphere.gameObject.activeSelf, "Drill alarm must start enabled");
                 Require(LightmapSettings.lightmaps.Length > 0, "Saved scene lost its lighting");
                 int junctions = CheckWindowJunctions();
                 int daylightPixels = CheckScannedMaterialsAndDaylight();
@@ -61,18 +61,13 @@ namespace CampusEmergency.Editor
                         "Shader compilation error in " + name);
                 }
                 Vector3 drillEye = new Vector3(3.6f, 12.45f, -.5f), drillTarget = new Vector3(8, 13f, 2f);
-                ParticleSystem smoke = atmosphere.GetComponentsInChildren<ParticleSystem>(true).Single();
                 AudioSource audio = atmosphere.GetComponentsInChildren<AudioSource>(true).Single();
-                Require(smoke.main.maxParticles == 48, "Smoke particle budget changed");
-                Require(smoke.isPlaying && !audio.isPlaying, "Smoke must start without alarm audio");
+                Require(!audio.isPlaying, "Alarm must not start by itself");
                 Require(audio.clip != null && audio.volume <= .12f && audio.spatialBlend == 1f,
                     "Alarm must have a quiet spatial audio clip");
-                smoke.Simulate(2f, true, true);
-                Require(smoke.particleCount > 0 && smoke.particleCount <= 48, "Smoke did not emit");
-                Color32[] active = Capture("Campus-DrillPreview.png", drillEye, drillTarget, 74);
-                int smokePixels = active.Count(pixel => pixel.a > 0);
+                Capture("Campus-DrillPreview.png", drillEye, drillTarget, 74);
                 atmosphere.ActivateAlarm();
-                Require(smoke.isPlaying && audio.isPlaying, "Alarm activation must preserve smoke and start audio");
+                Require(audio.isPlaying, "Alarm activation must start audio");
                 Capture("Campus-Noticeboard.png", new Vector3(-4.35f, 12.45f, .85f), new Vector3(-4.35f, 12.65f, -1.34f), 80);
                 Capture("Campus-ClassroomDetails.png", new Vector3(-9.8f, 12.45f, 4.4f), new Vector3(-2.7f, 12.2f, 6.6f), 74);
                 Directory.CreateDirectory(Folder);
@@ -84,10 +79,8 @@ namespace CampusEmergency.Editor
                     + "Visible direct-daylight pixels in classroom: " + daylightPixels + " PASS\n"
                     + "Printed sign carriers, lit textures and visible noticeboard lettering pixels: " + letteringPixels + " PASS\n"
                     + "CampusSmoke/ArchitecturalSurface/WorldSpaceText shaders: PASS\n"
-                    + "Persistent smoke starts enabled without alarm audio: PASS\n"
-                    + "One emitter/audio source, max 48 particles: PASS\n"
-                    + "Alarm activation preserves smoke and starts quiet spatial audio: PASS\n"
-                    + "Visible smoke pixels from corridor: " + smokePixels + " PASS\n"
+                    + "Drill alarm starts enabled without playing: PASS\n"
+                    + "Alarm activation starts quiet spatial audio: PASS\n"
                     + "Generated desktop render captures: PASS\n"
                     + "Headset frame rate, stereo rendering, locomotion and manual M-key audio perception unverified.\n");
                 Debug.Log("CAMPUS_RUNTIME_VALIDATION_SUCCESS");

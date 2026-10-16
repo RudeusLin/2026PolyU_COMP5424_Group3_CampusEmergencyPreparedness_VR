@@ -33,9 +33,9 @@ namespace CampusEmergency.Prototype
                 if (GUI.Button(new Rect(194, 147, 147, 34), LanguageSelectionUI.T("Enter second floor [F2]", "进入二楼 [F2]", "進入二樓 [F2]"))) EnterFloor(spawnSecondFloor);
             }
             GUI.Label(new Rect(22, Screen.height - 38, 600, 25), LanguageSelectionUI.T(
-                "ENVIRONMENT PROTOTYPE  /  F2 & F4 start points  /  persistent drill smoke",
-                "环境原型  /  F2与F4出生点  /  持续演练烟雾",
-                "環境原型  /  F2與F4出生點  /  持續演練煙霧"), textStyle);
+                "ENVIRONMENT PROTOTYPE  /  F2 & F4 start points",
+                "环境原型  /  F2与F4出生点",
+                "環境原型  /  F2與F4出生點"), textStyle);
 
             if (walking)
             {
