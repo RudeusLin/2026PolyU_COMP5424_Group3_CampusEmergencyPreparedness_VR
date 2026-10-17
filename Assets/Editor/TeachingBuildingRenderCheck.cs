@@ -10,6 +10,14 @@ using Object = UnityEngine.Object;
 
 public static class TeachingBuildingRenderCheck
 {
+    private static void OpenLegacyRefinedScene()
+    {
+        const string scene = "Assets/Scenes/TeachingBuildingRefined.unity";
+        if (!File.Exists(scene))
+            throw new FileNotFoundException("Legacy Refined scene was archived. Restore it from Git or use Campus Emergency/Legacy/Rebuild refined scene before running this legacy check.", scene);
+        EditorSceneManager.OpenScene(scene);
+    }
+
     public static void Run()
     {
         TeachingBuildingBuilder.BuildRefinedAndCapture();
@@ -18,7 +26,7 @@ public static class TeachingBuildingRenderCheck
 
     public static void ValidateSavedScene()
     {
-        EditorSceneManager.OpenScene("Assets/Scenes/TeachingBuildingRefined.unity");
+        OpenLegacyRefinedScene();
         const string folder = "Assets/Environment/TeachingBuildingRefined";
         PrototypeSceneBootstrap bootstrap = Object.FindObjectOfType<PrototypeSceneBootstrap>();
         TextMesh[] labels = bootstrap.GetComponentsInChildren<TextMesh>(true);
@@ -76,7 +84,7 @@ public static class TeachingBuildingRenderCheck
             }
             finally { PrefabUtility.UnloadPrefabContents(contents); }
         }
-        EditorSceneManager.OpenScene("Assets/Scenes/TeachingBuildingRefined.unity");
+        OpenLegacyRefinedScene();
         bootstrap = Object.FindObjectOfType<PrototypeSceneBootstrap>();
         bootstrap.InitializeText();
         TextMesh[] loadedLabels = bootstrap.GetComponentsInChildren<TextMesh>(true);
@@ -149,7 +157,7 @@ public static class TeachingBuildingRenderCheck
         labelObject.SetActive(false);
         Require(blocked.SequenceEqual(RenderPixels(camera)), "A label behind an opaque wall contributes zero pixels");
         Object.DestroyImmediate(wallMaterial);
-        EditorSceneManager.OpenScene("Assets/Scenes/TeachingBuildingRefined.unity");
+        OpenLegacyRefinedScene();
     }
 
     private static Color32[] RenderPixels(Camera camera)

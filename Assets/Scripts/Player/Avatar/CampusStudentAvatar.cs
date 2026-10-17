@@ -117,7 +117,11 @@ namespace CampusEmergency.Prototype
             part.AddComponent<MeshFilter>().sharedMesh = mesh;
             MeshRenderer renderer = part.AddComponent<MeshRenderer>();
             renderer.sharedMaterial = material;
+            renderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.BlendProbes;
+#if UNITY_EDITOR
+            // receiveGI is only available in the Unity Editor API.
             renderer.receiveGI = ReceiveGI.LightProbes;
+#endif
         }
     }
 }

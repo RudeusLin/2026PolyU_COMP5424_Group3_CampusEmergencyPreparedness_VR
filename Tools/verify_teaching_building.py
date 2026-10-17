@@ -164,6 +164,8 @@ def validate_routes(data):
 
 
 def main():
+    if not (ROOT / "Assets/Scenes/TeachingBuilding.unity").exists():
+        raise SystemExit("Legacy Prototype scene was archived. Restore it from Git or regenerate it before running this legacy-only check.")
     data = json.loads((ROOT / 'Assets/Environment/TeachingBuildingLayout.json').read_text(encoding='utf-8'))
     compiled = compile_scripts()
     validate_assets(data)
