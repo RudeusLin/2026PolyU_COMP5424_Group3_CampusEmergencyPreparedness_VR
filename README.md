@@ -12,7 +12,7 @@ A VR fire evacuation preparedness practice prototype for international students 
 
 ## Download and run
 
-**[Download the Windows x64 PC VR ZIP](https://github.com/RudeusLin/2026PolyU_COMP5424_Group3_CampusEmergencyPreparedness_VR/raw/refs/heads/main/Phase2_Deliverables/Campus_XR_Effects_Cleaned_Windows.zip)** (approximately 52.45 MiB). No Unity Editor is required to run this package.
+**[Download the Windows x64 PC VR ZIP](https://github.com/RudeusLin/2026PolyU_COMP5424_Group3_CampusEmergencyPreparedness_VR/raw/refs/heads/main/Phase2_Deliverables/Campus_XR_Effects_Cleaned_Windows.zip)** (approximately 51.63 MiB). No Unity Editor is required to run this package.
 
 1. Use a Windows PC configured for Quest Link or Air Link, with the Meta Quest Link application and Quest 3 controllers ready. This package is a PC VR executable, not an Android APK.
 2. Download and fully extract the ZIP. Open the extracted `Campus_XR` folder; do not launch the executable from inside the archive.
@@ -20,7 +20,7 @@ A VR fire evacuation preparedness practice prototype for international students 
 4. Run `Campus_XR.exe`. Keep `Campus_XR_Data`, `MonoBleedingEdge`, `UnityPlayer.dll` and the other supplied files beside it.
 5. Select a language, preview a route and start. To repeat the practice from its initial state, close and relaunch the application.
 
-The download contains the previously validated Effects build with Windows compilation fixes and legacy scene cleanup. Later README and weekly-record edits do not change its gameplay. The [SHA-256 checksum](Phase2_Deliverables/Campus_XR_Effects_Cleaned_Windows.zip.sha256) is provided for download verification. See [PC VR setup](Docs/Quest3PCVRSetup.md) for connection details. PQ604A/B/C hardware compatibility and performance still require on-site verification.
+The download was rebuilt from the final project source at commit `fc722e9` using Unity 2022.3.62f3 for Windows x64. The archive passed integrity verification; this rebuild has not undergone a new headset test. The [SHA-256 checksum](Phase2_Deliverables/Campus_XR_Effects_Cleaned_Windows.zip.sha256) is provided for download verification. See [PC VR setup](Docs/Quest3PCVRSetup.md) for connection details. PQ604A/B/C hardware compatibility and performance still require on-site verification.
 
 ## Feature status
 
