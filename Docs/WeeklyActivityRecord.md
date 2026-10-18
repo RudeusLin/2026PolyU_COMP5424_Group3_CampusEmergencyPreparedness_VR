@@ -103,13 +103,13 @@ Repository: https://github.com/RudeusLin/2026PolyU_COMP5424_Group3_CampusEmergen
 
 ## Commit author references (for team verification)
 
-| Name | Git author identifier | Main areas covered by visible commits |
+| Name | GitHub account | Main areas covered by visible commits |
 | --- | --- | --- |
 | Lin Zhiwei | RudeusLin | Developed XR movement and item interactions, integrated team updates, and prepared documentation and builds. |
 | Mo Jiangwei | MoooJianG | Built and refined campus models, improved stair traversal, and developed character animation and first-person hands. |
 | Liu Tianran | LTR132322 | Added session workflow scripts, including controllers, action relays and zones, and organised related project files. |
 | Li Yisheng | LiYS-08 | Developed interface screens and objective guidance, including the directional arrow and beacon for navigating the campus. |
-| Fu Jiahao | fjh | Added fire and smoke effects, integrated smoke into the XR scene, and corrected ground-flickering issues. |
+| Fu Jiahao | FJH-123123 | Added fire and smoke effects, integrated smoke into the XR scene, and corrected ground-flickering issues. |
 
 ## Accessing the evidence
 
