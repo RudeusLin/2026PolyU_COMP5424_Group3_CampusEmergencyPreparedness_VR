@@ -65,6 +65,10 @@ Open [the standalone campus preview](Docs/Previews/Campus/TeachingBuildingCampus
 
 The Prototype and Refined scene files have been removed from the active checkout; their history remains in Git. The links above describe historical versions. Restore the scenes from commit 3c058a6 before opening them, or explicitly rebuild them from Campus Emergency > Legacy. Campus and XR remain available. Shared textures, models, scene lighting folders and generation helpers are retained. See [scene cleanup](Docs/LegacySceneCleanup.md).
 
+## Weekly activity record
+
+See [weekly activities, outcomes and commit evidence](Docs/WeeklyActivityRecord.md) for 21 September–18 October 2026.
+
 ## Project maintenance
 
 See [file organization and cleanup](Docs/ProjectFileAudit.md) and [the cleanup record](Docs/ProjectCleanupCandidates.json). Unity caches, logs and generated IDE project files are excluded by `.gitignore`.
