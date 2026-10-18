@@ -1,111 +1,118 @@
-# COMP5424 Group 3 每周活动记录（草稿）
+# COMP5424 Group 3 Weekly Activity Record (Draft)
 
-项目：Campus Emergency Preparedness / Campus_XR
+Project: Campus Emergency Preparedness / Campus_XR
 
-记录范围：2026-09-21 至 2026-10-18
+Reporting period: 2026-09-21 to 2026-10-18
 
-整理日期：2026-10-18
+Compiled on: 2026-10-18
 
-仓库：https://github.com/RudeusLin/2026PolyU_COMP5424_Group3_CampusEmergencyPreparedness_VR
+Repository: https://github.com/RudeusLin/2026PolyU_COMP5424_Group3_CampusEmergencyPreparedness_VR
 
-## 第1周：2026-09-21—09-27
+## Week 1: 2026-09-21 to 09-27
 
-**阶段目标：** 建立小组仓库与项目说明。
+**Objective:** Establish the team repository and project description.
 
-**活动与成果：**
-- 09-23 创建项目仓库并多次修订 README，补充项目标题及团队信息。
-- 为后续 Unity 原型开发建立版本管理入口。
+**Activities and outcomes:**
 
-**证据：** `c5cef99`（Initial commit）、`fa1f589`（Revise README with new title and team details）以及同日 README 更新提交。
+- On 09-23, created the project repository and revised the README several times to add the project title and team information.
+- Established version control for subsequent Unity prototype development.
 
-**问题与记录限制：** 当前证据不足以确认本周是否已完成需求访谈、正式设计讨论或用户研究；不将这些活动列为已完成。
+**Evidence:** `c5cef99` (Initial commit), `fa1f589` (Revise README with new title and team details), and other README updates on the same day.
 
-**后续方向：** 导入 Unity 工程，建立校园与疏散路线原型。
+**Issues and record limitations:** Available evidence does not establish whether requirements interviews, formal design discussions, or user research were completed this week; these activities are therefore not recorded as completed.
 
-## 第2周：2026-09-28—10-04
+**Next steps:** Import the Unity project and develop prototypes of the campus and evacuation routes.
 
-**阶段目标：** 将项目说明转化为可查看的校园环境原型。
+## Week 2: 2026-09-28 to 10-04
 
-**活动与成果：**
-- 09-29 提交 Campus1 基础工程，固定 Unity 2022.3.62f3，并同步仓库历史。
-- 10-02 加入四层教学楼和细化疏散场景，形成校园空间与疏散路线的可视化基础。
-- 保存原型与细化场景及相应预览和说明，支持后续比较与迭代。
+**Objective:** Turn the project description into a viewable campus environment prototype.
 
-**证据：** `d4e417e`（Unity 基础工程）、`300bc0d`（历史合并）、`74ba2b5`（四层教学楼和细化场景）。
+**Activities and outcomes:**
 
-**问题与记录限制：** 本周提交能证明环境原型形成，但不能证明 Quest 3 交互、最终可执行程序或用户评估已经完成。
+- On 09-29, committed the Campus1 base project, fixed the Unity version at 2022.3.62f3, and synchronised repository history.
+- On 10-02, added a four-storey teaching building and a refined evacuation scene, establishing a visual foundation for the campus layout and evacuation routes.
+- Retained the prototype and refined scenes, together with previews and instructions, to support comparison and iteration.
 
-**后续方向（从下一周记录归纳）：** 完善楼梯通行、人物动作、设施交互，并将桌面体验迁移到 XR。
+**Evidence:** `d4e417e` (Unity base project), `300bc0d` (history merge), and `74ba2b5` (four-storey teaching building and refined scene).
 
-## 第3周：2026-10-05—10-11
+**Issues and record limitations:** These commits demonstrate the creation of an environment prototype, but do not establish that Quest 3 interactions, the final executable, or user evaluation were complete.
 
-**阶段目标：** 完善校园交互，并建立 Quest 3 PC VR 的基本用户体验。
+**Next steps (inferred from the following week's records):** Improve stair traversal, character animation, and facility interactions, and migrate the desktop experience to XR.
 
-**活动与成果：**
-- 10-05 整理工程文件和过时资源，修复楼梯通行，加入有动作表现的校园人物。
-- 10-07 上传 PracticeSession、PracticeSessionController、SessionActionRelay、SessionActionZone 等会话基础代码。该项记录为代码框架建设，不等同于完整评估闭环已经接通。
-- 10-10 完善校园模型、设施布局、人物移动和第一人称手部表现；将 Campus1 的更新同步到 Campus_XR，并保留 XR 配置。
-- 根据聊天中的决策，保留 Unity 2022.3.62f3，采用 Windows + Quest Link/Air Link + OpenXR 的 PC VR 路径。
-- 建立射线传送、转向和共享设施交互；将出生位置调整为四楼 401 教室原 F4 出生点。
-- 修复手柄与射线不可见、追踪初始化和输入焦点问题，并将右扳机确认为传送按键。
-- 补充 XR 快速开始与手柄说明；main 分支加入楼内火焰特效，为下一阶段交互提供对象。
+## Week 3: 2026-10-05 to 10-11
 
-**验证与反馈：**
-- 项目文档记录了编辑器与模拟控制器检查；聊天中项目负责人随后确认传送功能可以正常使用。
-- 这些反馈支持基础传送可用，不代表全部交互、头显性能或目标教室电脑均已验证。
+**Objective:** Improve campus interactions and establish the basic Quest 3 PC VR experience.
 
-**证据：** `1841d37`、`2b64132`、`9ab63ee`、`0c68802`、`bc2bacb`、`e2f6101`、`4bace1e`；`Docs/Campus1Sync_20261010.md`、`Docs/QuestControllerFix_20261011.md`、`Docs/ControllerValidation.txt`。部分修复集中提交于 10-11，具体操作日期不逐项推定。
+**Activities and outcomes:**
 
-**问题与处理：** 从桌面移动迁移到 XR 时出现出生点、追踪和输入可见性问题；通过出生点对齐、OpenXR 会话焦点判断及输入绑定调整逐步修复。
+- On 10-05, organised project files and obsolete assets, fixed stair traversal, and added an animated campus character.
+- On 10-07, uploaded session infrastructure, including PracticeSession, PracticeSessionController, SessionActionRelay, and SessionActionZone. This represents framework development, not completion of an end-to-end evaluation workflow.
+- On 10-10, improved campus models, facility layouts, character movement, and first-person hands; synchronised Campus1 updates into Campus_XR while retaining the XR configuration.
+- Following decisions recorded in the chat, retained Unity 2022.3.62f3 and adopted Windows + Quest Link/Air Link + OpenXR for PC VR.
+- Implemented ray-based teleportation, turning, and shared facility interactions; aligned the initial spawn with the existing F4 spawn in fourth-floor classroom 401.
+- Fixed invisible controllers and rays, tracking initialisation, and input focus issues, and established the right trigger as the teleport confirmation button.
+- Added XR quick-start and controller instructions; the main branch introduced indoor fire effects as targets for the next stage of interaction development.
 
-**后续方向：** 在保留传送移动的前提下实现灭火器流程，并改进毛巾、提示界面及路线引导。
+**Validation and feedback:**
 
-## 第4周：2026-10-12—10-18
+- Project documents record Editor and simulated-controller checks; the project owner subsequently confirmed in the chat that teleportation worked.
+- This feedback supports basic teleport functionality, but does not establish that all interactions, headset performance, or target classroom PCs were validated.
 
-**阶段目标：** 完成关键交互迭代、视觉引导和特效集成，整理可交付原型。
+**Evidence:** `1841d37`, `2b64132`, `9ab63ee`, `0c68802`, `bc2bacb`, `e2f6101`, and `4bace1e`; `Docs/Campus1Sync_20261010.md`, `Docs/QuestControllerFix_20261011.md`, and `Docs/ControllerValidation.txt`. Some fixes were committed together on 10-11; individual implementation dates are not inferred.
 
-**活动与成果：**
-- 10-12 将 main 的火焰特效同步进 Campus_XR，保留已有移动逻辑，并设置可回退基线以支持多版灭火交互迭代。
-- 实现“拿取灭火器 → 拔保险销 → 对准火焰根部 → 持续喷射”流程。连续命中同一火焰 3 秒后立即熄灭；中断或更换目标会重置计时。
-- 通过右手 B 键切换行动与灭火模式，使持有灭火器时仍能传送；右扳机按当前模式执行传送或喷射。
-- 反复调整火焰阻挡与命中规则：先尝试实体盒体和下方约一米高的有效区，再依据用户反馈处理楼层干扰，最终取消实体火焰碰撞，采用仅限制传送射线的火区，并恢复根部灭火判定。这些方案属于连续迭代，不能同时描述为最终功能。
-- 启用楼外地面的传送判定；改善 HUD 间距和位置，并提供显示开关。
-- 将毛巾改为左手持有，加入抬起至面部附近、避开中央视野的动作；聊天中用户确认该版本可用。
-- 10-13—10-14 集成 UI 更新和方向箭头、目标信标，引导用户寻找当前目标。
-- 10-17 集成四楼等地点的烟雾特效，并移除导致地面闪烁的建筑结构。
-- 根据聊天记录完成 Phase 2 报告修订，补充方向引导、特效用途和评估重点；导出后核对正文为四页。报告编辑没有对应 Git 提交，具体完成日不单独推定。
-- 在本地完成 Windows x64 构建，修复两处编辑器专用 API 导致的 Player 编译错误；构建成功并生成 ZIP。该修复于 10-18 提交。
-- 清理两个旧场景及其 .meta，保留 XR、Campus 和共享资源；复查依赖后重新构建、打包，并于 10-18 将当前版本推送到 main。
+**Issues and resolution:** Migration from desktop movement to XR exposed spawn, tracking, and input-visibility issues. These were addressed through spawn alignment, OpenXR session-focus checks, and input-binding adjustments.
 
-**验证与反馈：**
-- 灭火器、毛巾与传送相关文档包含模拟设备或编辑器验证；聊天记录包含多次用户使用反馈和后续修正要求。
-- 清理前检查两个保留场景的 779 项递归依赖；769 个实际保留资源文件的哈希在清理后不变。
-- 清理后 Windows 构建成功，最新 ZIP 约 52.45 MiB，155 个文件通过完整性校验。
-- 尚不能据此认定 PQ604 实机性能、完整头显流程或正式用户评估已经完成。
+**Next steps:** Implement the extinguisher workflow while retaining teleportation, and improve towel interaction, status prompts, and route guidance.
 
-**关键证据：**
-- `e95be57`：灭火器流程、三秒灭火与 B 模式切换。
-- `74daa09`、`db4790b`、`a28efa1`、`c03ed02`：火区阻挡、瞄准和跨楼层问题迭代。
-- `7a7dd8d`、`113dd8e`、`5972989`：HUD、左手毛巾和操作文档。
-- `34b1cbe`、`49072eb`：UI 与方向引导。
-- `67f2e7f`、`49476bf`、`3c058a6`：烟雾集成与闪烁修复。
-- `3b623b7`、`d3bbb7f`：Windows 构建修复、旧场景清理与 main 更新。
-- `Docs/ExtinguisherWorkflow.md`、`Docs/XRTowelValidation.txt`、`Docs/LegacySceneCleanup.md`；本地构建日志和聊天中的打包校验结果。
+## Week 4: 2026-10-12 to 10-18
 
-**后续建议（尚未完成）：** 在 PQ604A/B/C 的目标电脑与 Quest 3 上验证启动、语言选择、传送、灭火器、毛巾、疏散终点和退出/重启；再开展用户观察，关注路线判断、模式切换、提示可读性、引导依赖和舒适度，并记录问题与改进优先级。
+**Objective:** Refine key interactions, integrate visual guidance and effects, and prepare a deliverable prototype.
 
-## 提交作者线索（供团队核对）
+**Activities and outcomes:**
 
-| Git 作者标识 | 可见提交所涉及的主要内容 |
+- On 10-12, synchronised fire effects from main into Campus_XR, preserved existing locomotion, and established a rollback baseline for successive extinguisher interaction iterations.
+- Implemented the sequence: pick up the extinguisher → remove the safety pin → aim at the base of the fire → spray continuously. A fire is extinguished immediately after three seconds of continuous hits on the same target; interruption or switching targets resets the timer.
+- Used the right-hand B button to switch between Action and Spray modes, allowing teleportation while holding the extinguisher. The right trigger teleports or sprays according to the selected mode.
+- Iterated on fire blocking and hit detection: initially tested solid boxes and a target band approximately one metre high at the bottom, then addressed interference between floors in response to user feedback. The final approach removed physical fire collisions, used fire regions that restrict only teleport rays, and restored targeting at the fire base. These were successive alternatives, not simultaneous final features.
+- Enabled teleport targeting on the outdoor ground; improved HUD spacing and position and added a visibility toggle.
+- Moved the towel to the left hand and added a pose that raises it near the face while avoiding the central view; the user confirmed in the chat that this version worked.
+- On 10-13 to 10-14, integrated UI updates, a directional arrow, and a target beacon to help users locate the current objective.
+- On 10-17, integrated smoke effects on the fourth floor and at other locations, and removed building structures that caused ground flickering.
+- Revised the Phase 2 report as recorded in the chat, adding guidance features, the purpose of visual effects, and evaluation priorities; verified that the exported main text occupied four pages. Report edits have no corresponding Git commit, so a separate completion date is not inferred.
+- Built the Windows x64 player locally and fixed compilation errors caused by two Editor-only API calls; the build succeeded and a ZIP was generated. These fixes were committed on 10-18.
+- Removed two legacy scenes and their .meta files while retaining XR, Campus, and shared assets; rechecked dependencies, rebuilt and packaged the project, and pushed the current version to main on 10-18.
+
+**Validation and feedback:**
+
+- Extinguisher, towel, and teleportation documents contain simulated-device or Editor validation; the chat records repeated user feedback and requests for further corrections.
+- Before cleanup, checked 779 recursive dependencies across the two retained scenes; hashes of 769 retained asset files remained unchanged after cleanup.
+- The post-cleanup Windows build succeeded. The latest ZIP was approximately 52.45 MiB, with 155 files passing integrity checks.
+- This evidence does not establish completion of PQ604 hardware performance testing, the full headset workflow, or formal user evaluation.
+
+**Key evidence:**
+
+- `e95be57`: extinguisher workflow, three-second suppression, and B-button mode switching.
+- `74daa09`, `db4790b`, `a28efa1`, and `c03ed02`: iterations on fire-region blocking, aiming, and cross-floor interference.
+- `7a7dd8d`, `113dd8e`, and `5972989`: HUD, left-hand towel interaction, and control documentation.
+- `34b1cbe` and `49072eb`: UI and directional guidance.
+- `67f2e7f`, `49476bf`, and `3c058a6`: smoke integration and flickering fixes.
+- `3b623b7` and `d3bbb7f`: Windows build fixes, legacy scene cleanup, and the main update.
+- `Docs/ExtinguisherWorkflow.md`, `Docs/XRTowelValidation.txt`, and `Docs/LegacySceneCleanup.md`; local build logs and packaging verification results recorded in the chat.
+
+**Recommended next steps (not yet completed):** On the target PCs in PQ604A/B/C with Quest 3, verify startup, language selection, teleportation, extinguisher and towel interactions, the evacuation endpoint, and exit/restart. Then observe users, focusing on route decisions, mode switching, prompt readability, reliance on guidance, and comfort, and record issues and improvement priorities.
+
+## Commit author references (for team verification)
+
+| Git author identifier | Main areas covered by visible commits |
 | --- | --- |
-| RudeusLin | 仓库说明、Unity 基础工程、XR 交互与问题修复、灭火器及毛巾、构建与集成 |
-| MoooJianG | 校园环境、楼梯、人物动作、模型与第一人称手部 |
-| LTR132322 | 会话流程相关脚本及目录整理 |
-| LiYS-08 | UI 与方向引导 |
-| fjh | 火焰、烟雾及地面闪烁修复 |
+| RudeusLin | Repository documentation, Unity base project, XR interactions and fixes, extinguisher and towel interactions, builds and integration |
+| MoooJianG | Campus environment, stairs, character animation, modelling, and first-person hands |
+| LTR132322 | Session workflow scripts and directory organisation |
+| LiYS-08 | UI and directional guidance |
+| fjh | Fire and smoke effects, and ground-flickering fixes |
 
-## 证据查阅方式
+## Accessing the evidence
 
-提交链接格式：`https://github.com/RudeusLin/2026PolyU_COMP5424_Group3_CampusEmergencyPreparedness_VR/commit/<提交号>`。
+Commit URL format: `https://github.com/RudeusLin/2026PolyU_COMP5424_Group3_CampusEmergencyPreparedness_VR/commit/<commit-hash>`.
 
-当前汇总版本：[main 提交 d3bbb7f](https://github.com/RudeusLin/2026PolyU_COMP5424_Group3_CampusEmergencyPreparedness_VR/commit/d3bbb7f)。项目文档中的早期控制方案和历史验证结论仅适用于当时版本，不能直接当作最新行为或最新测试结果。
+Version covered by this summary: [main commit d3bbb7f](https://github.com/RudeusLin/2026PolyU_COMP5424_Group3_CampusEmergencyPreparedness_VR/commit/d3bbb7f). Earlier control schemes and historical validation conclusions in project documents apply only to their respective versions and should not be treated as current behaviour or the latest test results.
