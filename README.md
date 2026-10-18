@@ -96,6 +96,34 @@ This project targets Windows PC VR, not a standalone Android build. The PC VR se
 
 Green indicates a valid landing point; red indicates an invalid target. Teleportation checks obstructions, support and headroom, with a maximum ray distance of 12 metres and a maximum height difference of 4 metres. After tracking or application focus is restored, release the trigger before pressing it again. Holding the trigger pauses turning and towel return. Left grip suspension applies when not carrying an extinguisher. B switches modes while carrying an extinguisher. Left stick and Y have no campus gameplay bindings; system buttons retain their normal functions. See [left-hand towel controls](Docs/XRTowelInteraction.md).
 
+## Screenshots
+
+Captured from the XR scene in Unity Play Mode at 1600 × 900. These are Editor-rendered previews, not headset recordings. Held-item poses and the spray state were staged using the project's existing models and visual logic; they illustrate appearance, not end-to-end controller validation. Click an image to view it at full resolution.
+
+### Campus environment
+
+| Classroom 401 starting view | Corridor smoke |
+| --- | --- |
+| ![View from the classroom 401 spawn](Docs/Previews/XR/01-Classroom401.png) | ![Smoke and fire along the corridor](Docs/Previews/XR/02-CorridorSmoke.png) |
+
+| Indoor fire | Extinguisher station |
+| --- | --- |
+| ![Fire effects in the teaching building](Docs/Previews/XR/03-Fire.png) | ![Extinguisher beside the fire equipment cabinet](Docs/Previews/XR/04-Extinguisher.png) |
+
+| Held extinguisher with pin removed | Outdoor assembly point |
+| --- | --- |
+| ![Staged first-person extinguisher holding pose](Docs/Previews/XR/05-HeldExtinguisher-PinRemoved.png) | ![Teaching building and outdoor assembly point](Docs/Previews/XR/06-Outdoor.png) |
+
+### Interaction and guidance previews
+
+| Wet towel held in the left hand | Wet towel raised below the central view |
+| --- | --- |
+| ![Staged left-hand wet towel holding pose](Docs/Previews/XR/07-LeftHandWetTowel.png) | ![Staged raised wet towel pose](Docs/Previews/XR/08-RaisedWetTowel.png) |
+
+| Direction arrow and distance indicator | Extinguisher spray at the fire base |
+| --- | --- |
+| ![Runtime direction arrow pointing toward the current objective](Docs/Previews/XR/09-DirectionArrow.png) | ![Staged extinguisher spray with the valid fire-base target ring](Docs/Previews/XR/10-ExtinguisherSpray.png) |
+
 ## Current campus scene (desktop controls)
 
 Open `Assets/Scenes/TeachingBuildingCampus.unity` in Unity **2022.3.62f3**. This is the current campus environment, with scanned PBR surfaces, HDRI daylight, classroom furniture, physical signage, noticeboards, an articulated student and an optional localized smoke/alarm preview. Press **F4/F2** to walk, **Shift** to run, **Space** to jump and **V** to switch first/third person. Movement accelerates and brakes smoothly, with distinct walk/run, airborne and landing poses. First person shows animated sleeves and detailed hands; held towels follow the right hand in either view. Both evacuation routes support tested desktop stair ascent/descent. The keyboard controls below apply to the desktop scene; use the XR scene and controller mapping above for Quest 3. Headset performance has not been benchmarked.
