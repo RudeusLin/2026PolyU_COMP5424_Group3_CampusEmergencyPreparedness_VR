@@ -2,7 +2,53 @@
 
 A VR fire evacuation preparedness practice prototype for international students at fictional Harbourview University. The experience supports practice rather than formal assessment and does not replace official emergency training.
 
-## Campus_XR (XR branch)
+## Experience overview
+
+1. Select English, Simplified Chinese or Traditional Chinese, preview Route A or B, and begin in fourth-floor classroom 401.
+2. Use teleportation and snap turning to navigate the building. Follow exit signs, the directional arrow and the target beacon toward the current objective.
+3. Explore facility interactions: activate an alarm, open doors, pick up and wet a towel, or use an extinguisher when appropriate to the practice situation. These interactions are available for practice; completion does not verify that every step was performed.
+4. Respond to smoke and fire cues, choose a usable route and reach the outdoor assembly point. Active fire zones prevent teleport rays from crossing them; extinguishing a fire clears its zone.
+5. Arrival starts a simulated telephone task. Entering 999 opens a static debrief; no real call is placed. The debrief reflects the route selected in the menu, not a measured record of the route taken.
+
+## Download and run
+
+**[Download the Windows x64 PC VR ZIP](https://github.com/RudeusLin/2026PolyU_COMP5424_Group3_CampusEmergencyPreparedness_VR/raw/refs/heads/main/Deliverables/Campus_XR_Effects_Cleaned_Windows.zip)** (approximately 52.45 MiB). No Unity Editor is required to run this package.
+
+1. Use a Windows PC configured for Quest Link or Air Link, with the Meta Quest Link application and Quest 3 controllers ready. This package is a PC VR executable, not an Android APK.
+2. Download and fully extract the ZIP. Open the extracted `Campus_XR` folder; do not launch the executable from inside the archive.
+3. Connect the headset, enter the Link environment, and set Meta Quest Link as the active OpenXR runtime.
+4. Run `Campus_XR.exe`. Keep `Campus_XR_Data`, `MonoBleedingEdge`, `UnityPlayer.dll` and the other supplied files beside it.
+5. Select a language, preview a route and start. To repeat the practice from its initial state, close and relaunch the application.
+
+The download contains the previously validated Effects build with Windows compilation fixes and legacy scene cleanup. Later README and weekly-record edits do not change its gameplay. The [SHA-256 checksum](Deliverables/Campus_XR_Effects_Cleaned_Windows.zip.sha256) is provided for download verification. See [PC VR setup](Docs/Quest3PCVRSetup.md) for connection details. PQ604A/B/C hardware compatibility and performance still require on-site verification.
+
+## Feature status
+
+| Feature | Current implementation | Remaining limits or checks |
+| --- | --- | --- |
+| Quest 3 locomotion | Right-trigger teleport, 30-degree snap turning and classroom 401 spawn | Basic teleport confirmed by the project owner; complete packaged headset workflow still needs testing |
+| Extinguisher | Pickup, pin removal, Action/Spray switching and three-second continuous suppression | Simplified simulation; no gradual suppression or limited agent supply |
+| Towel and facilities | Left-hand towel, wetting and raising; doors, taps and alarm interaction | Physical protective effects are not simulated |
+| Language and route selection | English, Simplified Chinese and Traditional Chinese; A/B route previews | Long translated prompts and font rendering require headset checks |
+| Directional guidance | Head-relative arrow and world-space objective beacon | Clarity, obstruction and reliance on guidance need user evaluation |
+| Smoke and fire | Smoke on the fourth floor and elsewhere; fire effects and teleport restrictions | No smoke physiology or damage model; fire regions do not constrain physical headset movement |
+| Completion and feedback | Assembly-point detection, simulated 999 entry and static debrief | Partial: no verified action-by-action progress, actual-route logging or personalised debrief |
+| Session and accessibility support | Session scripts, prompts and a modelled refuge room | Full reset/replay, consent flow and assisted-evacuation procedures remain incomplete |
+
+## Validation and known limitations
+
+| Evidence level | Recorded result |
+| --- | --- |
+| Windows build | Unity 2022.3.62f3 Windows x64 build succeeded after scene cleanup |
+| Package integrity | 155 packaged files passed archive and content checks |
+| Dependency safety | 779 recursive dependencies checked across retained scenes; 769 retained asset files unchanged |
+| Editor and simulated controllers | Reports cover input, teleportation, extinguisher and towel interactions; these are not substitutes for headset testing |
+| User headset feedback | The project owner confirmed basic teleportation and provided feedback during interaction iterations; this is not a controlled user study |
+| PQ604A/B/C and evaluation | Target-PC performance, the full packaged headset journey and formal participant evaluation remain unverified |
+
+The prototype supports practice rather than formal assessment. Current objective prompts can recur based on the held item; the static debrief does not establish that every task was completed. Headset readability, comfort, smoke visibility and performance remain evaluation priorities. See [controller checks](Docs/ControllerValidation.txt), [towel checks](Docs/XRTowelValidation.txt), [extinguisher checks](Docs/ExtinguisherValidation.txt) and [cleanup validation](Docs/LegacySceneCleanup.md).
+
+## Campus_XR (main branch)
 
 Open `Assets/Scenes/TeachingBuildingCampusXR.unity` in Unity **2022.3.62f3**. This version runs on Windows with Quest 3 through Quest Link or Air Link and OpenXR. See [PC VR setup](Docs/Quest3PCVRSetup.md).
 
@@ -25,9 +71,9 @@ Editor and simulated-controller validation reports are in `Docs`. The current te
 
 Hit the **same fire continuously for 3 seconds** to extinguish it immediately. Releasing, missing or switching targets resets progress. A teleport ray touching or crossing a live fire zone cannot confirm movement; extinguishing clears that zone. Towels and extinguishers cannot be carried together. [Full workflow and rollback](Docs/ExtinguisherWorkflow.md).
 
-### Quick start
+### Open in Unity
 
-1. Check out the `XR` branch and open the project in Unity **2022.3.62f3**. Allow Unity to restore the packages recorded in `Packages/manifest.json` and `Packages/packages-lock.json`.
+1. Check out the `main` branch and open the project in Unity **2022.3.62f3**. Allow Unity to restore the packages recorded in `Packages/manifest.json` and `Packages/packages-lock.json`.
 2. Connect Quest 3 through Quest Link or Air Link and enter the Link environment. Use Meta Quest Link as the active OpenXR runtime.
 3. Open `Assets/Scenes/TeachingBuildingCampusXR.unity` and enter Play mode. This is also the enabled build scene for the Windows XR version.
 4. The player starts at classroom 401 on the fourth floor; no keyboard shortcut is required.
@@ -67,7 +113,7 @@ The Prototype and Refined scene files have been removed from the active checkout
 
 ## Weekly activity record
 
-See [weekly activities, outcomes and commit evidence](Docs/WeeklyActivityRecord.md) for 21 September–18 October 2026.
+See the [weekly activity record](Docs/WeeklyActivityRecord.md) or download its [PDF version](Docs/WeeklyActivityRecord.pdf) for 21 September–18 October 2026.
 
 ## Project maintenance
 
