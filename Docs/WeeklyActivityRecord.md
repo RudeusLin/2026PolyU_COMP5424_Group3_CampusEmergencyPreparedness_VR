@@ -104,8 +104,6 @@
 | LiYS-08 | UI 与方向引导 |
 | fjh | 火焰、烟雾及地面闪烁修复 |
 
-作者标识仅反映 Git 记录，合作、设计讨论、测试和报告工作的实际归属需组员补充确认。未记录工时、会议出席或未经证实的个人贡献比例。
-
 ## 证据查阅方式
 
 提交链接格式：`https://github.com/RudeusLin/2026PolyU_COMP5424_Group3_CampusEmergencyPreparedness_VR/commit/<提交号>`。
