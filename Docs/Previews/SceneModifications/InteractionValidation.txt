@@ -1,0 +1,18 @@
+Saved modified XR scene - Play mode interaction checks
+Unity 2022.3.62f3
+PASS: F1 towel pickup attaches to the existing XR hand and disables held collision
+PASS: F1 actual faucet interaction wets the held towel
+PASS: F1 tap stops and towel returns dry to its original position
+PASS: F2 towel pickup attaches to the existing XR hand and disables held collision
+PASS: F2 actual faucet interaction wets the held towel
+PASS: F2 tap stops and towel returns dry to its original position
+PASS: F3 towel pickup attaches to the existing XR hand and disables held collision
+PASS: F3 actual faucet interaction wets the held towel
+PASS: F3 tap stops and towel returns dry to its original position
+PASS: F4 towel pickup attaches to the existing XR hand and disables held collision
+PASS: F4 actual faucet interaction wets the held towel
+PASS: F4 tap stops and towel returns dry to its original position
+PASS: Saved input asset resolves the simulated right Quest controller
+PASS: Right A produces the saved interaction action
+PASS: Right A ray hits the relocated 401 button and starts the existing alarm audio
+RESULT: PASS. Synthetic controllers in Unity Play mode; physical headset testing NOT RUN.

@@ -1,0 +1,3254 @@
+{
+  "scene": "Assets/Scenes/TeachingBuildingCampusXR.unity",
+  "generatedUTC": "2026-10-27T09:04:13.314651+00:00",
+  "comparison": "Saved scene before modeling requests versus final saved XR scene; Unity file IDs identify retained objects.",
+  "summary": {
+    "beforeObjects": 7627,
+    "afterObjects": 7853,
+    "addedTransforms": 394,
+    "removedTransforms": 168,
+    "addedRootGroups": 55,
+    "removedRootGroups": 26,
+    "retainedTransformsChanged": 46,
+    "sharedLightingFilesUnchanged": 24,
+    "existingFireComponentsUnchanged": 27
+  },
+  "addedRootGroups": [
+    {
+      "transformID": "1651613387",
+      "gameObjectID": "1651613386",
+      "path": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "367996730",
+      "localPosition": {
+        "x": 2.0500002,
+        "y": 0.0,
+        "z": 1.65
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1423176612",
+      "gameObjectID": "1423176611",
+      "path": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "367996730",
+      "localPosition": {
+        "x": 0.20000005,
+        "y": 0.0,
+        "z": 1.65
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "307036758",
+      "gameObjectID": "307036757",
+      "path": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "697573779",
+      "localPosition": {
+        "x": 2.0500002,
+        "y": 0.0,
+        "z": -0.9
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1640749716",
+      "gameObjectID": "1640749715",
+      "path": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "697573779",
+      "localPosition": {
+        "x": 0.20000005,
+        "y": 0.0,
+        "z": 1.65
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "18223868",
+      "gameObjectID": "18223867",
+      "path": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "697573779",
+      "localPosition": {
+        "x": 2.0500002,
+        "y": 0.0,
+        "z": 1.65
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1529981902",
+      "gameObjectID": "1529981901",
+      "path": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "367996730",
+      "localPosition": {
+        "x": 2.0500002,
+        "y": 0.0,
+        "z": -0.9
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1008615321",
+      "gameObjectID": "1008615320",
+      "path": "TeachingBuilding/Building/Floor_01/CorridorEnd_A",
+      "parentTransformID": "60455239",
+      "localPosition": {
+        "x": -12.82,
+        "y": 1.88,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "186123739",
+      "gameObjectID": "186123738",
+      "path": "TeachingBuilding/Building/Floor_01/CorridorEnd_B",
+      "parentTransformID": "60455239",
+      "localPosition": {
+        "x": 12.82,
+        "y": 1.88,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "857761995",
+      "gameObjectID": "857761994",
+      "path": "TeachingBuilding/Building/Floor_01/Restrooms/CubicleFinish_10.8",
+      "parentTransformID": "10616536",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "267323396",
+      "gameObjectID": "267323395",
+      "path": "TeachingBuilding/Building/Floor_01/Restrooms/CubicleFinish_8.7",
+      "parentTransformID": "10616536",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "786257691",
+      "gameObjectID": "786257690",
+      "path": "TeachingBuilding/Building/Floor_01/Restrooms/ToiletFinish_10.8",
+      "parentTransformID": "10616536",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "2140735944",
+      "gameObjectID": "2140735943",
+      "path": "TeachingBuilding/Building/Floor_01/Restrooms/ToiletFinish_8.7",
+      "parentTransformID": "10616536",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1569528079",
+      "gameObjectID": "1569528078",
+      "path": "TeachingBuilding/Building/Floor_01/Restrooms/WashStation/WashStation_FinishDetails",
+      "parentTransformID": "1060795126",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "459033386",
+      "gameObjectID": "459033385",
+      "path": "TeachingBuilding/Building/Floor_02/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "1166602285",
+      "localPosition": {
+        "x": 0.20000005,
+        "y": 0.0,
+        "z": 1.65
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1920962939",
+      "gameObjectID": "1920962938",
+      "path": "TeachingBuilding/Building/Floor_02/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "1166602285",
+      "localPosition": {
+        "x": 2.0500002,
+        "y": 0.0,
+        "z": 1.65
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "120067768",
+      "gameObjectID": "120067767",
+      "path": "TeachingBuilding/Building/Floor_02/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "1166602285",
+      "localPosition": {
+        "x": 2.0500002,
+        "y": 0.0,
+        "z": -0.9
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "228525139",
+      "gameObjectID": "228525138",
+      "path": "TeachingBuilding/Building/Floor_02/CorridorEnd_A",
+      "parentTransformID": "2092885298",
+      "localPosition": {
+        "x": -12.82,
+        "y": 1.88,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1269156414",
+      "gameObjectID": "1269156413",
+      "path": "TeachingBuilding/Building/Floor_02/CorridorEnd_B",
+      "parentTransformID": "2092885298",
+      "localPosition": {
+        "x": 12.82,
+        "y": 1.88,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "586756048",
+      "gameObjectID": "586756047",
+      "path": "TeachingBuilding/Building/Floor_02/Restrooms/CubicleFinish_10.8",
+      "parentTransformID": "1655301564",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "447376811",
+      "gameObjectID": "447376810",
+      "path": "TeachingBuilding/Building/Floor_02/Restrooms/CubicleFinish_8.7",
+      "parentTransformID": "1655301564",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1847187312",
+      "gameObjectID": "1847187311",
+      "path": "TeachingBuilding/Building/Floor_02/Restrooms/ToiletFinish_10.8",
+      "parentTransformID": "1655301564",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "376789748",
+      "gameObjectID": "376789747",
+      "path": "TeachingBuilding/Building/Floor_02/Restrooms/ToiletFinish_8.7",
+      "parentTransformID": "1655301564",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "185329467",
+      "gameObjectID": "185329466",
+      "path": "TeachingBuilding/Building/Floor_02/Restrooms/WashStation/WashStation_FinishDetails",
+      "parentTransformID": "1485142015",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1735474269",
+      "gameObjectID": "1735474268",
+      "path": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "2014558473",
+      "localPosition": {
+        "x": 2.0500002,
+        "y": 0.0,
+        "z": 1.65
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1426180319",
+      "gameObjectID": "1426180318",
+      "path": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "1916168832",
+      "localPosition": {
+        "x": 2.0500002,
+        "y": 0.0,
+        "z": 1.65
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "746319869",
+      "gameObjectID": "746319868",
+      "path": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "1916168832",
+      "localPosition": {
+        "x": 2.0500002,
+        "y": 0.0,
+        "z": -0.9
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1333489495",
+      "gameObjectID": "1333489494",
+      "path": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "2014558473",
+      "localPosition": {
+        "x": 0.20000005,
+        "y": 0.0,
+        "z": 1.65
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1132815804",
+      "gameObjectID": "1132815803",
+      "path": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "1916168832",
+      "localPosition": {
+        "x": 0.20000005,
+        "y": 0.0,
+        "z": 1.65
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "37502401",
+      "gameObjectID": "37502400",
+      "path": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "2014558473",
+      "localPosition": {
+        "x": 2.0500002,
+        "y": 0.0,
+        "z": -0.9
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1995553510",
+      "gameObjectID": "1995553509",
+      "path": "TeachingBuilding/Building/Floor_03/CorridorEnd_A",
+      "parentTransformID": "608600347",
+      "localPosition": {
+        "x": -12.82,
+        "y": 1.88,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1512532177",
+      "gameObjectID": "1512532176",
+      "path": "TeachingBuilding/Building/Floor_03/CorridorEnd_B",
+      "parentTransformID": "608600347",
+      "localPosition": {
+        "x": 12.82,
+        "y": 1.88,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "633763337",
+      "gameObjectID": "633763336",
+      "path": "TeachingBuilding/Building/Floor_03/Restrooms/CubicleFinish_10.8",
+      "parentTransformID": "1460713163",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1414891763",
+      "gameObjectID": "1414891762",
+      "path": "TeachingBuilding/Building/Floor_03/Restrooms/CubicleFinish_8.7",
+      "parentTransformID": "1460713163",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1030269401",
+      "gameObjectID": "1030269400",
+      "path": "TeachingBuilding/Building/Floor_03/Restrooms/ToiletFinish_10.8",
+      "parentTransformID": "1460713163",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "2116346753",
+      "gameObjectID": "2116346752",
+      "path": "TeachingBuilding/Building/Floor_03/Restrooms/ToiletFinish_8.7",
+      "parentTransformID": "1460713163",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "324583339",
+      "gameObjectID": "324583338",
+      "path": "TeachingBuilding/Building/Floor_03/Restrooms/WashStation/WashStation_FinishDetails",
+      "parentTransformID": "1244546419",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "185587242",
+      "gameObjectID": "185587241",
+      "path": "TeachingBuilding/Building/Floor_04/Alarm_401",
+      "parentTransformID": "694098909",
+      "localPosition": {
+        "x": -6.25,
+        "y": 1.35,
+        "z": 1.66
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0,
+        "w": -4.371139e-08
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "891781575",
+      "gameObjectID": "891781574",
+      "path": "TeachingBuilding/Building/Floor_04/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "559975589",
+      "localPosition": {
+        "x": 0.20000005,
+        "y": 0.0,
+        "z": 1.65
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "954709755",
+      "gameObjectID": "954709754",
+      "path": "TeachingBuilding/Building/Floor_04/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "559975589",
+      "localPosition": {
+        "x": 2.0500002,
+        "y": 0.0,
+        "z": 1.65
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1841998533",
+      "gameObjectID": "1841998532",
+      "path": "TeachingBuilding/Building/Floor_04/Classroom_Basic/DeskAndChair",
+      "parentTransformID": "559975589",
+      "localPosition": {
+        "x": 2.0500002,
+        "y": 0.0,
+        "z": -0.9
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1022933505",
+      "gameObjectID": "1022933504",
+      "path": "TeachingBuilding/Building/Floor_04/CorridorEnd_A",
+      "parentTransformID": "694098909",
+      "localPosition": {
+        "x": -12.82,
+        "y": 1.88,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1008578790",
+      "gameObjectID": "1008578789",
+      "path": "TeachingBuilding/Building/Floor_04/CorridorEnd_B",
+      "parentTransformID": "694098909",
+      "localPosition": {
+        "x": 12.82,
+        "y": 1.88,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "216702197",
+      "gameObjectID": "216702196",
+      "path": "TeachingBuilding/Building/Floor_04/Restrooms_F04/CubicleFinish_-7.2",
+      "parentTransformID": "56607339",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1387115976",
+      "gameObjectID": "1387115975",
+      "path": "TeachingBuilding/Building/Floor_04/Restrooms_F04/CubicleFinish_-9.3",
+      "parentTransformID": "56607339",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "552123926",
+      "gameObjectID": "552123925",
+      "path": "TeachingBuilding/Building/Floor_04/Restrooms_F04/ToiletFinish_-7.2",
+      "parentTransformID": "56607339",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "2040515183",
+      "gameObjectID": "2040515182",
+      "path": "TeachingBuilding/Building/Floor_04/Restrooms_F04/ToiletFinish_-9.3",
+      "parentTransformID": "56607339",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1157133999",
+      "gameObjectID": "1157133998",
+      "path": "TeachingBuilding/Building/Floor_04/Restrooms_F04/WashStation/WashStation_FinishDetails",
+      "parentTransformID": "730000636",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1958131395",
+      "gameObjectID": "1958131394",
+      "path": "TeachingBuilding/Building/Stairwell_A/Stairwell_InvisibleGuards",
+      "parentTransformID": "103541843",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1702863314",
+      "gameObjectID": "1702863313",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/BrokenFlight_Details",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "478082634",
+      "gameObjectID": "478082633",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/BrokenFlight_TeleportBarrier",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 16.58,
+        "y": 2.7,
+        "z": 0.78
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "939675505",
+      "gameObjectID": "939675504",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/BrokenLower_StairHandrail",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 17.45,
+        "y": 3.125,
+        "z": -1.3500001
+      },
+      "localRotation": {
+        "x": 0.52573127,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.8506508
+      },
+      "localScale": {
+        "x": 0.055,
+        "y": 1.0062306,
+        "z": 0.055
+      }
+    },
+    {
+      "transformID": "543883401",
+      "gameObjectID": "543883400",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/BrokenLower_StairHandrail",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 15.72,
+        "y": 3.125,
+        "z": -1.3500001
+      },
+      "localRotation": {
+        "x": 0.52573127,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.8506508
+      },
+      "localScale": {
+        "x": 0.055,
+        "y": 1.0062306,
+        "z": 0.055
+      }
+    },
+    {
+      "transformID": "163454509",
+      "gameObjectID": "163454508",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/BrokenLower_StairStringer",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 15.75,
+        "y": 1.9650002,
+        "z": -1.3500001
+      },
+      "localRotation": {
+        "x": 0.52573127,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.8506508
+      },
+      "localScale": {
+        "x": 0.14,
+        "y": 1.0062306,
+        "z": 0.14
+      }
+    },
+    {
+      "transformID": "2087744533",
+      "gameObjectID": "2087744532",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/BrokenLower_StairStringer",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 17.41,
+        "y": 1.9650002,
+        "z": -1.3500001
+      },
+      "localRotation": {
+        "x": 0.52573127,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.8506508
+      },
+      "localScale": {
+        "x": 0.14,
+        "y": 1.0062306,
+        "z": 0.14
+      }
+    },
+    {
+      "transformID": "2055263161",
+      "gameObjectID": "2055263160",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stairwell_InvisibleGuards",
+      "parentTransformID": "1125580803",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    }
+  ],
+  "removedRootGroups": [
+    {
+      "transformID": "723535024",
+      "gameObjectID": "723535023",
+      "path": "TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair",
+      "parentTransformID": "1909412756",
+      "localPosition": {
+        "x": 2.2,
+        "y": 0.0,
+        "z": 2.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1275174921",
+      "gameObjectID": "1275174920",
+      "path": "TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair",
+      "parentTransformID": "1909412756",
+      "localPosition": {
+        "x": 2.2,
+        "y": 0.0,
+        "z": -1.4
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "258964942",
+      "gameObjectID": "258964941",
+      "path": "TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair",
+      "parentTransformID": "1909412756",
+      "localPosition": {
+        "x": 2.2,
+        "y": 0.0,
+        "z": 0.3
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "392068243",
+      "gameObjectID": "392068242",
+      "path": "TeachingBuilding/Building/Floor_03/FireEquipmentPoint",
+      "parentTransformID": "608600347",
+      "localPosition": {
+        "x": -9.8,
+        "y": 0.0,
+        "z": 1.29
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1291981684",
+      "gameObjectID": "1291981683",
+      "path": "TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair",
+      "parentTransformID": "976905038",
+      "localPosition": {
+        "x": 2.2,
+        "y": 0.0,
+        "z": -1.4
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "217150920",
+      "gameObjectID": "217150919",
+      "path": "TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair",
+      "parentTransformID": "976905038",
+      "localPosition": {
+        "x": 2.2,
+        "y": 0.0,
+        "z": 0.3
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1797583486",
+      "gameObjectID": "1797583485",
+      "path": "TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair",
+      "parentTransformID": "976905038",
+      "localPosition": {
+        "x": 2.2,
+        "y": 0.0,
+        "z": 2.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": -0.7071068,
+        "z": 0.0,
+        "w": 0.7071068
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1884143114",
+      "gameObjectID": "1884143113",
+      "path": "TeachingBuilding/Building/Floor_04/FireEquipmentPoint",
+      "parentTransformID": "694098909",
+      "localPosition": {
+        "x": -9.8,
+        "y": 0.0,
+        "z": 1.29
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "1570418417",
+      "gameObjectID": "1570418416",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/HandrailPost",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 17.45,
+        "y": 2.95,
+        "z": -0.6
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 0.045,
+        "y": 1.1,
+        "z": 0.045
+      }
+    },
+    {
+      "transformID": "1977674937",
+      "gameObjectID": "1977674936",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/HandrailPost",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 15.72,
+        "y": 2.95,
+        "z": -0.6
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 0.045,
+        "y": 1.1,
+        "z": 0.045
+      }
+    },
+    {
+      "transformID": "2095128274",
+      "gameObjectID": "2095128273",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/HandrailPost",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 17.45,
+        "y": 3.55,
+        "z": 0.6
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 0.045,
+        "y": 1.1,
+        "z": 0.045
+      }
+    },
+    {
+      "transformID": "1872985808",
+      "gameObjectID": "1872985807",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/HandrailPost",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 15.72,
+        "y": 3.55,
+        "z": 0.6
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 0.045,
+        "y": 1.1,
+        "z": 0.045
+      }
+    },
+    {
+      "transformID": "1850626895",
+      "gameObjectID": "1850626894",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/StepEdge",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 16.58,
+        "y": 2.704,
+        "z": -0.29
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.6,
+        "y": 0.008,
+        "z": 0.025
+      }
+    },
+    {
+      "transformID": "1515278603",
+      "gameObjectID": "1515278602",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/StepEdge",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 16.58,
+        "y": 2.404,
+        "z": -0.89
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.6,
+        "y": 0.008,
+        "z": 0.025
+      }
+    },
+    {
+      "transformID": "1554298278",
+      "gameObjectID": "1554298277",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/StepEdge",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 16.58,
+        "y": 3.004,
+        "z": 0.31
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.6,
+        "y": 0.008,
+        "z": 0.025
+      }
+    },
+    {
+      "transformID": "1291991082",
+      "gameObjectID": "1291991081",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/StepEdge",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 16.58,
+        "y": 2.554,
+        "z": -0.59
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.6,
+        "y": 0.008,
+        "z": 0.025
+      }
+    },
+    {
+      "transformID": "2084115016",
+      "gameObjectID": "2084115015",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/StepEdge",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 16.58,
+        "y": 3.154,
+        "z": 0.61
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.6,
+        "y": 0.008,
+        "z": 0.025
+      }
+    },
+    {
+      "transformID": "852343207",
+      "gameObjectID": "852343206",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/StepEdge",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 16.58,
+        "y": 2.854,
+        "z": 0.01
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.6,
+        "y": 0.008,
+        "z": 0.025
+      }
+    },
+    {
+      "transformID": "828400005",
+      "gameObjectID": "828400004",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/Step_Second_4",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 16.58,
+        "y": 2.325,
+        "z": -0.75
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.65,
+        "y": 0.15,
+        "z": 0.3
+      }
+    },
+    {
+      "transformID": "27832048",
+      "gameObjectID": "27832047",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/Step_Second_5",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 16.58,
+        "y": 2.475,
+        "z": -0.45
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.65,
+        "y": 0.15,
+        "z": 0.3
+      }
+    },
+    {
+      "transformID": "1845915579",
+      "gameObjectID": "1845915578",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/Step_Second_6",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 16.58,
+        "y": 2.625,
+        "z": -0.15
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.65,
+        "y": 0.15,
+        "z": 0.3
+      }
+    },
+    {
+      "transformID": "329889972",
+      "gameObjectID": "329889971",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/Step_Second_7",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 16.58,
+        "y": 2.775,
+        "z": 0.15
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.65,
+        "y": 0.15,
+        "z": 0.3
+      }
+    },
+    {
+      "transformID": "2054754217",
+      "gameObjectID": "2054754216",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/Step_Second_8",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 16.58,
+        "y": 2.925,
+        "z": 0.45
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.65,
+        "y": 0.15,
+        "z": 0.3
+      }
+    },
+    {
+      "transformID": "875966689",
+      "gameObjectID": "875966688",
+      "path": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/Step_Second_9",
+      "parentTransformID": "1101635241",
+      "localPosition": {
+        "x": 16.58,
+        "y": 3.075,
+        "z": 0.75
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.65,
+        "y": 0.15,
+        "z": 0.3
+      }
+    },
+    {
+      "transformID": "1254019438",
+      "gameObjectID": "1254019437",
+      "path": "TeachingBuilding/GameplayAnchors/FireEquipment_F03_A",
+      "parentTransformID": "987051516",
+      "localPosition": {
+        "x": -9.8,
+        "y": 8.2,
+        "z": 1.29
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "transformID": "839996760",
+      "gameObjectID": "839996759",
+      "path": "TeachingBuilding/GameplayAnchors/FireEquipment_F04_A",
+      "parentTransformID": "987051516",
+      "localPosition": {
+        "x": -9.8,
+        "y": 11.8,
+        "z": 1.29
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    }
+  ],
+  "retainedTransformChanges": [
+    {
+      "transformID": "5735774",
+      "gameObjectID": "5735773",
+      "beforePath": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 2.0
+          },
+          "after": {
+            "x": 0.20000005,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1321774249",
+      "gameObjectID": "1321774248",
+      "beforePath": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": -1.4
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1631715087",
+      "gameObjectID": "1631715086",
+      "beforePath": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 0.3
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": 1.65
+          }
+        }
+      }
+    },
+    {
+      "transformID": "570276041",
+      "gameObjectID": "570276040",
+      "beforePath": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 2.0
+          },
+          "after": {
+            "x": 0.20000005,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1776615637",
+      "gameObjectID": "1776615636",
+      "beforePath": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": -1.4
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1872494595",
+      "gameObjectID": "1872494594",
+      "beforePath": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_01/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 0.3
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": 1.65
+          }
+        }
+      }
+    },
+    {
+      "transformID": "2137488987",
+      "gameObjectID": "2137488986",
+      "beforePath": "TeachingBuilding/Building/Floor_01/Restrooms/StallDivider",
+      "afterPath": "TeachingBuilding/Building/Floor_01/Restrooms/StallDivider",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 8.7,
+            "y": 1.1,
+            "z": -5.2
+          },
+          "after": {
+            "x": 8.7,
+            "y": 1.08,
+            "z": -5.2
+          }
+        },
+        "localScale": {
+          "before": {
+            "x": 1.6,
+            "y": 2.2,
+            "z": 0.07
+          },
+          "after": {
+            "x": 1.6,
+            "y": 1.82,
+            "z": 0.07
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1393429369",
+      "gameObjectID": "1393429368",
+      "beforePath": "TeachingBuilding/Building/Floor_01/Restrooms/StallDivider",
+      "afterPath": "TeachingBuilding/Building/Floor_01/Restrooms/StallDivider",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 10.8,
+            "y": 1.1,
+            "z": -5.2
+          },
+          "after": {
+            "x": 10.8,
+            "y": 1.08,
+            "z": -5.2
+          }
+        },
+        "localScale": {
+          "before": {
+            "x": 1.6,
+            "y": 2.2,
+            "z": 0.07
+          },
+          "after": {
+            "x": 1.6,
+            "y": 1.82,
+            "z": 0.07
+          }
+        }
+      }
+    },
+    {
+      "transformID": "657620475",
+      "gameObjectID": "657620474",
+      "beforePath": "TeachingBuilding/Building/Floor_02/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_02/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 2.0
+          },
+          "after": {
+            "x": 0.20000005,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "2111606565",
+      "gameObjectID": "2111606564",
+      "beforePath": "TeachingBuilding/Building/Floor_02/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_02/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 0.3
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": 1.65
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1842830272",
+      "gameObjectID": "1842830271",
+      "beforePath": "TeachingBuilding/Building/Floor_02/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_02/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": -1.4
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "488896498",
+      "gameObjectID": "488896497",
+      "beforePath": "TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 0.4,
+            "y": 0.0,
+            "z": 0.3
+          },
+          "after": {
+            "x": 2.0500002,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "78090806",
+      "gameObjectID": "78090805",
+      "beforePath": "TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 2.0
+          },
+          "after": {
+            "x": 0.20000005,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1821731339",
+      "gameObjectID": "1821731338",
+      "beforePath": "TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 0.3
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": 1.65
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1107225049",
+      "gameObjectID": "1107225048",
+      "beforePath": "TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 0.4,
+            "y": 0.0,
+            "z": 2.0
+          },
+          "after": {
+            "x": 2.0500002,
+            "y": 0.0,
+            "z": 1.65
+          }
+        }
+      }
+    },
+    {
+      "transformID": "962095217",
+      "gameObjectID": "962095216",
+      "beforePath": "TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": -1.4
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "134395985",
+      "gameObjectID": "134395984",
+      "beforePath": "TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 0.4,
+            "y": 0.0,
+            "z": -1.4
+          },
+          "after": {
+            "x": 0.20000005,
+            "y": 0.0,
+            "z": 1.65
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1221840291",
+      "gameObjectID": "1221840290",
+      "beforePath": "TeachingBuilding/Building/Floor_02/Restrooms/StallDivider",
+      "afterPath": "TeachingBuilding/Building/Floor_02/Restrooms/StallDivider",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 10.8,
+            "y": 1.1,
+            "z": -5.2
+          },
+          "after": {
+            "x": 10.8,
+            "y": 1.08,
+            "z": -5.2
+          }
+        },
+        "localScale": {
+          "before": {
+            "x": 1.6,
+            "y": 2.2,
+            "z": 0.07
+          },
+          "after": {
+            "x": 1.6,
+            "y": 1.82,
+            "z": 0.07
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1863897741",
+      "gameObjectID": "1863897740",
+      "beforePath": "TeachingBuilding/Building/Floor_02/Restrooms/StallDivider",
+      "afterPath": "TeachingBuilding/Building/Floor_02/Restrooms/StallDivider",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 8.7,
+            "y": 1.1,
+            "z": -5.2
+          },
+          "after": {
+            "x": 8.7,
+            "y": 1.08,
+            "z": -5.2
+          }
+        },
+        "localScale": {
+          "before": {
+            "x": 1.6,
+            "y": 2.2,
+            "z": 0.07
+          },
+          "after": {
+            "x": 1.6,
+            "y": 1.82,
+            "z": 0.07
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1819714387",
+      "gameObjectID": "1819714386",
+      "beforePath": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 0.3
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": 1.65
+          }
+        }
+      }
+    },
+    {
+      "transformID": "603975020",
+      "gameObjectID": "603975019",
+      "beforePath": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": -1.4
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1169273310",
+      "gameObjectID": "1169273309",
+      "beforePath": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": -1.4
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1156236647",
+      "gameObjectID": "1156236646",
+      "beforePath": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 2.0
+          },
+          "after": {
+            "x": 0.20000005,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "858610156",
+      "gameObjectID": "858610155",
+      "beforePath": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 0.3
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": 1.65
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1389386926",
+      "gameObjectID": "1389386925",
+      "beforePath": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_03/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 2.0
+          },
+          "after": {
+            "x": 0.20000005,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "20832540",
+      "gameObjectID": "20832539",
+      "beforePath": "TeachingBuilding/Building/Floor_03/Restrooms/StallDivider",
+      "afterPath": "TeachingBuilding/Building/Floor_03/Restrooms/StallDivider",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 10.8,
+            "y": 1.1,
+            "z": -5.2
+          },
+          "after": {
+            "x": 10.8,
+            "y": 1.08,
+            "z": -5.2
+          }
+        },
+        "localScale": {
+          "before": {
+            "x": 1.6,
+            "y": 2.2,
+            "z": 0.07
+          },
+          "after": {
+            "x": 1.6,
+            "y": 1.82,
+            "z": 0.07
+          }
+        }
+      }
+    },
+    {
+      "transformID": "473086761",
+      "gameObjectID": "473086760",
+      "beforePath": "TeachingBuilding/Building/Floor_03/Restrooms/StallDivider",
+      "afterPath": "TeachingBuilding/Building/Floor_03/Restrooms/StallDivider",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 8.7,
+            "y": 1.1,
+            "z": -5.2
+          },
+          "after": {
+            "x": 8.7,
+            "y": 1.08,
+            "z": -5.2
+          }
+        },
+        "localScale": {
+          "before": {
+            "x": 1.6,
+            "y": 2.2,
+            "z": 0.07
+          },
+          "after": {
+            "x": 1.6,
+            "y": 1.82,
+            "z": 0.07
+          }
+        }
+      }
+    },
+    {
+      "transformID": "720437048",
+      "gameObjectID": "720437047",
+      "beforePath": "TeachingBuilding/Building/Floor_04/AlarmButton",
+      "afterPath": "TeachingBuilding/Building/Floor_04/Alarm_401/AlarmButton",
+      "changes": {
+        "parentTransformID": {
+          "before": "694098909",
+          "after": "185587242"
+        },
+        "localPosition": {
+          "before": {
+            "x": -11.0,
+            "y": 1.35,
+            "z": 1.34
+          },
+          "after": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      }
+    },
+    {
+      "transformID": "395922184",
+      "gameObjectID": "395922183",
+      "beforePath": "TeachingBuilding/Building/Floor_04/AlarmPressPanel",
+      "afterPath": "TeachingBuilding/Building/Floor_04/Alarm_401/AlarmPressPanel",
+      "changes": {
+        "parentTransformID": {
+          "before": "694098909",
+          "after": "185587242"
+        },
+        "localPosition": {
+          "before": {
+            "x": -11.0,
+            "y": 1.35,
+            "z": 1.29
+          },
+          "after": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -0.05000007
+          }
+        }
+      }
+    },
+    {
+      "transformID": "2058319010",
+      "gameObjectID": "2058319009",
+      "beforePath": "TeachingBuilding/Building/Floor_04/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_04/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": -1.4
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1362010487",
+      "gameObjectID": "1362010486",
+      "beforePath": "TeachingBuilding/Building/Floor_04/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_04/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 2.0
+          },
+          "after": {
+            "x": 0.20000005,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "771425230",
+      "gameObjectID": "771425229",
+      "beforePath": "TeachingBuilding/Building/Floor_04/Classroom_Basic/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_04/Classroom_Basic/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 0.3
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": 1.65
+          }
+        }
+      }
+    },
+    {
+      "transformID": "921956533",
+      "gameObjectID": "921956532",
+      "beforePath": "TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 2.0
+          },
+          "after": {
+            "x": 0.20000005,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "423719733",
+      "gameObjectID": "423719732",
+      "beforePath": "TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 0.4,
+            "y": 0.0,
+            "z": 2.0
+          },
+          "after": {
+            "x": 2.0500002,
+            "y": 0.0,
+            "z": 1.65
+          }
+        }
+      }
+    },
+    {
+      "transformID": "6570684",
+      "gameObjectID": "6570683",
+      "beforePath": "TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": 0.3
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": 1.65
+          }
+        }
+      }
+    },
+    {
+      "transformID": "769562948",
+      "gameObjectID": "769562947",
+      "beforePath": "TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 0.4,
+            "y": 0.0,
+            "z": -1.4
+          },
+          "after": {
+            "x": 0.20000005,
+            "y": 0.0,
+            "z": 1.65
+          }
+        }
+      }
+    },
+    {
+      "transformID": "455914458",
+      "gameObjectID": "455914457",
+      "beforePath": "TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -1.4,
+            "y": 0.0,
+            "z": -1.4
+          },
+          "after": {
+            "x": -1.65,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "484285357",
+      "gameObjectID": "484285356",
+      "beforePath": "TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair",
+      "afterPath": "TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 0.4,
+            "y": 0.0,
+            "z": 0.3
+          },
+          "after": {
+            "x": 2.0500002,
+            "y": 0.0,
+            "z": -0.9
+          }
+        }
+      }
+    },
+    {
+      "transformID": "419865544",
+      "gameObjectID": "419865543",
+      "beforePath": "TeachingBuilding/Building/Floor_04/Restrooms_F04/StallDivider",
+      "afterPath": "TeachingBuilding/Building/Floor_04/Restrooms_F04/StallDivider",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -7.2,
+            "y": 1.1,
+            "z": -5.2
+          },
+          "after": {
+            "x": -7.2,
+            "y": 1.08,
+            "z": -5.2
+          }
+        },
+        "localScale": {
+          "before": {
+            "x": 1.6,
+            "y": 2.2,
+            "z": 0.07
+          },
+          "after": {
+            "x": 1.6,
+            "y": 1.82,
+            "z": 0.07
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1077841953",
+      "gameObjectID": "1077841952",
+      "beforePath": "TeachingBuilding/Building/Floor_04/Restrooms_F04/StallDivider",
+      "afterPath": "TeachingBuilding/Building/Floor_04/Restrooms_F04/StallDivider",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -9.3,
+            "y": 1.1,
+            "z": -5.2
+          },
+          "after": {
+            "x": -9.3,
+            "y": 1.08,
+            "z": -5.2
+          }
+        },
+        "localScale": {
+          "before": {
+            "x": 1.6,
+            "y": 2.2,
+            "z": 0.07
+          },
+          "after": {
+            "x": 1.6,
+            "y": 1.82,
+            "z": 0.07
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1815808891",
+      "gameObjectID": "1815808890",
+      "beforePath": "TeachingBuilding/Building/Floor_04/Sign_FIRE ALARM",
+      "afterPath": "TeachingBuilding/Building/Floor_04/Alarm_401/Sign_FIRE ALARM",
+      "changes": {
+        "parentTransformID": {
+          "before": "694098909",
+          "after": "185587242"
+        },
+        "localPosition": {
+          "before": {
+            "x": -11.0,
+            "y": 1.62,
+            "z": 1.31
+          },
+          "after": {
+            "x": 0.0,
+            "y": 0.2699995,
+            "z": -0.03000009
+          }
+        }
+      }
+    },
+    {
+      "transformID": "329593563",
+      "gameObjectID": "329593562",
+      "beforePath": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/StairHandrail",
+      "afterPath": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/BrokenUpper_StairHandrail",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 17.45,
+            "y": 3.8,
+            "z": 0.0
+          },
+          "after": {
+            "x": 17.45,
+            "y": 4.475,
+            "z": 1.3500001
+          }
+        },
+        "localRotation": {
+          "before": {
+            "x": 0.52573115,
+            "y": 0.0,
+            "z": -0.0,
+            "w": 0.85065085
+          },
+          "after": {
+            "x": 0.52573127,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 0.8506508
+          }
+        },
+        "localScale": {
+          "before": {
+            "x": 0.055,
+            "y": 4.0249224,
+            "z": 0.055
+          },
+          "after": {
+            "x": 0.055,
+            "y": 1.0062306,
+            "z": 0.055
+          }
+        }
+      }
+    },
+    {
+      "transformID": "502434514",
+      "gameObjectID": "502434513",
+      "beforePath": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/StairHandrail",
+      "afterPath": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/BrokenUpper_StairHandrail",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 15.72,
+            "y": 3.8,
+            "z": 0.0
+          },
+          "after": {
+            "x": 15.72,
+            "y": 4.475,
+            "z": 1.3500001
+          }
+        },
+        "localRotation": {
+          "before": {
+            "x": 0.52573115,
+            "y": 0.0,
+            "z": -0.0,
+            "w": 0.85065085
+          },
+          "after": {
+            "x": 0.52573127,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 0.8506508
+          }
+        },
+        "localScale": {
+          "before": {
+            "x": 0.055,
+            "y": 4.0249224,
+            "z": 0.055
+          },
+          "after": {
+            "x": 0.055,
+            "y": 1.0062306,
+            "z": 0.055
+          }
+        }
+      }
+    },
+    {
+      "transformID": "927673112",
+      "gameObjectID": "927673111",
+      "beforePath": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/StairStringer",
+      "afterPath": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/BrokenUpper_StairStringer",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 15.75,
+            "y": 2.64,
+            "z": 0.0
+          },
+          "after": {
+            "x": 15.75,
+            "y": 3.315,
+            "z": 1.3500001
+          }
+        },
+        "localRotation": {
+          "before": {
+            "x": 0.52573115,
+            "y": 0.0,
+            "z": -0.0,
+            "w": 0.85065085
+          },
+          "after": {
+            "x": 0.52573127,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 0.8506508
+          }
+        },
+        "localScale": {
+          "before": {
+            "x": 0.14,
+            "y": 4.0249224,
+            "z": 0.14
+          },
+          "after": {
+            "x": 0.14,
+            "y": 1.0062306,
+            "z": 0.14
+          }
+        }
+      }
+    },
+    {
+      "transformID": "215978241",
+      "gameObjectID": "215978240",
+      "beforePath": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/StairStringer",
+      "afterPath": "TeachingBuilding/Building/Stairwell_B/Stair_B_F01/BrokenUpper_StairStringer",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": 17.41,
+            "y": 2.64,
+            "z": 0.0
+          },
+          "after": {
+            "x": 17.41,
+            "y": 3.315,
+            "z": 1.3500001
+          }
+        },
+        "localRotation": {
+          "before": {
+            "x": 0.52573115,
+            "y": 0.0,
+            "z": -0.0,
+            "w": 0.85065085
+          },
+          "after": {
+            "x": 0.52573127,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 0.8506508
+          }
+        },
+        "localScale": {
+          "before": {
+            "x": 0.14,
+            "y": 4.0249224,
+            "z": 0.14
+          },
+          "after": {
+            "x": 0.14,
+            "y": 1.0062306,
+            "z": 0.14
+          }
+        }
+      }
+    },
+    {
+      "transformID": "1793501565",
+      "gameObjectID": "1793501564",
+      "beforePath": "TeachingBuilding/GameplayAnchors/Alarm_F04_A",
+      "afterPath": "TeachingBuilding/GameplayAnchors/Alarm_F04_A",
+      "changes": {
+        "localPosition": {
+          "before": {
+            "x": -11.0,
+            "y": 12.15,
+            "z": 1.34
+          },
+          "after": {
+            "x": -6.25,
+            "y": 12.150001,
+            "z": 1.66
+          }
+        }
+      }
+    }
+  ],
+  "sharedLightingPreservation": [
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/LightingData.asset.meta",
+      "unchanged": true,
+      "sha256": "442d27f50087212cabf09e43c03ae86d74fc441b97121cbccf7b69683abb3bf9"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/Lightmap-0_comp_light.exr",
+      "unchanged": true,
+      "sha256": "e7357cb9e07505b62e616ab38f79ae0c35914e6bbf4ca29b0afac62e2963214e"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/Lightmap-0_comp_dir.png.meta",
+      "unchanged": true,
+      "sha256": "db16557b1f1486258b1f0c28a31c5cc67cfb10aceebaa7007d988af30db65794"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/ReflectionProbe-4.exr.meta",
+      "unchanged": true,
+      "sha256": "456e29db58b788740cd25f515fb37843e13b967ea358d48da2e71ba4e660d829"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/ReflectionProbe-5.exr.meta",
+      "unchanged": true,
+      "sha256": "7f885fef0bedbd08cbc3bbe3930bed0455215616e67b3b216806d5958bc19bd5"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/ReflectionProbe-6.exr",
+      "unchanged": true,
+      "sha256": "4dee0eb5df9c11004f4a1cca9bf47410708bab2061e74e684c5a2f5e29098140"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/ReflectionProbe-5.exr",
+      "unchanged": true,
+      "sha256": "e103d4a55fbf1ab7816be36f1fa16342ee55a30333c6d63db9344c8c39a474a8"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/ReflectionProbe-4.exr",
+      "unchanged": true,
+      "sha256": "51fb768ab4b674146bf9639a582a2a8202f101e7ba77d33dae90cc409e2c702d"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/ReflectionProbe-3.exr.meta",
+      "unchanged": true,
+      "sha256": "6ff93a553166f366ff4883d44253fd81986d5aa97f4e087c52f2b77c2121049c"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/ReflectionProbe-2.exr.meta",
+      "unchanged": true,
+      "sha256": "34d33cbaa2ddd1e99be7958d4e2bb5ccec659d3db422731285b1b8ec77c639ae"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/Lightmap-0_comp_light.exr.meta",
+      "unchanged": true,
+      "sha256": "c5ad55b1a49a0eca47d452893c025bba3f409ea36b27a31c3826ef1dad408f5c"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/Lightmap-0_comp_dir.png",
+      "unchanged": true,
+      "sha256": "c87667b337ec06e4c9e8e294d11b10305b397e62c8afcc335fe26230cbd4ed54"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/ReflectionProbe-0.exr",
+      "unchanged": true,
+      "sha256": "51fb768ab4b674146bf9639a582a2a8202f101e7ba77d33dae90cc409e2c702d"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/ReflectionProbe-1.exr",
+      "unchanged": true,
+      "sha256": "51fb768ab4b674146bf9639a582a2a8202f101e7ba77d33dae90cc409e2c702d"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/LightingData.asset",
+      "unchanged": true,
+      "sha256": "167a9d3374dbd1490ce0c130ea7fba88490f852d181dee2cc9d1d1b750d58948"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/ReflectionProbe-3.exr",
+      "unchanged": true,
+      "sha256": "51fb768ab4b674146bf9639a582a2a8202f101e7ba77d33dae90cc409e2c702d"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/ReflectionProbe-2.exr",
+      "unchanged": true,
+      "sha256": "51fb768ab4b674146bf9639a582a2a8202f101e7ba77d33dae90cc409e2c702d"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/ReflectionProbe-6.exr.meta",
+      "unchanged": true,
+      "sha256": "14385a75cf550f3b0775f2a3ec48fad2ad476fae84b61ddf5e415a4665345fa6"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/ReflectionProbe-0.exr.meta",
+      "unchanged": true,
+      "sha256": "80cc2fdd32ce3bfb18ae3b1ab3fa63d6e083cfeadebb5c93ddd04f8f759f69c4"
+    },
+    {
+      "path": "Assets/Scenes/TeachingBuildingCampus/ReflectionProbe-1.exr.meta",
+      "unchanged": true,
+      "sha256": "e8f829d72b08a8bd140154b7c4aeb928b0067827b235b63bbe801c9beb7fa87f"
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Lighting/CampusSky.mat",
+      "unchanged": true,
+      "sha256": "c0de6482284354a55d108e3145bbec5d815dfa087649eeedeb90493ebf26906d"
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Lighting/CampusSky.mat.meta",
+      "unchanged": true,
+      "sha256": "fe688da1807278d3105503a1be540a68f8d80c0216802518f02b5674f5487b10"
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Lighting/BuildingLighting.asset.meta",
+      "unchanged": true,
+      "sha256": "9a9d362dc96fb29a66282ecd083c2cda8acabfe2263bb61f675ed4fffc0d1ad8"
+    },
+    {
+      "path": "Assets/Environment/TeachingBuildingCampus/Lighting/BuildingLighting.asset",
+      "unchanged": true,
+      "sha256": "6e3c434388dee491ba7203a8cb13fdd033f22ace51dfd2383e168d1e7d58ef5c"
+    }
+  ],
+  "existingFirePreservation": [
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3",
+      "script": "Assets/Scripts/Prototype/CampusForecourtFire.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (5)",
+      "script": "Assets/Scripts/Prototype/CampusForecourtFire.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (2)",
+      "script": "Assets/Scripts/Prototype/CampusForecourtFire.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (3)",
+      "script": "Assets/Scripts/Prototype/CampusForecourtFire.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (6)",
+      "script": "Assets/Scripts/Prototype/CampusForecourtFire.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire1",
+      "script": "Assets/Scripts/Prototype/CampusForecourtFire.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire2",
+      "script": "Assets/Scripts/Prototype/CampusForecourtFire.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (1)",
+      "script": "Assets/Scripts/Prototype/CampusForecourtFire.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (4)",
+      "script": "Assets/Scripts/Prototype/CampusForecourtFire.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireTarget.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (5)",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireTarget.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (2)",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireTarget.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (3)",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireTarget.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (6)",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireTarget.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire1",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireTarget.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire2",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireTarget.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (1)",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireTarget.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (4)",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireTarget.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireBarrier.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (5)",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireBarrier.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (2)",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireBarrier.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (3)",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireBarrier.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (6)",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireBarrier.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire1",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireBarrier.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire2",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireBarrier.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (1)",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireBarrier.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    },
+    {
+      "path": "TeachingBuilding/Building/Floor_04/Fire3 (4)",
+      "script": "Assets/Scripts/Interaction/FireSafety/CampusFireBarrier.cs",
+      "componentRetained": true,
+      "transformUnchanged": true,
+      "serializedComponentUnchanged": true
+    }
+  ],
+  "notes": [
+    "Only transforms and protected fire components are enumerated here. Material, mesh and lightmap edits are validated by Unity and rendered previews.",
+    "Children of wholly added/removed groups are counted but omitted from root group lists.",
+    "Headset hardware validation and rebuilding the Windows release ZIP were not performed."
+  ]
+}
