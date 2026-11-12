@@ -12,14 +12,34 @@ namespace CampusEmergency.Player.XR
         [SerializeField] private Transform spawn;
         [SerializeField] private Transform assembly;
         [SerializeField] private CampusXRFeedback feedback;
+        private const float StandingEyeHeight = 1.65f;
+        private float trackingReadySince = -1f;
         private bool positioned, reachedAssembly;
+        private void Awake()
+        {
+            if (origin == null) origin = GetComponent<XROrigin>();
+            ConfigureEyeHeight();
+        }
+        private void ConfigureEyeHeight()
+        {
+            if (origin == null) return;
+            // Device space supplies head motion relative to the recentered headset.
+            // XROrigin adds this height to the shared head/hand parent, not to the camera pose.
+            // Floor mode ignores CameraYOffset and can inherit an incorrect runtime floor.
+            origin.CameraYOffset = StandingEyeHeight;
+            origin.RequestedTrackingOriginMode = XROrigin.TrackingOriginMode.Device;
+        }
         public void Configure(XROrigin o, CampusXRInput i, Transform start, Transform goal, CampusXRFeedback f)
-        { origin = o; input = i; spawn = start; assembly = goal; feedback = f; }
+        { origin = o; input = i; spawn = start; assembly = goal; feedback = f; ConfigureEyeHeight(); }
         private void Update()
         {
-            if (!input.HeadTracked) return;
+            if (!input.HeadTracked) { trackingReadySince = -1f; return; }
             if (!positioned)
             {
+                // isTracked may become true before the first position/recenter update.
+                if (trackingReadySince < 0f) trackingReadySince = Time.unscaledTime;
+                if (Time.unscaledTime - trackingReadySince < .25f
+                    || origin.CurrentTrackingOriginMode == UnityEngine.XR.TrackingOriginModeFlags.Unknown) return;
                 origin.MatchOriginUpCameraForward(Vector3.up, spawn.forward);
                 origin.MoveCameraToWorldLocation(spawn.position + Vector3.up * origin.CameraInOriginSpaceHeight);
                 positioned = true;
@@ -28,7 +48,8 @@ namespace CampusEmergency.Player.XR
             }
             Vector3 delta = origin.Camera.transform.position - assembly.position;
             delta.y = 0;
-            if (!reachedAssembly && origin.transform.position.y < 1f && delta.magnitude < 2.4f)
+            var route = GetComponent<CampusRouteAFlow>();
+            if (!reachedAssembly && route != null && route.CanCall && origin.transform.position.y < 1f && delta.magnitude < 2.4f)
             {
                 reachedAssembly = true;
                 feedback.Notify(LanguageSelectionUI.T(

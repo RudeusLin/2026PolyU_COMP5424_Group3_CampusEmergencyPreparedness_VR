@@ -1,3 +1,5 @@
+> Historical documentation: the Prototype and Refined .unity files were removed from the active checkout. Restore them from commit 3c058a6 or explicitly regenerate them before following scene-opening or validation steps. Shared assets remain available. See [cleanup record](LegacySceneCleanup.md).
+
 # 四层教学楼原型使用说明
 
 已提供加入原创纹理、倒角模型和室内细节的 `TeachingBuildingRefined.unity`，详见[细化版说明](TeachingBuildingRefined.md)。本文说明初版场景的布局与操作。

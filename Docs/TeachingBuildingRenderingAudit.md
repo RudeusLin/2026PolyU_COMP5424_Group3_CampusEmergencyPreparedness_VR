@@ -1,3 +1,5 @@
+> Historical documentation: the Prototype and Refined .unity files were removed from the active checkout. Restore them from commit 3c058a6 or explicitly regenerate them before following scene-opening or validation steps. Shared assets remain available. See [cleanup record](LegacySceneCleanup.md).
+
 # 教学楼渲染检查与修复
 
 本次继续更新 `TeachingBuildingRefined.unity`，保持四层教学楼、两条疏散通道和现有交互入口。

@@ -54,13 +54,13 @@ namespace CampusEmergency.Editor
             public int waterNode;
         }
 
-        [MenuItem("Campus Emergency/Build teaching building prototype")]
+        [MenuItem("Campus Emergency/Legacy/Rebuild prototype scene")]
         public static void BuildAndCapture()
         {
             Build(LayoutPath);
         }
 
-        [MenuItem("Campus Emergency/Build refined teaching building")]
+        [MenuItem("Campus Emergency/Legacy/Rebuild refined scene")]
         public static void BuildRefinedAndCapture()
         {
             Build("Assets/Environment/TeachingBuildingRefinedLayout.json");

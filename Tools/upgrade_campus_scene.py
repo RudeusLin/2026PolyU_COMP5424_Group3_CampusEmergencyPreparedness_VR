@@ -307,10 +307,6 @@ def art_pass(data):
             base.NODES[item["parent"] - 1]["active"] = False
         if item["name"] == "Smoke_VisualOnly_ToggleH":
             item["component"] = "campusAtmosphere"
-        if item["name"] == "SmokeVolume":
-            index = item["id"] % 5
-            item["position"] = [7.5 + index * .18, 13.35 + (index % 2) * .1, 1.9 + index * .15]
-            item["scale"] = [.75, .5, .75]
         if item["name"] == "Hazard_F04_Corridor":
             item["position"] = [7.8, 10.8, 2.1]
 

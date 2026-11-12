@@ -21,6 +21,7 @@ namespace CampusEmergency.Player.XR
         private ParticleSystem spray;
         private LineRenderer aim, ring;
         private Material visualMaterial;
+        private CampusFireProgress progress;
         public CampusExtinguisher Held { get; private set; }
         public int LastReturnFrame { get; private set; } = -1;
         public bool SprayMode { get; private set; }
@@ -46,6 +47,7 @@ namespace CampusEmergency.Player.XR
             modeButton.Enable(); leftGrip.Enable(); rightGrip.Enable();
         }
         private void Start() { fires = FindObjectsOfType<CampusFireTarget>(); BuildVisuals(); }
+        public void RefreshTargets() => fires = FindObjectsOfType<CampusFireTarget>();
         public bool TryPickup(CampusExtinguisher item)
         {
             bool towelBlocksPickup = inventory != null && inventory.HeldTowel != null &&
@@ -89,6 +91,7 @@ namespace CampusEmergency.Player.XR
             }
             else spray.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             ApplyTarget(spraying ? target : null, Time.deltaTime);
+            if(!spraying && Held.PinRemoved && progress!=null)progress.Show(target);
             Status = !Held.PinRemoved ? LanguageSelectionUI.T("STEP 2: pull the yellow safety pin with LEFT grip.", "步骤2：左手按握把拔除黄色保险销。", "步驟2：左手按握把拔除黃色保險銷。")
                 : target == null ? LanguageSelectionUI.T("STEP 3: aim at the fire BASE within 3m.", "步骤3：在3米内瞄准火源根部。", "步驟3：在3米內瞄準火源根部。")
                 : LanguageSelectionUI.T("STEP 4: hold trigger on this base: ", "步骤4：对准此火源根部持续按住扳机：", "步驟4：對準此火源根部持續按住扳機：") + target.ContinuousSeconds.ToString("0.0") + " / 3.0s";
@@ -98,6 +101,7 @@ namespace CampusEmergency.Player.XR
             if (currentTarget != target) { if (currentTarget != null) currentTarget.Interrupt(); currentTarget = target; }
             if (target != null && target.ApplySpray(seconds))
             { feedback.Notify(LanguageSelectionUI.T("FIRE EXTINGUISHED. B: action mode to move to the next fire.", "火源已扑灭。按B切换移动模式前往下一处。", "火源已撲滅。按B切換移動模式前往下一處。")); currentTarget = null; }
+            if(progress!=null)progress.Show(target);
         }
         public CampusFireTarget FindTarget(Vector3 start, Vector3 direction, out Vector3 end)
         {
@@ -136,6 +140,7 @@ namespace CampusEmergency.Player.XR
         private void StopSpray()
         {
             ApplyTarget(null, 0f); Status = string.Empty;
+            if(progress!=null)progress.Hide();
             if (spray != null) spray.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             if (aim != null) aim.enabled = false;
             if (ring != null) ring.enabled = false;
@@ -149,6 +154,7 @@ namespace CampusEmergency.Player.XR
         }
         private void BuildVisuals()
         {
+            progress=gameObject.AddComponent<CampusFireProgress>();progress.Configure(head);
             visualMaterial = new Material(Shader.Find("Sprites/Default"));
             aim = Line("Extinguisher aim", .006f); ring = Line("Fire base target", .015f);
             var go = new GameObject("Extinguishing agent"); go.transform.SetParent(transform, false);

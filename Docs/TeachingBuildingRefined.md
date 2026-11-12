@@ -1,3 +1,5 @@
+> Historical documentation: the Prototype and Refined .unity files were removed from the active checkout. Restore them from commit 3c058a6 or explicitly regenerate them before following scene-opening or validation steps. Shared assets remain available. See [cleanup record](LegacySceneCleanup.md).
+
 # 四层教学楼细化版
 
 场景：`Assets/Scenes/TeachingBuildingRefined.unity`。使用 Unity 2022.3.62f3、Built-in 渲染管线。细化版包含四层布局、两座双跑楼梯、普通电梯、消防设施和室外集合点，并加入原创表面纹理、烘焙照明和金属反射。

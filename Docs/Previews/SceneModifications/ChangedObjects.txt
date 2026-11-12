@@ -1,0 +1,36 @@
+TeachingBuilding/Building/Floor_01/CorridorEnd_A: large teal corridor end letter
+TeachingBuilding/Building/Floor_01/CorridorEnd_B: large teal corridor end letter
+TeachingBuilding/Building/Floor_01/Restrooms: wash station, mirror, chrome, cabinet, soap and cubicle/toilet details; towel/tap transforms preserved
+TeachingBuilding/Building/Floor_02/CorridorEnd_A: large teal corridor end letter
+TeachingBuilding/Building/Floor_02/CorridorEnd_B: large teal corridor end letter
+TeachingBuilding/Building/Floor_02/Restrooms: wash station, mirror, chrome, cabinet, soap and cubicle/toilet details; towel/tap transforms preserved
+TeachingBuilding/Building/Floor_03/CorridorEnd_A: large teal corridor end letter
+TeachingBuilding/Building/Floor_03/CorridorEnd_B: large teal corridor end letter
+TeachingBuilding/Building/Floor_03/FireEquipmentPoint: removed complete object hierarchy
+TeachingBuilding/GameplayAnchors/FireEquipment_F03_A: removed complete object hierarchy
+TeachingBuilding/Building/Floor_03/Restrooms: wash station, mirror, chrome, cabinet, soap and cubicle/toilet details; towel/tap transforms preserved
+TeachingBuilding/Building/Floor_04/CorridorEnd_A: large teal corridor end letter
+TeachingBuilding/Building/Floor_04/CorridorEnd_B: large teal corridor end letter
+TeachingBuilding/Building/Floor_04/Alarm_401: moved complete existing alarm into 401, including plate, sign, collider and interaction
+TeachingBuilding/Building/Floor_04/Classroom_Detailed/DeskAndChair: removed complete object hierarchy
+TeachingBuilding/Building/Floor_04/Classroom_Detailed: 2 columns x 3 rows; six complete desks with their chairs and tabletop props
+TeachingBuilding/Building/Floor_04/FireEquipmentPoint: removed complete object hierarchy
+TeachingBuilding/GameplayAnchors/FireEquipment_F04_A: removed complete object hierarchy
+TeachingBuilding/Building/Floor_04/Restrooms_F04: wash station, mirror, chrome, cabinet, soap and cubicle/toilet details; towel/tap transforms preserved
+TeachingBuilding/Building/Stairwell_B/Stair_B_F01/Step_Second_4: removed complete object hierarchy
+TeachingBuilding/Building/Stairwell_B/Stair_B_F01/Step_Second_5: removed complete object hierarchy
+TeachingBuilding/Building/Stairwell_B/Stair_B_F01/Step_Second_6: removed complete object hierarchy
+TeachingBuilding/Building/Stairwell_B/Stair_B_F01/Step_Second_7: removed complete object hierarchy
+TeachingBuilding/Building/Stairwell_B/Stair_B_F01/Step_Second_8: removed complete object hierarchy
+TeachingBuilding/Building/Stairwell_B/Stair_B_F01/Step_Second_9: removed complete object hierarchy
+TeachingBuilding/Building/Stairwell_B/Stair_B_F01/StepEdge: removed complete object hierarchy
+TeachingBuilding/Building/Stairwell_B/Stair_B_F01/HandrailPost: removed complete object hierarchy
+TeachingBuilding/Building/Stairwell_B/Stair_B_F01: B stair F02 to F01: six treads removed, split rails/stringers, nonwalkable fragments and solid teleport barrier
+TeachingBuilding/Building/Stairwell_A/Stairwell_InvisibleGuards: invisible solid Default-layer colliders; main and half landing turns remain open
+TeachingBuilding/Building/Stairwell_B/Stairwell_InvisibleGuards: invisible solid Default-layer colliders; main and half landing turns remain open
+TeachingBuilding/Building/Floor_01/Classroom_Basic: 2 columns x 3 rows; six complete desks with their chairs and tabletop props
+TeachingBuilding/Building/Floor_02/Classroom_Detailed/DeskAndChair: removed complete object hierarchy
+TeachingBuilding/Building/Floor_02/Classroom_Detailed: 2 columns x 3 rows; six complete desks with their chairs and tabletop props
+TeachingBuilding/Building/Floor_02/Classroom_Basic: 2 columns x 3 rows; six complete desks with their chairs and tabletop props
+TeachingBuilding/Building/Floor_03/Classroom_Basic: 2 columns x 3 rows; six complete desks with their chairs and tabletop props
+TeachingBuilding/Building/Floor_04/Classroom_Basic: 2 columns x 3 rows; six complete desks with their chairs and tabletop props

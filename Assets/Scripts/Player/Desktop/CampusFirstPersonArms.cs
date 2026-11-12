@@ -28,7 +28,11 @@ namespace CampusEmergency.Prototype
                 surface.enabled = true;
                 surface.lightmapIndex = -1;
                 surface.shadowCastingMode = ShadowCastingMode.Off;
+                surface.lightProbeUsage = LightProbeUsage.BlendProbes;
+#if UNITY_EDITOR
+                // receiveGI is only available in the Unity Editor API.
                 if (surface is MeshRenderer mesh) mesh.receiveGI = ReceiveGI.LightProbes;
+#endif
             }
             ResetPose();
         }

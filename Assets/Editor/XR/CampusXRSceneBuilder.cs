@@ -50,7 +50,7 @@ namespace CampusEmergency.Editor
             root.transform.SetPositionAndRotation(spawn.position, spawn.rotation);
             var origin = root.AddComponent<XROrigin>();
             origin.Origin = root;
-            origin.RequestedTrackingOriginMode = XROrigin.TrackingOriginMode.Floor;
+            origin.RequestedTrackingOriginMode = XROrigin.TrackingOriginMode.Device;
             origin.CameraYOffset = 1.65f;
             var offset = Child(root.transform, "Camera Floor Offset");
             origin.CameraFloorOffsetObject = offset;
@@ -109,6 +109,9 @@ namespace CampusEmergency.Editor
             var scenes = EditorBuildSettings.scenes.Where(s => s.path != XRScene).ToList();
             scenes.Insert(0, new EditorBuildSettingsScene(XRScene, true));
             EditorBuildSettings.scenes = scenes.ToArray();
+            AssetDatabase.SaveAssets();
+            CampusSceneModifications.ApplyToOpenScene();
+            EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
             AssetDatabase.SaveAssets();
             CampusXRTeleportValidation.ValidateScene();
             Debug.Log("CAMPUS_XR_SCENE_BUILD_PASS");

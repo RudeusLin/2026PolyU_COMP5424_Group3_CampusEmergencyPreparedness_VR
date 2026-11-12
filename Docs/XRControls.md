@@ -8,11 +8,12 @@
 | 右手扳机（食指） | 绿色落点时，按下立即传送；按住不连发，松开不传送 |
 | 右手 A 键 | 对准门、毛巾、水龙头等，按下进行交互；按住期间切换为短距离交互射线 |
 | 右摇杆左/右 | 每次拨动转向 30 度，回中后可再次拨动 |
-| 右手握持键（中指） | 将毛巾归还原柜台 |
-| 左手握持键（中指） | 按住暂停传送瞄准，松开恢复；不会撤销已经完成的传送 |
+| 右手握持键（中指） | 归还当前持有的毛巾或灭火器；先松开右扳机 |
+| 左手握持键（中指） | 未持有灭火器时按住暂停传送瞄准，松开恢复；持有灭火器时用于近距离拔销 |
 | 右手 B | 持有灭火器时切换行动 / 灭火模式；空手无功能 |
 | 左手 X / 键盘 H | 显示或隐藏操作与状态面板，再按一次恢复 |
-| 左摇杆、左扳机、Y | 当前没有绑定校园玩法功能 |
+| 左扳机 | 持有湿毛巾时按一次抬起，再按一次放下；无需按住，松开不改变状态 |
+| 左摇杆、Y | 当前没有绑定校园玩法功能 |
 | 头部转动 | 查看四周，由头显追踪 |
 | Meta / 系统菜单键 | 保留系统功能；系统菜单占用焦点时暂停游戏交互 |
 
@@ -35,10 +36,10 @@ A 拿取；默认行动模式，右扳机传送。B 切换灭火模式，右扳�
 ## 验证入口
 Tools/XRSetup/RunUnityCheck.ps1 -Method CampusEmergency.Editor.CampusControllerValidation.Begin -LogName RightTriggerPlayValidation.log -PlayMode
 
-通过模拟 Oculus Touch 按键驱动实际 Input System 与 TeleportationProvider。具体结果以 Docs/ControllerValidation.txt 为准。真机视觉和实际按键仍需 Quest 3 测试。
+通过模拟 Oculus Touch 按键驱动实际 Input System 与 TeleportationProvider。具体结果以 Docs/ControllerValidation.txt 为准；旧毛巾报告中的按住/松开断言属于历史版本，不能视作当前切换逻辑的验证。真机视觉和实际按键仍需 Quest 3 测试。
 
 修改前备份：Tools/XRSetup/BeforeRightTriggerTeleport。
 
 ## 左手毛巾
 
-A 拿取后由左手持有；按住左手扳机抬到视野下缘表示遮住口鼻，松开放下。右扳机仍可传送，右握持键仍归还，水龙头仍用 A。详见 [毛巾操作与实现](XRTowelInteraction.md)。
+A 拿取后由左手持有；先使用水龙头打湿，再按左扳机抬到视野下缘表示遮住口鼻，再按一次放下。无需持续按住，松开扳机不会自动放下；干毛巾无法切换到抬起状态。右扳机仍可传送，右握持键仍归还，水龙头仍用 A。详见 [毛巾操作与实现](XRTowelInteraction.md)。

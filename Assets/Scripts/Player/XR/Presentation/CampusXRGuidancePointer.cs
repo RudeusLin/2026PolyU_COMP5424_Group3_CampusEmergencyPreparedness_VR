@@ -1,248 +1,170 @@
-using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using CampusEmergency.Interaction.FireSafety;
 using CampusEmergency.Prototype;
 
 namespace CampusEmergency.Player.XR
 {
-    /// <summary>Head-locked direction arrow and world-space beacon for the current drill objective.</summary>
+    /// <summary>Depth-tested floor trail from tracked feet to the current objective.</summary>
     [DisallowMultipleComponent]
     public sealed class CampusXRGuidancePointer : MonoBehaviour
     {
-        [SerializeField] private Transform head;
-        [SerializeField] private Transform assemblyPoint;
-        [SerializeField] private float arrivalDistance = 1.8f;
-        [SerializeField] private float fireDiversionDistance = 4.5f;
-        private CampusXRInventory inventory;
-        private CampusXRExtinguisherController extinguisher;
-        private CampusDrillAtmosphere atmosphere;
-        private RectTransform arrow;
-        private Texture2D arrowTexture;
-        private Sprite arrowSprite;
-        private Text distanceLabel;
-        private Transform beacon;
-        private Renderer beaconRenderer;
-        private Transform routeAnchor;
-        private Transform target;
-        private int routeIndex;
-        private int activeRoute = -1;
-
-        // Door, flight ends and floor landings. Keeping the turns explicit prevents the
-        // beacon from pointing through ceilings or across the stairwell void.
-        private static readonly Vector3[] RouteA =
-        {
-            new Vector3(-12.05f,10.8f,3f), new Vector3(-14.42f,10.8f,1.8f),
-            new Vector3(-14.42f,9f,-3f), new Vector3(-16.58f,9f,-1.65f), new Vector3(-16.58f,7.2f,3f),
-            new Vector3(-14.42f,7.2f,1.8f), new Vector3(-14.42f,5.4f,-3f), new Vector3(-16.58f,5.4f,-1.65f), new Vector3(-16.58f,3.6f,3f),
-            new Vector3(-14.42f,3.6f,1.8f), new Vector3(-14.42f,1.8f,-3f), new Vector3(-16.58f,1.8f,-1.65f), new Vector3(-16.58f,0f,3f)
-        };
-        private static readonly Vector3[] RouteB =
-        {
-            new Vector3(12.05f,10.8f,3f), new Vector3(16.58f,10.8f,1.8f),
-            new Vector3(16.58f,9f,-3f), new Vector3(14.42f,9f,-1.65f), new Vector3(14.42f,7.2f,3f),
-            new Vector3(16.58f,7.2f,1.8f), new Vector3(16.58f,5.4f,-3f), new Vector3(14.42f,5.4f,-1.65f), new Vector3(14.42f,3.6f,3f),
-            new Vector3(16.58f,3.6f,1.8f), new Vector3(16.58f,1.8f,-3f), new Vector3(14.42f,1.8f,-1.65f), new Vector3(14.42f,0f,3f)
-        };
-
+        [SerializeField] private Transform head, assemblyPoint;
+        private CampusRouteAFlow flow;
+        private CampusXRInput input;
+        private LineRenderer trail, destination;
+        private Material material;
+        private Coroutine search;
+        private Transform target, plannedTarget;
+        private Vector3 plannedStart, plannedEnd;
+        private float nextPlan;
+        private readonly List<Vector3> path = new List<Vector3>();
         public Transform CurrentTarget => target;
-
-        public void Configure(Transform cameraTransform, Transform assembly)
-        {
-            head = cameraTransform;
-            assemblyPoint = assembly;
-            // Visuals are runtime-only. Creating them while the editor builds the prefab
-            // would save a second, inert arrow that has no runtime references.
-            if (Application.isPlaying) BuildVisuals();
-        }
-
+        public int TrailPointCount => trail != null && trail.enabled ? trail.positionCount : 0;
+        public void Configure(Transform cameraTransform, Transform assembly) { head=cameraTransform;assemblyPoint=assembly; }
         private void Awake()
         {
-            inventory = GetComponent<CampusXRInventory>();
-            extinguisher = GetComponent<CampusXRExtinguisherController>();
-            if (head == null)
-            {
-                var origin = GetComponent<Unity.XR.CoreUtils.XROrigin>();
-                if (origin != null && origin.Camera != null) head = origin.Camera.transform;
-            }
-            BuildVisuals();
+            input=GetComponent<CampusXRInput>();
+            if(head==null){var origin=GetComponent<Unity.XR.CoreUtils.XROrigin>();if(origin!=null&&origin.Camera!=null)head=origin.Camera.transform;}
+            material=new Material(Shader.Find("Sprites/Default"));
+            trail=CreateLine("Floor Guidance Trail",.075f);
+            destination=CreateLine("Floor Guidance Destination",.035f); destination.loop=true;
         }
-
-        private void BuildVisuals()
+        private LineRenderer CreateLine(string name,float width)
         {
-            if (head == null || arrow != null) return;
-            var canvasObject = new GameObject("Next Step Pointer", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler));
-            canvasObject.transform.SetParent(head, false);
-            canvasObject.transform.localPosition = new Vector3(0f, -.06f, 1.05f);
-            canvasObject.transform.localScale = Vector3.one * .001f;
-            var canvas = canvasObject.GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.WorldSpace;
-            canvas.worldCamera = head.GetComponent<Camera>();
-            var canvasRect = (RectTransform)canvasObject.transform;
-            canvasRect.sizeDelta = new Vector2(260f, 150f);
-
-            var arrowObject = new GameObject("Direction Arrow", typeof(RectTransform), typeof(Image));
-            arrowObject.transform.SetParent(canvasObject.transform, false);
-            arrow = (RectTransform)arrowObject.transform;
-            arrow.sizeDelta = new Vector2(54f, 98f);
-            arrow.anchoredPosition = new Vector2(0f, 18f);
-            var arrowImage = arrowObject.GetComponent<Image>();
-            arrowTexture = CreateIsoscelesTriangle(48, 86);
-            arrowSprite = Sprite.Create(arrowTexture, new Rect(0, 0, arrowTexture.width, arrowTexture.height), new Vector2(.5f, .5f), 100f);
-            arrowImage.sprite = arrowSprite;
-            arrowImage.color = new Color(.2f, 1f, .75f, 1f);
-            arrowImage.preserveAspect = true;
-            arrowImage.raycastTarget = false;
-
-            var labelObject = new GameObject("Distance", typeof(RectTransform), typeof(Text));
-            labelObject.transform.SetParent(canvasObject.transform, false);
-            var labelRect = (RectTransform)labelObject.transform;
-            labelRect.sizeDelta = new Vector2(260f, 48f);
-            labelRect.anchoredPosition = new Vector2(0f, -48f);
-            distanceLabel = labelObject.GetComponent<Text>();
-            distanceLabel.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            distanceLabel.fontSize = 25;
-            distanceLabel.alignment = TextAnchor.MiddleCenter;
-            distanceLabel.color = Color.white;
-            distanceLabel.raycastTarget = false;
-
-            beacon = GameObject.CreatePrimitive(PrimitiveType.Cylinder).transform;
-            beacon.name = "Next Step Beacon";
-            var collider = beacon.GetComponent<Collider>();
-            if (Application.isPlaying) Destroy(collider);
-            else DestroyImmediate(collider);
-            beacon.localScale = new Vector3(.13f, 1.1f, .13f);
-            beaconRenderer = beacon.GetComponent<Renderer>();
-            var material = new Material(Shader.Find("Sprites/Default"));
-            material.color = new Color(.12f, 1f, .68f, .72f);
-            beaconRenderer.material = material;
-
-            routeAnchor = new GameObject("Route Guidance Target").transform;
-            routeAnchor.SetParent(transform, true);
+            var item=new GameObject(name);item.transform.SetParent(transform,false);
+            var line=item.AddComponent<LineRenderer>();line.sharedMaterial=material;
+            line.useWorldSpace=true;line.widthMultiplier=width;line.numCornerVertices=3;line.numCapVertices=3;
+            line.alignment=LineAlignment.TransformZ;item.transform.rotation=Quaternion.Euler(90,0,0);
+            line.startColor=new Color(.12f,1,.68f,1);line.endColor=new Color(.4f,1,.8f,1);
+            line.shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.Off;line.receiveShadows=false;
+            line.enabled=false;return line;
         }
-
-        private static Texture2D CreateIsoscelesTriangle(int width, int height)
-        {
-            var texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
-            var clear = new Color32(0, 0, 0, 0);
-            var solid = new Color32(255, 255, 255, 255);
-            for (int y = 0; y < height; y++)
-            {
-                // Wide base at the bottom, narrow tip at the top.
-                float halfWidth = (1f - y / (float)(height - 1)) * (width - 1) * .5f;
-                float centre = (width - 1) * .5f;
-                for (int x = 0; x < width; x++) texture.SetPixel(x, y, Mathf.Abs(x - centre) <= halfWidth ? solid : clear);
-            }
-            texture.name = "Guidance Isosceles Triangle";
-            texture.wrapMode = TextureWrapMode.Clamp;
-            texture.filterMode = FilterMode.Bilinear;
-            texture.Apply();
-            return texture;
-        }
-
+        private Vector3 Feet => new Vector3(head.position.x,transform.position.y,head.position.z);
         private void LateUpdate()
         {
-            if (head == null) return;
-            if (inventory == null) inventory = GetComponent<CampusXRInventory>();
-            if (extinguisher == null) extinguisher = GetComponent<CampusXRExtinguisherController>();
-            target = ResolveTarget();
-            bool visible = target != null && !LanguageSelectionUI.IsBlocking;
-            if (arrow != null) arrow.parent.gameObject.SetActive(visible);
-            if (beacon != null) beacon.gameObject.SetActive(visible);
-            if (!visible) return;
-
-            Vector3 delta = target.position - head.position;
-            float distance = new Vector2(delta.x, delta.z).magnitude;
-            Vector3 local = head.InverseTransformDirection(delta.normalized);
-            float angle = Mathf.Atan2(local.x, local.z) * Mathf.Rad2Deg;
-            arrow.localRotation = Quaternion.Euler(0f, 0f, -angle);
-            distanceLabel.text = distance <= arrivalDistance ? "HERE" : Mathf.CeilToInt(distance) + " m";
-            beacon.position = target.position + Vector3.up * (1.1f + Mathf.Sin(Time.unscaledTime * 3f) * .18f);
-            beacon.rotation = Quaternion.Euler(0f, Time.unscaledTime * 80f, 0f);
-        }
-
-        private Transform ResolveTarget()
-        {
-            if (atmosphere == null) atmosphere = FindObjectOfType<CampusDrillAtmosphere>(true);
-            if (atmosphere != null && !atmosphere.IsAlarmActive)
-                return FindObjectsOfType<FacilityNotice>(true)
-                    .Where(x => x.Prompt.ToLowerInvariant().Contains("alarm"))
-                    .OrderBy(x => FlatDistance(x.transform.position)).Select(x => x.transform).FirstOrDefault();
-
-            if (inventory == null || inventory.HeldTowel == null)
-                return FindObjectsOfType<CampusTowel>(true).Where(x => x.gameObject.activeInHierarchy)
-                    .OrderBy(x => FlatDistance(x.transform.position)).Select(x => x.transform).FirstOrDefault();
-            if (!inventory.HeldTowel.IsWet)
-                return FindObjectsOfType<CampusFaucet>(true).Where(x => x.gameObject.activeInHierarchy)
-                    .OrderBy(x => FlatDistance(x.transform.position)).Select(x => x.transform).FirstOrDefault();
-
-            var liveFire = FindObjectsOfType<CampusFireTarget>(true)
-                .Where(x => x.gameObject.activeInHierarchy && !x.Extinguished)
-                .OrderBy(x => NavigationDistance(x.transform.position)).FirstOrDefault();
-
-            // Reaching the ground floor completes the indoor route. From this point the
-            // assembly point always wins, even if fires remain active elsewhere inside.
-            if (transform.position.y <= 1.2f) return assemblyPoint;
-
-            // A nearby fire blocks safe passage: temporarily divert the user to the
-            // nearest available extinguisher, then point back to that fire once equipped.
-            if (liveFire != null && NavigationDistance(liveFire.transform.position) <= fireDiversionDistance)
+            if(head==null)return;
+            if(flow==null){flow=GetComponent<CampusRouteAFlow>();if(flow==null)flow=gameObject.AddComponent<CampusRouteAFlow>();flow.Configure(head,assemblyPoint);}
+            flow.Tick();target=flow.Target;
+            if(target==null || LanguageSelectionUI.IsBlocking || input==null || !input.HeadTracked || !input.HasInteractionFocus){Hide();return;}
+            // Hand actions use the existing HUD, never a path leading toward the player's own hand.
+            if(target.IsChildOf(transform) && target.name!="Route A Current Objective"){Hide();return;}
+            bool changed=target!=plannedTarget || Vector3.Distance(target.position,plannedEnd)>.3f;
+            if(changed || (search!=null && Vector3.Distance(Feet,plannedStart)>1f)){CancelSearch();path.Clear();trail.enabled=destination.enabled=false;}
+            if(search==null && (changed || Time.unscaledTime>=nextPlan || Vector3.Distance(Feet,plannedStart)>.6f))
             {
-                if (extinguisher == null || extinguisher.Held == null)
+                plannedTarget=target;plannedStart=Feet;plannedEnd=target.position;nextPlan=Time.unscaledTime+2f;
+                search=StartCoroutine(Plan(plannedStart,plannedEnd));
+            }
+            Draw();
+        }
+        private void Draw()
+        {
+            // Consume already travelled portions of a cached path after a teleport.
+            int consumed=0;float nearest=.7f;
+            for(int i=1;i<path.Count;i++)
+            {
+                float distance=Vector3.Distance(Feet,path[i]);
+                if(distance<nearest && Clear(Feet,path[i])){nearest=distance;consumed=i;}
+            }
+            if(consumed>0)path.RemoveRange(0,consumed);
+            if(path.Count<2 || Vector3.Distance(Feet,path[0])>1.2f || !Clear(Feet,path[0])){trail.enabled=destination.enabled=false;return;}
+            trail.positionCount=path.Count+1;trail.SetPosition(0,Feet+Vector3.up*.045f);
+            for(int i=0;i<path.Count;i++)trail.SetPosition(i+1,path[i]+Vector3.up*.045f);
+            trail.enabled=true;Vector3 end=path[path.Count-1];destination.positionCount=32;
+            for(int i=0;i<32;i++){float a=i*Mathf.PI*2/32;destination.SetPosition(i,end+new Vector3(Mathf.Cos(a)*.18f,.05f,Mathf.Sin(a)*.18f));}
+            destination.enabled=true;
+        }
+        private sealed class Node { public Vector3 p;public Node parent;public float g,f; }
+        private static Vector3Int Key(Vector3 p)=>new Vector3Int(Mathf.RoundToInt(p.x/.1f),Mathf.RoundToInt(p.y/.15f),Mathf.RoundToInt(p.z/.1f));
+        private static bool Project(Vector3 seed,float up,float down,out Vector3 point)
+        {
+            point=default;float nearest=float.PositiveInfinity;
+            foreach(var hit in Physics.RaycastAll(seed+Vector3.up*up,Vector3.down,down,~0,QueryTriggerInteraction.Ignore))
+            {
+                if(hit.collider.GetComponent<CampusTeleportSurface>()==null || hit.normal.y<.7f)continue;
+                float d=Mathf.Abs(hit.point.y-seed.y);if(d>=nearest)continue;nearest=d;point=hit.point;
+            }
+            return nearest<float.PositiveInfinity;
+        }
+        private static bool Standable(Vector3 p)
+        {
+            // A door is an intended passage: show the route through it, while the HUD
+            // prompts opening it and the independent teleport validator still blocks it.
+            foreach(var collider in Physics.OverlapCapsule(p+Vector3.up*.55f,p+Vector3.up*1.3f,.18f,~0,QueryTriggerInteraction.Ignore))
+                if(collider.GetComponentInParent<PrototypeDoor>()==null)return false;
+            return !CampusFireBarrier.TryIntersect(p+Vector3.up*.15f,p+Vector3.up*.15f,out _);
+        }
+        private static bool Clear(Vector3 a,Vector3 b)
+        {
+            if(Mathf.Abs(a.y-b.y)>.55f)return false;
+            var start=a+Vector3.up*.65f;var delta=b-a;
+            foreach(var hit in Physics.RaycastAll(start,delta.normalized,delta.magnitude,~0,QueryTriggerInteraction.Ignore))
+                if(hit.collider.GetComponentInParent<PrototypeDoor>()==null)return false;
+            return !CampusFireBarrier.TryIntersect(a+Vector3.up*.15f,b+Vector3.up*.15f,out _);
+        }
+        private bool WashStationGoal(Vector3 end,out Vector3 goal)
+        {
+            goal=default;
+            if(target==null || (target.GetComponent<CampusTowel>()==null && target.GetComponent<CampusFaucet>()==null))return false;
+            var station=target.parent;
+            if(station==null || station.name!="WashStation")return false;
+            var local=station.InverseTransformPoint(end);
+            var approach=station.TransformPoint(new Vector3(local.x,0,-.95f));
+            // Stay on the room-facing side of this counter; never fall back across its wall.
+            for(int i=0;i<5;i++)
+            {
+                var seed=approach+station.right*((i==0?0:(i%2==0?1:-1))*((i+1)/2)*.15f);
+                if(Project(seed,.35f,.8f,out var p) && Standable(p)){goal=p;return true;}
+            }
+            return false;
+        }
+        private bool Goal(Vector3 start,Vector3 end,out Vector3 goal)
+        {
+            if(target!=null && target.parent!=null && target.parent.name=="WashStation"
+                && (target.GetComponent<CampusTowel>()!=null || target.GetComponent<CampusFaucet>()!=null))
+                return WashStationGoal(end,out goal);
+            goal=default;float best=float.PositiveInfinity;
+            for(int ring=0;ring<5;ring++)for(int i=0;i<(ring==0?1:16);i++)
+            {
+                float a=i*Mathf.PI/8;var seed=end+new Vector3(Mathf.Cos(a),0,Mathf.Sin(a))*(ring*.45f);
+                if(!Project(seed,.2f,3,out var p)||!Standable(p))continue;
+                float cost=Vector3.Distance(start,p)+ring*.7f;if(cost<best){best=cost;goal=p;}
+            }
+            return best<float.PositiveInfinity;
+        }
+        private IEnumerator Plan(Vector3 start,Vector3 end)
+        {
+            yield return null;
+            if(!Project(start,.4f,1,out start)||!Goal(start,end,out var goal)){search=null;yield break;}
+            var first=new Node{p=start};var open=new List<Node>{first};
+            var nodes=new Dictionary<Vector3Int,Node>{{Key(start),first}};var closed=new HashSet<Vector3Int>();
+            Node found=null;int expanded=0;float frameStart=Time.realtimeSinceStartup;
+            while(open.Count>0 && expanded++<6500)
+            {
+                int best=0;for(int i=1;i<open.Count;i++)if(open[i].f<open[best].f)best=i;
+                var n=open[best];open.RemoveAt(best);closed.Add(Key(n.p));
+                if(Vector3.Distance(n.p,goal)<.55f && Clear(n.p,goal)){found=n;break;}
+                for(int x=-1;x<=1;x++)for(int z=-1;z<=1;z++)
                 {
-                    var item = FindObjectsOfType<CampusExtinguisher>(true)
-                        .Where(x => x.gameObject.activeInHierarchy && (extinguisher == null || x != extinguisher.Held))
-                        .OrderBy(x => NavigationDistance(x.transform.position)).FirstOrDefault();
-                    if (item != null) return item.transform;
+                    if(x==0&&z==0)continue;
+                    if(!Project(n.p+new Vector3(x*.4f,0,z*.4f),.45f,1,out var p)||Mathf.Abs(p.y-n.p.y)>.4f)continue;
+                    var key=Key(p);if(closed.Contains(key)||!Standable(p)||!Clear(n.p,p))continue;
+                    if(x!=0&&z!=0 && (!Project(n.p+new Vector3(x*.4f,0,0),.45f,1,out var sa)||!Standable(sa)
+                        ||!Project(n.p+new Vector3(0,0,z*.4f),.45f,1,out var sb)||!Standable(sb)))continue;
+                    float g=n.g+Vector3.Distance(n.p,p);if(nodes.TryGetValue(key,out var old)&&old.g<=g)continue;
+                    var next=old??new Node();next.p=p;next.parent=n;next.g=g;next.f=g+Vector3.Distance(p,goal);
+                    if(old==null){nodes.Add(key,next);open.Add(next);}
                 }
-                return liveFire.transform;
+                if(Time.realtimeSinceStartup-frameStart>.002f){yield return null;frameStart=Time.realtimeSinceStartup;}
             }
-
-            return ResolveRouteWaypoint();
+            path.Clear();if(found!=null){path.Add(goal);for(var n=found;n!=null;n=n.parent)path.Add(n.p);path.Reverse();}
+            search=null;
         }
-
-        private Transform ResolveRouteWaypoint()
-        {
-            int selected = LanguageSelectionUI.SelectedRoute;
-            Vector3[] points = selected == 0 ? RouteA : RouteB;
-            if (activeRoute != selected)
-            {
-                activeRoute = selected;
-                routeIndex = 0;
-            }
-
-            // Advance only after physically reaching the current 3D waypoint. This makes
-            // each beacon disappear and the next floor/landing beacon appear immediately.
-            while (routeIndex < points.Length - 1 && NavigationDistance(points[routeIndex]) <= arrivalDistance)
-                routeIndex++;
-            routeAnchor.position = points[Mathf.Clamp(routeIndex, 0, points.Length - 1)];
-            return routeAnchor;
-        }
-
-        private float FlatDistance(Vector3 position)
-        {
-            Vector3 delta = position - head.position;
-            delta.y = 0f;
-            return delta.sqrMagnitude;
-        }
-
-        private float NavigationDistance(Vector3 position) => Vector3.Distance(transform.position, position);
-
-        private void OnDestroy()
-        {
-            if (beaconRenderer != null && beaconRenderer.sharedMaterial != null)
-            {
-                if (Application.isPlaying) Destroy(beaconRenderer.material);
-                else DestroyImmediate(beaconRenderer.sharedMaterial);
-            }
-            if (arrowSprite != null)
-            {
-                if (Application.isPlaying) Destroy(arrowSprite); else DestroyImmediate(arrowSprite);
-            }
-            if (arrowTexture != null)
-            {
-                if (Application.isPlaying) Destroy(arrowTexture); else DestroyImmediate(arrowTexture);
-            }
-        }
+        private void CancelSearch(){if(search!=null)StopCoroutine(search);search=null;}
+        private void Hide(){CancelSearch();path.Clear();plannedTarget=null;if(trail!=null)trail.enabled=false;if(destination!=null)destination.enabled=false;}
+        private void OnDisable()=>Hide();
+        private void OnDestroy(){if(material!=null)Destroy(material);}
     }
 }
