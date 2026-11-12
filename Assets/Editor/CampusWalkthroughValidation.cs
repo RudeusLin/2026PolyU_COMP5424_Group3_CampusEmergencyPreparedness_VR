@@ -23,6 +23,7 @@ namespace CampusEmergency.Editor
                 EditorApplication.playModeStateChanged += OnPlayModeChanged;
         }
 
+        [MenuItem("Campus Emergency/Validate campus evacuation routes")]
         public static void Begin()
         {
             EditorSceneManager.OpenScene("Assets/Scenes/TeachingBuildingCampus.unity");
@@ -80,15 +81,16 @@ namespace CampusEmergency.Editor
                 Directory.CreateDirectory("Docs/Previews/Campus");
                 File.WriteAllText("Docs/Previews/Campus/CampusWalkthroughValidation.txt", report);
                 Debug.Log("CAMPUS_WALKTHROUGH_VALIDATION_SUCCESS\n" + report);
-                EditorApplication.Exit(0);
+                Finish(true);
             }
             catch (Exception exception)
             {
                 Debug.LogException(exception);
-                EditorApplication.Exit(1);
+                Finish(false);
             }
         }
 
+        [MenuItem("Campus Emergency/Capture campus student previews")]
         public static void CaptureStudentPreviews()
         {
             EditorSceneManager.OpenScene("Assets/Scenes/TeachingBuildingCampus.unity");
@@ -99,17 +101,24 @@ namespace CampusEmergency.Editor
 
         private static void CaptureStudentViews(CampusStudentAvatar avatar)
         {
-            CaptureStudent(avatar, "Campus-Student.png", new Vector3(-6.15f, 12.1f, 4.5f));
             Transform student = avatar.transform.parent;
+            CampusFirstPersonArms arms = student.GetComponentInChildren<CampusFirstPersonArms>();
+            bool restoreHands = arms != null && arms.transform.Find("FirstPersonArms").gameObject.activeSelf;
             Vector3 previousPosition = student.position;
             Quaternion previousRotation = student.rotation;
+            if (arms != null) arms.SetVisible(false);
             try
             {
-                // An outdoor rear view keeps the backpack unobstructed by classroom walls.
+                CaptureStudent(avatar, "Campus-Student.png", new Vector3(-6.15f, 12.1f, 4.5f));
+                // An outdoor rear view keeps the student unobstructed by classroom walls.
                 student.SetPositionAndRotation(new Vector3(-4, .025f, -17), Quaternion.identity);
                 CaptureStudent(avatar, "Campus-StudentBack.png", new Vector3(-5.5f, 1.4f, -19.2f));
             }
-            finally { student.SetPositionAndRotation(previousPosition, previousRotation); }
+            finally
+            {
+                student.SetPositionAndRotation(previousPosition, previousRotation);
+                if (arms != null) arms.SetVisible(restoreHands);
+            }
         }
 
         private static void CheckCameras(PrototypeExplorer explorer, CampusStudentAvatar avatar)
@@ -141,10 +150,24 @@ namespace CampusEmergency.Editor
             avatar.SetVisible(true);
             avatar.Animate(Vector3.zero, true, 1);
             for (int frame = 0; frame < 5; frame++) explorer.MoveCharacter(Vector3.zero, 0, 1f / 60f);
-            Renderer sole = avatar.GetComponentsInChildren<Renderer>().First(r => r.name == "Sole");
-            Vector3 soleCenter = sole.bounds.center;
+            Vector3 soleCenter;
+            float soleBottom;
+            if (avatar.UsesImportedModel)
+            {
+                SkinnedMeshRenderer skin = avatar.GetComponentInChildren<SkinnedMeshRenderer>();
+                CampusImportedStudentAssets.SkinWorldGeometry(skin, out Vector3[] vertices, out _);
+                Vector3 lowest = vertices.OrderBy(v => v.y).First();
+                soleBottom = lowest.y;
+                soleCenter = lowest + Vector3.up * .01f;
+            }
+            else
+            {
+                Renderer sole = avatar.GetComponentsInChildren<Renderer>().First(r => r.name == "Sole");
+                soleCenter = sole.bounds.center;
+                soleBottom = sole.bounds.min.y;
+            }
             if (!Physics.Raycast(soleCenter + Vector3.up * .2f, Vector3.down, out RaycastHit floor, .4f)
-                || Mathf.Abs(sole.bounds.min.y - floor.point.y) > .04f)
+                || Mathf.Abs(soleBottom - floor.point.y) > .04f)
                 throw new InvalidOperationException("Student soles do not meet the supporting floor");
         }
 
@@ -210,6 +233,12 @@ namespace CampusEmergency.Editor
                 }
             }
             return name + " at " + speed + " m/s, " + Mathf.RoundToInt(1f / dt) + " Hz: " + moves + " controller moves PASS\n";
+        }
+
+        private static void Finish(bool success)
+        {
+            if (Application.isBatchMode) EditorApplication.Exit(success ? 0 : 1);
+            else EditorApplication.isPlaying = false;
         }
     }
 }

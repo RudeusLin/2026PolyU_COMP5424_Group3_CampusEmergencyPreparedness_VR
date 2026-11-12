@@ -1,0 +1,7 @@
+Standalone campus WebGL preview regression: PASS
+13 camera views, floors 1-4 and 8 display-toggle states: PASS
+All 25 cases report WebGL error 0; restored classroom view on floor 4.
+Browser warning/error console: no messages for this page.
+Full body and face comparisons use the same browser camera and lighting.
+These are browser renders, not Unity Editor or runtime captures.
+Subsequent actual Unity application and desktop Play Mode validation passed; see UnityApplicationValidation.txt. Headset input, stereo comfort and performance remain unverified.

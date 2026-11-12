@@ -1,0 +1,14 @@
+Unity 2022.3.62f3 actual CharacterController movement
+A descent at 2.6 m/s, 60 Hz: 2698 controller moves PASS
+A ascent at 2.6 m/s, 60 Hz: 2698 controller moves PASS
+A descent at 4.2 m/s, 60 Hz: 1685 controller moves PASS
+A ascent at 4.2 m/s, 60 Hz: 1685 controller moves PASS
+A low frame rate descent at 4.2 m/s, 30 Hz: 865 controller moves PASS
+B descent at 2.6 m/s, 60 Hz: 3058 controller moves PASS
+B ascent at 2.6 m/s, 60 Hz: 3058 controller moves PASS
+B descent at 4.2 m/s, 60 Hz: 1908 controller moves PASS
+B ascent at 4.2 m/s, 60 Hz: 1908 controller moves PASS
+B low frame rate descent at 4.2 m/s, 30 Hz: 977 controller moves PASS
+Articulated student: present, no additional colliders; movement uses the same method as keyboard input PASS
+Student uses dynamic lighting; one light probe group and six reflection probes PASS
+First/third person visibility, wall-safe follow camera and reversible view toggle PASS

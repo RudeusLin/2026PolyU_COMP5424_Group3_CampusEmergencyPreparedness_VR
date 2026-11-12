@@ -23,6 +23,9 @@ from campus_signage import prepare_signage
 from campus_preview_ui import restyle_preview
 from campus_student import prepare_walkthrough
 from campus_modeling import apply_modeling_changes, upgrade_modeling_preview
+from campus_scene_polish import apply_scene_polish, upgrade_polish_preview
+from campus_student_realism import apply_student_realism, upgrade_student_preview
+from campus_imported_student import apply_imported_student, upgrade_imported_student_preview
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = "Assets/Environment/TeachingBuildingCampus"
@@ -416,13 +419,27 @@ def art_pass(data):
 
 def preview_html(data):
     preview = copy.deepcopy(data)
+    preview['studentMeshData'] = {}
+    active = {}
+    for item in preview['nodes']:
+        active[item['id']] = item['active'] and (item['parent'] == 0 or active[item['parent']])
+        source = item.get('mesh')
+        if source and active[item['id']] and source not in preview['studentMeshData']:
+            preview['studentMeshData'][source] = json.loads((ROOT / source).read_text(encoding='utf-8'))
+    student_ids = set()
+    for item in preview['nodes']:
+        if item.get('component') == 'studentAvatar' or item['parent'] in student_ids:
+            student_ids.add(item['id'])
+            item['studentVisual'] = True
+    avatar = next(item for item in preview['nodes'] if item.get('component') == 'studentAvatar')
+    preview['studentOrigin'] = world_geometry(preview['nodes'])[avatar['id']][:3, 3].tolist()
     for item in preview['nodes']:
         if item.get('printTexture'):
             item['printData'] = 'data:image/png;base64,' + base64.b64encode((ROOT / item['printTexture']).read_bytes()).decode('ascii')
     for material in preview["materials"]:
         if material.get("texture"):
             # The lightweight browser renderer has 512px texture-array layers.
-            resized = Image.open(ROOT / material["texture"]).convert("RGB").resize((512, 512), Image.Resampling.LANCZOS)
+            resized = Image.open(ROOT / material["texture"]).convert("RGBA" if material.get('cutout') else "RGB").resize((512, 512), Image.Resampling.LANCZOS)
             buffer = io.BytesIO()
             resized.save(buffer, format="PNG")
             material["textureData"] = "data:image/png;base64," + base64.b64encode(buffer.getvalue()).decode("ascii")
@@ -455,6 +472,9 @@ def preview_html(data):
     template = restyle_preview(template)
     template = template.replace("window:'教室外窗'})", "window:'教室外窗',student:'学生角色 · Unity 中按 V 切换第三人称'})")
     template = upgrade_modeling_preview(template)
+    template = upgrade_polish_preview(template)
+    template = upgrade_student_preview(template)
+    template = upgrade_imported_student_preview(template)
     # Printed glyphs use the same measured dimensions as their Unity decals.
     anchor = "function textTexture(n){"
     raster = """function printedTexture(n){
@@ -480,6 +500,9 @@ def main():
     fitted_signs = prepare_signage(campus)
     prepare_walkthrough(campus)
     apply_modeling_changes(campus)
+    apply_scene_polish(campus)
+    apply_student_realism(campus)
+    apply_imported_student(campus)
     assert campus["routes"] == original_routes, "Art pass changed route definitions"
     junctions = validate_window_junctions(campus)
     campus["facadeJunctionCount"] = junctions

@@ -34,7 +34,10 @@ void main(){
     vec3 lightDir=normalize(vec3(.4,.85,.5)), viewDir=normalize(cameraEye-worldPos);
     float shadow=visibility(norm,lightDir), ndl=max(dot(norm,lightDir),0.);
     float inside=step(abs(worldPos.x),17.8)*step(abs(worldPos.z),8.79);
-    float ambient=.25+.08*max(norm.y,0.)+.18*inside;
+    // Approximate the baked room, corridor and stair lighting separately.
+    float corridor=1.-step(1.55,abs(worldPos.z));
+    float stairs=step(13.05,abs(worldPos.x));
+    float ambient=.25+.10*max(norm.y,0.)+inside*(.23+.10*corridor+.11*stairs);
     vec3 reflected=reflect(-lightDir,norm);
     float shine=pow(max(dot(reflected,viewDir),0.),mix(12.,110.,gloss[layer]));
     vec3 spec=mix(vec3(.04),base,metal[layer])*shine*gloss[layer]*4.*shadow;

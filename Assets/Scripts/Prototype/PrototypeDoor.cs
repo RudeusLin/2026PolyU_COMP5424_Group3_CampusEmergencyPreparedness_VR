@@ -10,6 +10,7 @@ namespace CampusEmergency.Prototype
 
         public string Prompt => isOpen ? "[E] Close door" : "[E] Open door";
         public float OpenAngle => openAngle;
+        public bool IsOpen => isOpen;
 
         public void Configure(float angle, bool initiallyOpen)
         {

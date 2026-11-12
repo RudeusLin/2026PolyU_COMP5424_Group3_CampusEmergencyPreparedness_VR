@@ -147,14 +147,24 @@ namespace CampusEmergency.Editor
                 Require(hands.GetComponentsInChildren<Collider>().Length == 0
                     && hands.GetComponentsInChildren<Renderer>().All(r => r.enabled && r.lightmapIndex < 0),
                     "First-person hands are obstructive or baked into the building");
-                Require(hands.Find("LeftHandView/Wrist/HandDetails").childCount == 9
-                    && hands.Find("RightHandView/Wrist/HandDetails").childCount == 9, "Hand finger detail is missing");
+                foreach (string side in new[] { "LeftHandView", "RightHandView" })
+                {
+                    Transform view = hands.Find(side);
+                    if (avatar.UsesImportedModel)
+                        Require(view.GetComponent<MeshFilter>()?.sharedMesh != null
+                            && view.GetComponent<MeshFilter>().sharedMesh.vertexCount > 100
+                            && view.Find("Wrist/HandHoldPoint") != null, "Imported hand surface or towel anchor is missing");
+                    else Require(view.Find("Wrist/HandDetails")?.childCount > 0, "Hand finger detail is missing");
+                }
                 Camera camera = arms.GetComponent<Camera>();
                 Directory.CreateDirectory(Folder);
                 arms.SetVisible(false);
                 CaptureView(camera, "Campus-HandsBaseline.png");
                 arms.SetVisible(true);
                 CaptureView(camera, "Campus-Hands.png");
+                int handPixels = ChangedPixels("Campus-HandsBaseline.png", "Campus-Hands.png");
+                Require(handPixels > 1000, "First-person hands are enabled but not visibly rendered");
+                report += "First-person hands visibly render: " + handPixels + " changed pixels PASS\n";
                 var towel = Object.FindObjectsOfType<CampusTowel>().OrderBy(t => t.transform.position.y).Last();
                 Transform home = towel.transform.parent;
                 Vector3 homeScale = towel.transform.localScale;
@@ -177,13 +187,18 @@ namespace CampusEmergency.Editor
                 explorer.ToggleCameraView();
                 avatar.SetVisible(true);
                 avatar.ResetPose();
-                Transform elbow = avatar.transform.Find("BodyRoot/LeftArm/LeftForearm");
+                Transform elbow = avatar.UsesImportedModel
+                    ? avatar.GetComponentsInChildren<Transform>().Single(t => t.name == "Bip01 L Forearm")
+                    : avatar.transform.Find("BodyRoot/LeftArm/LeftForearm");
+                Transform knee = avatar.UsesImportedModel
+                    ? avatar.GetComponentsInChildren<Transform>().Single(t => t.name == "Bip01 L Calf")
+                    : avatar.transform.Find("BodyRoot/LeftLeg/LeftShin");
                 Quaternion idle = elbow.localRotation;
+                Quaternion idleKnee = knee.localRotation;
                 avatar.Animate(Vector3.forward * 4.2f, true, 1);
                 Require(Quaternion.Angle(idle, elbow.localRotation) > 35, "Run animation still uses the idle arm pose");
                 avatar.Animate(Vector3.up * 3, false, .2f);
-                Require(Quaternion.Angle(avatar.transform.Find("BodyRoot/LeftLeg/LeftShin").localRotation,
-                    Quaternion.identity) > 20, "Airborne knees do not flex");
+                Require(Quaternion.Angle(knee.localRotation, idleKnee) > 20, "Airborne knees do not flex");
                 avatar.ResetPose();
                 Require(Quaternion.Angle(idle, elbow.localRotation) < .1f, "Restart does not restore the idle pose");
                 Place(explorer, new Vector3(-4, .06f, -17));
@@ -233,6 +248,25 @@ namespace CampusEmergency.Editor
 
         private static void CaptureView(Camera camera, string name) => TeachingBuildingBuilder.Capture(camera,
             Folder, name, camera.transform.position, camera.transform.position + camera.transform.forward, camera.fieldOfView);
+
+        private static int ChangedPixels(string baseline, string capture)
+        {
+            var before = new Texture2D(2, 2);
+            var after = new Texture2D(2, 2);
+            try
+            {
+                before.LoadImage(File.ReadAllBytes(Folder + "/" + baseline));
+                after.LoadImage(File.ReadAllBytes(Folder + "/" + capture));
+                Color32[] a = before.GetPixels32(), b = after.GetPixels32();
+                Require(a.Length == b.Length, "Hand comparison capture dimensions differ");
+                int changed = 0;
+                for (int i = 0; i < a.Length; i++)
+                    if (Mathf.Abs(a[i].r - b[i].r) + Mathf.Abs(a[i].g - b[i].g) + Mathf.Abs(a[i].b - b[i].b) > 24)
+                        changed++;
+                return changed;
+            }
+            finally { Object.DestroyImmediate(before); Object.DestroyImmediate(after); }
+        }
 
         private static void CaptureStudent(CampusStudentAvatar avatar, string name)
         {

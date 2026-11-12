@@ -19,15 +19,15 @@ namespace CampusEmergency.Player.XR
         public Vector2 TurnAxis => Read<Vector2>("Turn");
         public bool CancelTeleport => LeftTracked && Button("CancelTeleport");
         public bool InteractPressed => Action("Interact")?.WasPressedThisFrame() == true;
-        public bool HasInteractionFocus
+        public bool HasInteractionFocus => !LanguageSelectionUI.IsBlocking && HasSessionFocus;
+        public bool HasSessionFocus
         {
             get
             {
                 bool openXR = XRGeneralSettings.Instance != null
                     && XRGeneralSettings.Instance.Manager != null
                     && XRGeneralSettings.Instance.Manager.activeLoader is OpenXRLoader;
-                return !LanguageSelectionUI.IsBlocking &&
-                    ResolveInteractionFocus(openXR, openXR && OpenXRUtility.IsSessionFocused, Application.isFocused);
+                return ResolveInteractionFocus(openXR, openXR && OpenXRUtility.IsSessionFocused, Application.isFocused);
             }
         }
         // A desktop window losing focus must not disable an active headset session.

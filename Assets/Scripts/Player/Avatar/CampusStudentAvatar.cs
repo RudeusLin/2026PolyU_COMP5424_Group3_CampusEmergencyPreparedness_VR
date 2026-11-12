@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CampusEmergency.Prototype
@@ -5,6 +6,9 @@ namespace CampusEmergency.Prototype
     // The visible student is a rig only; the parent CharacterController owns collisions.
     public sealed class CampusStudentAvatar : MonoBehaviour
     {
+        [SerializeField] private Transform importedModel, importedLeftView, importedRightView, importedHoldPoint;
+        private readonly Dictionary<Transform, Quaternion> restRotations = new Dictionary<Transform, Quaternion>();
+        private readonly Dictionary<Transform, Quaternion> poseFrames = new Dictionary<Transform, Quaternion>();
         private Transform body, leftLeg, rightLeg, leftShin, rightShin;
         private Transform leftArm, rightArm, leftForearm, rightForearm;
         private Renderer[] surfaces;
@@ -14,27 +18,77 @@ namespace CampusEmergency.Prototype
         private bool? currentVisibility;
         private Vector3 bodyRestPosition;
         public Transform RightHandHoldPoint { get; private set; }
+        public bool UsesImportedModel => importedModel != null;
 
         private void Awake() => InitializeRig();
 
         public void InitializeRig()
         {
-            Transform rig = transform.Find("BodyRoot");
+            Transform rig = importedModel != null ? importedModel : transform.Find("BodyRoot");
             if (body == null) bodyRestPosition = rig.localPosition;
             body = rig;
-            leftLeg = body.Find("LeftLeg");
-            rightLeg = body.Find("RightLeg");
-            leftShin = leftLeg.Find("LeftShin");
-            rightShin = rightLeg.Find("RightShin");
-            leftArm = body.Find("LeftArm");
-            rightArm = body.Find("RightArm");
-            leftForearm = leftArm.Find("LeftForearm");
-            rightForearm = rightArm.Find("RightForearm");
-            AddHandDetails(leftForearm, -1);
-            AddHandDetails(rightForearm, 1);
-            RightHandHoldPoint = rightForearm.Find("HandHoldPoint");
+            if (importedModel != null)
+            {
+                leftLeg = ImportedBone("Bip01 L Thigh"); rightLeg = ImportedBone("Bip01 R Thigh");
+                leftShin = ImportedBone("Bip01 L Calf"); rightShin = ImportedBone("Bip01 R Calf");
+                leftArm = ImportedBone("Bip01 L UpperArm"); rightArm = ImportedBone("Bip01 R UpperArm");
+                leftForearm = ImportedBone("Bip01 L Forearm"); rightForearm = ImportedBone("Bip01 R Forearm");
+                RightHandHoldPoint = importedHoldPoint;
+                if (restRotations.Count == 0)
+                    foreach (Transform bone in new[] { body, leftLeg, rightLeg, leftShin, rightShin,
+                        leftArm, rightArm, leftForearm, rightForearm })
+                    {
+                        restRotations.Add(bone, bone.localRotation);
+                        poseFrames.Add(bone, Quaternion.Inverse(bone.parent.rotation) * transform.rotation);
+                    }
+            }
+            else
+            {
+                leftLeg = body.Find("LeftLeg"); rightLeg = body.Find("RightLeg");
+                leftShin = leftLeg.Find("LeftShin"); rightShin = rightLeg.Find("RightShin");
+                leftArm = body.Find("LeftArm"); rightArm = body.Find("RightArm");
+                leftForearm = leftArm.Find("LeftForearm"); rightForearm = rightArm.Find("RightForearm");
+                AddHandDetails(leftForearm, -1);
+                AddHandDetails(rightForearm, 1);
+                RightHandHoldPoint = rightForearm.Find("HandHoldPoint");
+            }
             surfaces = GetComponentsInChildren<Renderer>();
             currentVisibility = null;
+        }
+
+        public void ConfigureImportedRig(Transform model, Transform leftView, Transform rightView, Transform holdPoint)
+        {
+            importedModel = model; importedLeftView = leftView; importedRightView = rightView; importedHoldPoint = holdPoint;
+            body = null;
+            restRotations.Clear(); poseFrames.Clear();
+            InitializeRig();
+        }
+
+        public Transform CreateFirstPersonForearm(bool leftSide, Transform parent)
+        {
+            Transform source = importedModel != null ? (leftSide ? importedLeftView : importedRightView)
+                : body.Find(leftSide ? "LeftArm/LeftForearm" : "RightArm/RightForearm");
+            Transform view = Instantiate(source.gameObject, parent).transform;
+            view.gameObject.SetActive(true);
+            return view;
+        }
+
+        private Transform ImportedBone(string name)
+        {
+            foreach (Transform bone in importedModel.GetComponentsInChildren<Transform>(true))
+                if (bone.name == name) return bone;
+            throw new System.InvalidOperationException("Missing imported student bone: " + name);
+        }
+
+        private void Pose(Transform bone, float x, float y, float z)
+        {
+            Quaternion rotation = Quaternion.Euler(x, y, z);
+            if (importedModel != null)
+            {
+                Quaternion frame = poseFrames[bone];
+                rotation = frame * rotation * Quaternion.Inverse(frame) * restRotations[bone];
+            }
+            bone.localRotation = rotation;
         }
 
         public void SetVisible(bool visible)
@@ -60,16 +114,16 @@ namespace CampusEmergency.Prototype
             float swing = Mathf.Sin(phase) * Mathf.Lerp(25, 42, runBlend) * blend;
             float tuck = localVelocity.y > 0 ? 24 : 12;
             float side = Mathf.Clamp(localVelocity.x / 4.2f, -1, 1);
-            leftLeg.localRotation = Quaternion.Euler(Mathf.Lerp(swing, -tuck, airBlend), 0, -side * 5 * blend);
-            rightLeg.localRotation = Quaternion.Euler(Mathf.Lerp(-swing, -tuck * .6f, airBlend), 0, -side * 5 * blend);
-            leftShin.localRotation = Quaternion.Euler(Mathf.Lerp(Mathf.Max(0, swing) * 1.25f, 42, airBlend) + landing * 18, 0, 0);
-            rightShin.localRotation = Quaternion.Euler(Mathf.Lerp(Mathf.Max(0, -swing) * 1.25f, 30, airBlend) + landing * 18, 0, 0);
-            leftArm.localRotation = Quaternion.Euler(Mathf.Lerp(-swing * .8f, -18, airBlend), 0, -4 - airBlend * 9);
-            rightArm.localRotation = Quaternion.Euler(holdingTowel ? -25 : Mathf.Lerp(swing * .8f, -18, airBlend), 0, 4 + airBlend * 9);
+            Pose(leftLeg, Mathf.Lerp(swing, -tuck, airBlend), 0, -side * 5 * blend);
+            Pose(rightLeg, Mathf.Lerp(-swing, -tuck * .6f, airBlend), 0, -side * 5 * blend);
+            Pose(leftShin, Mathf.Lerp(Mathf.Max(0, swing) * 1.25f, 42, airBlend) + landing * 18, 0, 0);
+            Pose(rightShin, Mathf.Lerp(Mathf.Max(0, -swing) * 1.25f, 30, airBlend) + landing * 18, 0, 0);
+            Pose(leftArm, Mathf.Lerp(-swing * .8f, -18, airBlend), 0, -4 - airBlend * 9);
+            Pose(rightArm, holdingTowel ? -25 : Mathf.Lerp(swing * .8f, -18, airBlend), 0, 4 + airBlend * 9);
             float elbow = Mathf.Lerp(-8, -60, runBlend) - Mathf.Abs(swing) * .25f;
-            leftForearm.localRotation = Quaternion.Euler(Mathf.Lerp(elbow, -55, airBlend), 0, 0);
-            rightForearm.localRotation = Quaternion.Euler(holdingTowel ? -65 : Mathf.Lerp(elbow, -55, airBlend), 0, 0);
-            body.localRotation = Quaternion.Euler(runBlend * 8 * blend, Mathf.Sin(phase) * 3 * blend, -side * 4 * blend);
+            Pose(leftForearm, Mathf.Lerp(elbow, -55, airBlend), 0, 0);
+            Pose(rightForearm, holdingTowel ? -65 : Mathf.Lerp(elbow, -55, airBlend), 0, 0);
+            Pose(body, runBlend * 8 * blend, Mathf.Sin(phase) * 3 * blend, -side * 4 * blend);
             body.localPosition = bodyRestPosition + Vector3.up *
                 (Mathf.Abs(Mathf.Sin(phase)) * Mathf.Lerp(.014f, .025f, runBlend) * blend - landing * .045f);
         }

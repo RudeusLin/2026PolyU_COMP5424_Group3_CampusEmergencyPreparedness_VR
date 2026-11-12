@@ -1,0 +1,14 @@
+Only imported student selection and preview nodes changed; movement controller, building colliders, routes and existing materials preserved: PASS
+All procedural body/backpack parts hidden; exactly three imported material sections visible: PASS
+Pinned original FBX SHA-256, MIT notice, 80 weighted joints, required animation bones and skin-weight sums: PASS
+Preview mesh indices, normals, winding, UVs and nondegenerate triangles; 1024px alpha-cutout hair texture: PASS
+Imported visible model: 7364 triangles, three shared material sections; 1.74 m normalized height
+Incremental/repeated model selection, A/B route samples {'A': 718, 'B': 797} and 47 window/masonry junctions: PASS
+Full campus generation in an isolated output directory matches geometry, model selection, materials and routes: PASS
+Historical label font measurements are excluded from cross-machine comparisons.
+Current layout: 7480 nodes, 58 material definitions
+Independent C# compilation against Unity 2022.3.62f3 assemblies (28 scripts): PASS
+Saved Unity scene/prefab application, actual FBX import and desktop Play Mode skeletal/first-person/towel checks: PASS (subsequent application; see UnityApplicationValidation.txt). VR hardware checks: NOT RUN.
+L first-person forearm/hand extraction: 1015 triangles PASS
+R first-person forearm/hand extraction: 1015 triangles PASS
+Final Assets metadata scan: 1249 valid unique GUIDs, no orphan .meta files; all 14 Rocketbox files have metadata: PASS

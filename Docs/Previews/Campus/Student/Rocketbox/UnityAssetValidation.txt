@@ -1,0 +1,18 @@
+All 2436 saved scene colliders/CharacterController records unchanged: PASS
+1249 asset GUIDs unique and no orphan metadata: PASS
+214021 local/external references in the saved scene, prefab and five generated resources resolve: PASS
+TeachingBuildingCampus.unity contains the imported rig and no procedural body/backpack: PASS
+TeachingBuildingCampus.unity has one skinned character surface: PASS
+CampusStudent.prefab contains the imported rig and no procedural body/backpack: PASS
+CampusStudent.prefab has one skinned character surface: PASS
+RocketboxFirstPersonL has 1015 valid triangles with no unused vertices: PASS
+RocketboxFirstPersonL forearm/hand length is in meters: PASS
+RocketboxFirstPersonR has 1015 valid triangles with no unused vertices: PASS
+RocketboxFirstPersonR forearm/hand length is in meters: PASS
+m014_body_color.png imports as a 2D texture: PASS
+m014_body_normal.png imports as a 2D texture: PASS
+m014_body_specular.png imports as a 2D texture: PASS
+m014_head_color.png imports as a 2D texture: PASS
+m014_head_normal.png imports as a 2D texture: PASS
+m014_head_specular.png imports as a 2D texture: PASS
+m014_opacity_color.png imports as a 2D texture: PASS

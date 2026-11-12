@@ -1,0 +1,27 @@
+2026-11-12 Campus scene polish — generator and browser delivery
+
+Delivery scope: generated Campus layout, standalone browser preview and Unity update command.
+Saved Unity scene and baked lighting: NOT UPDATED (Editor license unavailable).
+
+Layout: 7466 nodes, 52 shared materials; 56 added nodes.
+Route A: 718 geometry samples PASS.
+Route B: 797 geometry samples PASS.
+Existing collider transforms, dimensions and route definitions unchanged: PASS.
+All added geometry has collisions disabled: PASS.
+47 facade masonry/window junctions: PASS.
+Hierarchy, asset paths, repeat application and baseline recovery: PASS.
+Full generation matches incremental geometry, materials, routes and new labels: PASS.
+Historical glyph metrics depend on the installed font; geometry comparison allows numeric rounding at 1e-9.
+
+Browser: 12 views, four floors, roof cutaway, routes, sun shadows and smoke toggles PASS.
+JavaScript console errors: 0. WebGL errors: 0.
+Screenshots: Before-/After-BrowserClassroom.png, Before-/After-BrowserCorridor.png,
+After-BrowserFloorIdentity.png and Browser-Comparison.png.
+Browser lighting is an approximation; these screenshots are not Unity captures.
+
+C# source compilation: PASS, 25 source files against the installed Unity 2022.3.62f3 references.
+Unity Editor compilation, baking and Play Mode checks: NOT RUN (no valid license).
+Headset frame time, stereoscopic readability and comfort: NOT RUN.
+
+Apply later: python Tools/campus_scene_polish.py
+Unity menu: Campus Emergency > Apply campus scene polish

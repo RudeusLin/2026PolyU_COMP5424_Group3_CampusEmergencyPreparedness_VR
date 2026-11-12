@@ -16,14 +16,25 @@ namespace CampusEmergency.Editor
 
         public static void ApplyAndCapture()
         {
-            if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+            if (ApplyLayoutChanges(BeforePath)) CampusModelingValidation.Begin();
+        }
+
+        internal static bool ApplyLayoutChanges(string beforePath)
+        {
+            if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return false;
             var layout = JsonUtility.FromJson<TeachingBuildingBuilder.Layout>(File.ReadAllText(LayoutPath));
-            var before = JsonUtility.FromJson<TeachingBuildingBuilder.Layout>(File.ReadAllText(BeforePath));
+            var before = JsonUtility.FromJson<TeachingBuildingBuilder.Layout>(File.ReadAllText(beforePath));
             EditorSceneManager.OpenScene(layout.scenePath);
             Dictionary<int, TeachingBuildingBuilder.NodeSpec> oldSpecs = before.nodes.ToDictionary(n => n.id);
             Dictionary<int, GameObject> objects = new Dictionary<int, GameObject>();
             var changed = layout.nodes.Where(n => !oldSpecs.TryGetValue(n.id, out var old)
                 || JsonUtility.ToJson(n) != JsonUtility.ToJson(old)).ToArray();
+            var studentIds = new HashSet<int>();
+            foreach (var node in layout.nodes)
+                if (node.component == "studentAvatar" || studentIds.Contains(node.parent)) studentIds.Add(node.id);
+            bool replaceStudent = changed.Any(n => studentIds.Contains(n.id));
+            // Rebuild the complete visual rig so old generated hand details cannot survive an upgrade.
+            changed = changed.Where(n => !studentIds.Contains(n.id)).ToArray();
 
             GameObject Resolve(int id)
             {
@@ -77,6 +88,12 @@ namespace CampusEmergency.Editor
                 item.transform.localScale = new Vector3(spec.scale[0], spec.scale[1], spec.scale[2]);
                 if (IsGeometry(spec))
                 {
+                    if (oldSpecs.TryGetValue(spec.id, out var old) && (old.bevel != spec.bevel || old.mesh != spec.mesh))
+                    {
+                        GameObject geometry = TeachingBuildingBuilder.CreateGeometry(spec, true, meshFolder, meshes, materials);
+                        item.GetComponent<MeshFilter>().sharedMesh = geometry.GetComponent<MeshFilter>().sharedMesh;
+                        Object.DestroyImmediate(geometry);
+                    }
                     item.GetComponent<Renderer>().sharedMaterial = materials[spec.material];
                     Collider collider = item.GetComponent<Collider>();
                     if (collider != null) collider.enabled = spec.collision;
@@ -89,6 +106,7 @@ namespace CampusEmergency.Editor
                 if (spec.roof) item.transform.SetParent(GameObject.Find("Roof_CutawayToggle").transform, true);
             }
             TeachingBuildingBuilder.ConfigureFaucets(changed, objects);
+            if (replaceStudent) CampusStudentAppearanceBuilder.ReplaceVisualRig(layout);
             Physics.SyncTransforms();
             var errors = TeachingBuildingBuilder.ValidateRoutes(layout.routes);
             if (errors.Count > 0) throw new InvalidOperationException(string.Join("; ", errors));
@@ -98,7 +116,7 @@ namespace CampusEmergency.Editor
             EditorSceneManager.SaveScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene(), layout.scenePath);
             TeachingBuildingLighting.Bake(layout.assetFolder, layout.scenePath, layout.skyTexture);
             Debug.Log("CAMPUS_MODELING_UPDATE_SUCCESS: " + changed.Length + " changed/new layout nodes; original scene IDs retained.");
-            CampusModelingValidation.Begin();
+            return true;
         }
 
         private static bool IsGeometry(TeachingBuildingBuilder.NodeSpec spec) =>

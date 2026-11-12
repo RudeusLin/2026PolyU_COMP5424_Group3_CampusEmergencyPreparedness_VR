@@ -50,7 +50,7 @@ namespace CampusEmergency.Editor
             root.transform.SetPositionAndRotation(spawn.position, spawn.rotation);
             var origin = root.AddComponent<XROrigin>();
             origin.Origin = root;
-            origin.RequestedTrackingOriginMode = XROrigin.TrackingOriginMode.Floor;
+            origin.RequestedTrackingOriginMode = XROrigin.TrackingOriginMode.Device;
             origin.CameraYOffset = 1.65f;
             var offset = Child(root.transform, "Camera Floor Offset");
             origin.CameraFloorOffsetObject = offset;

@@ -4,11 +4,11 @@ A VR fire evacuation preparedness practice prototype for international students 
 
 ## Experience overview
 
-1. Select English, Simplified Chinese or Traditional Chinese, preview Route A or B, and begin in fourth-floor classroom 401.
-2. Use teleportation and snap turning to navigate the building. Follow exit signs, the directional arrow and the target beacon toward the current objective.
+1. Select English, Simplified Chinese or Traditional Chinese, read the fixed Route A introduction and route map, and begin in fourth-floor classroom 401.
+2. Use teleportation and snap turning to navigate the building. Follow exit signs, the floor trail and scene-anchored instruction cards toward the current objective.
 3. Explore facility interactions: activate an alarm, open doors, pick up and wet a towel, or use an extinguisher when appropriate to the practice situation. These interactions are available for practice; completion does not verify that every step was performed.
 4. Respond to smoke and fire cues, choose a usable route and reach the outdoor assembly point. Active fire zones prevent teleport rays from crossing them; extinguishing a fire clears its zone.
-5. Arrival starts a simulated telephone task. Entering 999 opens a static debrief; no real call is placed. The debrief reflects the route selected in the menu, not a measured record of the route taken.
+5. The source tracks five Route A nodes: alarm, raised wet towel, Stair A to 3F, B-side firefighting and descent to 2F, then Stair A to the main entrance and assembly. Completing the checkpoints enables a simulated 999 call and recorded-node debrief; no real call is placed. The downloadable ZIP predates these source changes.
 
 ## Download and run
 
@@ -20,7 +20,7 @@ A VR fire evacuation preparedness practice prototype for international students 
 4. Run `Campus_XR.exe`. Keep `Campus_XR_Data`, `MonoBleedingEdge`, `UnityPlayer.dll` and the other supplied files beside it.
 5. Select a language, preview a route and start. To repeat the practice from its initial state, close and relaunch the application.
 
-The download was rebuilt from the final project source at commit `fc722e9` using Unity 2022.3.62f3 for Windows x64. The archive passed integrity verification; this rebuild has not undergone a new headset test. The [SHA-256 checksum](Phase2_Deliverables/Campus_XR_Effects_Cleaned_Windows.zip.sha256) is provided for download verification. See [PC VR setup](Docs/Quest3PCVRSetup.md) for connection details. PQ604A/B/C hardware compatibility and performance still require on-site verification.
+The download was rebuilt from an earlier project source at commit `fc722e9` using Unity 2022.3.62f3 for Windows x64. The archive passed integrity verification; this rebuild has not undergone a new headset test. The [SHA-256 checksum](Phase2_Deliverables/Campus_XR_Effects_Cleaned_Windows.zip.sha256) is provided for download verification. See [PC VR setup](Docs/Quest3PCVRSetup.md) for connection details. PQ604A/B/C hardware compatibility and performance still require on-site verification.
 
 ## Feature status
 
@@ -29,10 +29,10 @@ The download was rebuilt from the final project source at commit `fc722e9` using
 | Quest 3 locomotion | Right-trigger teleport, 30-degree snap turning and classroom 401 spawn | Basic teleport confirmed by the project owner; complete packaged headset workflow still needs testing |
 | Extinguisher | Pickup, pin removal, Action/Spray switching and three-second continuous suppression | Simplified simulation; fires disappear immediately and extinguishing agent is unlimited |
 | Towel and facilities | Left-hand towel with wetting and toggle-to-raise controls; doors, taps and alarm interaction | Physical protective effects are not simulated |
-| Language and route selection | English, Simplified Chinese and Traditional Chinese; A/B route previews | Long translated prompts and font rendering require headset checks |
-| Directional guidance | Head-relative arrow and world-space objective beacon | Clarity, obstruction and reliance on guidance need user evaluation |
+| Language and route introduction | English, Simplified Chinese and Traditional Chinese; fixed Route A and expandable localized map | Long translated prompts and font rendering require headset checks |
+| Directional guidance | Floor trail and scene-anchored objective/door cards | Clarity, obstruction and reliance on guidance need user evaluation |
 | Smoke and fire | Smoke on the fourth floor and elsewhere; fire effects and teleport restrictions | No smoke physiology or damage model; fire regions do not constrain physical headset movement |
-| Completion and feedback | Assembly-point detection, simulated 999 entry and static debrief | Partial: no verified action-by-action progress, actual-route logging or personalised debrief |
+| Completion and feedback | Five recorded nodes, guarded assembly arrival, simulated 999 entry and recorded-node debrief | Records cover interactions/checkpoints; gaze and real-world competence are not measured |
 | Session and accessibility support | Session scripts, prompts and a modelled refuge room | Full reset/replay, consent flow and assisted-evacuation procedures remain incomplete |
 
 ## Validation and known limitations
@@ -46,7 +46,7 @@ The download was rebuilt from the final project source at commit `fc722e9` using
 | User headset feedback | The project owner confirmed basic teleportation and provided feedback during interaction iterations; this is not a controlled user study |
 | PQ604A/B/C and evaluation | Target-PC performance, the full packaged headset journey and formal participant evaluation remain unverified |
 
-The prototype supports practice rather than formal assessment. Current objective prompts can recur based on the held item; the static debrief does not establish that every task was completed. Headset readability, comfort, smoke visibility and performance remain evaluation priorities. Some linked reports record earlier control schemes, including hold-to-raise towel input; they are historical evidence, not validation of the current toggle behaviour. See [controller checks](Docs/ControllerValidation.txt), [towel checks](Docs/XRTowelValidation.txt), [extinguisher checks](Docs/ExtinguisherValidation.txt) and [cleanup validation](Docs/LegacySceneCleanup.md).
+The prototype supports practice rather than formal assessment. The current source records five-node progress and handles indoor towel recovery without erasing completed nodes. Headset readability, comfort, smoke visibility and performance remain evaluation priorities. Some linked reports record earlier control schemes, including hold-to-raise towel input; they are historical evidence, not validation of the current toggle behaviour. See [controller checks](Docs/ControllerValidation.txt), [towel checks](Docs/XRTowelValidation.txt), [extinguisher checks](Docs/ExtinguisherValidation.txt) and [cleanup validation](Docs/LegacySceneCleanup.md).
 
 ## Campus_XR (main branch)
 
@@ -69,7 +69,7 @@ Editor and simulated-controller validation reports are in `Docs`. The current te
 | Hold right **trigger** in Spray mode | Spray at the fire base within 3 m; green aim confirms a target |
 | Right **grip** | Return the extinguisher and reset its pin; release the trigger first |
 
-Hit the **same fire continuously for 3 seconds** to extinguish it immediately. Releasing, missing or switching targets resets progress. A teleport ray touching or crossing a live fire zone cannot confirm movement; extinguishing clears that zone. Towels and extinguishers cannot be carried together. [Full workflow and rollback](Docs/ExtinguisherWorkflow.md).
+Hit the **same fire continuously for 3 seconds** to extinguish it immediately. Releasing, missing or switching targets resets progress. A teleport ray touching or crossing a live fire zone cannot confirm movement; extinguishing clears that zone. A wet towel must be raised before picking up the extinguisher; it remains held in the left hand during firefighting. [Full workflow and rollback](Docs/ExtinguisherWorkflow.md).
 
 ### Open in Unity
 
@@ -99,11 +99,11 @@ Green indicates a valid landing point; red indicates an invalid target. Teleport
 
 ## Directional guidance
 
-A green arrow follows the head view and indicates the direction of the current objective. Its label shows the horizontal distance in metres, or HERE when nearby. A green beacon marks the objective in world space. These cues supplement exit signs and the A/B route previews to help users unfamiliar with the building stay oriented.
+A green floor trail connects the tracked player position to the current Route A objective. Scene-anchored cards show the next interaction and nearby door instructions; the head-relative display shows status. The floor path avoids unsupported surfaces, obstacles and active fire zones. Teleport destinations still pass the independent safety checks.
 
-Targets are selected from the current alarm, held-item, floor and fire state. They can include an alarm point, towel, tap, extinguisher, fire, stair waypoint or assembly point. Stair guidance follows predefined waypoints for the selected route; it is not dynamic pathfinding or a guarantee that the indicated route is clear. The arrow and beacon do not themselves authorise teleportation: a destination must still pass the teleport checks. Returning an item can make an earlier objective appear again because guidance does not maintain a complete task history.
+The route descends Stair A from 4F to 3F, clears the B-side fires, descends Stair B to 2F, then crosses directly to Stair A and exits through the main entrance. The broken B-side 2F–1F flight remains blocked. Completed nodes remain recorded during towel recovery.
 
-Evaluation will examine whether the cues are understandable, obstruct the view or reduce attention to physical exit signs. The [direction-arrow screenshot](Docs/Previews/XR/09-DirectionArrow.png) illustrates the runtime display.
+Guidance clarity and comfort require headset evaluation. The direction-arrow screenshot below records the earlier display and is not a preview of the current floor trail.
 
 ## Purpose of smoke and fire effects
 
@@ -115,7 +115,7 @@ The prototype does not simulate heat injury, smoke inhalation, realistic fire sp
 
 ## Screenshots
 
-Captured from the XR scene in Unity Play Mode at 1600 × 900. These are Editor-rendered previews, not headset recordings. Held-item poses and the spray state were staged using the project's existing models and visual logic; they illustrate appearance, not end-to-end controller validation. Click an image to view it at full resolution.
+Historical captures from the XR scene in Unity Play Mode at 1600 × 900, before the UI branch changes. These are Editor-rendered previews, not headset recordings. Held-item poses and the spray state were staged using the project's existing models and visual logic; they illustrate appearance, not end-to-end controller validation. Click an image to view it at full resolution.
 
 ### Campus environment
 
@@ -148,6 +148,10 @@ Open `Assets/Scenes/TeachingBuildingCampus.unity` in Unity **2022.3.62f3**. This
 The fourth-floor WC is now opposite classroom 401, with room 403 in the former WC space. All four floors have a basin, mirror, working tap and pickup towel, plus a signed refuge room with a distinct door finish. Press **E** to pick up a towel and use the tap to wet it; **R** restores the towel and turns off all taps. The standalone viewer includes washroom and refuge-room views. See `CampusModelingValidation.txt` and `CampusModelingGeneratorValidation.txt` in `Docs/Previews/Campus` for the corresponding checks.
 
 Open [the standalone campus preview](Docs/Previews/Campus/TeachingBuildingCampusPreview.html) without Unity, or read [campus scene instructions](Docs/TeachingBuildingCampus.md). Desktop campus captures and validation reports are in `Docs/Previews/Campus`; current XR screenshots are in `Docs/Previews/XR`; earlier material comparisons are in `Docs/Previews/Campus/History`.
+
+The layout generator and standalone preview include a further lighting and floor-wayfinding pass. This pass has **not yet been applied to the saved Unity scene or baked lighting**; it was prepared while the local Editor license was unavailable. To apply it, run `python Tools/campus_scene_polish.py` and choose **Campus Emergency → Apply campus scene polish**. See the campus instructions for the delivery scope and checks.
+
+The saved campus scene, `CampusStudent.prefab`, generator and viewer now use the **Microsoft Rocketbox Male_Adult_08** character: lighter skin, brushed-back hair, shirt and trousers, no backpack, and a complete skinned mesh with face/clothing textures. See the [actual Unity character](Docs/Previews/Campus/Campus-Student.png), [first-person hands](Docs/Previews/Campus/Campus-Hands.png), or the [browser model comparison](Docs/Previews/Campus/Student/Rocketbox/Student-Comparison.png). Original FBX, converted 1K textures, provenance and the MIT notice are included under `Assets/ThirdParty/Rocketbox`; no modeling application or extra Unity package is required. **Campus Emergency → Update campus student appearance** reapplies the character. Actual FBX import, saved-scene desktop Play Mode movement/jump, first-person hands/towel, camera toggles and all ten evacuation-route checks pass. The dynamic character reuses existing building lighting. Headset input, stereo comfort and performance remain unverified.
 
 ## Earlier scene versions
 

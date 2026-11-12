@@ -1,0 +1,284 @@
+{
+  "url": "http://127.0.0.1:8765/Docs/Previews/Campus/TeachingBuildingCampusPreview.html",
+  "views": 13,
+  "floors": 4,
+  "toggleCases": 8,
+  "results": [
+    {
+      "kind": "view",
+      "requested": "exterior",
+      "state": {
+        "mode": "exterior",
+        "floor": 4,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "view",
+      "requested": "floor",
+      "state": {
+        "mode": "floor",
+        "floor": 4,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "view",
+      "requested": "lift",
+      "state": {
+        "mode": "lift",
+        "floor": 4,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "view",
+      "requested": "stair",
+      "state": {
+        "mode": "stair",
+        "floor": 4,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "view",
+      "requested": "landing",
+      "state": {
+        "mode": "landing",
+        "floor": 4,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "view",
+      "requested": "classroom",
+      "state": {
+        "mode": "classroom",
+        "floor": 4,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "view",
+      "requested": "corridor",
+      "state": {
+        "mode": "corridor",
+        "floor": 4,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "view",
+      "requested": "notice",
+      "state": {
+        "mode": "notice",
+        "floor": 4,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "view",
+      "requested": "window",
+      "state": {
+        "mode": "window",
+        "floor": 4,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "view",
+      "requested": "student",
+      "state": {
+        "mode": "student",
+        "floor": 4,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "view",
+      "requested": "studentFace",
+      "state": {
+        "mode": "studentFace",
+        "floor": 4,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "view",
+      "requested": "washroom",
+      "state": {
+        "mode": "washroom",
+        "floor": 4,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "view",
+      "requested": "refuge",
+      "state": {
+        "mode": "refuge",
+        "floor": 4,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "floor",
+      "requested": 1,
+      "state": {
+        "mode": "floor",
+        "floor": 1,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "floor",
+      "requested": 2,
+      "state": {
+        "mode": "floor",
+        "floor": 2,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "floor",
+      "requested": 3,
+      "state": {
+        "mode": "floor",
+        "floor": 3,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "floor",
+      "requested": 4,
+      "state": {
+        "mode": "floor",
+        "floor": 4,
+        "objects": 7480,
+        "webgl": true
+      },
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "toggle",
+      "id": "cutaway",
+      "value": true,
+      "checked": true,
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "toggle",
+      "id": "cutaway",
+      "value": false,
+      "checked": false,
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "toggle",
+      "id": "routes",
+      "value": true,
+      "checked": true,
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "toggle",
+      "id": "routes",
+      "value": false,
+      "checked": false,
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "toggle",
+      "id": "sunlight",
+      "value": true,
+      "checked": true,
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "toggle",
+      "id": "sunlight",
+      "value": false,
+      "checked": false,
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "toggle",
+      "id": "atmosphere",
+      "value": true,
+      "checked": true,
+      "glError": 0,
+      "pass": true
+    },
+    {
+      "kind": "toggle",
+      "id": "atmosphere",
+      "value": false,
+      "checked": false,
+      "glError": 0,
+      "pass": true
+    }
+  ],
+  "finalState": {
+    "mode": "classroom",
+    "floor": 4,
+    "objects": 7480,
+    "webgl": true
+  },
+  "finalGlError": 0,
+  "scope": "Standalone WebGL preview only; not Unity Editor or runtime"
+}

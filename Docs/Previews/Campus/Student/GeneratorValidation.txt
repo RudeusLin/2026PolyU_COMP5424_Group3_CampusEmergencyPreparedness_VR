@@ -1,0 +1,11 @@
+Hierarchy, mesh/meta paths, material budget and unique node IDs: PASS
+Only student visuals/materials changed; controller, building colliders and routes unchanged: PASS
+Surface indices, finite positions, unit normals, nondegenerate triangles and closed-surface winding: PASS (31 meshes)
+Authored source triangles: 21252; active custom mesh instances: 35; triangles across these instances: 23940 (remaining primitives excluded)
+Incremental appearance generation and repeated execution: PASS
+A/B layout route samples: {'A': 718, 'B': 797}; window/masonry junctions: 47: PASS
+Complete generator integration in isolated output directory: PASS
+Historical glyph measurements may vary with installed fonts; geometry, student meshes, materials and routes match.
+Layout: 7476 nodes; 55 material definitions
+C# independent compilation against Unity 2022.3.62f3 reference assemblies: PASS (27 scripts)
+Saved Unity scene/prefab application, Play Mode animation, baking and headset performance: NOT RUN (local Unity license unavailable)

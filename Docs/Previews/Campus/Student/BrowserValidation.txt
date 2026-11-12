@@ -1,0 +1,11 @@
+Browser preview verification — 2026-11-12
+13 views (including full student and portrait): PASS
+Four floor selectors: PASS
+Roof cutaway, routes, sunlight and atmosphere toggles in both states: PASS
+All checked WebGL getError() values: 0
+JavaScript / WebGL console errors and warnings: 0
+Return to classroom after student display: PASS (visual inspection)
+Student full-body and portrait visual inspection: PASS
+Before / after captures use the same browser, camera and lighting.
+Saved Unity scene and runtime validation: NOT RUN (Unity license unavailable)
+Revision 2: lighter skin, swept-back hair and eight inactive backpack parts: PASS

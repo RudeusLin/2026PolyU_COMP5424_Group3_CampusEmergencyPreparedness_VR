@@ -46,7 +46,7 @@ namespace CampusEmergency.Editor
         [Serializable] internal sealed class NodeSpec
         {
             public int id, parent;
-            public string name, kind, material, text, component, tag, printTexture;
+            public string name, kind, material, text, component, tag, printTexture, mesh, model;
             public float[] position, rotation, scale, textColor;
             public bool active, collision, enabled, audio, startsOpen, roof;
             public float textSize, lightRange, lightIntensity, openAngle, bevel, printWidth, printHeight;
@@ -113,8 +113,13 @@ namespace CampusEmergency.Editor
             try { font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf"); }
             catch (ArgumentException) { font = Resources.GetBuiltinResource<Font>("Arial.ttf"); }
 
+            var importedVisualNodes = new HashSet<int>();
+            foreach (NodeSpec spec in layout.nodes)
+                if ((spec.component == "studentAvatar" && !string.IsNullOrEmpty(spec.model))
+                    || importedVisualNodes.Contains(spec.parent)) importedVisualNodes.Add(spec.id);
             foreach (NodeSpec spec in layout.nodes)
             {
+                if (importedVisualNodes.Contains(spec.id) && spec.component != "studentAvatar") continue;
                 GameObject item;
                 if (spec.kind == "box" || spec.kind == "sphere" || spec.kind == "cylinder")
                 {
@@ -178,6 +183,12 @@ namespace CampusEmergency.Editor
                     CampusAtmosphereAssets.Configure(item, layout.assetFolder);
                 item.SetActive(spec.active);
             }
+            foreach (NodeSpec spec in layout.nodes)
+                if (spec.component == "studentAvatar" && !string.IsNullOrEmpty(spec.model))
+                {
+                    CampusStudentAppearanceBuilder.ReplaceVisualRig(layout);
+                    objects[spec.id] = GameObject.Find(spec.name);
+                }
             foreach (PrototypeSceneBootstrap bootstrap in Object.FindObjectsOfType<PrototypeSceneBootstrap>())
                 bootstrap.InitializeText();
             ConfigureFaucets(layout.nodes, objects);
@@ -234,53 +245,22 @@ namespace CampusEmergency.Editor
         {
             Layout layout = JsonUtility.FromJson<Layout>(File.ReadAllText("Assets/Environment/TeachingBuildingCampusLayout.json"));
             EditorSceneManager.OpenScene(layout.scenePath);
-            string meshFolder = layout.assetFolder + "/Meshes";
-            List<MaterialSpec> studentMaterials = new List<MaterialSpec>();
-            foreach (MaterialSpec spec in layout.materials)
-                if (spec.name.StartsWith("Student")) studentMaterials.Add(spec);
-            Dictionary<string, Material> materials = CreateMaterials(studentMaterials.ToArray(), layout.assetFolder + "/Materials");
-            Dictionary<string, Mesh> meshes = new Dictionary<string, Mesh>();
             Dictionary<int, string> paths = new Dictionary<int, string>();
-            Dictionary<int, GameObject> studentObjects = new Dictionary<int, GameObject>();
             foreach (NodeSpec spec in layout.nodes)
             {
                 string path = spec.parent == 0 ? spec.name : paths[spec.parent] + "/" + spec.name;
                 paths.Add(spec.id, path);
-                bool student = spec.component == "studentAvatar" || studentObjects.ContainsKey(spec.parent);
-                if (!student && !spec.name.StartsWith("Step_First_") && !spec.name.StartsWith("Step_Second_")) continue;
+                if (!spec.name.StartsWith("Step_First_") && !spec.name.StartsWith("Step_Second_")) continue;
                 GameObject item = GameObject.Find(path);
-                if (item == null && !student) throw new InvalidOperationException("Missing existing stair: " + path);
-                if (!student && !rebake && (Vector3.Distance(item.transform.localScale, Vector(spec.scale)) > .0001f
+                if (item == null) throw new InvalidOperationException("Missing existing stair: " + path);
+                if (!rebake && (Vector3.Distance(item.transform.localScale, Vector(spec.scale)) > .0001f
                     || Vector3.Distance(item.transform.localPosition, Vector(spec.position)) > .0001f))
                     throw new InvalidOperationException("Stair geometry changed; run the full stairs/student update with baking.");
-                if (item == null)
-                {
-                    if (spec.kind == "box" || spec.kind == "sphere" || spec.kind == "cylinder")
-                    {
-                        PrimitiveType type = spec.kind == "box" ? PrimitiveType.Cube
-                            : spec.kind == "sphere" ? PrimitiveType.Sphere : PrimitiveType.Cylinder;
-                        item = GameObject.CreatePrimitive(type);
-                        Object.DestroyImmediate(item.GetComponent<Collider>());
-                        if (spec.kind == "box" && spec.bevel > 0)
-                            item.GetComponent<MeshFilter>().sharedMesh = BeveledBox(Vector(spec.scale), spec.bevel, meshFolder, meshes);
-                        item.GetComponent<Renderer>().sharedMaterial = materials[spec.material];
-                    }
-                    else item = new GameObject(spec.name);
-                    item.name = spec.name;
-                    item.transform.SetParent(GameObject.Find(paths[spec.parent]).transform, false);
-                }
                 item.transform.localPosition = Vector(spec.position);
                 item.transform.localRotation = new Quaternion(spec.rotation[0], spec.rotation[1], spec.rotation[2], spec.rotation[3]);
                 item.transform.localScale = Vector(spec.scale);
-                if (student)
-                {
-                    studentObjects.Add(spec.id, item);
-                    if (spec.component == "studentAvatar" && item.GetComponent<CampusStudentAvatar>() == null)
-                        item.AddComponent<CampusStudentAvatar>();
-                }
             }
-            foreach (CampusStudentAvatar avatar in Object.FindObjectsOfType<CampusStudentAvatar>()) avatar.InitializeRig();
-            SaveReusablePrefab("CampusStudent", studentObjects, layout.assetFolder + "/Prefabs");
+            CampusStudentAppearanceBuilder.ReplaceVisualRig(layout);
             foreach (string stair in new[] { "A", "B" })
             {
                 string path = layout.assetFolder + "/Prefabs/Stairwell_" + stair + ".prefab";
@@ -346,7 +326,9 @@ namespace CampusEmergency.Editor
             PrimitiveType type = spec.kind == "box" ? PrimitiveType.Cube
                 : spec.kind == "sphere" ? PrimitiveType.Sphere : PrimitiveType.Cylinder;
             GameObject item = GameObject.CreatePrimitive(type);
-            if (spec.kind == "box" && spec.bevel > 0)
+            if (!string.IsNullOrEmpty(spec.mesh))
+                item.GetComponent<MeshFilter>().sharedMesh = CampusStudentMeshAssets.Load(spec.mesh, meshFolder, meshes);
+            else if (spec.kind == "box" && spec.bevel > 0)
                 item.GetComponent<MeshFilter>().sharedMesh = BeveledBox(Vector(spec.scale), spec.bevel, meshFolder, meshes);
             else if (spec.kind == "box" && baked)
                 item.GetComponent<MeshFilter>().sharedMesh = LightmapBox(Vector(spec.scale),
@@ -685,7 +667,7 @@ namespace CampusEmergency.Editor
         {
             foreach (GameObject candidate in objects.Values)
             {
-                if (candidate.name != name) continue;
+                if (candidate == null || candidate.name != name) continue;
                 GameObject copy = Object.Instantiate(candidate);
                 copy.name = name;
                 copy.transform.SetParent(null);

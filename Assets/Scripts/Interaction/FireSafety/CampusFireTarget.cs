@@ -9,6 +9,8 @@ namespace CampusEmergency.Interaction.FireSafety
         public const float RequiredSeconds = 3f;
         public const float BaseRadius = .5f;
         public bool Extinguished { get; private set; }
+        private static long extinguishSequence;
+        public long ExtinguishOrder { get; private set; }
         public float ContinuousSeconds { get; private set; }
         public Vector3 AimPoint => transform.position + Vector3.up * .12f;
         public string Prompt => Extinguished ? "Fire extinguished" : "FIRE: aim extinguisher at the base for 3 continuous seconds";
@@ -20,6 +22,7 @@ namespace CampusEmergency.Interaction.FireSafety
             ContinuousSeconds += Mathf.Max(0f, deltaTime);
             if (ContinuousSeconds + .00001f < RequiredSeconds) return false;
             Extinguished = true;
+            ExtinguishOrder = ++extinguishSequence;
             ContinuousSeconds = RequiredSeconds;
             foreach (var effect in GetComponentsInChildren<ParticleSystem>())
                 effect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);

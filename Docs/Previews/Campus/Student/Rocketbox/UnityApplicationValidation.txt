@@ -1,0 +1,15 @@
+2026-11-12 | Unity 2022.3.62f3 | Microsoft Rocketbox Male_Adult_08
+Actual FBX imported and instantiated in Assets/Scenes/TeachingBuildingCampus.unity: PASS
+CampusStudent.prefab updated with the complete skinned character: PASS
+Lighter skin, brushed-back short hair, shirt/trousers, no backpack; three material sections: PASS
+Scoped 2D/normal/alpha-cutout texture settings; existing building lighting reused: PASS
+Model forward direction, meter scale and supported shoe position checked in actual Unity: PASS
+Desktop Play Mode movement/jump, hands, view toggles and towel attachment: PASS
+Final hand screenshot comparison: 47335 changed pixels versus no-hands baseline: PASS
+Ten actual A/B evacuation route checks, 20540 controller moves: PASS
+One light probe group and six reflection probes; dynamic character lighting: PASS
+2436 saved collider/CharacterController records unchanged: PASS
+1249 unique asset GUIDs and 214021 scene/prefab/resource references: PASS
+Final captures: ../../Campus-Student.png, ../../Campus-StudentBack.png, ../../Campus-Hands.png, ../../Campus-HandsTowel.png
+Details: UnityMovementValidation.txt, UnityWalkthroughValidation.txt, UnityAssetValidation.txt
+Headset input, stereo comfort and performance: NOT RUN

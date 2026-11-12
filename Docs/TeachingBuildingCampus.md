@@ -4,6 +4,46 @@
 
 无需 Unity 的查看入口为 `Docs/Previews/Campus/TeachingBuildingCampusPreview.html`，可直接用 Chrome 或 Edge 打开。预览默认进入 401 教室，侧栏可切换建筑、楼层、电梯厅、楼梯间、走廊、公告栏、外窗与隔墙，以及学生角色。浏览器光照经过简化，实际 Unity 截图保存在同目录。
 
+## 现成人物模型（已应用到 Unity 场景与 Prefab）
+
+2026-11-12 改用微软 Rocketbox 的 `Male_Adult_08`：浅肤色、后梳短发、浅蓝衬衫和长裤，无背包。该模型有完整的人体网格、80 个参与蒙皮的关节，以及面部、衣服和头发贴图；可见模型共 7364 个三角面、三个材质区。头发使用带透明通道的裁切材质。模型统一为约 1.74 m 高，站姿放松双肩。
+
+[全身对比](Previews/Campus/Student/Rocketbox/Student-Comparison.png)和[面部对比](Previews/Campus/Student/Rocketbox/Student-Face-Comparison.png)使用相同浏览器机位与照明。打开 `Docs/Previews/Campus/TeachingBuildingCampusPreview.html`，选择 **学生角色** 或 **人物近景**，可拖动旋转、滚轮缩放；建筑视角也显示同一模型。浏览器采用从原 FBX 导出的静态站姿，Unity 使用原 FBX 的骨骼与蒙皮。旧拼装人物在当前布局中停用。
+
+原始 FBX、1K 贴图、预览网格及固定来源版本／SHA-256 清单位于 `Assets/ThirdParty/Rocketbox/MaleAdult08/`。[上游项目](https://github.com/microsoft/Microsoft-Rocketbox)采用 MIT 许可证，原许可保存在 `Assets/ThirdParty/Rocketbox/LICENSE.md`。已固定至提交 `0943055db6ec570bcef9f2c8b41c9e5467c808f9`。正常查看、生成布局和在 Unity 中使用不需要 Blender、3ds Max 或额外 Unity Package。
+
+单独刷新当前布局与预览：
+
+```shell
+python Tools/campus_imported_student.py
+```
+
+现成人物已应用到 `Assets/Scenes/TeachingBuildingCampus.unity` 和 `CampusStudent.prefab`。后续可用 **Campus Emergency → Update campus student appearance** 重新应用；完整重建和 **Update campus stairs and student** 入口复用同一构建方法。人物更新不重新烘焙建筑，移动与碰撞仍由原 CharacterController 控制。手工修改过的人物请先另存 Prefab。
+
+`CampusStudentAvatar` 沿用现有按速度切换站立、步行、跑步、跳跃与持物姿态的逻辑，通过各关节的初始坐标系驱动导入骨骼，让蒙皮连续变形。当前没有引入新的动作捕捉资源或 Animator 状态机。第一人称双手从现成人物的前臂／手部网格提取，每侧 1015 个三角面，复用其材质和毛巾挂点；第三人称毛巾挂在右手骨骼下。材质使用 Standard、法线贴图和动态光照探针。FBX／贴图导入设置只作用于本角色目录，不改其他资源。
+
+原 FBX 来源校验、蒙皮权重、预览网格／UV／透明通道、重复生成、隔离目录完整生成及 28 个 C# 文件独立编译通过。A/B 路线 718／797 个布局采样点和 47 处窗墙接口不变。当前布局为 7480 个节点、58 个材质定义，浏览器只加载三份当前可见人物网格。浏览器十三个视角、四层切换和八种显示开关状态通过，无控制台警告或 WebGL 错误；1249 个资源 GUID 无重复，214021 个场景／人物资源引用检查通过。
+
+2026-11-12 本机 Unity 已可正常运行，本轮完成实际 FBX 导入、保存场景／Prefab 和桌面 Play Mode 回归。移动加减速、行走／跑步、30／60／120 Hz 跳跃、第一／第三人称切换和毛巾挂点通过；第一人称截图相对无手画面有 47335 个明显变化像素。A/B 两条路线十组实际上下楼测试共 20540 次移动通过，鞋底落地和靠墙相机检查通过。2436 个碰撞体／控制器序列化记录与替换前一致，建筑烘焙照明继续复用。手部网格按骨骼与绑定矩阵直接变换到世界坐标，更新顶点与索引以同步 Unity 渲染缓冲区；仅保留实际使用的顶点与身体材质，肘部切口保持在视野外。
+
+实际 Unity 截图：[人物正面](Previews/Campus/Campus-Student.png)、[背面](Previews/Campus/Campus-StudentBack.png)、[第一人称双手](Previews/Campus/Campus-Hands.png)、[手持毛巾](Previews/Campus/Campus-HandsTowel.png)。验证报告为 `CampusMovementValidation.txt`、`CampusWalkthroughValidation.txt` 和 `Student/Rocketbox/UnityAssetValidation.txt`，可通过 **Validate campus movement and hands** 与 **Validate campus evacuation routes** 复现。头显输入、立体舒适度和性能仍待实机验证。
+
+此前拼装人物的曲面调整及截图保留于 `Docs/Previews/Campus/Student/`，对应上一版布局，不代表现成人物结果。重做 FBX 到预览网格的转换才需要 `Tools/import_rocketbox_student.py`、ufbx 0.0.5、SciPy、NumPy、Pillow 及上游原始 TGA 文件；普通生成过程直接读取已保存的转换结果，无需这些额外转换步骤。
+
+## 场景照明与楼层辨识优化（生成器与预览）
+
+2026-11-12 更新了 Campus 布局和浏览器预览：走廊、教室与楼梯分别调整灯光；四层采用带大号文字的独立楼层底色，A/B 楼梯平台增加 `EXIT AT LEVEL 01` 提示；两端楼梯入口共增加八套灯具，Unity 配置为烘焙光源。401 教室的书本封面与角度增加变化，桌下框架、书架、柜门拉手和白板托盘复用现有倒角网格。已有通道和碰撞体位置、尺寸不变。浏览器照明按教室、走廊和楼梯近似显示。
+
+该照明与楼层标识优化仍按生成器与预览范围交付；当时本机许可证不可用，因此尚未应用到保存的场景与烘焙数据。后续人物替换已单独完成，不代表该照明优化也已应用。该优化的浏览器截图和检查说明见 `Docs/Previews/Campus/Polish/`。
+
+需要应用这部分照明优化时，先执行以下命令准备局部更新基线，再在 Unity 选择 **Campus Emergency → Apply campus scene polish**。它保留原场景对象编号，更新指定部件并重新烘焙，随后生成同机位的前后截图；重复执行会验证现有结果，避免重复添加灯具和标牌。
+
+```shell
+python Tools/campus_scene_polish.py
+```
+
+完整重新生成流程也已接入该优化。布局中保存了本次修改涉及的旧节点，首次检出项目后运行命令即可恢复 `.utmp` 中的局部更新基线，无需额外保留一份完整布局。头显帧率和标牌立体可读性仍需实机验证。
+
 ## 房间与洗手台修改
 
 四楼原 403 的空间现在用作厕所，入口位于 401 对面；原厕所空间改为 403 协作房间。其他楼层的厕所位置保持原布局。厕所窗户使用磨砂玻璃，原厕所位置的 403 恢复普通玻璃。厕所隔间采用低于顶棚、与外窗分开的隔板。
@@ -23,7 +63,7 @@
 - 四楼走廊增加校园活动与安全提示公告栏、楼层识别牌、导向牌吊杆；防火门加入推杆和闭门器细节。
 - 室外加入教学楼导览牌及步道灯柱，保持集合点和疏散通道。
 - 可选的局部烟雾与原创模拟警报，用于观察火警氛围和标识可见性。
-- 原创校园学生模型，含衣服、背包、面部和可活动的手臂、腿部；Unity 支持第一／第三人称切换。
+- 校园学生角色和第一／第三人称切换；当前生成器使用上文的 Rocketbox 模型。
 
 场景细节与模拟警报由代码生成；地面、木饰面和天空使用 Poly Haven 的 CC0 扫描素材，来源、作者和校验记录位于 `Assets/Environment/TeachingBuildingCampus/SourceTextures/`。不增加 Unity Package 依赖。课程提交时应按要求声明 AI 辅助制作与个人贡献。
 
@@ -47,13 +87,13 @@
 
 Campus 标牌使用独立 UV 的透明印字贴图和哑光 Standard 材质，接受场景光照；不再依赖无光照的动态字体图集。普通房号门牌为 480 × 220 mm，安装高度 1.6 m；本次调整的 WC、403 和防火房间门牌采用 1280 × 360 mm 牌面，其中防火房间标识移到门洞上方。消防设备标签、纸质消防行动告示和电梯警告按各自用途排版。文字与牌面保留约 2 mm 间距，并检查完整文字区域不越出牌面。重要出口与消防标识保留。白板用手写风格列出三步演练提纲，房号只放在入口。公告栏使用独立钉住、略微倾斜的纸张，正文左对齐。活动内容为场景示例。
 
-浏览器界面为不透明、可收起的紧凑工具面板，提供十一个视角、四层选择、屋顶剖切、路线、阴影和烟雾开关。窄于 600 px 时默认收起，选择视角或楼层后自动收起；Esc 可收起面板。场景主体不再透过侧栏与文字叠加。
+浏览器界面为不透明、可收起的紧凑工具面板，提供十三个视角、四层选择、屋顶剖切、路线、阴影和烟雾开关。窄于 600 px 时默认收起，选择视角或楼层后自动收起；Esc 可收起面板。场景主体不再透过侧栏与文字叠加。
 
-## 楼梯通行与学生角色
+## 已保存场景的楼梯通行与学生角色
 
 旧楼梯把每个踏步做成从楼梯底部向上填充的实心块，最大厚度 1.8 m。下楼进入三楼平台后的下一段楼梯时，上层踏步压缩净空，CharacterController 的跨步移动会被阻挡。现在踏板统一为 150 mm 厚，保留原有踏面标高、150 mm 步高、300 mm 踏面深度、扶手、支撑梁和平台；A/B 两条疏散路线不变。
 
-`CampusStudent` 是约 1.74 m 高的校园学生模型，衣服、背包、头发、面部和鞋子由共享布局生成，保存为 `Assets/Environment/TeachingBuildingCampus/Prefabs/CampusStudent.prefab`。`CampusStudentAvatar` 按实际移动速度驱动四肢，停止时回到站立姿态。模型没有额外碰撞体，通行仍由父物体上 1.8 m 高、半径 0.28 m 的 CharacterController 控制。
+此前的拼装版 `CampusStudent` 约 1.74 m 高，衣服、背包、头发、面部和鞋子由共享布局生成；当时保存为 `Assets/Environment/TeachingBuildingCampus/Prefabs/CampusStudent.prefab`。`CampusStudentAvatar` 按实际移动速度驱动四肢，停止时回到站立姿态。模型没有额外碰撞体，通行仍由父物体上 1.8 m 高、半径 0.28 m 的 CharacterController 控制。
 
 Play 后按 **F4** 或 **F2** 进入步行，按 **V** 在第一、第三人称之间切换；**WASD** 移动、左右 **Shift** 加速、**空格** 跳跃、**E** 交互。步行速度为 2.6 m/s，跑步速度为 4.2 m/s，起步与停止逐渐加速／减速，斜向移动不会额外加速。跳跃目标高度为 0.75 m，支持短暂的离地容错和落地前输入缓冲；空中不能连续跳跃，撞到顶棚会停止上升并下落。
 

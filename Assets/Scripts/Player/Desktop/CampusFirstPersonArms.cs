@@ -9,15 +9,16 @@ namespace CampusEmergency.Prototype
         private Transform rig, left, right;
         private float phase, movement, running, airborne, landing, previousVerticalSpeed;
         private bool wasGrounded = true;
+        private bool importedSurfaces;
         public Transform HoldPoint { get; private set; }
 
         public void Initialize(CampusStudentAvatar avatar)
         {
+            importedSurfaces = avatar.UsesImportedModel;
             rig = new GameObject("FirstPersonArms").transform;
             rig.SetParent(transform, false);
-            Transform body = avatar.transform.Find("BodyRoot");
-            left = Instantiate(body.Find("LeftArm/LeftForearm").gameObject, rig).transform;
-            right = Instantiate(body.Find("RightArm/RightForearm").gameObject, rig).transform;
+            left = avatar.CreateFirstPersonForearm(true, rig);
+            right = avatar.CreateFirstPersonForearm(false, rig);
             left.name = "LeftHandView";
             right.name = "RightHandView";
             BendWrist(left);
@@ -39,6 +40,8 @@ namespace CampusEmergency.Prototype
 
         private static void BendWrist(Transform forearm)
         {
+            // Imported hand surfaces are baked in a relaxed pose with an existing towel anchor.
+            if (forearm.Find("Wrist") != null) return;
             Transform wrist = new GameObject("Wrist").transform;
             wrist.SetParent(forearm, false);
             wrist.localPosition = new Vector3(0, -.225f, .018f);
@@ -80,6 +83,13 @@ namespace CampusEmergency.Prototype
             {
                 right.localPosition = new Vector3(.25f, -.24f + bob, .46f);
                 right.localRotation = Quaternion.Euler(-103, 0, 0);
+            }
+            if (importedSurfaces)
+            {
+                // Keep the extracted elbow seams below the camera's view.
+                Vector3 offset = new Vector3(0, -.07f, -.1f);
+                left.localPosition += offset;
+                right.localPosition += offset;
             }
             // Retract the hands near a surface while preserving their apparent size.
             float reach = 1;

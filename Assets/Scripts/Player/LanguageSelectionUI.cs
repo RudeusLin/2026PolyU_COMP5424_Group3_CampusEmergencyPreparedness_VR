@@ -18,12 +18,23 @@ namespace CampusEmergency.Player
         public static bool IsBlocking => instance != null &&
             (!instance.selectionComplete || instance.emergencyCallVisible || instance.completionVisible);
         public static CampusLanguage Current { get; private set; } = CampusLanguage.English;
-        public static int SelectedRoute => instance != null ? instance.selectedRoute : 0;
-        public static string SelectedRouteName => SelectedRoute == 0
-            ? T("ROUTE A · EAST STAIR", "路线 A · 东侧楼梯", "路線 A · 東側樓梯")
-            : T("ROUTE B · WEST STAIR", "路线 B · 西侧楼梯", "路線 B · 西側樓梯");
+        public static int SelectedRoute => 0;
+        public static string SelectedRouteName => T("ROUTE A · WEST STAIR", "路线 A · 西侧楼梯", "路線 A · 西側樓梯");
         public static event Action LanguageChanged;
         private static Font englishFont, simplifiedFont, traditionalFont;
+        private static Material overlayMaterial;
+        internal static Material OverlayMaterial
+        {
+            get
+            {
+                if (overlayMaterial == null)
+                {
+                    var shader = Resources.Load<Shader>("CampusUIOverlay");
+                    if (shader != null) overlayMaterial = new Material(shader);
+                }
+                return overlayMaterial;
+            }
+        }
 
         private readonly RectTransform[] choices = new RectTransform[12];
         private readonly Image[] choiceImages = new Image[12];
@@ -34,12 +45,14 @@ namespace CampusEmergency.Player
         private Material pointerMaterial;
         private bool selectionComplete;
         private bool briefingVisible;
+        private bool mapExpanded;
         private bool emergencyCallVisible;
         private bool completionVisible;
         private string dialedNumber = string.Empty;
+        private bool callConnected;
         private Text phoneDisplay;
         private Text phoneMessage;
-        private int selectedRoute;
+
         private Text routeTitle;
         private Text routeDescription;
         private bool xrMode;
@@ -133,6 +146,13 @@ namespace CampusEmergency.Player
         private void Update()
         {
             if ((selectionComplete && !emergencyCallVisible) || completionVisible || !xrMode) return;
+            var controls = GetComponent<CampusXRInput>();
+            if (controls == null || !controls.RightTracked || !controls.HasSessionFocus)
+            {
+                hover = -1; clickArmed = false;
+                if (pointer != null) pointer.enabled = false;
+                UpdateChoiceVisuals(); return;
+            }
             if (rightHand == null) FindXRHand();
             hover = -1;
             if (rightHand == null || targetCamera == null) { UpdateChoiceVisuals(); return; }
@@ -175,7 +195,7 @@ namespace CampusEmergency.Player
             }
             if (briefingVisible)
             {
-                if (index < 2) PreviewRoute(index);
+                if (index==1) { mapExpanded=!mapExpanded; BuildBriefing(); }
                 else BeginExperience();
                 return;
             }
@@ -183,12 +203,13 @@ namespace CampusEmergency.Player
             ApplyCurrentFontToAllUI();
             LanguageChanged?.Invoke();
             briefingVisible = true;
-            selectedRoute = 0;
+
             BuildBriefing();
         }
 
         private void BeginExperience()
         {
+            if (xrMode && canvas != null) { ((RectTransform)canvas.transform).sizeDelta = new Vector2(920, 600); canvas.transform.localScale = Vector3.one * .00125f; }
             selectionComplete = true;
             briefingVisible = false;
             if (pointer != null) pointer.enabled = false;
@@ -280,6 +301,7 @@ namespace CampusEmergency.Player
 
         private void HandlePhoneKey(int index)
         {
+            if (callConnected) return;
             if (index >= 0 && index <= 9)
             {
                 if (dialedNumber.Length < 3) dialedNumber += index.ToString();
@@ -295,6 +317,9 @@ namespace CampusEmergency.Player
             {
                 if (dialedNumber == "999")
                 {
+                    callConnected = true;
+                    var flow = FindObjectOfType<CampusRouteAFlow>();
+                    if (flow != null) flow.RecordCall();
                     phoneMessage.text = T("CONNECTED TO EMERGENCY SERVICES: 999", "已接通紧急服务：999", "已接通緊急服務：999");
                     phoneMessage.color = new Color(.45f, 1f, .76f);
                     foreach (Image image in choiceImages) if (image != null) image.raycastTarget = false;
@@ -342,26 +367,11 @@ namespace CampusEmergency.Player
             Text heading = Text(reviewPanel.transform, "Debrief Heading", T("REVIEW: REASON & RISK", "复盘：原因与风险", "復盤：原因與風險"),
                 19, new Color(.48f, .96f, .78f), new Vector2(0, 157), new Vector2(690, 30), FontStyle.Bold);
             heading.alignment = TextAnchor.MiddleLeft;
-            Text review = Text(reviewPanel.transform, "Debrief Content", T(
-                    "1  RAISE ALARM — warns others and starts the response. Delay can leave people unaware and trapped.\n" +
-                    "2  WET TOWEL — reduces inhalation of some smoke particles. No protection increases coughing, disorientation and breathing risk.\n" +
-                    "3  USE STAIRS / " + SelectedRouteName + " — stairs remain the safer signed escape route. A lift may stop, open onto smoke or trap occupants.\n" +
-                    "4  AIM AT FIRE BASE — interrupts the fuel source. Spraying the flames above wastes agent and may not extinguish the fire.\n" +
-                    "5  ASSEMBLY POINT — enables headcount and keeps access clear. Leaving or re-entering can cause a missing-person search and renewed exposure.\n" +
-                    "6  CALL 999 — gives emergency services the location and incident details. A wrong number or no call delays professional rescue and fire response.",
-                    "1  启动警报——及时通知他人并启动应急响应；延误可能使人员毫无准备，错过逃生时机。\n" +
-                    "2  湿毛巾捂住口鼻——可减少吸入部分烟尘；不防护会增加咳嗽、迷失方向和呼吸困难的风险。\n" +
-                    "3  使用楼梯 / " + SelectedRouteName + "——楼梯是有标识的安全疏散路线；电梯可能停运、开门遇烟或困住人员。\n" +
-                    "4  瞄准火源根部——切断燃烧源；只喷火焰上方会浪费灭火剂，也可能无法灭火。\n" +
-                    "5  前往集合点——便于清点人数并保持救援通道畅通；擅自离开或返回建筑会引发搜救并再次暴露于危险。\n" +
-                    "6  拨打999——向紧急服务提供地点和事故信息；拨错号码或不拨打会延误专业救援和消防响应。",
-                    "1  啟動警報——及時通知他人並啟動應急響應；延誤可能使人員毫無準備，錯過逃生時機。\n" +
-                    "2  濕毛巾捂住口鼻——可減少吸入部分煙塵；不防護會增加咳嗽、迷失方向和呼吸困難的風險。\n" +
-                    "3  使用樓梯 / " + SelectedRouteName + "——樓梯是有標識的安全疏散路線；電梯可能停運、開門遇煙或困住人員。\n" +
-                    "4  瞄準火源根部——切斷燃燒源；只噴火焰上方會浪費滅火劑，也可能無法滅火。\n" +
-                    "5  前往集合點——便於清點人數並保持救援通道暢通；擅自離開或返回建築會引發搜救並再次暴露於危險。\n" +
-                    "6  撥打999——向緊急服務提供地點和事故資訊；撥錯號碼或不撥打會延誤專業救援和消防響應。"),
-                14, new Color(.90f, .96f, .96f), new Vector2(0, -18), new Vector2(690, 300), FontStyle.Normal);
+            var flow = FindObjectOfType<CampusRouteAFlow>();
+            Text review = Text(reviewPanel.transform, "Debrief Content", flow != null ? flow.Debrief() : T(
+                "Route A walkthrough ended. Individual actions were not recorded in this mode.",
+                "路线A漫游结束，本模式未记录逐项操作。", "路線A漫遊結束，本模式未記錄逐項操作。"),
+                16, new Color(.90f, .96f, .96f), new Vector2(0, -18), new Vector2(690, 300), FontStyle.Normal);
             review.alignment = TextAnchor.UpperLeft;
             review.lineSpacing = 1.15f;
             review.resizeTextForBestFit = true;
@@ -380,61 +390,38 @@ namespace CampusEmergency.Player
         private void BuildBriefing()
         {
             Transform root = canvas.transform;
-            foreach (Transform child in root) Destroy(child.gameObject);
-
-            Image veil = Image(root, "Briefing Background", new Color(.015f, .035f, .055f, xrMode ? .84f : .7f));
+            if (xrMode) { ((RectTransform)root).sizeDelta = new Vector2(1320, mapExpanded?1500:1000); root.localScale = Vector3.one * .001f; }
+            foreach (Transform child in root) { child.gameObject.SetActive(false); Destroy(child.gameObject); }
+            for (int i = 0; i < choices.Length; i++) { choices[i] = null; choiceImages[i] = null; }
+            Image veil = Image(root, "Briefing Background", new Color(.015f, .035f, .055f, .86f));
             Stretch(veil.rectTransform);
-            Image card = Image(root, "Practice Briefing Card", new Color(.03f, .095f, .13f, .96f));
-            SetRect(card.rectTransform, 840, 550, 0, 0);
-            Outline outline = card.gameObject.AddComponent<Outline>();
-            outline.effectColor = new Color(.22f, .82f, .76f, .5f);
-            outline.effectDistance = new Vector2(2, -2);
-
-            Text(root, "Briefing Eyebrow", T("CAMPUS EMERGENCY PREPAREDNESS", "校园应急准备演练", "校園應急準備演練"),
-                17, new Color(.4f, .92f, .82f), new Vector2(0, 233), new Vector2(760, 28), FontStyle.Bold);
-            Text(root, "Briefing Title", T("Practice overview & route preview", "项目流程与路线预览", "項目流程與路線預覽"),
-                32, Color.white, new Vector2(0, 191), new Vector2(760, 48), FontStyle.Bold);
-
-            Image flowPanel = Image(root, "Practice Flow Panel", new Color(.045f, .14f, .17f, .92f));
-            SetRect(flowPanel.rectTransform, 370, 320, -205, 10);
-            Text flowHeading = Text(flowPanel.transform, "Flow Heading", T("PRACTICE FLOW", "演练流程", "演練流程"),
-                19, new Color(.45f, .94f, .77f), new Vector2(0, 127), new Vector2(320, 30), FontStyle.Bold);
-            flowHeading.alignment = TextAnchor.MiddleLeft;
-            Text flow = Text(flowPanel.transform, "Flow Steps", T(
-                "1  Raise the simulated fire alarm\n2  Pick up and wet a towel; cover mouth and nose\n3  Follow EXIT signs; use the stairs\n4  Pull the extinguisher pin\n5  Aim at the fire base for 3 seconds\n6  Reach the outdoor assembly point\n7  Take out phone and call 999",
-                "1  启动模拟火警\n2  拿取并打湿毛巾，捂住口鼻\n3  跟随出口标志，经楼梯疏散\n4  拔除灭火器保险销\n5  对准火源根部持续喷射3秒\n6  到达室外集合点\n7  掏出手机拨打999",
-                "1  啟動模擬火警\n2  拿取並打濕毛巾，捂住口鼻\n3  跟隨出口標誌，經樓梯疏散\n4  拔除滅火器保險銷\n5  對準火源根部持續噴射3秒\n6  到達室外集合點\n7  掏出手機撥打999"),
-                16, new Color(.88f, .94f, .95f), new Vector2(0, -15), new Vector2(320, 245), FontStyle.Normal);
-            flow.alignment = TextAnchor.UpperLeft;
-            flow.lineSpacing = 1.35f;
-
-            Image routePanel = Image(root, "Route Preview Panel", new Color(.045f, .14f, .17f, .92f));
-            SetRect(routePanel.rectTransform, 370, 320, 205, 10);
-            routeTitle = Text(routePanel.transform, "Route Heading", string.Empty, 19,
-                new Color(.45f, .94f, .77f), new Vector2(0, 127), new Vector2(320, 30), FontStyle.Bold);
-            routeTitle.alignment = TextAnchor.MiddleLeft;
-            Text map = Text(routePanel.transform, "Route Diagram",
-                T("CLASSROOM 401\n      ↓\n4F CORRIDOR  →  STAIR\n      ↓\nGROUND EXIT  →  ASSEMBLY",
-                  "401教室\n      ↓\n四楼走廊  →  楼梯间\n      ↓\n首层出口  →  集合点",
-                  "401教室\n      ↓\n四樓走廊  →  樓梯間\n      ↓\n首層出口  →  集合點"),
-                18, Color.white, new Vector2(0, 25), new Vector2(320, 150), FontStyle.Bold);
-            map.lineSpacing = 1.15f;
-            routeDescription = Text(routePanel.transform, "Route Details", string.Empty, 15,
-                new Color(.7f, .82f, .84f), new Vector2(0, -105), new Vector2(320, 62), FontStyle.Normal);
-            routeDescription.alignment = TextAnchor.UpperLeft;
-
-            CreateBriefingButton(root, 0, T("ROUTE A", "路线 A", "路線 A"), -230, -205, new Color(.07f, .34f, .48f, .98f));
-            CreateBriefingButton(root, 1, T("ROUTE B", "路线 B", "路線 B"), -25, -205, new Color(.46f, .29f, .08f, .98f));
-            CreateBriefingButton(root, 2, T("BEGIN PRACTICE", "开始演练", "開始演練"), 245, -205, new Color(.05f, .52f, .43f, .98f), 250);
-            Text(root, "Briefing Hint", xrMode
-                    ? T("Point with the right controller and press A", "使用右控制器指向并按A键", "使用右控制器指向並按A鍵")
-                    : T("Select a route to preview, then begin", "选择路线预览，然后开始演练", "選擇路線預覽，然後開始演練"),
-                13, new Color(.5f, .65f, .68f), new Vector2(0, -252), new Vector2(720, 24), FontStyle.Normal);
-
+            Image card = Image(root, "Route A Introduction", new Color(.03f, .095f, .13f, .97f));
+            SetRect(card.rectTransform, 1280, mapExpanded?(xrMode?1480:1040):940, 0, 0);
+            if(mapExpanded)
+            {
+                var enlarged=CampusRouteMapUI.Build(root,true);
+                if(!xrMode)enlarged.transform.localScale=Vector3.one*.7f;
+                CreateBriefingButton(root,1,T("BACK TO OVERVIEW","返回流程介绍","返回流程介紹"),0,xrMode?-695:-485,new Color(.07f,.34f,.48f,.98f),320);
+                ApplyCurrentFontToAllUI();return;
+            }
+            Text(root, "Title", T("Campus evacuation · Route A", "校园疏散演练 · 固定路线 A", "校園疏散演練 · 固定路線 A"),
+                30, Color.white, new Vector2(0, 420), new Vector2(1200, 48), FontStyle.Bold);
+            CampusRouteMapUI.Build(root);
+            Text body = Text(root, "Route A Flow", T(
+                "01  START 401: press A on the classroom alarm.\n02  Cross to the 4F washroom: take a towel, wet it at the tap, then press LEFT TRIGGER to cover.\n03  Take WEST Stair A to 3F. Avoid the burning downward flight and enter the corridor.\n04  Cross to EAST Stair B: pull the extinguisher pin, spray the fire base for 3 seconds, return it, then descend to 2F.\n05  Avoid the broken B stair. Cross the 2F corridor to Stair A, descend to 1F and leave through the MAIN entrance. Reach the assembly point and simulate a 999 call.",
+                "01  401教室：按 A 启动室内火警。\n02  前往对门四楼洗手间：拿毛巾、用水龙头打湿，按左扳机举起捂住口鼻。\n03  经西侧 A 楼梯下至三楼，避开下行火势，开门进入走廊。\n04  横穿走廊至东侧 B 楼梯：拿灭火器、拔销、对准根部连续喷射3秒，归还后下至二楼。\n05  避开 B 侧断裂楼梯，沿二楼走廊返回 A 楼梯下至一楼，经学校正门前往集合点，在模拟电话上拨打999。",
+                "01  401教室：按 A 啟動室內火警。\n02  前往對門四樓洗手間：拿毛巾、用水龍頭打濕，按左扳機舉起捂住口鼻。\n03  經西側 A 樓梯下至三樓，避開下行火勢，開門進入走廊。\n04  橫穿走廊至東側 B 樓梯：拿滅火器、拔銷、對準根部連續噴射3秒，歸還後下至二樓。\n05  避開 B 側斷裂樓梯，沿二樓走廊返回 A 樓梯下至一樓，經學校正門前往集合點，在模擬電話上撥打999。"),
+                24, new Color(.88f,.95f,.95f), new Vector2(355, -10), new Vector2(490, 690), FontStyle.Normal);
+            body.alignment = TextAnchor.UpperLeft;
+            body.lineSpacing = 1.15f;
+            body.resizeTextForBestFit = true;
+            body.resizeTextMinSize = 19;
+            body.resizeTextMaxSize = 24;
+            CreateBriefingButton(root, 0, T("BEGIN PRACTICE", "开始演练", "開始演練"), 355, -415,
+                new Color(.05f, .52f, .43f, .98f), 280);
+            CreateBriefingButton(root,1,T("ENLARGE MAP","放大地图","放大地圖"),-280,-415,new Color(.07f,.34f,.48f,.98f),280);
             ApplyCurrentFontToAllUI();
-            PreviewRoute(selectedRoute);
         }
-
         private void CreateBriefingButton(Transform root, int index, string label, float x, float y, Color color, float width = 175)
         {
             Image image = Image(root, "Briefing Choice " + index, color);
@@ -446,23 +433,6 @@ namespace CampusEmergency.Player
             button.targetGraphic = image;
             button.onClick.AddListener(() => Select(selected));
             Text(image.transform, "Label", label, 17, Color.white, Vector2.zero, new Vector2(width - 12, 50), FontStyle.Bold);
-        }
-
-        private void PreviewRoute(int route)
-        {
-            selectedRoute = Mathf.Clamp(route, 0, 1);
-            if (routeTitle == null || routeDescription == null) return;
-            bool a = selectedRoute == 0;
-            routeTitle.text = a
-                ? T("ROUTE A · EAST STAIR", "路线 A · 东侧楼梯", "路線 A · 東側樓梯")
-                : T("ROUTE B · WEST STAIR", "路线 B · 西侧楼梯", "路線 B · 西側樓梯");
-            routeDescription.text = a
-                ? T("Leave 401, turn right into the corridor, enter Stair A and descend to the main exit.",
-                    "离开401后右转进入走廊，经A楼梯下行至主出口。", "離開401後右轉進入走廊，經A樓梯下行至主出口。")
-                : T("Leave 401, turn left along the corridor, enter Stair B and descend to the side exit.",
-                    "离开401后左转沿走廊前行，经B楼梯下行至侧门出口。", "離開401後左轉沿走廊前行，經B樓梯下行至側門出口。")
-                ;
-            UpdateChoiceVisuals();
         }
 
         public static string WelcomeMessage()
@@ -554,9 +524,7 @@ namespace CampusEmergency.Player
             {
                 if (choiceImages[i] == null) continue;
                 if (i == hover) choiceImages[i].color = new Color(.08f, .62f, .52f, 1f);
-                else if (briefingVisible && i < 2 && i == selectedRoute)
-                    choiceImages[i].color = i == 0 ? new Color(.08f, .45f, .62f, 1f) : new Color(.62f, .38f, .08f, 1f);
-                else if (briefingVisible && i == 2) choiceImages[i].color = new Color(.05f, .52f, .43f, .98f);
+                else if (briefingVisible) choiceImages[i].color = i==0 ? new Color(.05f,.52f,.43f,.98f) : new Color(.07f,.34f,.48f,.98f);
                 else choiceImages[i].color = new Color(.075f, .20f, .24f, .96f);
             }
         }
@@ -573,7 +541,7 @@ namespace CampusEmergency.Player
             var go = new GameObject("Language Pointer"); go.transform.SetParent(transform, false);
             pointer = go.AddComponent<LineRenderer>(); pointer.positionCount = 2; pointer.useWorldSpace = true;
             pointer.startWidth = pointer.endWidth = .006f; pointer.enabled = false;
-            pointerMaterial = new Material(Shader.Find("Sprites/Default")); pointer.sharedMaterial = pointerMaterial;
+            pointerMaterial = OverlayMaterial != null ? new Material(OverlayMaterial) : new Material(Shader.Find("Sprites/Default")); pointer.sharedMaterial = pointerMaterial;
         }
 
         private static void EnsureEventSystem()
@@ -590,13 +558,13 @@ namespace CampusEmergency.Player
         private static Image Image(Transform parent, string name, Color color)
         {
             var go = new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
-            go.transform.SetParent(parent, false); var image = go.GetComponent<Image>(); image.color = color; return image;
+            go.transform.SetParent(parent, false); var image = go.GetComponent<Image>(); image.material = OverlayMaterial; image.color = color; return image;
         }
         private static Text Text(Transform parent, string name, string value, int size, Color color,
             Vector2 position, Vector2 dimensions, FontStyle style)
         {
             var go = new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Text));
-            go.transform.SetParent(parent, false); var text = go.GetComponent<Text>(); text.text = value;
+            go.transform.SetParent(parent, false); var text = go.GetComponent<Text>(); text.material = OverlayMaterial; text.text = value;
             text.font = UiFont(); text.fontSize = size; text.fontStyle = style; text.color = color;
             text.alignment = TextAnchor.MiddleCenter; text.raycastTarget = false;
             SetRect(text.rectTransform, dimensions.x, dimensions.y, position.x, position.y); return text;
