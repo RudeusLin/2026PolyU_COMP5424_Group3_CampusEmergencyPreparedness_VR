@@ -1,0 +1,10 @@
+Unity 2022.3.62f3 saved-scene desktop Play Mode
+Four reusable wash stations; visible basin, mirror, towel and tap: PASS
+Tap on/off, towel pickup and wetting on all four floors: PASS
+Second-towel rejection, disabled held colliders and dynamic towel lighting: PASS
+Restart restores original towel pose, dry state, collider and all tap states: PASS
+Fourth-floor 403/WC use exchanged; WC reached directly from 401: PASS
+Four refuge-room markers and distinct doors; middle entrance clear: PASS
+Actual CharacterController access to WC, wash station and refuge room: PASS
+Counter pickup colliders and saved Unity render captures: PASS
+Headset input and performance remain unverified.

@@ -1,0 +1,165 @@
+Fixed Route A integration checks (Editor Play Mode, no headset).
+PASS: XR scene loaded
+PASS: Session requests device origin instead of runtime floor height
+PASS: Standing eye-height offset is 1.65m
+PASS: Recentered headset stands 1.65m above feet
+PASS: Physical crouching still lowers eyes naturally
+PASS: Height regression queues real XRI teleport
+PASS: Teleport preserves standing eye height on another floor
+PASS: Teleport compensates physical head offset
+PASS: Localized route map texture is bundled in Resources
+PASS: English selection localizes map labels including assembly and stairs
+PASS: Map enlarges without starting gameplay or changing language
+PASS: Simplified Chinese map uses localized text and identical route artwork
+PASS: Existing map switches to Traditional Chinese without replacing artwork
+PASS: Introduction provides Begin and Enlarge Map buttons without a route selector
+PASS: Route A is fixed
+PASS: Alarm target resolves
+PASS: Scene-anchored world hints installed
+PASS: Instruction card is not parented to the headset
+PASS: Head movement does not change the instruction card position
+PASS: Instruction card faces the user after movement
+PASS: Instruction card rotates toward the new viewer position
+PASS: Head-relative HUD contains status only, not action instructions
+Alarm: (-6.25, 12.15, 1.66)
+PASS: Towel is on 4F
+PASS: Tap is on 4F
+PASS: Extinguisher binds to 3F B side
+PASS: 3F B-side fire targets present
+PASS: Central direction arrow removed
+PASS: 3F corridor trail has a grounded route
+PASS: 3F corridor trail starts at player feet
+PASS: 3F corridor trail segment 1 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 2 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 3 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 4 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 5 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 6 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 7 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 8 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 9 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 10 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 11 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 12 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 13 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 14 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 15 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 16 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 17 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 18 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 19 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 20 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 21 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 22 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 23 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 24 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 25 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 26 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 27 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 28 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 29 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 30 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 31 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 32 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 33 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 34 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 35 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 36 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 37 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 38 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 39 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 40 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 41 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 42 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 43 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 44 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 45 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 46 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 47 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 48 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 49 avoids walls, fire and floor jumps
+PASS: 3F corridor trail segment 50 avoids walls, fire and floor jumps
+PASS: A stair trail has a grounded route
+PASS: A stair trail starts at player feet
+PASS: A stair trail segment 1 avoids walls, fire and floor jumps
+PASS: A stair trail segment 2 avoids walls, fire and floor jumps
+PASS: A stair trail segment 3 avoids walls, fire and floor jumps
+PASS: A stair trail segment 4 avoids walls, fire and floor jumps
+PASS: A stair trail segment 5 avoids walls, fire and floor jumps
+PASS: A stair trail segment 6 avoids walls, fire and floor jumps
+PASS: A stair trail segment 7 avoids walls, fire and floor jumps
+PASS: A stair trail segment 8 avoids walls, fire and floor jumps
+PASS: A stair trail segment 9 avoids walls, fire and floor jumps
+PASS: A stair trail segment 10 avoids walls, fire and floor jumps
+PASS: A stair trail segment 11 avoids walls, fire and floor jumps
+PASS: A stair trail segment 12 avoids walls, fire and floor jumps
+PASS: Fire approach trail has a grounded route
+PASS: Fire approach trail starts at player feet
+PASS: Fire approach trail segment 1 avoids walls, fire and floor jumps
+PASS: Fire approach trail segment 2 avoids walls, fire and floor jumps
+PASS: Fire approach trail segment 3 avoids walls, fire and floor jumps
+PASS: Fire approach trail segment 4 avoids walls, fire and floor jumps
+Target fire Route A B Corner Fire (12.00, 7.26, 0.50)
+Target fire Route A B Door Fire (12.20, 7.26, 2.90)
+PASS: Assembly cannot complete before earlier nodes
+PASS: Alarm advances to towel node
+PASS: Towel instructions replace alarm instructions at the wash station
+PASS: Towel card is located at the wash station
+PASS: Closed doors keep towel as final objective
+Towel (-6.30, 11.77, -1.92) station (-5.65, 10.80, -1.90) approach (-6.30, 10.80, -2.85)
+PASS: 401 to washbasin trail has a grounded route
+PASS: 401 to washbasin trail starts at player feet
+PASS: 401 to washbasin trail segment 1 avoids walls, fire and floor jumps
+PASS: 401 to washbasin trail segment 2 avoids walls, fire and floor jumps
+PASS: 401 to washbasin trail segment 3 avoids walls, fire and floor jumps
+PASS: 401 to washbasin trail segment 4 avoids walls, fire and floor jumps
+PASS: 401 to washbasin trail segment 5 avoids walls, fire and floor jumps
+PASS: 401 to washbasin trail segment 6 avoids walls, fire and floor jumps
+PASS: 401 to washbasin trail segment 7 avoids walls, fire and floor jumps
+PASS: 401 to washbasin trail segment 8 avoids walls, fire and floor jumps
+PASS: 401 to washbasin trail segment 9 avoids walls, fire and floor jumps
+PASS: 401 to washbasin trail segment 10 avoids walls, fire and floor jumps
+PASS: 401 to washbasin trail segment 11 avoids walls, fire and floor jumps
+PASS: 401 to washbasin trail segment 12 avoids walls, fire and floor jumps
+PASS: 401 to washbasin trail segment 13 avoids walls, fire and floor jumps
+PASS: 401 to washbasin trail segment 14 avoids walls, fire and floor jumps
+PASS: 401 to washbasin trail segment 15 avoids walls, fire and floor jumps
+PASS: Towel trail ends inside WC in front of counter, not outside wall
+PASS: Towel to tap trail has a grounded route
+PASS: Towel to tap trail starts at player feet
+PASS: Towel to tap trail segment 1 avoids walls, fire and floor jumps
+PASS: Towel to tap trail segment 2 avoids walls, fire and floor jumps
+PASS: Tap trail also ends on room-facing side
+PASS: Dry towel does not complete node 2
+PASS: Wet but lowered towel does not complete node 2
+PASS: Raised wet towel completes node 2
+PASS: Teleport beyond stair-entry waypoint advances to next leg
+PASS: A stair route enters 3F corridor
+PASS: Single-point corridor leg advances when its endpoint is already behind player
+PASS: Being on a different floor never counts as passing corridor endpoint
+PASS: Raised wet towel permits simultaneous extinguisher pickup
+PASS: Guidance selects the held safety pin
+PASS: Pin removal succeeds at valid distance
+PASS: Fire-base objective resolves after pin removal
+PASS: World-space circular fire progress is installed
+PASS: Ring and countdown read real continuous suppression timer
+PASS: Progress ring is visibly above the targeted fire
+PASS: Fire progress faces the user
+PASS: Releasing or missing resets progress and hides the active countdown
+PASS: Changing fires resets the old target and uses the new target's timer
+PASS: Mode switch cancels progress
+PASS: Completed fire displays full ring and zero remaining time
+PASS: Must return extinguisher before descending
+PASS: Return instruction takes priority even when towel is lowered
+PASS: Return hint uses last extinguished fire, not scene enumeration order
+PASS: Return instructions appear immediately beside the final fire
+PASS: Return card stays beside fire and faces moving user
+PASS: B route reaches 2F corridor
+PASS: Return hint clears after extinguisher is returned
+PASS: No rescue objects are created; 2F leads directly to Stair A
+PASS: Ground-floor guidance never regresses to towel pickup
+PASS: Teleport beyond main-entrance endpoint advances to assembly
+PASS: Final node incomplete before successful call
+PASS: All five recorded nodes included in debrief
+PASS: Debrief uses actual records
+RESULT: PASS. UI layout and full headset journey still require manual verification.

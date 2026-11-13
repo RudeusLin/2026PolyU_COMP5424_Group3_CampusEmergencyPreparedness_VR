@@ -111,8 +111,10 @@ namespace CampusEmergency.Editor
             EditorBuildSettings.scenes = scenes.ToArray();
             AssetDatabase.SaveAssets();
             CampusSceneModifications.ApplyToOpenScene();
+            CampusXRVisualUpgrade.ApplyToOpenScene();
             EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
             AssetDatabase.SaveAssets();
+            CampusXRVisualUpgrade.BakeLocalReflections();
             CampusXRTeleportValidation.ValidateScene();
             Debug.Log("CAMPUS_XR_SCENE_BUILD_PASS");
         }

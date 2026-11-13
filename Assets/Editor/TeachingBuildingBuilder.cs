@@ -219,6 +219,13 @@ namespace CampusEmergency.Editor
             AssetDatabase.Refresh();
             if (layout.bakeLighting) TeachingBuildingLighting.Bake(layout.assetFolder, scenePath, layout.skyTexture);
             AssetDatabase.SaveAssets();
+            if (scenePath == CampusXRSceneBuilder.SourceScene)
+            {
+                CampusXRVisualUpgrade.ApplyToOpenScene();
+                AssetDatabase.SaveAssets();
+                EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+                CampusXRVisualUpgrade.BakeLocalReflections();
+            }
             CapturePreviews(objects, layout.nodes, previewFolder, prefix);
             File.WriteAllText(Path.Combine(previewFolder, prefix + "Validation.txt"),
                 "Unity " + Application.unityVersion + "\nBoth evacuation routes: " + (errors.Count == 0 ? "PASS" : "FAIL")
@@ -461,7 +468,7 @@ namespace CampusEmergency.Editor
             }
         }
 
-        private static Mesh BeveledBox(Vector3 size, float radius, string folder, Dictionary<string, Mesh> cache)
+        internal static Mesh BeveledBox(Vector3 size, float radius, string folder, Dictionary<string, Mesh> cache)
         {
             radius = Mathf.Min(radius, Mathf.Min(size.x, Mathf.Min(size.y, size.z)) * .45f);
             string name = string.Format(CultureInfo.InvariantCulture, "Bevel_{0:F3}_{1:F3}_{2:F3}_{3:F3}",

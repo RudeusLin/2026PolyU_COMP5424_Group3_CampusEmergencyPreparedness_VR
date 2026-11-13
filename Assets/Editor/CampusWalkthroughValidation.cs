@@ -68,13 +68,19 @@ namespace CampusEmergency.Editor
                 }
                 avatar.SetVisible(true);
                 report += "Articulated student: present, no additional colliders; movement uses the same method as keyboard input PASS\n";
-                if (Object.FindObjectsOfType<ReflectionProbe>().Length != 6
+                var reflections = Object.FindObjectsOfType<ReflectionProbe>();
+                var restroomReflections = reflections.Where(p => p.name == "XRRestroomReflection").ToArray();
+                if (reflections.Length - restroomReflections.Length != 6
+                    || (restroomReflections.Length != 0 && (restroomReflections.Length != 4
+                        || restroomReflections.Select(p => p.transform.parent.parent.name).Distinct().Count() != 4
+                        || restroomReflections.Any(p => p.texture == null)))
                     || Object.FindObjectsOfType<LightProbeGroup>().Length != 1)
                     throw new InvalidOperationException("Saved scene has duplicate generated light/reflection probes");
                 foreach (Renderer surface in avatar.GetComponentsInChildren<Renderer>())
                     if (surface.lightmapIndex >= 0 || GameObjectUtility.AreStaticEditorFlagsSet(surface.gameObject, StaticEditorFlags.ContributeGI))
                         throw new InvalidOperationException("Animated student must use dynamic probe lighting");
-                report += "Student uses dynamic lighting; one light probe group and six reflection probes PASS\n";
+                report += "Student uses dynamic lighting; one light probe group, six building reflections and "
+                    + restroomReflections.Length + " restroom reflections PASS\n";
                 CheckCameras(explorer, avatar);
                 report += "First/third person visibility, wall-safe follow camera and reversible view toggle PASS\n";
                 CaptureStudentViews(avatar);

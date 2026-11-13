@@ -1,0 +1,10 @@
+Unity 2022.3.62f3
+Scene: Assets/Scenes/TeachingBuildingCampus.unity
+PASS: All 2434 original colliders and world transforms unchanged
+PASS: No added realtime lights or interactive colliders
+PASS: Saved lightmaps and baked reflections resolve
+Lighting: original scene lightmaps retained; four local reflections updated. Full GI rebake not run.
+PASS: Existing desktop behaviour configurations retained
+PASS: All renderer material references resolve
+MeshRenderers (including inactive): 6736
+Physical headset performance and stereo readability: NOT RUN

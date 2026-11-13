@@ -1,0 +1,12 @@
+{
+  "scene": "Assets/Scenes/TeachingBuildingCampus.unity",
+  "sceneSHA256": "987d3d407c19a82d5b19cd1739066b7a3e702709f35523ab247dd67674fc1d3f",
+  "serializedCollidersUnchanged": 2434,
+  "colliderAndAncestorTransformsChecked": 2825,
+  "serializedBehavioursUnchanged": 78,
+  "beforeObjects": 7608,
+  "afterObjects": 7696,
+  "originalObjectsRetained": 7608,
+  "deskChairGroups": 36,
+  "errors": []
+}

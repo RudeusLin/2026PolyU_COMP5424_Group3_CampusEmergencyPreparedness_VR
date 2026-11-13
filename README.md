@@ -52,6 +52,10 @@ The prototype supports practice rather than formal assessment. The current sourc
 
 Open `Assets/Scenes/TeachingBuildingCampusXR.unity` in Unity **2022.3.62f3**. This version runs on Windows with Quest 3 through Quest Link or Air Link and OpenXR. See [PC VR setup](Docs/Quest3PCVRSetup.md).
 
+The saved XR scene includes curved furniture, refined restroom fixtures, softer interior finishes and baked room reflections. See the [interactive before/after comparison](Docs/Previews/XRVisualUpgrade/index.html) and [visual upgrade notes](Docs/CampusXRVisualUpgrade.md). Existing global lighting is retained; a full lighting rebake and headset performance checks remain outstanding. These source updates are not included in the downloadable ZIP above.
+
+The keyboard/mouse scene, `Assets/Scenes/TeachingBuildingCampus.unity`, now includes the same furniture, restroom and material refinements; see its [separate before/after comparison](Docs/Previews/DesktopVisualUpgrade/index.html). Stop Play mode and reopen the scene to load saved visual updates. Use **Campus Emergency → Refine desktop models and materials** to reapply them.
+
 The player starts at the fourth-floor classroom 401 spawn. Aim the right-hand ray at a valid green destination and press the **right trigger** to teleport. **A** interacts with doors, towels and taps; the **right stick** turns by 30 degrees; the **right grip** returns the held item; holding the **left grip** suspends teleport aiming when no extinguisher is held. See [all controls](Docs/XRControls.md) and [locomotion implementation](Docs/XRLocomotion.md).
 
 Editor and simulated-controller validation reports are in `Docs`. The current teleport behavior has also been confirmed working by the project owner on the headset.

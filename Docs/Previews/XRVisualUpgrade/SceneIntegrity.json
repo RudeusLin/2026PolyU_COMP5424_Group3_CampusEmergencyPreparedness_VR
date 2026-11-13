@@ -1,0 +1,11 @@
+{
+  "scene": "Assets\\Scenes\\TeachingBuildingCampusXR.unity",
+  "sceneSHA256": "cace02cd71353df8775d48a763e480b578f10e2163fef86ff8ed7041f645822c",
+  "serializedCollidersUnchanged": 2649,
+  "colliderAndAncestorTransformsChecked": 3080,
+  "beforeObjects": 7853,
+  "afterObjects": 7943,
+  "originalObjectsRetained": 7853,
+  "deskChairGroups": 48,
+  "errors": []
+}

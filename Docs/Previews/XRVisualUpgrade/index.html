@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>校园 XR 场景优化对比</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#243d39;background:#f2f3ef;line-height:1.65}
+*{box-sizing:border-box}body{margin:0}main{max-width:1320px;margin:auto;padding:34px 24px 48px}
+h1{font-size:clamp(24px,4vw,34px);font-weight:650;margin:0 0 8px}p{margin:8px 0;max-width:950px;color:#52645c}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 16px}button{font:inherit;padding:8px 18px;border:1px solid #bcc9bf;border-radius:6px;background:white;color:#274a40;cursor:pointer}
+button[aria-pressed="true"]{background:#254f43;color:white;border-color:#254f43}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #cc973e;outline-offset:3px}
+.compare{--reveal:65%;position:relative;aspect-ratio:8/5;background:#ccd3c9;border-radius:8px;overflow:hidden}
+.compare img{display:block;position:absolute;width:100%;height:100%;object-fit:contain}.after{clip-path:inset(0 calc(100% - var(--reveal)) 0 0)}
+.divider{position:absolute;top:0;bottom:0;left:var(--reveal);width:2px;background:white;box-shadow:0 0 6px #0007;pointer-events:none}
+.tag{position:absolute;top:16px;padding:4px 12px;border-radius:4px;background:#1c302ccc;color:white;font-size:14px}.left{left:16px}.right{right:16px}
+.controls{display:flex;align-items:center;gap:14px;margin-top:12px}.controls input{flex:1;accent-color:#2c6453;min-width:70px}.caption{padding:12px 0;font-size:15px}
+footer{border-top:1px solid #d3dbd0;margin-top:22px;padding-top:16px;color:#5d6a61;font-size:14px}a{color:#2d6554;text-underline-offset:3px}
+@media(max-width:600px){main{padding:22px 12px}nav{gap:6px}button{padding:6px 12px}.tag{top:8px}.left{left:8px}.right{right:8px}}
+</style>
+<main>
+<h1>校园 XR 场景优化对比</h1>
+<p>曲面家具、卫生间洁具、材质与局部反射。拖动滑块，对比同机位的 Unity 渲染结果。</p>
+<p>当前保留原有全局照明，已更新四层卫生间的局部反射。整栋照明重烘焙尚未完成。</p>
+<p>场景：<code>Assets/Scenes/TeachingBuildingCampusXR.unity</code>（头显版）。<a href="../DesktopVisualUpgrade/index.html">查看键鼠桌面版对比</a>。</p>
+<nav aria-label="选择查看位置" id="views"></nav>
+<div class="compare" id="compare">
+  <img id="before" src="Before-Classroom.png" alt="优化前的 401 教室">
+  <img id="after" class="after" src="After-Classroom.png" alt="优化后的 401 教室">
+  <div class="divider"></div><span class="tag left">优化后</span><span class="tag right">优化前</span>
+</div>
+<div class="controls"><label for="reveal">前后对比</label><input id="reveal" type="range" min="0" max="100" value="65" aria-label="优化后画面显示比例"><output id="amount" for="reveal">65%</output></div>
+<p class="caption" id="caption"></p>
+<footer>截图来自保存的 XR 场景，头显实际性能与立体观感待设备验收。<br><a href="Validation.txt">视觉验证</a> · <a href="ModelingValidation.txt">建模与传送</a> · <a href="InteractionValidation.txt">交互回归</a> · <a href="RouteAValidation.txt">路线回归</a> · <a href="../../CampusXRVisualUpgrade.md">修改说明</a></footer>
+</main>
+<script>
+const views = [
+  ['Classroom','401 教室','曲面椅背与座面、圆管桌椅腿、橡胶脚垫、桌下支撑，以及少量书本和文具变化。'],
+  ['Furniture','桌椅近景','观察椅背轮廓、桌椅金属连接、脚垫、橡木桌面和书皮细节。'],
+  ['Corridor','走廊','暖白墙面、浅色水磨石、柔和墙裙与灯具细节；保留原有照明和 A/B 导向标识。'],
+  ['Restroom','洗手台','带内腔的圆角洗手盆、连续弯管龙头、瓷器与铬金属材质，以及局部烘焙反射。'],
+  ['Cubicles','厕位','洁具碗体与座圈、圆角水箱、哑光隔断和地砖。'],
+  ['BrokenStair','断梯','不规则混凝土断面与短钢筋；缺口与原有传送阻挡保持。']
+];
+const nav=document.getElementById('views'), before=document.getElementById('before'), after=document.getElementById('after');
+function select(index){
+  const [key,label,caption]=views[index];
+  before.src=`Before-${key}.png`;after.src=`After-${key}.png`;
+  before.alt=`优化前的${label}`;after.alt=`优化后的${label}`;
+  document.getElementById('caption').textContent=caption;
+  [...nav.children].forEach((button,i)=>button.setAttribute('aria-pressed',i===index?'true':'false'));
+}
+views.forEach((view,index)=>{const button=document.createElement('button');button.textContent=view[1];button.onclick=()=>select(index);nav.append(button);});
+document.getElementById('reveal').addEventListener('input',event=>{const value=event.target.value;document.getElementById('compare').style.setProperty('--reveal',`${value}%`);document.getElementById('amount').value=`${value}%`;});
+select(0);
+</script>
+</html>
