@@ -3,7 +3,7 @@ using UnityEngine.Rendering;
 
 namespace CampusEmergency.Prototype
 {
-    // Soft animated smoke in the fourth-floor corridor outside classroom 401.
+    // Doorway smoke and shallow corridor ceiling layers shared by desktop and XR.
     public sealed class CampusCorridorSmoke : MonoBehaviour
     {
         const int Tiles = 4;
@@ -11,10 +11,13 @@ namespace CampusEmergency.Prototype
 
         private static Texture2D sheet;
         private static Material material;
+        [SerializeField, Range(0f, 1f)] private float opacity = 1f;
+        [SerializeField, Range(0f, 1f)] private float emissionMultiplier = 1f;
+        [SerializeField] private bool ceilingLayer;
 
         private void Awake()
         {
-            if (transform.Find("Haze") != null) return;
+            if (transform.Find(ceilingLayer ? "Ceiling Haze" : "Haze") != null) return;
             Shader shader = Resources.Load<Shader>("CampusSmoke");
             if (shader == null)
             {
@@ -26,15 +29,27 @@ namespace CampusEmergency.Prototype
             {
                 material = new Material(shader) { hideFlags = HideFlags.HideAndDontSave, mainTexture = sheet };
             }
-            CreateLayer("Haze", new Vector3(3.6f, 0.35f, 0.9f), 0.15f, 0.32f, 1.9f, 2.6f, 6.5f, 9f, 10f, 30);
-            CreateLayer("Wisps", new Vector3(3.2f, 0.55f, 0.7f), 0.4f, 0.75f, 0.85f, 1.4f, 3.2f, 5f, 13f, 32);
+            if (ceilingLayer)
+            {
+                CreateLayer("Ceiling Haze", new Vector3(24f, 0.16f, 1.8f), 0f, 0f, 2.2f, 3f, 5f, 7f, 16f, 112,
+                    billboardHeight: new Vector2(0.52f, 0.74f));
+                CreateLayer("Lower Haze", new Vector3(24f, 0.10f, 1.7f), 0f, 0f, 1.8f, 2.6f, 5f, 7f, 12f, 88,
+                    billboardHeight: new Vector2(0.28f, 0.43f), heightOffset: -0.53f, opacityScale: 0.55f);
+            }
+            else
+            {
+                CreateLayer("Haze", new Vector3(3.6f, 0.35f, 0.9f), 0.15f, 0.32f, 1.9f, 2.6f, 6.5f, 9f, 10f, 30);
+                CreateLayer("Wisps", new Vector3(3.2f, 0.55f, 0.7f), 0.4f, 0.75f, 0.85f, 1.4f, 3.2f, 5f, 13f, 32);
+            }
         }
 
         private void CreateLayer(string name, Vector3 box, float minRise, float maxRise,
-            float minSize, float maxSize, float minLife, float maxLife, float rate, int maxParticles)
+            float minSize, float maxSize, float minLife, float maxLife, float rate, int maxParticles,
+            Vector2 billboardHeight = default, float heightOffset = 0f, float opacityScale = 1f)
         {
             GameObject emitter = new GameObject(name);
             emitter.transform.SetParent(transform, false);
+            emitter.transform.localPosition = Vector3.up * heightOffset;
             ParticleSystem particles = emitter.AddComponent<ParticleSystem>();
             particles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             var main = particles.main;
@@ -43,28 +58,41 @@ namespace CampusEmergency.Prototype
             main.prewarm = true;
             main.duration = 8f;
             main.startLifetime = new ParticleSystem.MinMaxCurve(minLife, maxLife);
-            main.startSpeed = 0.04f;
-            main.startSize = new ParticleSystem.MinMaxCurve(minSize, maxSize);
-            main.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
-            main.startColor = Color.white;
+            main.startSpeed = ceilingLayer ? 0f : 0.04f;
+            var width = new ParticleSystem.MinMaxCurve(minSize, maxSize);
+            if (ceilingLayer)
+            {
+                // Give the layer a visible face from the corridor, while keeping it shallow.
+                main.startSize3D = true;
+                main.startSizeX = width;
+                main.startSizeY = new ParticleSystem.MinMaxCurve(billboardHeight.x, billboardHeight.y);
+            }
+            else
+            {
+                main.startSize = width;
+                main.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
+            }
+            main.startColor = new Color(1f, 1f, 1f, opacityScale);
             main.maxParticles = maxParticles;
             main.simulationSpace = ParticleSystemSimulationSpace.Local;
             main.scalingMode = ParticleSystemScalingMode.Local;
             main.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Transform;
             main.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
             var emission = particles.emission;
-            emission.rateOverTime = rate;
+            emission.rateOverTime = rate * emissionMultiplier;
             var shape = particles.shape;
+            shape.enabled = true;
             shape.shapeType = ParticleSystemShapeType.Box;
             shape.scale = box;
             var velocity = particles.velocityOverLifetime;
             velocity.enabled = true;
             velocity.space = ParticleSystemSimulationSpace.Local;
-            velocity.x = new ParticleSystem.MinMaxCurve(-0.08f, 0.08f);
+            velocity.x = new ParticleSystem.MinMaxCurve(-0.04f, 0.04f);
             velocity.y = new ParticleSystem.MinMaxCurve(minRise, maxRise);
-            velocity.z = new ParticleSystem.MinMaxCurve(-0.04f, 0.04f);
+            velocity.z = new ParticleSystem.MinMaxCurve(-0.015f, 0.015f);
             var noise = particles.noise;
-            noise.enabled = true;
+            // No vertical turbulence at the ceiling: keep the entire layer above eye level.
+            noise.enabled = !ceilingLayer;
             noise.strength = 0.28f;
             noise.frequency = 0.18f;
             noise.scrollSpeed = 0.22f;
@@ -72,11 +100,11 @@ namespace CampusEmergency.Prototype
             noise.octaveCount = 1;
             noise.quality = ParticleSystemNoiseQuality.Low;
             var size = particles.sizeOverLifetime;
-            size.enabled = true;
+            size.enabled = !ceilingLayer;
             size.size = new ParticleSystem.MinMaxCurve(1f, new AnimationCurve(
                 new Keyframe(0f, 0.55f), new Keyframe(0.35f, 1f), new Keyframe(1f, 1.45f)));
             var rotation = particles.rotationOverLifetime;
-            rotation.enabled = true;
+            rotation.enabled = !ceilingLayer;
             rotation.z = new ParticleSystem.MinMaxCurve(-0.25f, 0.25f);
             var color = particles.colorOverLifetime;
             color.enabled = true;
@@ -102,21 +130,21 @@ namespace CampusEmergency.Prototype
             particles.Play();
         }
 
-        private static Gradient SmokeGradient()
+        private Gradient SmokeGradient()
         {
             Gradient gradient = new Gradient();
             gradient.SetKeys(
                 new[]
                 {
-                    new GradientColorKey(new Color(0.16f, 0.17f, 0.18f), 0f),
-                    new GradientColorKey(new Color(0.34f, 0.35f, 0.36f), 0.45f),
-                    new GradientColorKey(new Color(0.55f, 0.56f, 0.57f), 1f)
+                    new GradientColorKey(ceilingLayer ? new Color(0.53f, 0.55f, 0.57f) : new Color(0.16f, 0.17f, 0.18f), 0f),
+                    new GradientColorKey(ceilingLayer ? new Color(0.65f, 0.67f, 0.69f) : new Color(0.34f, 0.35f, 0.36f), 0.45f),
+                    new GradientColorKey(ceilingLayer ? new Color(0.73f, 0.74f, 0.75f) : new Color(0.55f, 0.56f, 0.57f), 1f)
                 },
                 new[]
                 {
                     new GradientAlphaKey(0f, 0f),
-                    new GradientAlphaKey(0.75f, 0.16f),
-                    new GradientAlphaKey(0.42f, 0.7f),
+                    new GradientAlphaKey(0.75f * opacity, 0.16f),
+                    new GradientAlphaKey(0.42f * opacity, 0.7f),
                     new GradientAlphaKey(0f, 1f)
                 });
             return gradient;
