@@ -16,6 +16,9 @@ namespace CampusEmergency.Prototype
         private Light glow;
         private float flickerSeed;
 
+        private void OnEnable() => CampusFireAudio.Register(this);
+        private void OnDisable() => CampusFireAudio.Unregister(this);
+
         public static void Ensure(Transform buildingRoot)
         {
             if (!Application.isPlaying || buildingRoot == null) return;

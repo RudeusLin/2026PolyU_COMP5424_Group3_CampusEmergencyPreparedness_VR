@@ -61,13 +61,15 @@ namespace CampusEmergency.Editor
                         "Shader compilation error in " + name);
                 }
                 Vector3 drillEye = new Vector3(3.6f, 12.45f, -.5f), drillTarget = new Vector3(8, 13f, 2f);
-                AudioSource audio = atmosphere.GetComponentsInChildren<AudioSource>(true).Single();
-                Require(!audio.isPlaying, "Alarm must not start by itself");
-                Require(audio.clip != null && audio.volume <= .12f && audio.spatialBlend == 1f,
-                    "Alarm must have a quiet spatial audio clip");
+                AudioSource[] alarms = atmosphere.GetComponentsInChildren<AudioSource>(true);
+                Require(alarms.Length == 12, "Each of four floors must have three alarm sound sources");
+                Require(alarms.All(audio => !audio.isPlaying), "Alarms must not start by themselves");
+                Require(alarms.All(audio => !audio.loop), "Alarms must play once per activation");
+                Require(alarms.All(audio => audio.clip != null && audio.volume <= .12f && audio.spatialBlend == 1f),
+                    "Alarms must have quiet spatial audio clips");
                 Capture("Campus-DrillPreview.png", drillEye, drillTarget, 74);
                 atmosphere.ActivateAlarm();
-                Require(audio.isPlaying, "Alarm activation must start audio");
+                Require(alarms.All(audio => audio.isPlaying), "Alarm activation must start every sound source");
                 Capture("Campus-Noticeboard.png", new Vector3(-4.35f, 12.45f, .85f), new Vector3(-4.35f, 12.65f, -1.34f), 80);
                 Capture("Campus-ClassroomDetails.png", new Vector3(-9.8f, 12.45f, 4.4f), new Vector3(-2.7f, 12.2f, 6.6f), 74);
                 Directory.CreateDirectory(Folder);
@@ -80,7 +82,7 @@ namespace CampusEmergency.Editor
                     + "Printed sign carriers, lit textures and visible noticeboard lettering pixels: " + letteringPixels + " PASS\n"
                     + "CampusSmoke/ArchitecturalSurface/WorldSpaceText shaders: PASS\n"
                     + "Drill alarm starts enabled without playing: PASS\n"
-                    + "Alarm activation starts quiet spatial audio: PASS\n"
+                    + "Alarm activation starts all 12 spatial sound sources (three per floor): PASS\n"
                     + "Generated desktop render captures: PASS\n"
                     + "Headset frame rate, stereo rendering, locomotion and manual M-key audio perception unverified.\n");
                 Debug.Log("CAMPUS_RUNTIME_VALIDATION_SUCCESS");

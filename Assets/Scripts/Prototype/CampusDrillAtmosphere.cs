@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using CampusEmergency.Player;
 
@@ -7,9 +8,10 @@ namespace CampusEmergency.Prototype
     public sealed class CampusDrillAtmosphere : MonoBehaviour
     {
         [SerializeField] private AudioClip alarmClip;
-        private AudioSource alarm;
+        private readonly List<AudioSource> alarms = new List<AudioSource>();
+        private bool muted;
         private GUIStyle captionStyle;
-        public bool IsAlarmActive => gameObject.activeInHierarchy && alarm != null && alarm.isPlaying;
+        public bool IsAlarmActive => gameObject.activeInHierarchy && alarms.Exists(source => source != null && source.isPlaying);
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void EnsurePersistentSmoke()
@@ -24,8 +26,9 @@ namespace CampusEmergency.Prototype
             {
                 gameObject.SetActive(true);
             }
-            if (alarm == null) OnEnable();
-            if (alarm != null && !alarm.isPlaying) alarm.Play();
+            if (alarms.Count == 0) OnEnable();
+            foreach (AudioSource alarm in alarms)
+                if (!alarm.isPlaying) alarm.Play();
         }
 
         public void Configure(Material _, AudioClip clip)
@@ -35,30 +38,51 @@ namespace CampusEmergency.Prototype
 
         private void OnEnable()
         {
-            if (alarm != null || alarmClip == null) return;
-            GameObject emitter = new GameObject("DrillAlarm");
+            if (alarms.Count != 0 || alarmClip == null) return;
+            for (int floor = 1; floor <= 4; floor++)
+            {
+                GameObject level = GameObject.Find("Floor_" + floor.ToString("00"));
+                if (level == null) continue;
+                CreateAlarm(level.transform, floor, "West", -11.5f);
+                CreateAlarm(level.transform, floor, "Middle", 0f);
+                CreateAlarm(level.transform, floor, "East", 11.5f);
+            }
+        }
+
+        private void CreateAlarm(Transform level, int floor, string location, float x)
+        {
+            GameObject emitter = new GameObject("DrillAlarm_F" + floor.ToString("00") + "_" + location);
             emitter.transform.SetParent(transform, false);
-            emitter.transform.localPosition = new Vector3(7.8f, 12.95f, 1.05f);
-            alarm = emitter.AddComponent<AudioSource>();
+            emitter.transform.position = level.TransformPoint(new Vector3(x, 2.4f, 1.05f));
+            AudioSource alarm = emitter.AddComponent<AudioSource>();
             alarm.clip = alarmClip;
             alarm.playOnAwake = false;
-            alarm.loop = true;
+            alarm.loop = false;
             alarm.volume = .12f;
             alarm.spatialBlend = 1f;
             alarm.minDistance = 2f;
             alarm.maxDistance = 18f;
             alarm.rolloffMode = AudioRolloffMode.Linear;
+            alarm.dopplerLevel = 0f;
+            alarm.mute = muted;
             alarm.Stop();
+            alarms.Add(alarm);
         }
 
         private void OnDisable()
         {
-            if (alarm != null) alarm.Stop();
+            foreach (AudioSource alarm in alarms)
+                if (alarm != null) alarm.Stop();
         }
 
         private void Update()
         {
-            if (alarm != null && Input.GetKeyDown(KeyCode.M)) alarm.mute = !alarm.mute;
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                muted = !muted;
+                foreach (AudioSource alarm in alarms)
+                    if (alarm != null) alarm.mute = muted;
+            }
         }
 
         private void OnGUI()
@@ -74,7 +98,7 @@ namespace CampusEmergency.Prototype
                     "  FIRE DRILL / M ",
                     "  消防演练 / M ",
                     "  消防演練 / M ") +
-                (alarm != null && alarm.mute
+                (muted
                     ? LanguageSelectionUI.T("UNMUTE", "取消静音", "取消靜音")
                     : LanguageSelectionUI.T("MUTE", "静音", "靜音")), captionStyle);
         }
