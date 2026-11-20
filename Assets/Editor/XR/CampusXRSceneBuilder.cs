@@ -146,27 +146,15 @@ namespace CampusEmergency.Editor
             {
                 var hand = root.GetComponentsInChildren<Transform>(true)
                     .Single(t => t.name == (left ? "Left Controller Aim" : "Right Controller Aim"));
-                if (hand.Find("Controller Visual") != null) continue;
-                string materialPath = "Assets/XR/Campus/Materials/" + (left ? "LeftController" : "RightController") + ".mat";
-                var material = AssetDatabase.LoadAssetAtPath<Material>(materialPath);
-                if (material == null)
-                {
-                    material = new Material(Shader.Find("Unlit/Color"));
-                    material.color = left ? new Color(.12f, .8f, 1f) : new Color(1f, .65f, .15f);
-                    AssetDatabase.CreateAsset(material, materialPath);
-                }
-                var holder = Child(hand, "Controller Visual");
-                foreach (bool tip in new[] { false, true })
-                {
-                    var part = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    part.name = tip ? "Aim Tip" : "Controller Body";
-                    part.transform.SetParent(holder.transform, false);
-                    part.transform.localPosition = tip ? new Vector3(0, 0, .07f) : new Vector3(0, -.025f, -.02f);
-                    part.transform.localScale = tip ? Vector3.one * .022f : new Vector3(.045f, .075f, .11f);
-                    UnityEngine.Object.DestroyImmediate(part.GetComponent<Collider>());
-                    part.GetComponent<Renderer>().sharedMaterial = material;
-                    part.GetComponent<Renderer>().enabled = false;
-                }
+                var previous=hand.Find("Controller Visual");
+                if(previous!=null) UnityEngine.Object.DestroyImmediate(previous.gameObject);
+                string materialPath="Assets/XR/Campus/Materials/HandSkin.mat";
+                var material=AssetDatabase.LoadAssetAtPath<Material>(materialPath);
+                if(material==null){material=new Material(Shader.Find("Standard"));material.color=new Color(.65f,.43f,.31f);AssetDatabase.CreateAsset(material,materialPath);}
+                var cuff=AssetDatabase.LoadAssetAtPath<Material>("Assets/XR/Campus/Materials/HandCuff.mat");
+                if(cuff==null){cuff=new Material(Shader.Find("Standard"));cuff.color=new Color(.12f,.2f,.27f);AssetDatabase.CreateAsset(cuff,"Assets/XR/Campus/Materials/HandCuff.mat");}
+                var holder=Child(hand,"Controller Visual");
+                CampusHandVisual.Build(holder.transform,left,material,cuff);
                 holder.AddComponent<CampusControllerVisual>().Configure(root.GetComponent<CampusXRInput>(), left);
             }
         }

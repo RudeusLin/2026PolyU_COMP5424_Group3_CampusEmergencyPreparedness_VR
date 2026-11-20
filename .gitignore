@@ -121,3 +121,8 @@ __pycache__/
 
 # Local recovery snapshots from XR migrations
 /Tools/XRSetup/Before*/
+
+# Local audio sources, conversion tools, and compiler checks
+/Artifacts/Downloads/
+/Artifacts/MediaTools/
+/Artifacts/Validation/

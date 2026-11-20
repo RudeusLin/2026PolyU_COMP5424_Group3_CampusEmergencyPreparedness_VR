@@ -43,6 +43,7 @@ namespace CampusEmergency.Player.XR
                 origin.MatchOriginUpCameraForward(Vector3.up, spawn.forward);
                 origin.MoveCameraToWorldLocation(spawn.position + Vector3.up * origin.CameraInOriginSpaceHeight);
                 positioned = true;
+                GetComponent<LanguageSelectionUI>()?.CaptureStartupPose();
                 if (!LanguageSelectionUI.IsBlocking)
                     feedback.Notify(LanguageSelectionUI.WelcomeMessage());
             }

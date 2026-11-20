@@ -18,6 +18,7 @@ namespace CampusEmergency.Player.XR
         [SerializeField] private CampusXRFeedback feedback;
         [SerializeField] private float rayDistance = 12f;
         private readonly Vector3[] points = new Vector3[2];
+        [SerializeField] private CampusSmokePassageGate smokeGate = new CampusSmokePassageGate();
         private bool armed;
         private float lastTeleport = -10f;
         public bool IsAiming { get; private set; }
@@ -28,12 +29,21 @@ namespace CampusEmergency.Player.XR
             CampusTeleportValidator v, CampusTeleportVisual display, CampusXRFeedback message)
         { input = i; origin = o; rayOrigin = ray; provider = p; validator = v; visual = display; feedback = message; }
 
-        private void Update() => ProcessInput(input.HasInteractionFocus);
+        private void Update()
+        {
+            if (origin != null && origin.Camera != null)
+            {
+                Vector3 feet = origin.Camera.transform.position;
+                feet.y = origin.transform.position.y;
+                smokeGate.ObserveFeet(feet);
+            }
+            ProcessInput(input.HasInteractionFocus);
+        }
         private void ProcessInput(bool hasFocus)
         {
             var extinguisher = GetComponent<CampusXRExtinguisherController>();
             bool holding = extinguisher != null && extinguisher.Held != null;
-            if (!input.RightTracked || !hasFocus || (input.CancelTeleport && !holding) || input.InteractionHeld
+            if (LanguageSelectionUI.IsStartupBlocking || !input.RightTracked || !hasFocus || (input.CancelTeleport && !holding) || input.InteractionHeld
                 || (extinguisher != null && extinguisher.BlocksTeleport))
             { Cancel(); armed = false; return; }
             bool held = input.TeleportHeld;
@@ -62,7 +72,10 @@ namespace CampusEmergency.Player.XR
                 destinationPosition = hit.point + Vector3.up * .035f,
                 destinationRotation = Quaternion.identity,
                 matchOrientation = MatchOrientation.WorldSpaceUp }))
+            {
                 lastTeleport = Time.unscaledTime;
+                if(CampusWheelchairRescue.IsPushing)CampusWheelchairRescue.Active.QueueEscortTeleport(hit.point+Vector3.up*.035f);
+            }
         }
 
         public bool Trace(out RaycastHit hit, out int count, out string reason)
@@ -100,11 +113,36 @@ namespace CampusEmergency.Player.XR
                 reason = LanguageSelectionUI.T("Ray crosses fire: extinguish it before teleporting", "射线穿过火区：请先灭火再传送", "射線穿過火區：請先滅火再傳送");
                 return false;
             }
+            if (CampusExitFireEncounter.BlocksPath(start, points[1]))
+            {
+                LastTraceBlockedByFire = true;
+                reason = LanguageSelectionUI.T("Exit blocked: press X for extinguisher; clear all three fires", "出口封堵：按X切换灭火器，扑灭全部三簇火焰", "出口封堵：按X切換滅火器，撲滅全部三簇火焰");
+                return false;
+            }
             if (hasSurface)
             {
                 Vector3 feet = origin.Camera.transform.position;
                 feet.y = origin.transform.position.y;
-                return validator.IsValid(hit, feet, origin.CameraInOriginSpaceHeight, out reason);
+                if(!validator.IsValid(hit, feet, origin.CameraInOriginSpaceHeight, out reason))return false;
+                if (CampusExitFireEncounter.BlocksPath(feet, hit.point))
+                {
+                    LastTraceBlockedByFire = true;
+                    reason = LanguageSelectionUI.T("Extinguish all three exit fires before crossing", "请扑灭出口全部三簇火焰后再通过", "請撲滅出口全部三簇火焰後再通過");
+                    return false;
+                }
+                var inventory = GetComponent<CampusXRInventory>();
+                bool protectedByTowel = inventory != null && inventory.IsProtectedFromSmoke;
+                if (!smokeGate.Allows(feet, hit.point + Vector3.up * .035f, protectedByTowel))
+                {
+                    reason = LanguageSelectionUI.T(
+                        "Raise the wet towel before crossing smoke (X: towel / LEFT TRIGGER: raise). You may retreat to the entry side.",
+                        "请举起沾湿的毛巾再通过烟雾（X切换毛巾／左扳机举起）；可退回进入前的一侧。",
+                        "請舉起沾濕的毛巾再通過煙霧（X切換毛巾／左扳機舉起）；可退回進入前的一側。");
+                    return false;
+                }
+                if(CampusWheelchairRescue.IsPushing && !CampusWheelchairRescue.Active.CanTeleport(hit.point+Vector3.up*.035f,out _))
+                {reason=LanguageSelectionUI.T("Choose a clear same-floor destination for you and the wheelchair","请选择同层且能容纳人物与轮椅的空地","請選擇同層且能容納人物與輪椅的空地");return false;}
+                return true;
             }
             reason = LanguageSelectionUI.T("Point the RIGHT controller at a floor within 12m", "请将右控制器指向12米内的地面", "請將右控制器指向12米內的地面");
             return false;

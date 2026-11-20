@@ -1,3 +1,5 @@
+> Historical implementation record. Current item switching and controls supersede return/mode bindings below: see [XRControls](XRControls.md).
+
 # XR 灭火器流程
 
 ## 操作

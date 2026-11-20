@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.XR;
+using UnityEngine.SceneManagement;
 using CampusEmergency.Player.XR;
 
 namespace CampusEmergency.Player
@@ -44,10 +45,18 @@ namespace CampusEmergency.Player
         private LineRenderer pointer;
         private Material pointerMaterial;
         private bool selectionComplete;
+        private Vector3 startupPosition,startupCanvasPosition;private Quaternion startupRotation,startupCanvasRotation;
+        private bool confirming;private int confirmedChoice=-1;
+        private readonly System.Collections.Generic.Dictionary<Image,Color> buttonColors=new System.Collections.Generic.Dictionary<Image,Color>();
+        public static bool IsStartupBlocking => instance!=null && !instance.selectionComplete;
+        public void CaptureStartupPose(){startupPosition=transform.position;startupRotation=transform.rotation;}
+        private void LateUpdate(){if(xrMode && !selectionComplete){transform.SetPositionAndRotation(startupPosition,startupRotation);if(canvas!=null)canvas.transform.SetPositionAndRotation(startupCanvasPosition,startupCanvasRotation);}}
+
         private bool briefingVisible;
         private bool mapExpanded;
         private bool emergencyCallVisible;
         private bool completionVisible;
+        private bool leavingDebrief;
         private string dialedNumber = string.Empty;
         private bool callConnected;
         private Text phoneDisplay;
@@ -74,7 +83,9 @@ namespace CampusEmergency.Player
             instance = this;
             xrMode = GetComponent<CampusXRInput>() != null;
             targetCamera = xrMode ? GetComponent<Unity.XR.CoreUtils.XROrigin>()?.Camera : Camera.main;
-            BuildInterface();
+            var spawn=GameObject.Find("Spawn_F04_401");
+            if(xrMode && spawn!=null)transform.SetPositionAndRotation(spawn.transform.position,spawn.transform.rotation);
+            CaptureStartupPose();BuildInterface();
         }
 
         private void BuildInterface()
@@ -91,10 +102,11 @@ namespace CampusEmergency.Player
             {
                 canvas.renderMode = RenderMode.WorldSpace;
                 var rt = root.GetComponent<RectTransform>();
-                rt.SetParent(targetCamera.transform, false);
+                rt.SetParent(transform, false);
                 rt.sizeDelta = new Vector2(920, 600);
-                rt.localPosition = new Vector3(0, 0, 1.45f);
-                rt.localRotation = Quaternion.identity;
+                var spawn=GameObject.Find("Spawn_F04_401");var anchor=spawn!=null?spawn.transform:transform;
+                rt.SetPositionAndRotation(anchor.position+Vector3.up*1.65f+anchor.forward*1.45f,anchor.rotation);
+                startupCanvasPosition=rt.position;startupCanvasRotation=rt.rotation;
                 rt.localScale = Vector3.one * .00125f;
                 FindXRHand();
                 BuildPointer();
@@ -117,10 +129,10 @@ namespace CampusEmergency.Player
 
             Text(root.transform, "Campus Safety", "HARBOURVIEW UNIVERSITY", 19,
                 new Color(.4f, .92f, .82f), new Vector2(0, 176), new Vector2(650, 30), FontStyle.Bold);
-            Text(root.transform, "Title", "Choose your language", 38, Color.white,
+            Text(root.transform, "Title", "Choose your language", 44, new Color(.957f,.835f,.541f),
                 new Vector2(0, 118), new Vector2(680, 58), FontStyle.Bold);
-            Text(root.transform, "Subtitle", "選擇語言  ·  选择语言", 20,
-                new Color(.72f, .82f, .85f), new Vector2(0, 72), new Vector2(680, 36), FontStyle.Normal);
+            Text(root.transform, "Subtitle", "選擇語言  ·  选择语言", 24,
+                new Color(.4f,.89f,.82f), new Vector2(0, 72), new Vector2(680, 36), FontStyle.Normal);
 
             string[] labels = { "English", "简体中文", "繁體中文" };
             for (int i = 0; i < labels.Length; i++)
@@ -133,19 +145,21 @@ namespace CampusEmergency.Player
                 int selected = i;
                 Button b = button.gameObject.AddComponent<Button>();
                 b.targetGraphic = button;
-                b.onClick.AddListener(() => Select(selected));
+                b.onClick.AddListener(() => RequestSelect(selected));
                 Text(button.transform, "Label", labels[i], i == 0 ? 25 : 28, Color.white,
                     Vector2.zero, new Vector2(180, 80), FontStyle.Bold);
             }
             Text(root.transform, "Hint", xrMode ? "Point with the right controller and press A" : "Select a language to begin",
                 16, new Color(.62f, .73f, .76f), new Vector2(0, -126), new Vector2(650, 30), FontStyle.Normal);
+            var controlHint=Array.Find(root.GetComponentsInChildren<Text>(),t=>t.name=="Hint");
+            if(controlHint!=null)CampusUIKeycaps.Apply(controlHint,controlHint.text,18);
             Text(root.transform, "Privacy", "You can change this choice when the experience restarts.", 13,
                 new Color(.42f, .57f, .61f), new Vector2(0, -174), new Vector2(650, 26), FontStyle.Normal);
         }
 
         private void Update()
         {
-            if ((selectionComplete && !emergencyCallVisible) || completionVisible || !xrMode) return;
+            if ((selectionComplete && !emergencyCallVisible && !completionVisible) || leavingDebrief || !xrMode) return;
             var controls = GetComponent<CampusXRInput>();
             if (controls == null || !controls.RightTracked || !controls.HasSessionFocus)
             {
@@ -177,17 +191,37 @@ namespace CampusEmergency.Player
 
         private void InputActionPressed()
         {
-            if (hover < 0) return;
+            if (hover < 0 || confirming) return;
             var device = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
             if (!device.isValid) return;
             device.TryGetFeatureValue(CommonUsages.primaryButton, out bool pressed);
             if (!pressed) { clickArmed = true; return; }
-            if (clickArmed) { clickArmed = false; Select(hover); }
+            if (clickArmed) { clickArmed = false; RequestSelect(hover); }
         }
         private bool clickArmed = true;
 
+        private void RequestSelect(int index)
+        {
+            if(confirming||index<0||index>=choices.Length||choices[index]==null)return;
+            StartCoroutine(ConfirmSelection(index));
+        }
+        private IEnumerator ConfirmSelection(int index)
+        {
+            confirming=true;confirmedChoice=index;UpdateChoiceVisuals();
+            var device=InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+            if(device.isValid && device.TryGetHapticCapabilities(out var capabilities) && capabilities.supportsImpulse)device.SendHapticImpulse(0,.25f,.08f);
+            yield return new WaitForSecondsRealtime(.14f);
+            Select(index);confirmedChoice=-1;confirming=false;hover=-1;clickArmed=false;
+        }
         private void Select(int index)
         {
+            if (completionVisible)
+            {
+                if (leavingDebrief) return;
+                if (index == 0) RestartPractice();
+                else if (index == 1) ExitPractice();
+                return;
+            }
             if (emergencyCallVisible)
             {
                 HandlePhoneKey(index);
@@ -202,9 +236,36 @@ namespace CampusEmergency.Player
             Current = (CampusLanguage)Mathf.Clamp(index, 0, 2);
             ApplyCurrentFontToAllUI();
             LanguageChanged?.Invoke();
+            if(xrMode)CampusClassroomRouteBoard.Show();
             briefingVisible = true;
 
             BuildBriefing();
+        }
+
+        private void RestartPractice()
+        {
+            leavingDebrief = true;
+            Current = CampusLanguage.English;
+            // RuntimeInitializeOnLoadMethod runs at application startup, not every reload.
+            // Reinstall the language gate before the reloaded scene starts its gameplay.
+            SceneManager.sceneLoaded += RestoreLanguageGate;
+            var scene = gameObject.scene;
+            if (scene.buildIndex >= 0) SceneManager.LoadScene(scene.buildIndex);
+            else SceneManager.LoadScene(scene.path);
+        }
+        private static void RestoreLanguageGate(Scene scene, LoadSceneMode mode)
+        {
+            SceneManager.sceneLoaded -= RestoreLanguageGate;
+            Install();
+        }
+        private void ExitPractice()
+        {
+            leavingDebrief = true;
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
         }
 
         private void BeginExperience()
@@ -212,12 +273,20 @@ namespace CampusEmergency.Player
             if (xrMode && canvas != null) { ((RectTransform)canvas.transform).sizeDelta = new Vector2(920, 600); canvas.transform.localScale = Vector3.one * .00125f; }
             selectionComplete = true;
             briefingVisible = false;
-            if (pointer != null) pointer.enabled = false;
-            if (canvas != null) canvas.gameObject.SetActive(false);
+            if(pointer!=null){pointer.enabled=false;Destroy(pointer.gameObject);pointer=null;}
+            if(canvas!=null){foreach(Transform child in canvas.transform){child.gameObject.SetActive(false);Destroy(child.gameObject);}canvas.gameObject.SetActive(false);}
+            for(int i=0;i<choices.Length;i++){choices[i]=null;choiceImages[i]=null;}
+            buttonColors.Clear();hover=-1;
             var feedback = FindObjectOfType<CampusXRFeedback>();
             if (feedback != null) feedback.Notify(WelcomeMessage(), 7f);
         }
 
+        private void PrepareLaterCanvas()
+        {
+            if(canvas==null || !xrMode || targetCamera==null)return;
+            var rect=(RectTransform)canvas.transform;rect.SetParent(targetCamera.transform,false);
+            rect.localPosition=new Vector3(0,0,1.45f);rect.localRotation=Quaternion.identity;rect.localScale=Vector3.one*.00125f;rect.sizeDelta=new Vector2(920,600);
+        }
         public static void ShowCompletionDebrief()
         {
             if (instance == null || instance.completionVisible) return;
@@ -225,6 +294,7 @@ namespace CampusEmergency.Player
             if (instance.pointer != null) instance.pointer.enabled = false;
             if (instance.canvas != null)
             {
+                instance.PrepareLaterCanvas();
                 instance.canvas.gameObject.SetActive(true);
                 instance.BuildCompletionDebrief();
             }
@@ -238,6 +308,7 @@ namespace CampusEmergency.Player
             instance.dialedNumber = string.Empty;
             if (instance.canvas != null)
             {
+                instance.PrepareLaterCanvas();
                 instance.canvas.gameObject.SetActive(true);
                 instance.BuildEmergencyPhone();
             }
@@ -246,7 +317,8 @@ namespace CampusEmergency.Player
         private void BuildEmergencyPhone()
         {
             Transform root = canvas.transform;
-            foreach (Transform child in root) Destroy(child.gameObject);
+            if(xrMode && pointer==null)BuildPointer();
+            foreach (Transform child in root){child.gameObject.SetActive(false);Destroy(child.gameObject);}
             for (int i = 0; i < choices.Length; i++) { choices[i] = null; choiceImages[i] = null; }
 
             Image veil = Image(root, "Emergency Call Background", new Color(.01f, .025f, .04f, xrMode ? .88f : .72f));
@@ -283,6 +355,7 @@ namespace CampusEmergency.Player
                     ? T("Point with the right controller and press A", "用右手柄指向并按A键", "用右手柄指向並按A鍵")
                     : T("Select the number keys", "点击数字按键", "點擊數字按鍵"),
                 13, new Color(.5f, .65f, .68f), new Vector2(0, -235), new Vector2(340, 28), FontStyle.Normal);
+            StyleSecondaryScreen(root);
             ApplyCurrentFontToAllUI();
         }
 
@@ -294,7 +367,7 @@ namespace CampusEmergency.Player
             choiceImages[index] = image;
             Button button = image.gameObject.AddComponent<Button>();
             button.targetGraphic = image;
-            button.onClick.AddListener(() => Select(index));
+            button.onClick.AddListener(() => RequestSelect(index));
             Text(image.transform, "Label", label, index < 10 ? 24 : 14, Color.white,
                 Vector2.zero, new Vector2(width - 8, 54), FontStyle.Bold);
         }
@@ -345,8 +418,11 @@ namespace CampusEmergency.Player
 
         private void BuildCompletionDebrief()
         {
+            for (int i = 0; i < choices.Length; i++) { choices[i] = null; choiceImages[i] = null; }
+            buttonColors.Clear(); hover = -1; clickArmed = false;
             Transform root = canvas.transform;
-            foreach (Transform child in root) Destroy(child.gameObject);
+            if(xrMode && pointer==null)BuildPointer();
+            foreach (Transform child in root){child.gameObject.SetActive(false);Destroy(child.gameObject);}
 
             Image veil = Image(root, "Completion Background", new Color(.01f, .03f, .05f, xrMode ? .88f : .74f));
             Stretch(veil.rectTransform);
@@ -384,9 +460,48 @@ namespace CampusEmergency.Player
                     "真實火災中：立即報警、服從現場指引、使用樓梯疏散，切勿重新進入建築。"),
                 13, new Color(.70f, .82f, .84f), new Vector2(0, -250), new Vector2(740, 40), FontStyle.Normal);
 
+            StyleSecondaryScreen(root,true);
+            float buttonY = xrMode ? -395f : -218f;
+            if (!xrMode)
+            {
+                SetRect(reviewPanel.rectTransform, 760, 315, 0, 7);
+                SetRect(heading.rectTransform, 690, 30, 0, 130);
+                SetRect(review.rectTransform, 690, 250, 0, -15);
+            }
+            CreateBriefingButton(root, 0, T("RESTART", "重新开始", "重新開始"), -200, buttonY, new Color(.05f,.52f,.43f,.98f), 320);
+            CreateBriefingButton(root, 1, T("EXIT PRACTICE", "退出演习", "退出演習"), 200, buttonY, new Color(.45f,.16f,.18f,.98f), 320);
             ApplyCurrentFontToAllUI();
         }
 
+        private void StyleSecondaryScreen(Transform root,bool debrief=false)
+        {
+
+            if(!debrief && Current==CampusLanguage.English && root.Find("Emergency Call Title")!=null){
+                SetRect(root.Find("Emergency Phone").GetComponent<RectTransform>(),410,630,0,0);
+                SetRect(root.Find("Emergency Call Title").GetComponent<RectTransform>(),370,45,0,265);
+                SetRect(root.Find("Emergency Call Instruction").GetComponent<RectTransform>(),360,65,0,210);
+                SetRect(root.Find("Phone Number").GetComponent<RectTransform>(),320,56,0,145);
+            }
+
+            if(debrief){if(xrMode){((RectTransform)root).sizeDelta=new Vector2(1100,1120);root.localScale=Vector3.one*.001f;}
+                SetRect(root.Find("Completion Debrief Card").GetComponent<RectTransform>(),1050,1040,0,0);
+                SetRect(root.Find("Debrief Panel").GetComponent<RectTransform>(),940,660,0,-5);
+            }
+            foreach(var text in root.GetComponentsInChildren<Text>())
+            {
+                if(text.name=="Emergency Call Title"||text.name=="Completion Title"){text.color=new Color(.957f,.835f,.541f);text.fontStyle=FontStyle.Bold;}
+                if(text.name=="Debrief Heading"||text.name=="Completion Eyebrow"){text.color=new Color(.4f,.89f,.82f);text.fontStyle=FontStyle.Bold;}
+                if(text.name=="Emergency Call Title" && Current==CampusLanguage.English){text.text="Emergency call";text.fontSize=28;}
+                if(text.name=="Emergency Call Instruction"){if(Current==CampusLanguage.English)text.text="Enter the emergency number.\nThen select CALL.";text.fontSize=17;text.lineSpacing=1.2f;text.color=new Color(.9f,.95f,.96f);}
+                if(text.name=="Emergency Call Hint"){text.fontSize=15;CampusUIKeycaps.Apply(text,text.text,18);}
+                if(text.name=="Completion Eyebrow")SetRect(text.rectTransform,950,35,0,410);
+                if(text.name=="Completion Title")SetRect(text.rectTransform,980,60,0,360);
+                if(text.name=="Debrief Heading")SetRect(text.rectTransform,880,40,0,295);
+                if(text.name=="Debrief Reminder")SetRect(text.rectTransform,950,55,0,-480);
+                if(text.name=="Debrief Content"){text.supportRichText=true;text.lineSpacing=1.25f;text.fontSize=22;text.resizeTextMaxSize=22;text.resizeTextMinSize=20;SetRect(text.rectTransform,880,580,0,-15);
+                    text.text=System.Text.RegularExpressions.Regex.Replace(text.text,@"(?m)^(\d+  .*?) — (.*)$","<b><color=#66E3D0>$1</color></b>\n$2");}
+            }
+        }
         private void BuildBriefing()
         {
             Transform root = canvas.transform;
@@ -400,17 +515,62 @@ namespace CampusEmergency.Player
             if(mapExpanded)
             {
                 var enlarged=CampusRouteMapUI.Build(root,true);
+                if(System.Enum.IsDefined(typeof(CampusLanguage),Current))
+                {
+                    Text(root,"Expanded Map Title",T("Evacuation route map","疏散路线地图","疏散路線地圖"),40,new Color(.957f,.835f,.541f),new Vector2(0,xrMode?680:470),new Vector2(1200,55),FontStyle.Bold);
+                    var er=(RectTransform)enlarged.transform;er.anchoredPosition=new Vector2(0,-5);er.localScale=Vector3.one*(xrMode?.9f:.64f);
+                }
                 if(!xrMode)enlarged.transform.localScale=Vector3.one*.7f;
                 CreateBriefingButton(root,1,T("BACK TO OVERVIEW","返回流程介绍","返回流程介紹"),0,xrMode?-695:-485,new Color(.07f,.34f,.48f,.98f),320);
+                ApplyCurrentFontToAllUI();return;
+            }
+            if(System.Enum.IsDefined(typeof(CampusLanguage),Current))
+            {
+                if(xrMode){((RectTransform)root).sizeDelta=new Vector2(1640,1160);SetRect(card.rectTransform,1600,1120,0,0);}
+                Text(root,"Title",T("Campus evacuation practice","校园疏散演练","校園疏散演練"),44,new Color(.957f,.835f,.541f),new Vector2(0,500),new Vector2(1500,64),FontStyle.Bold);
+                var map=CampusRouteMapUI.Build(root);var mr=(RectTransform)map.transform;mr.anchoredPosition=new Vector2(-350,0);mr.localScale=Vector3.one*.65f;
+                string[] headings={"01 启动火警","02 准备防烟毛巾","03 避火改道","04 灭火并下楼","05 安置轮椅人物","06 出口灭火并撤离"};
+                string[] details={
+                    "在401教室内，用右手射线对准火警按钮，按A启动警报。",
+                    "前往对门洗手间，按A拿取毛巾，再对准水龙头按A打湿，按左扳机举起捂住口鼻。",
+                    "经西侧A楼梯下至三楼，避开下行火势，开门进入走廊。",
+                    "前往东侧B楼梯。空手时按A拾取灭火器，对准保险销按A拔出，按住左扳机对准火源根部喷射3秒，再下至二楼。",
+                    "避开B侧断裂楼梯，按A开始护送，将轮椅人物送入安全房，对准绿色安置点按A确认。",
+                    "经A楼梯下至一楼。正门前按X切换灭火器，按A重新拔销，每簇连续喷射3秒，扑灭三簇火焰后撤离。在集合点模拟拨打999。"};
+                if(Current==CampusLanguage.TraditionalChinese)
+                {
+                    headings=new[]{"01 啟動火警","02 準備防煙毛巾","03 避火改道","04 滅火並下樓","05 安置輪椅人物","06 出口滅火並撤離"};
+                    details=new[]{"在401教室內，用右手射線對準火警按鈕，按A啟動警報。","前往對門洗手間，按A拿取毛巾，再對準水龍頭按A打濕，按左扳機舉起捂住口鼻。","經西側A樓梯下至三樓，避開下行火勢，開門進入走廊。","前往東側B樓梯。空手時按A拾取滅火器，對準保險銷按A拔出，按住左扳機對準火源根部噴射3秒，再下至二樓。","避開B側斷裂樓梯，按A開始護送，將輪椅人物送入安全房，對準綠色安置點按A確認。","經A樓梯下至一樓。正門前按X切換滅火器，按A重新拔銷，每簇連續噴射3秒，撲滅三簇火焰後撤離。在集合點模擬撥打999。"};
+                }
+                if(Current==CampusLanguage.English)
+                {
+                    headings=new[]{"01 Activate the alarm","02 Prepare a wet towel","03 Avoid fire; change route","04 Extinguish and descend","05 Assist the wheelchair user","06 Clear the exit and evacuate"};
+                    details=new[]{"In room 401, aim at the alarm with the right ray and press A.","Cross to the washroom. Press A to take the towel and use the tap. Press LEFT TRIGGER to raise the wet towel.","Take west Stair A to 3F. Avoid the burning lower flight and enter the corridor.","At Stair B, press A to take the extinguisher with empty hands. Aim at the pin and press A. Hold LEFT TRIGGER at the fire base for 3 seconds, then go to 2F.","Avoid the broken B stairs. Press A to escort the wheelchair user into the refuge.\nAim at the green marker and press A to confirm parking.","Take Stair A to 1F. At the exit, press X for the extinguisher and A at its pin. Spray each of three fire bases for 3 seconds, then leave and simulate a 999 call at the assembly point."};
+                }
+                if(Current==CampusLanguage.English && xrMode){((RectTransform)root).sizeDelta=new Vector2(1640,1420);SetRect(card.rectTransform,1600,1380,0,0);}
+                if (xrMode && Current != CampusLanguage.English) { ((RectTransform)root).sizeDelta = new Vector2(1640,1320); SetRect(card.rectTransform,1600,1280,0,0); }
+                float[] heights=Current==CampusLanguage.English?new float[]{128,154,128,190,178,230}:new float[]{128,154,128,178,154,230};float top=456;
+                for(int i=0;i<headings.Length;i++)
+                {
+                    var heading=Text(root,"Step "+(i+1)+" Heading",headings[i],34,new Color(.4f,.89f,.82f),new Vector2(430,top-20),new Vector2(680,40),FontStyle.Bold);
+                    heading.alignment=TextAnchor.UpperLeft;
+                    var description=Text(root,"Step "+(i+1)+" Detail",details[i],Current==CampusLanguage.English?22:26,new Color(.9f,.95f,.96f),new Vector2(430,top-47-(heights[i]-56)/2),new Vector2(680,heights[i]-56),FontStyle.Normal);
+                    CampusUIKeycaps.Apply(description,details[i].TrimEnd('。').Replace("。到达集合点后", "。\n到达集合点后").Replace("。到達集合點後", "。\n到達集合點後"),Current==CampusLanguage.English?24:28);
+                    description.alignment=TextAnchor.UpperLeft;description.lineSpacing=1.18f;description.resizeTextForBestFit=false;
+                    var divider=Image(root,"Step "+(i+1)+" Divider",new Color(.4f,.61f,.64f,.4f));SetRect(divider.rectTransform,680,1,430,top-heights[i]+8);
+                    top-=heights[i];
+                }
+                CreateBriefingButton(root,0,T("Begin practice","开始演练","開始演練"),430,Current==CampusLanguage.English?-645:-585,new Color(.05f,.52f,.43f,.98f),320);
+                CreateBriefingButton(root,1,T("Enlarge map","放大地图","放大地圖"),-350,Current==CampusLanguage.English?-645:-585,new Color(.07f,.34f,.48f,.98f),320);
                 ApplyCurrentFontToAllUI();return;
             }
             Text(root, "Title", T("Campus evacuation · Route A", "校园疏散演练 · 固定路线 A", "校園疏散演練 · 固定路線 A"),
                 30, Color.white, new Vector2(0, 420), new Vector2(1200, 48), FontStyle.Bold);
             CampusRouteMapUI.Build(root);
             Text body = Text(root, "Route A Flow", T(
-                "01  START 401: press A on the classroom alarm.\n02  Cross to the 4F washroom: take a towel, wet it at the tap, then press LEFT TRIGGER to cover.\n03  Take WEST Stair A to 3F. Avoid the burning downward flight and enter the corridor.\n04  Cross to EAST Stair B: pull the extinguisher pin, spray the fire base for 3 seconds, return it, then descend to 2F.\n05  Avoid the broken B stair. Cross the 2F corridor to Stair A, descend to 1F and leave through the MAIN entrance. Reach the assembly point and simulate a 999 call.",
-                "01  401教室：按 A 启动室内火警。\n02  前往对门四楼洗手间：拿毛巾、用水龙头打湿，按左扳机举起捂住口鼻。\n03  经西侧 A 楼梯下至三楼，避开下行火势，开门进入走廊。\n04  横穿走廊至东侧 B 楼梯：拿灭火器、拔销、对准根部连续喷射3秒，归还后下至二楼。\n05  避开 B 侧断裂楼梯，沿二楼走廊返回 A 楼梯下至一楼，经学校正门前往集合点，在模拟电话上拨打999。",
-                "01  401教室：按 A 啟動室內火警。\n02  前往對門四樓洗手間：拿毛巾、用水龍頭打濕，按左扳機舉起捂住口鼻。\n03  經西側 A 樓梯下至三樓，避開下行火勢，開門進入走廊。\n04  橫穿走廊至東側 B 樓梯：拿滅火器、拔銷、對準根部連續噴射3秒，歸還後下至二樓。\n05  避開 B 側斷裂樓梯，沿二樓走廊返回 A 樓梯下至一樓，經學校正門前往集合點，在模擬電話上撥打999。"),
+                "01  START 401: press A on the classroom alarm.\n02  Cross to the 4F washroom: take a towel, wet it at the tap, then press LEFT TRIGGER to cover.\n03  Take WEST Stair A to 3F. Avoid the burning downward flight and enter the corridor.\n04  Cross to EAST Stair B: pull the extinguisher pin, aim the right ray at the pin and press A, hold LEFT TRIGGER at the fire base for 3 seconds, then descend to 2F.\n05  Avoid the broken B stair. Assist the wheelchair user into the refuge room.\n06  Cross to Stair A, descend to 1F and leave through the MAIN entrance. Reach the assembly point and simulate a 999 call.",
+                "01  401教室：按 A 启动室内火警。\n02  前往对门四楼洗手间：拿毛巾、用水龙头打湿，按左扳机举起捂住口鼻。\n03  经西侧 A 楼梯下至三楼，避开下行火势，开门进入走廊。\n04  横穿走廊至东侧 B 楼梯：拿灭火器、拔销、对准根部连续喷射3秒，完成后下至二楼。\n05  避开 B 侧断裂楼梯，按A护送轮椅人物进入安全房。\n06  沿二楼走廊返回 A 楼梯下至一楼，经学校正门前往集合点，在模拟电话上拨打999。",
+                "01  401教室：按 A 啟動室內火警。\n02  前往對門四樓洗手間：拿毛巾、用水龍頭打濕，按左扳機舉起捂住口鼻。\n03  經西側 A 樓梯下至三樓，避開下行火勢，開門進入走廊。\n04  橫穿走廊至東側 B 樓梯：拿滅火器、拔銷、對準根部連續噴射3秒，完成後下至二樓。\n05  避開 B 側斷裂樓梯，按A護送輪椅人物進入安全房。\n06  沿二樓走廊返回 A 樓梯下至一樓，經學校正門前往集合點，在模擬電話上撥打999。"),
                 24, new Color(.88f,.95f,.95f), new Vector2(355, -10), new Vector2(490, 690), FontStyle.Normal);
             body.alignment = TextAnchor.UpperLeft;
             body.lineSpacing = 1.15f;
@@ -431,7 +591,7 @@ namespace CampusEmergency.Player
             int selected = index;
             Button button = image.gameObject.AddComponent<Button>();
             button.targetGraphic = image;
-            button.onClick.AddListener(() => Select(selected));
+            button.onClick.AddListener(() => RequestSelect(selected));
             Text(image.transform, "Label", label, 17, Color.white, Vector2.zero, new Vector2(width - 12, 50), FontStyle.Bold);
         }
 
@@ -462,6 +622,9 @@ namespace CampusEmergency.Player
             switch (value)
             {
                 case "[E] Pick up towel": sc = "[A键] 拿起毛巾"; tc = "[A鍵] 拿起毛巾"; break;
+                case "TOWEL PICKED UP\nUse the tap to wet the towel. X switches equipment; wetness is retained.": sc="已拿起毛巾。用水龙头打湿；X切换物品并保留湿润状态。"; tc="已拿起毛巾。用水龍頭打濕；X切換物品並保留濕潤狀態。"; break;
+                case "Extinguisher equipped in left hand. Point right ray at pin and press A; left trigger sprays.": sc="灭火器已装备至左手。右手射线对准保险销按A，左扳机喷射。"; tc="滅火器已裝備至左手。右手射線對準保險銷按A，左扳機噴射。"; break;
+                case "Switch to empty hands with X before picking up an extinguisher.": sc="请先按X切换为空手，再拾取灭火器。"; tc="請先按X切換為空手，再拾取滅火器。"; break;
                 case "[A button] Pick up towel": sc = "[A键] 拿起毛巾"; tc = "[A鍵] 拿起毛巾"; break;
                 case "[E] Use tap / wet held towel": sc = "[A键] 使用水龙头 / 打湿毛巾"; tc = "[A鍵] 使用水龍頭 / 打濕毛巾"; break;
                 case "[A button] Use tap / wet held towel": sc = "[A键] 使用水龙头 / 打湿毛巾"; tc = "[A鍵] 使用水龍頭 / 打濕毛巾"; break;
@@ -520,12 +683,16 @@ namespace CampusEmergency.Player
 
         private void UpdateChoiceVisuals()
         {
-            for (int i = 0; i < choiceImages.Length; i++)
+            for(int i=0;i<choiceImages.Length;i++)
             {
-                if (choiceImages[i] == null) continue;
-                if (i == hover) choiceImages[i].color = new Color(.08f, .62f, .52f, 1f);
-                else if (briefingVisible) choiceImages[i].color = i==0 ? new Color(.05f,.52f,.43f,.98f) : new Color(.07f,.34f,.48f,.98f);
-                else choiceImages[i].color = new Color(.075f, .20f, .24f, .96f);
+                var image=choiceImages[i];if(image==null)continue;
+                if(!buttonColors.ContainsKey(image))buttonColors[image]=image.color;
+                bool selected=i==confirmedChoice;bool focused=i==hover && !confirming;
+                image.color=selected?new Color(.96f,.83f,.54f,1):focused?new Color(.08f,.62f,.52f,1):buttonColors[image];
+                var outline=image.GetComponent<Outline>();if(outline==null)outline=image.gameObject.AddComponent<Outline>();
+                outline.effectColor=selected?new Color(1,.95f,.75f,1):new Color(.4f,.89f,.82f,.95f);outline.effectDistance=new Vector2(2,-2);outline.enabled=selected||focused;
+                image.transform.localScale=Vector3.one*(selected?.98f:focused?1.035f:1);
+                var label=image.GetComponentInChildren<Text>();if(label!=null)label.color=selected?new Color(.025f,.065f,.09f):Color.white;
             }
         }
 

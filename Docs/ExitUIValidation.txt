@@ -1,0 +1,39 @@
+PASS Acquire extinguisher for state coverage
+PASS SimplifiedChinese stage 1 has numbered teal bold heading
+PASS SimplifiedChinese stage 1 has highlighted controls
+PASS Card remains at 1F exit, including pin state
+PASS Instruction fits card height
+PASS SimplifiedChinese stage 2 has numbered teal bold heading
+PASS SimplifiedChinese stage 2 has highlighted controls
+PASS Card remains at 1F exit, including pin state
+PASS Instruction fits card height
+PASS SimplifiedChinese stage 3 has numbered teal bold heading
+PASS SimplifiedChinese stage 3 has highlighted controls
+PASS Card remains at 1F exit, including pin state
+PASS Instruction fits card height
+PASS English stage 1 has numbered teal bold heading
+PASS English stage 1 has highlighted controls
+PASS Card remains at 1F exit, including pin state
+PASS Instruction fits card height
+PASS English stage 2 has numbered teal bold heading
+PASS English stage 2 has highlighted controls
+PASS Card remains at 1F exit, including pin state
+PASS Instruction fits card height
+PASS English stage 3 has numbered teal bold heading
+PASS English stage 3 has highlighted controls
+PASS Card remains at 1F exit, including pin state
+PASS Instruction fits card height
+PASS TraditionalChinese stage 1 has numbered teal bold heading
+PASS TraditionalChinese stage 1 has highlighted controls
+PASS Card remains at 1F exit, including pin state
+PASS Instruction fits card height
+PASS TraditionalChinese stage 2 has numbered teal bold heading
+PASS TraditionalChinese stage 2 has highlighted controls
+PASS Card remains at 1F exit, including pin state
+PASS Instruction fits card height
+PASS TraditionalChinese stage 3 has numbered teal bold heading
+PASS TraditionalChinese stage 3 has highlighted controls
+PASS Card remains at 1F exit, including pin state
+PASS Instruction fits card height
+PASS Full briefing includes styled exit fire stage
+PASS Updated step 6 fits overview

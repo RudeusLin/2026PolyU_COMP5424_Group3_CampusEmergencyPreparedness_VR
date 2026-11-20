@@ -33,8 +33,8 @@ namespace CampusEmergency.Interaction.FireSafety
             var inventory = actor as CampusXRInventory;
             var controller = inventory != null ? inventory.GetComponent<CampusXRExtinguisherController>() : null;
             return controller != null && controller.TryPickup(this)
-                ? "EXTINGUISHER: ACTION mode. B switches mode. Left grip near the yellow pin removes it."
-                : "Return your held item first. Extinguisher pickup requires the XR player.";
+                ? "Extinguisher equipped in left hand. Point right ray at pin and press A; left trigger sprays."
+                : "Switch to empty hands with X before picking up an extinguisher.";
         }
         public void Hold(Transform hand)
         {
@@ -52,6 +52,11 @@ namespace CampusEmergency.Interaction.FireSafety
             PinRemoved = true;
             pin.gameObject.SetActive(false);
             return true;
+        }
+        public void ResetSafetyPin()
+        {
+            PinRemoved = false;
+            if (pin != null) pin.gameObject.SetActive(true);
         }
         public void ReturnHome()
         {

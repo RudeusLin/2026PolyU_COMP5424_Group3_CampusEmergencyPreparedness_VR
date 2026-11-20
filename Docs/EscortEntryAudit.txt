@@ -1,0 +1,15 @@
+oldChairClear=True oldBlocker= x=3.3 gaze=0 allowed=True chair=(3.91, 3.65, -3.54) blocker=
+oldChairClear=False oldBlocker=Wall_Partition x=3.3 gaze=30 allowed=True chair=(3.91, 3.65, -3.54) blocker=
+oldChairClear=False oldBlocker=Wall_Partition x=3.3 gaze=60 allowed=True chair=(3.91, 3.65, -3.54) blocker=
+oldChairClear=False oldBlocker=Wall_Partition x=3.3 gaze=90 allowed=True chair=(3.91, 3.65, -3.54) blocker=
+oldChairClear=True oldBlocker= x=3.75 gaze=0 allowed=True chair=(3.75, 3.65, -3.55) blocker=
+oldChairClear=True oldBlocker= x=3.75 gaze=30 allowed=True chair=(3.75, 3.65, -3.55) blocker=
+oldChairClear=False oldBlocker=DoorJamb x=3.75 gaze=60 allowed=True chair=(3.75, 3.65, -3.55) blocker=
+oldChairClear=False oldBlocker=DoorJamb x=3.75 gaze=90 allowed=True chair=(3.75, 3.65, -3.55) blocker=
+oldChairClear=True oldBlocker= x=4.1 gaze=0 allowed=True chair=(3.63, 3.65, -3.54) blocker=
+oldChairClear=True oldBlocker= x=4.1 gaze=30 allowed=True chair=(3.63, 3.65, -3.54) blocker=
+oldChairClear=False oldBlocker=DoorPanel x=4.1 gaze=60 allowed=True chair=(3.63, 3.65, -3.54) blocker=
+oldChairClear=False oldBlocker=DoorJamb x=4.1 gaze=90 allowed=True chair=(3.63, 3.65, -3.54) blocker=
+Closed doors block escort=True
+A interaction opens both leaves=True
+PASS: 12 approach/gaze cases, closed-door blocking and paired A interaction.

@@ -14,7 +14,7 @@ namespace CampusEmergency.Player.XR
         [SerializeField] private CampusXRInventory inventory;
         [SerializeField] private CampusXRFeedback feedback;
         [SerializeField] private Transform rightHand, leftHand, head;
-        private InputAction modeButton, leftGrip, rightGrip;
+        private InputAction sprayTrigger;
         private bool triggerReleased;
         private CampusFireTarget currentTarget;
         private CampusFireTarget[] fires;
@@ -23,84 +23,82 @@ namespace CampusEmergency.Player.XR
         private Material visualMaterial;
         private CampusFireProgress progress;
         public CampusExtinguisher Held { get; private set; }
+        public CampusExtinguisher Owned { get; private set; }
         public int LastReturnFrame { get; private set; } = -1;
         public bool SprayMode { get; private set; }
-        public bool BlocksTeleport => Held != null && (SprayMode || !triggerReleased);
+        public bool BlocksTeleport => false;
         public string Status { get; private set; }
-        public string Controls => Held == null ? null : (SprayMode
-                ? LanguageSelectionUI.T("MODE: SPRAY", "模式：喷射", "模式：噴射")
-                : LanguageSelectionUI.T("MODE: ACTION", "模式：移动", "模式：移動"))
-            + LanguageSelectionUI.T(" / B: SWITCH / RIGHT GRIP: RETURN\n", " / B键：切换 / 右握把：归还\n", " / B鍵：切換 / 右握把：歸還\n")
-            + (SprayMode ? LanguageSelectionUI.T("TRIGGER: SPRAY AT FIRE BASE", "扳机：向火源根部喷射", "扳機：向火源根部噴射")
-                : LanguageSelectionUI.T("TRIGGER: TELEPORT", "扳机：传送", "扳機：傳送"))
-            + (Held.PinRemoved ? LanguageSelectionUI.T(" / PIN REMOVED", " / 保险销已拔除", " / 保險銷已拔除")
-                : LanguageSelectionUI.T(" / LEFT GRIP NEAR PIN: PULL", " / 左手靠近保险销并按握把拔除", " / 左手靠近保險銷並按握把拔除"));
-
+        public string Controls => Held==null ? null : LanguageSelectionUI.T("RIGHT A AT PIN: REMOVE / LEFT TRIGGER: SPRAY / X: SWITCH", "右手A对准保险销：拔销 / 左扳机：喷射 / X：切换", "右手A對準保險銷：拔銷 / 左扳機：噴射 / X：切換");
         public void Configure(CampusXRInput controls, CampusXRInventory items, CampusXRFeedback messages,
             Transform right, Transform left, Transform camera)
         { input = controls; inventory = items; feedback = messages; rightHand = right; leftHand = left; head = camera; }
         private void OnEnable()
         {
-            modeButton = new InputAction("Extinguisher mode", InputActionType.Button, "<XRController>{RightHand}/secondaryButton");
-            leftGrip = new InputAction("Pull pin", InputActionType.Button, "<XRController>{LeftHand}/gripPressed");
-            rightGrip = new InputAction("Return extinguisher", InputActionType.Button, "<XRController>{RightHand}/gripPressed");
-            modeButton.Enable(); leftGrip.Enable(); rightGrip.Enable();
+            sprayTrigger=new InputAction("Spray left trigger",InputActionType.Button,"<XRController>{LeftHand}/triggerPressed");sprayTrigger.Enable();
         }
         private void Start() { fires = FindObjectsOfType<CampusFireTarget>(); BuildVisuals(); }
         public void RefreshTargets() => fires = FindObjectsOfType<CampusFireTarget>();
         public bool TryPickup(CampusExtinguisher item)
         {
-            bool towelBlocksPickup = inventory != null && inventory.HeldTowel != null &&
-                (!inventory.HeldTowel.IsWet || !inventory.IsTowelRaised);
-            if (Held != null || towelBlocksPickup || item == null || item.IsHeld) return false;
-            Held = item; item.Hold(rightHand); SprayMode = false; triggerReleased = false;
-            StopSpray(); return true;
+            if(Owned!=null || inventory==null || !inventory.IsEmpty || item==null || item.IsHeld)return false;
+            Owned=item;item.Hold(leftHand);inventory.Equip(CampusXRInventory.EquipmentSlot.Extinguisher);return true;
         }
-        public void SwitchMode()
+        public void SetEquipped(bool equipped)
         {
-            if (Held == null) return;
-            SprayMode = !SprayMode; triggerReleased = false; StopSpray();
-            feedback.Notify(SprayMode
-                ? LanguageSelectionUI.T("SPRAY mode: release trigger, pull pin, aim at fire base.", "喷射模式：松开扳机，拔除保险销并瞄准火源根部。", "噴射模式：放開扳機，拔除保險銷並瞄準火源根部。")
-                : LanguageSelectionUI.T("ACTION mode: release trigger, then press to teleport.", "移动模式：先松开扳机，再按下进行传送。", "移動模式：先放開扳機，再按下進行傳送。"));
+            bool newlyEquipped = equipped && Owned != null && Held != Owned;
+            StopSpray();Held=equipped?Owned:null;SprayMode=equipped;triggerReleased=false;
+            if (newlyEquipped) Owned.ResetSafetyPin();
+            if(Owned!=null)foreach(var renderer in Owned.GetComponentsInChildren<Renderer>(true))renderer.enabled=equipped;
+        }
+        // Kept for old editor tools; mode is now selected by the inventory, never B.
+        public void SwitchMode() { StopSpray(); }
+        public bool TryPointAtPin(Ray ray,float reach,out Vector3 point)
+        {
+            point=Vector3.zero;
+            if(Held==null || Held.PinRemoved || Held.Pin==null)return false;
+            point=Held.Pin.position;var offset=point-ray.origin;float along=Vector3.Dot(offset,ray.direction);
+            return along>0 && along<=reach && (offset-ray.direction*along).magnitude<.065f
+                && !Physics.Linecast(ray.origin,point,~0,QueryTriggerInteraction.Ignore);
+        }
+        public string PullPin()
+        {
+            if(Held==null)return "";
+            Held.TryPullPin(Held.Pin.position);
+            triggerReleased=sprayTrigger!=null && !sprayTrigger.IsPressed();
+            return LanguageSelectionUI.T("PIN REMOVED. Hold LEFT TRIGGER to spray.","保险销已拔出，按住左扳机喷射。","保險銷已拔出，按住左扳機噴射。");
         }
         private void Update() => ProcessInput(input != null && input.HasInteractionFocus);
         private void ProcessInput(bool focus)
         {
             if (Held == null) return;
-            bool tracked = input.RightTracked;
+            bool tracked = input.LeftTracked;
             foreach (var renderer in Held.GetComponentsInChildren<Renderer>()) renderer.enabled = tracked;
             if (!focus || !tracked) { triggerReleased = false; StopSpray(); return; }
-            if (modeButton.WasPressedThisFrame()) SwitchMode();
-            if (!input.TeleportHeld) triggerReleased = true;
-            if (rightGrip.WasPressedThisFrame() && !input.TeleportHeld) { ReturnHeld(); return; }
-            if (input.LeftTracked && leftGrip.WasPressedThisFrame())
-                feedback.Notify(Held.TryPullPin(leftHand.position)
-                    ? LanguageSelectionUI.T("PIN REMOVED. B: spray mode, aim at the fire base.", "保险销已拔除。按B切换喷射模式并瞄准火源根部。", "保險銷已拔除。按B切換噴射模式並瞄準火源根部。")
-                    : Held.PinRemoved ? LanguageSelectionUI.T("Pin already removed.", "保险销已经拔除。", "保險銷已經拔除。")
-                    : LanguageSelectionUI.T("Bring LEFT hand within 18cm of the yellow safety pin.", "将左手移到黄色保险销18厘米以内。", "將左手移到黃色保險銷18厘米以內。"));
-            if (!SprayMode || input.InteractionHeld) { StopSpray(); return; }
+            if(!sprayTrigger.IsPressed())triggerReleased=true;
             var target = FindTarget(Held.Nozzle.position, Held.Nozzle.forward, out var end);
             ShowAim(Held.Nozzle.position, end, target);
-            bool spraying = triggerReleased && input.TeleportHeld && Held.PinRemoved;
-            if (spraying)
-            {
-                spray.transform.SetPositionAndRotation(Held.Nozzle.position, Held.Nozzle.rotation);
-                var main = spray.main; main.startLifetime = Mathf.Clamp(Vector3.Distance(Held.Nozzle.position, end) / 8f, .01f, .375f);
-                if (!spray.isPlaying) spray.Play();
-            }
-            else spray.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            bool spraying = triggerReleased && sprayTrigger.IsPressed() && Held.PinRemoved;
+            UpdateSprayVisual(spraying,end);
             ApplyTarget(spraying ? target : null, Time.deltaTime);
             if(!spraying && Held.PinRemoved && progress!=null)progress.Show(target);
-            Status = !Held.PinRemoved ? LanguageSelectionUI.T("STEP 2: pull the yellow safety pin with LEFT grip.", "步骤2：左手按握把拔除黄色保险销。", "步驟2：左手按握把拔除黃色保險銷。")
+            Status = !Held.PinRemoved ? LanguageSelectionUI.T("STEP 2: point the right ray at the pin and press A.", "步骤2：右手射线对准保险销按A。", "步驟2：右手射線對準保險銷按A。")
                 : target == null ? LanguageSelectionUI.T("STEP 3: aim at the fire BASE within 3m.", "步骤3：在3米内瞄准火源根部。", "步驟3：在3米內瞄準火源根部。")
                 : LanguageSelectionUI.T("STEP 4: hold trigger on this base: ", "步骤4：对准此火源根部持续按住扳机：", "步驟4：對準此火源根部持續按住扳機：") + target.ContinuousSeconds.ToString("0.0") + " / 3.0s";
+        }
+        public void UpdateSprayVisual(bool spraying,Vector3 end)
+        {
+            if(spray==null || Held==null)return;
+            if(!spraying){spray.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);return;}
+            spray.transform.SetPositionAndRotation(Held.Nozzle.position,Held.Nozzle.rotation);
+            var main=spray.main;main.startLifetime=Mathf.Clamp(Vector3.Distance(Held.Nozzle.position,end)/8f,.08f,.375f);
+            var renderer=spray.GetComponent<ParticleSystemRenderer>();renderer.enabled=true;
+            if(!spray.isPlaying){spray.Clear(true);spray.Play(true);spray.Emit(12);}
         }
         public void ApplyTarget(CampusFireTarget target, float seconds)
         {
             if (currentTarget != target) { if (currentTarget != null) currentTarget.Interrupt(); currentTarget = target; }
             if (target != null && target.ApplySpray(seconds))
-            { feedback.Notify(LanguageSelectionUI.T("FIRE EXTINGUISHED. B: action mode to move to the next fire.", "火源已扑灭。按B切换移动模式前往下一处。", "火源已撲滅。按B切換移動模式前往下一處。")); currentTarget = null; }
+            { feedback.Notify(LanguageSelectionUI.T("FIRE EXTINGUISHED. Right trigger teleports; X switches equipment.", "火源已扑灭，右扳机可传送，X切换物品。", "火源已撲滅，右扳機可傳送，X切換物品。")); currentTarget = null; }
             if(progress!=null)progress.Show(target);
         }
         public CampusFireTarget FindTarget(Vector3 start, Vector3 direction, out Vector3 end)
@@ -131,11 +129,7 @@ namespace CampusEmergency.Player.XR
         }
         public void ReturnHeld()
         {
-            LastReturnFrame = Time.frameCount;
-            StopSpray();
-            if (Held != null) { foreach (var r in Held.GetComponentsInChildren<Renderer>(true)) r.enabled = true; Held.ReturnHome(); }
-            Held = null; SprayMode = false; triggerReleased = false;
-            feedback.Notify(LanguageSelectionUI.T("Extinguisher returned; safety pin reset.", "灭火器已归还，保险销已复位。", "滅火器已歸還，保險銷已復位。"));
+            inventory.Equip(CampusXRInventory.EquipmentSlot.Empty);
         }
         private void StopSpray()
         {
@@ -162,6 +156,7 @@ namespace CampusEmergency.Player.XR
             var main = spray.main; main.playOnAwake = false; main.loop = true; main.startSpeed = 8f;
             main.startLifetime = .375f; main.startSize = .055f; main.startColor = new Color(.82f,.94f,1f,.65f);
             main.simulationSpace = ParticleSystemSimulationSpace.World; main.maxParticles = 120;
+            main.cullingMode=ParticleSystemCullingMode.AlwaysSimulate;
             var emission = spray.emission; emission.rateOverTime = 180f;
             var shape = spray.shape; shape.shapeType = ParticleSystemShapeType.Cone; shape.angle = 5f; shape.radius = .018f;
             spray.GetComponent<ParticleSystemRenderer>().sharedMaterial = visualMaterial;
@@ -177,8 +172,7 @@ namespace CampusEmergency.Player.XR
         }
         private void OnDisable()
         {
-            if (Held != null) ReturnHeld(); else StopSpray();
-            modeButton?.Dispose(); leftGrip?.Dispose(); rightGrip?.Dispose();
+            StopSpray();sprayTrigger?.Dispose();sprayTrigger=null;
         }
         private void OnDestroy() { if (visualMaterial != null) Destroy(visualMaterial); }
     }

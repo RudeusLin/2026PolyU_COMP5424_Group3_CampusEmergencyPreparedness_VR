@@ -1,0 +1,11 @@
+Smoke_401 (3) bounds Center: (-16.58, 10.05, 2.75), Extents: (0.88, 0.40, 1.05) stair=True
+Smoke_401 (2) bounds Center: (-14.42, 10.05, -0.61), Extents: (0.88, 0.40, 1.05) stair=True
+Smoke_401 bounds Center: (-7.80, 13.65, 0.55), Extents: (2.00, 0.40, 0.70) stair=False
+CorridorCeilingSmoke_F01 bounds Center: (0.00, 2.85, 0.00), Extents: (12.25, 0.40, 1.35) stair=False
+CorridorCeilingSmoke_F02 bounds Center: (0.00, 6.45, 0.00), Extents: (12.25, 0.40, 1.35) stair=False
+CorridorCeilingSmoke_F03 bounds Center: (0.00, 10.05, 0.00), Extents: (12.25, 0.40, 1.35) stair=False
+CorridorCeilingSmoke_F04 bounds Center: (0.00, 13.65, 0.00), Extents: (12.25, 0.40, 1.35) stair=False
+Smoke_401 (4) bounds Center: (16.58, 2.85, 1.94), Extents: (0.88, 0.40, 1.05) stair=True
+Smoke_401 (1) bounds Center: (-11.80, 13.65, 0.55), Extents: (2.00, 0.40, 0.70) stair=False
+Smoke_401 (5) bounds Center: (14.42, 2.85, 3.43), Extents: (0.88, 0.40, 1.05) stair=True
+PASS: runtime smoke profiles and shader compilation. Screenshots captured from runtime scene.

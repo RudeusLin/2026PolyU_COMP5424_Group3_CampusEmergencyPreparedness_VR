@@ -1,0 +1,21 @@
+PASS Exactly three exit fires persisted
+PASS Setup is idempotent
+PASS Cannot teleport through burning entrance
+PASS Cannot bypass at doorway edge
+PASS Second-floor path unaffected
+PASS Exit approach prompts X for extinguisher
+PASS Emergency phone cannot complete while exit fire remains
+PASS Extinguisher pickup succeeds
+PASS First equip requires visible pin removal
+PASS A removes pin
+PASS Repeated equipped update does not reset an active pin
+PASS Switch cancels uninterrupted spray progress
+PASS Re-equipping restores safety pin
+PASS Held trigger cannot spray after pin was restored
+PASS Pin can be removed again
+PASS Every later re-equip also resets the pin
+PASS Less than three seconds does not extinguish
+PASS First fire out does not open the doorway
+PASS Second fire out still blocks exit
+PASS All three fires out opens exit
+Editor runtime and simulated-input validation; headset testing remains required.

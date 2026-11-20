@@ -1,45 +1,36 @@
-# Campus_XR 当前按键：右手扳机传送
+# Current Quest 3 controls
 
-本说明自 2026-10-11 的右手扳机改动起生效，替代此前的左摇杆瞄准、松杆传送操作。
+| Controller | Button | Action |
+|---|---|---|
+| Right | Trigger | Teleport to valid green destination, also while carrying equipment |
+| Right | A | Interact with doors, alarm, taps, items, UI and wheelchair; aim at held extinguisher pin to remove it |
+| Right | Stick left/right | Snap turn 30 degrees |
+| Left | X | Cycle Empty → Towel → Extinguisher → Empty, skipping items not yet acquired |
+| Left | Trigger | Towel: toggle raised/lowered (wet only); extinguisher: hold to spray |
+| Left | Y | Toggle help/status HUD |
+| Keyboard | H | Toggle HUD |
+| Both | Grip | No gameplay action |
+| Right B / left stick | — | No gameplay action |
 
-| 按键或动作 | 功能 |
-| --- | --- |
-| 转动右手控制器 | 持续显示直线射线，指向目标地面 |
-| 右手扳机（食指） | 绿色落点时，按下立即传送；按住不连发，松开不传送 |
-| 右手 A 键 | 对准门、毛巾、水龙头等，按下进行交互；按住期间切换为短距离交互射线 |
-| 右摇杆左/右 | 每次拨动转向 30 度，回中后可再次拨动 |
-| 右手握持键（中指） | 归还当前持有的毛巾或灭火器；先松开右扳机 |
-| 左手握持键（中指） | 未持有灭火器时按住暂停传送瞄准，松开恢复；持有灭火器时用于近距离拔销 |
-| 右手 B | 持有灭火器时切换行动 / 灭火模式；空手无功能 |
-| 左手 X / 键盘 H | 显示或隐藏操作与状态面板，再按一次恢复 |
-| 左扳机 | 持有湿毛巾时按一次抬起，再按一次放下；无需按住，松开不改变状态 |
-| 左摇杆、Y | 当前没有绑定校园玩法功能 |
-| 头部转动 | 查看四周，由头显追踪 |
-| Meta / 系统菜单键 | 保留系统功能；系统菜单占用焦点时暂停游戏交互 |
+Pick up an extinguisher only with empty hands. Items equip in the left hand; X stows items without returning them. Towel wetness persists. Each time the extinguisher is re-equipped, its safety pin is restored; aim the right ray at it and press A again before spraying. Re-equipped towels start lowered. Switching items immediately cancels spray and its continuous-fire timer. Release the left trigger after switching or losing tracking/focus before spraying again. Aim the left nozzle at the same fire base continuously for 3 seconds to extinguish. Right A uses a 6.5cm aiming tolerance around the pin and cannot operate through geometry.
 
-## 持有灭火器时
-A 拿取；默认行动模式，右扳机传送。B 切换灭火模式，右扳机喷射；切换后先松开扳机再按下。左手靠近黄色销按左握持键拔销；右握持键归还（先松开扳机）。此时左握持键不再暂停传送，右握持键不再归还毛巾。两种物品不能同时持有。连续命中同一火焰根部 3 秒即扑灭，中断清零。参见 [完整流程及回滚](ExtinguisherWorkflow.md)。
+There is no B mode switching, proximity-grip pin pulling or item-return requirement. Fire completion unlocks descent without returning the extinguisher. Wheelchair assistance remains right-ray A start/pause, then escort to the refuge entrance and open its door.
 
-## 传送规则
-射线来自右手控制器，最大检测距离 12 米。绿色射线与落点圈表示可传送，红色表示目标不可落地。墙、门、家具、缺少净空或支撑的落点均不可传送，不穿过第一个遮挡物。保留单次最大楼层高度差 4 米。
+## Wheelchair escort override
 
-右手追踪有效即可传送，不要求左手同时被追踪。恢复追踪或应用焦点后，必须先松开扳机再按下；A 键交互和传送不会在同一次操作中同时执行。扳机按住期间暂停转向与毛巾归还，避免同帧目标改变。
+Right trigger remains ray teleport; right stick snap-turns. The active wheelchair is transparent to movement/interaction rays. Left stick does not move. A starts/pauses escort (aimed doors and other interactions take priority). Safe same-floor player/chair destinations are checked together. Equipment switching is suspended during escort; the prior item is restored after pause/delivery.
 
-## 代码
-- Player/XR/Input/CampusXRInput.cs：Teleport 读取右扳机，Interact 读取右手 A。
-- Player/XR/Locomotion/CampusTeleportController.cs：右手直线瞄准、按下锁存、防连发与传送请求。
-- Interaction/XR/CampusXRInteractionRay.cs：A 键触发原物体交互。
-- CampusXROrigin.prefab 与 XR 场景：rayOrigin 指向 Right Controller Aim。
-- CampusXR.inputactions：保持已有 Action GUID，仅调整 Teleport 类型/绑定和 Interact 绑定。
-- 原左摇杆传送逻辑已移除，不保留第二套移动触发方式。
+### Refuge parking confirmation
 
-## 验证入口
-Tools/XRSetup/RunUnityCheck.ps1 -Method CampusEmergency.Editor.CampusControllerValidation.Begin -LogName RightTriggerPlayValidation.log -PlayMode
+After escorting into the refuge, aim the right interaction ray at the green parking marker and press A. The wheelchair parks automatically facing the refuge doorway; normal controls and the previous item are restored. Stand clear of the marker. Entering the room alone no longer completes rescue.
 
-通过模拟 Oculus Touch 按键驱动实际 Input System 与 TeleportationProvider。具体结果以 Docs/ControllerValidation.txt 为准；旧毛巾报告中的按住/松开断言属于历史版本，不能视作当前切换逻辑的验证。真机视觉和实际按键仍需 Quest 3 测试。
+## Ground-floor exit fires
 
-修改前备份：Tools/XRSetup/BeforeRightTriggerTeleport。
+Three fires block the main entrance. On approach, the route prompts X to equip the extinguisher. Remove the pin with right A, then spray each base continuously for 3 seconds. All three fires must be extinguished before teleporting through the exit and continuing to the assembly point / simulated 999 call.
 
-## 左手毛巾
+## After the emergency call
 
-A 拿取后由左手持有；先使用水龙头打湿，再按左扳机抬到视野下缘表示遮住口鼻，再按一次放下。无需持续按住，松开扳机不会自动放下；干毛巾无法切换到抬起状态。右扳机仍可传送，右握持键仍归还，水龙头仍用 A。详见 [毛巾操作与实现](XRTowelInteraction.md)。
+The debrief includes RESTART and EXIT PRACTICE. Aim the right ray at a button and press A. RESTART reloads the current scene, clears the run, returns to the 401 spawn and asks for the language again. EXIT PRACTICE quits a built application; in Unity Editor it stops Play Mode. Both buttons retain hover and confirmation feedback and support all three languages.
+
+
+Exit instructions use the same numbered teal headings, separate explanatory lines and gold keycaps as the other route cards. Equip, remove-pin and spray prompts share a fixed 1F exit-side anchor; held equipment no longer sends the pin prompt back to its 3F pickup position. The initial briefing and localized route map now include all three exit fires under step 06.

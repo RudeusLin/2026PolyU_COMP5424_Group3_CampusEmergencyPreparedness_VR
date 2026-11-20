@@ -10,7 +10,7 @@ namespace CampusEmergency.Player.XR
         private Transform head;
         private GameObject root;
         private Image fill;
-        private Text countdown,caption;
+        private Text countdown,caption,control;
         private Sprite ringSprite,discSprite;
         private Texture2D ringTexture,discTexture;
         private CampusFireTarget fire;
@@ -33,7 +33,8 @@ namespace CampusEmergency.Player.XR
             fill=Picture("Progress ring",ringSprite,184);fill.color=new Color(.15f,1f,.68f);
             fill.type=Image.Type.Filled;fill.fillMethod=Image.FillMethod.Radial360;fill.fillOrigin=(int)Image.Origin360.Top;fill.fillClockwise=true;
             countdown=Label("Seconds remaining",0,46,150,65);
-            caption=Label("Progress caption",-113,21,235,40);
+            caption=Label("Progress caption",126,27,360,48);caption.color=new Color(.4f,.89f,.82f);
+            control=Label("Progress control",-140,24,520,100);control.fontStyle=FontStyle.Normal;control.lineSpacing=1.2f;
             root.SetActive(false);
         }
         private static Texture2D MakeTexture(bool ring)
@@ -82,6 +83,8 @@ namespace CampusEmergency.Player.XR
                 var away=root.transform.position-head.position;
                 if(away.sqrMagnitude>.0001f)root.transform.rotation=Quaternion.LookRotation(away,Mathf.Abs(Vector3.Dot(away.normalized,Vector3.up))>.99f?Vector3.forward:Vector3.up);
             }
+            CampusEmergency.Player.CampusUIKeycaps.Apply(control,LanguageSelectionUI.T("Hold LEFT TRIGGER for 3 seconds","按住左扳机，连续命中3秒","按住左扳機，連續命中3秒"),26);
+
             fill.fillAmount=NormalizedProgress;
             countdown.font=caption.font=LanguageSelectionUI.CurrentFont;
             countdown.text=fire.Extinguished?"✓":(Mathf.Ceil(SecondsRemaining*10)/10).ToString("0.0",System.Globalization.CultureInfo.InvariantCulture)+"s";

@@ -5,17 +5,17 @@ using CampusEmergency.Interaction.FireSafety;
 
 namespace CampusEmergency.Player.XR
 {
-    /// <summary>Single source of truth for the five-node journey, HUD and navigation.</summary>
+    /// <summary>Single source of truth for the six-node journey, HUD and navigation.</summary>
     public sealed class CampusRouteAFlow : MonoBehaviour
     {
         public int Node { get; private set; } = 1;
-        public bool CanCall => Node == 5 && routeIndex >= Exit.Length;
+        public bool CanCall => Node == 6 && routeIndex >= Exit.Length && exitFires != null && exitFires.IsCleared;
         public string Instruction { get; private set; }
         public string TargetName { get; private set; }
         public Transform Target { get; private set; }
         private Transform lastExtinguishedFire;
-        public Transform ReturnHintAnchor => Node==4 && fireDone && extinguisher!=null && extinguisher.Held!=null ? lastExtinguishedFire : null;
-        public readonly bool[] Completed = new bool[5];
+        public Transform ReturnHintAnchor => null;
+        public readonly bool[] Completed = new bool[6];
         private CampusXRInventory inventory;
         private CampusXRExtinguisherController extinguisher;
         private CampusXRInput input;
@@ -30,6 +30,9 @@ namespace CampusEmergency.Player.XR
         private Vector3 previousFeet;
         private Vector3 Feet => head!=null ? new Vector3(head.position.x,transform.position.y,head.position.z) : transform.position;
         private bool alarmDone;
+        private CampusWheelchairRescue rescue;
+        private CampusExitFireEncounter exitFires;
+        private bool exitFirePrompted;
         private static readonly Vector3[] ToThird = {
             new Vector3(-12,10.8f,3), new Vector3(-14.42f,10.8f,1.8f),
             new Vector3(-14.42f,9,-3), new Vector3(-16.58f,9,-1.65f),
@@ -65,7 +68,9 @@ namespace CampusEmergency.Player.XR
             EnsureBFire("Route A B Door Fire", new Vector3(12.2f,7.26f,2.9f));
             EnsureBFire("Route A B Corner Fire", new Vector3(12f,7.26f,.5f));
             fires = FindObjectsOfType<CampusFireTarget>().Where(x => x.transform.position.x>8 && Mathf.Abs(x.transform.position.y-7.2f)<1.5f).ToArray();
+            exitFires = CampusExitFireEncounter.Ensure();
             extinguisher.RefreshTargets();
+            rescue=CampusWheelchairRescue.Create(this,transform);
         }
         private static void EnsureBFire(string name,Vector3 position)
         {
@@ -76,7 +81,7 @@ namespace CampusEmergency.Player.XR
         }
         private static string T(string en,string sc,string tc) => LanguageSelectionUI.T(en,sc,tc);
         private void Next() { Completed[Node-1] = true; Node++; routeIndex=0; activeWaypoints=null; }
-        public void RecordCall() { if (CanCall) Completed[4] = true; }
+        public void RecordCall() { if (CanCall) Completed[5] = true; }
         public void Tick()
         {
             if (anchor == null || head == null || LanguageSelectionUI.IsBlocking || (input != null && (!input.HeadTracked || !input.HasInteractionFocus))) return;
@@ -85,33 +90,20 @@ namespace CampusEmergency.Player.XR
         private void Evaluate()
         {
             var atmosphere = FindObjectOfType<CampusDrillAtmosphere>();
-            alarmDone |= atmosphere != null && atmosphere.IsAlarmActive;
+            alarmDone |= atmosphere != null && atmosphere.HasAlarmBeenActivated;
             if (Node == 1 && alarmDone) Next();
             if (Node == 2 && inventory.HeldTowel != null && inventory.HeldTowel.IsWet && inventory.IsTowelRaised) Next();
             if(Node==4)
             {
-                extinguisherUsed |= extinguisher.Held==equipment && equipment!=null;
+                extinguisherUsed |= extinguisher.Owned==equipment && equipment!=null;
                 fireDone=fires.Length>0 && fires.All(x=>x!=null && x.Extinguished);
                 if(fireDone && lastExtinguishedFire==null)
                     lastExtinguishedFire=fires.OrderByDescending(x=>x.ExtinguishOrder).First().transform;
-                // Returning the tool is the immediate next step after the final fire,
-                // even if the towel was lowered during extinguishing.
-                if(fireDone && extinguisher.Held!=null)
-                {
-                    Set(extinguisher.Held.transform,T("Fire cleared. Release trigger, press RIGHT GRIP to return extinguisher.","火已扑灭，松开扳机，按右握把归还灭火器。","火已撲滅，鬆開扳機，按右握把歸還滅火器。"));
-                    return;
-                }
-            }
-            // Recovery is based on what the player can do now, without erasing completed nodes.
-            if (Node >= 3 && transform.position.y > 1.2f && (inventory.HeldTowel == null || !inventory.HeldTowel.IsWet || !inventory.IsTowelRaised))
-            {
-                if (extinguisher.Held != null && inventory.HeldTowel == null) { Set(extinguisher.Held.transform,T("Return extinguisher with RIGHT GRIP before retrieving a towel.","按右握把归还灭火器后拿取毛巾。","按右握把歸還滅火器後拿取毛巾。")); return; }
-                TowelObjective(); return;
             }
             if (Node == 3 && Walk(ToThird,T("Avoid the A stair fire; enter the 3F corridor.","避开A侧下行火势，进入三楼走廊。","避開A側下行火勢，進入三樓走廊。"))) Next();
             if (Node == 4)
             {
-                if (fireDone && extinguisherUsed && extinguisher.Held == null)
+                if (fireDone && extinguisherUsed)
                 {
                     if (!descendingB) { descendingB=true; routeIndex=0; activeWaypoints=null; }
                     if (Walk(ToSecond,T("Fire cleared. Open Stair B and descend to 2F.","火已扑灭，开B楼梯门下至二楼。","火已撲滅，開B樓梯門下至二樓。"))) Next();
@@ -126,15 +118,34 @@ namespace CampusEmergency.Player.XR
                 if (!fireDone && routeIndex < ToB.Length && !Walk(ToB,T("Cross the 3F corridor to EAST Stair B.","沿三楼走廊前往东侧B楼梯。","沿三樓走廊前往東側B樓梯。"))) return;
                 if (!fireDone)
                 {
-                    if (extinguisher.Held == null) Set(equipment != null ? equipment.transform:null,T("Press A to take the 3F B-side extinguisher.","按A拿取三楼B侧灭火器。","按A拿取三樓B側滅火器。"));
-                    else if (!extinguisher.Held.PinRemoved) Set(extinguisher.Held.Pin,T("LEFT GRIP within 18cm of the yellow pin.","左手靠近黄色保险销18厘米内，按左握把拔销。","左手靠近黃色保險銷18厘米內，按左握把拔銷。"));
-                    else { var fire=fires.Where(x=>x!=null&&!x.Extinguished).OrderBy(x=>Vector3.Distance(transform.position,x.transform.position)).FirstOrDefault(); Set(fire != null ? fire.transform:null,T("B: SPRAY mode; hold trigger on the fire BASE for 3 seconds.","按B切换喷射模式，对准火源根部连续喷射3秒。","按B切換噴射模式，對準火源根部連續噴射3秒。")); }
+                    if (extinguisher.Held == null) Set(equipment != null ? equipment.transform:null,extinguisher.Owned!=null ? T("X: equip your extinguisher.","按X切换至灭火器。","按X切換至滅火器。") : T("X: empty hands, then A: pick up extinguisher.","按X切换空手，再按A拾取灭火器。","按X切換空手，再按A拾取滅火器。"));
+                    else if (!extinguisher.Held.PinRemoved) Set(extinguisher.Held.Pin,T("Point RIGHT ray at yellow pin; press A.","右手射线对准黄色保险销，按A拔出。","右手射線對準黃色保險銷，按A拔出。"));
+                    else { var fire=fires.Where(x=>x!=null&&!x.Extinguished).OrderBy(x=>Vector3.Distance(transform.position,x.transform.position)).FirstOrDefault(); Set(fire != null ? fire.transform:null,T("Hold LEFT trigger on fire BASE for 3 seconds; RIGHT trigger teleports.","左手对准火源根部，按住左扳机喷射3秒；右扳机传送。","左手對準火源根部，按住左扳機噴射3秒；右扳機傳送。")); }
                 }
-                else if (extinguisher.Held != null) Set(extinguisher.Held.transform,T("Fire cleared. Release trigger, press RIGHT GRIP to return extinguisher.","火已扑灭，松开扳机，按右握把归还灭火器。","火已撲滅，鬆開扳機，按右握把歸還滅火器。"));
                 else Walk(ToSecond,T("Open Stair B and descend to 2F; do not use the broken lower flight.","开B楼梯门下至二楼，勿走下方断裂楼梯。","開B樓梯門下至二樓，勿走下方斷裂樓梯。"));
             }
             else if (Node == 5)
             {
+                if(rescue.Rescued) { Next(); }
+                else { Set(rescue.Escorting ? (rescue.Checkpoint!=null?rescue.Checkpoint.transform:rescue.transform) : rescue.transform,T("B stairs below are broken. Assist the wheelchair user: A starts/pauses escort. RIGHT TRIGGER teleports with the wheelchair; open the refuge door, enter and aim at the green marker + A to confirm.","B侧下行楼梯已断裂。对准轮椅按A开始/暂停护送，使用右扳机射线护送至安全房，按A开门进入后，对准绿色安置点按A确认。","B側下行樓梯已斷裂。對準輪椅按A開始/暫停護送，使用右扳機射線護送至安全房，按A開門進入後，對準綠色安置點按A確認。")); return; }
+            }
+            if (Node == 6)
+            {
+                if (exitFires != null && !exitFires.IsCleared && Mathf.Abs(Feet.y) < .6f && Feet.z < -3.8f && Mathf.Abs(Feet.x) < 5f)
+                {
+                    if (!exitFirePrompted)
+                    {
+                        exitFirePrompted = true;
+                        GetComponent<CampusXRFeedback>()?.Notify(T("EXIT BLOCKED: press X to equip the extinguisher, remove its pin again and extinguish all three fires.", "出口被火焰封堵：按X切换灭火器，重新拔销后扑灭三簇火焰。", "出口被火焰封堵：按X切換滅火器，重新拔銷後撲滅三簇火焰。"), 6f);
+                    }
+                    var fire = exitFires.Nearest(Feet);
+                    if (extinguisher.Held == null)
+                        Set(fire != null ? fire.transform : null, T("EXIT FIRE\nPress X to equip your extinguisher.", "出口火焰\n按X切换出灭火器。", "出口火焰\n按X切換出滅火器。"));
+                    else if (!extinguisher.Held.PinRemoved)
+                        Set(extinguisher.Held.Pin, T("REMOVE PIN AGAIN\nAim the right ray at the pin and press A.", "重新拔销\n右手射线对准保险销，按A拔出。", "重新拔銷\n右手射線對準保險銷，按A拔出。"));
+                    else Set(fire != null ? fire.transform : null, T("CLEAR THE EXIT\nAim at each fire base; hold LEFT trigger for 3 continuous seconds per fire.", "清理出口\n逐簇对准火焰根部，按住左扳机连续喷射3秒。", "清理出口\n逐簇對準火焰根部，按住左扳機連續噴射3秒。"));
+                    return;
+                }
                 if (!Walk(Exit,T("Stair A → 1F corridor → MAIN entrance.","A楼梯 → 一楼走廊 → 学校正门。","A樓梯 → 一樓走廊 → 學校正門。"))) return;
                 Set(assembly,T("Reach the outdoor assembly point, then use the simulated phone to call 999.","前往室外集合点，使用模拟电话拨打999。","前往室外集合點，使用模擬電話撥打999。"));
             }
@@ -199,7 +210,7 @@ namespace CampusEmergency.Player.XR
         }
         public string Debrief()
         {
-            string[] names={T("401 alarm","401启动火警","401啟動火警"),T("Wet towel raised","湿毛巾举起","濕毛巾舉起"),T("A stair to 3F corridor","A楼梯下三楼并改道","A樓梯下三樓並改道"),T("B fire cleared / extinguisher returned / 2F reached","B侧灭火、归还并下二楼","B側滅火、歸還並下二樓"),T("Main entrance / assembly / simulated 999 call","正门撤离、集合及模拟999报警","正門撤離、集合及模擬999報警")};
+            string[] names={T("401 alarm","401启动火警","401啟動火警"),T("Wet towel raised","湿毛巾举起","濕毛巾舉起"),T("A stair to 3F corridor","A楼梯下三楼并改道","A樓梯下三樓並改道"),T("B fire cleared / 2F reached","B侧灭火并下二楼","B側滅火並下二樓"),T("Wheelchair user assisted to refuge","轮椅人物送入安全房","輪椅人物送入安全房"),T("Exit fires / main entrance / assembly / simulated 999 call","出口灭火、正门撤离、集合及模拟999报警","出口滅火、正門撤離、集合及模擬999報警")};
             return string.Join("\n\n",names.Select((name,i)=>(i+1)+"  "+name+" — "+(Completed[i]?T("RECORDED","已记录","已記錄"):T("NOT RECORDED: repeat this step","未记录：请重新练习此步骤","未記錄：請重新練習此步驟"))))+"\n\n"+T("Records confirm interactions and checkpoints only; gaze, hazard recognition and real-world competence are not measured.","记录仅确认交互和位置节点，不推断注视、危险识别或真实应急能力。","記錄僅確認互動和位置節點，不推斷注視、危險識別或真實應急能力。");
         }
     }

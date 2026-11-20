@@ -1,0 +1,13 @@
+PASS: Startup blocks gameplay
+PASS: Opening canvas is not attached to headset
+PASS: Head rotation does not move opening UI
+PASS: Virtual player remains locked at rear-classroom start
+PASS: Hovered button has visible outline
+PASS: Confirm flash highlights chosen language
+PASS: Language confirmation keeps player locked on briefing
+PASS: Briefing shares fixed world anchor
+PASS: Start releases gameplay and hides opening host
+PASS: All opening panels/buttons removed from visible scene
+PASS: Movement no longer pinned after Start
+PASS: Later phone rebuilt in front of current player
+RESULT: PASS. Hardware ray feel and haptics not tested.

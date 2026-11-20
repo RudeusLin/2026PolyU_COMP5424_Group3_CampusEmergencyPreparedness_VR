@@ -1,3 +1,5 @@
+> Historical implementation record. Current item switching and controls supersede return/mode bindings below: see [XRControls](XRControls.md).
+
 # XR 左手毛巾与遮挡口鼻动作
 
 毛巾改为左手持有，右手仍用于交互和传送。

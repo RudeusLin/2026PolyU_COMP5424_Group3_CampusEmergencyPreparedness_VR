@@ -1,0 +1,17 @@
+PASS Unprotected entry blocked
+PASS Full segment crossing cannot skip smoke
+PASS Raised wet towel permits full crossing
+PASS Washroom accessible before towel
+PASS Third floor unaffected
+PASS Lowered towel allows retreat to entry side
+PASS Lowered towel blocks opposite exit
+PASS Lowered towel blocks deeper movement
+PASS Re-raising wet towel restores movement
+PASS Reverse entry permits only reverse retreat
+PASS XR scene has inventory and towel
+PASS Raised dry towel rejected
+PASS Equipped wet raised towel accepted
+PASS Wet lowered towel rejected
+PASS Stored wet towel rejected
+PASS Extinguisher-equipped state rejected
+PASS 16 checks. Scene was not saved. Headset testing remains required.

@@ -1,0 +1,4 @@
+PASS: removed only 4 pieces of 2F furniture; retained room structure.
+PASS: checkpoint and parking share destination (3.75,3.65,-4.3).
+PASS: A-confirm interaction parks wheelchair at new position.
+Runtime screenshots: entrance and parked state.

@@ -1,0 +1,15 @@
+PASS SimplifiedChinese has exactly two selectable debrief buttons
+PASS Both choices have click handlers
+PASS English has exactly two selectable debrief buttons
+PASS Both choices have click handlers
+PASS TraditionalChinese has exactly two selectable debrief buttons
+PASS Both choices have click handlers
+PASS Seed acquired extinguisher before restart
+PASS Reload reinstalls initial language selection
+PASS Previous language choice reset
+PASS Route returns to first node
+PASS Acquired extinguisher reset
+PASS Wheelchair rescue reset
+PASS Exit fires reignited
+PASS Player returns to 401 spawn
+PASS Exit practice stops Editor Play Mode (build uses Application.Quit).

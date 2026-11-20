@@ -1,0 +1,13 @@
+PASS Unavailable point cannot show gold confirmation
+PASS New wall-side parking has supported and clear path:  
+PASS Ready point is green
+Tracking=True raw=1
+Ray hit Refuge Confirm Parking 2.11
+PASS Actual tracked ray makes ready point gold while teleport aiming
+PASS Focus loss removes hover
+PASS Solid obstacle blocks checkpoint hover
+PASS Actual right-A action confirms parking
+PASS Wheelchair arrives at wall-side destination
+PASS Parked wheelchair faces doorway
+PASS Completed point no longer captures interaction
+Editor simulated-input validation; Quest headset testing remains required.

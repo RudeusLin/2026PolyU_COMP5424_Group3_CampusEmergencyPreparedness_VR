@@ -2,13 +2,23 @@
 
 A VR fire evacuation preparedness practice prototype for international students at fictional Harbourview University. The experience supports practice rather than formal assessment and does not replace official emergency training.
 
+## Major update and integration — 20 November 2026
+
+The current source integrates the full six-node XR journey, virtual hands and simplified left-hand equipment controls, ray-teleport wheelchair escort, a cleared refuge with a wider linked double door and explicit parking confirmation, ceiling-bounded smoke and wet-towel passage checks, and three extinguishable fires at the main exit. Re-equipping the extinguisher restores its safety pin. The final debrief now offers **Restart** (reset to 401 and language selection) and **Exit practice**.
+
+All three languages use structured step headings and highlighted button labels, including exit firefighting. Alarm, fire and tap audio are integrated from Effects. Read the **[detailed update record](Docs/Updates/MajorIntegration_2026-11-20.md)** for each change, implementation files, validation evidence, screenshots and rollback guidance.
+
+![Updated six-step route overview](Docs/Previews/MajorIntegration20261120/RouteOverview.png)
+
+**Source update only:** the Phase 2 downloadable ZIP below has not been rebuilt and does not include these features. Latest checks include 192 full-route assertions before the final UI-only changes, 20 exit-fire checks, 16 smoke-passage checks, restart/exit checks, and 39 final exit-UI checks. Complete headset and new packaged-build validation remain outstanding.
+
 ## Experience overview
 
 1. Select English, Simplified Chinese or Traditional Chinese, read the fixed Route A introduction and route map, and begin in fourth-floor classroom 401.
 2. Use teleportation and snap turning to navigate the building. Follow exit signs, the floor trail and scene-anchored instruction cards toward the current objective.
-3. Explore facility interactions: activate an alarm, open doors, pick up and wet a towel, or use an extinguisher when appropriate to the practice situation. These interactions are available for practice; completion does not verify that every step was performed.
+3. Explore facility interactions: activate an alarm, open doors, pick up and wet a towel, or use an extinguisher when appropriate to the practice situation. The route records its required interaction and location checkpoints; these records do not assess real-world competence.
 4. Respond to smoke and fire cues, choose a usable route and reach the outdoor assembly point. Active fire zones prevent teleport rays from crossing them; extinguishing a fire clears its zone.
-5. The source tracks five Route A nodes: alarm, raised wet towel, Stair A to 3F, B-side firefighting and descent to 2F, then Stair A to the main entrance and assembly. Completing the checkpoints enables a simulated 999 call and recorded-node debrief; no real call is placed. The downloadable ZIP predates these source changes.
+5. The source tracks six Route A nodes: alarm, raised wet towel, Stair A to 3F, B-side firefighting and descent to 2F, wheelchair assistance into the 2F refuge, then Stair A to the main entrance, three exit fires and assembly. Completing the checkpoints enables a simulated 999 call and recorded-node debrief; no real call is placed. The downloadable ZIP predates these source changes.
 
 ## Download and run
 
@@ -27,13 +37,13 @@ The download was rebuilt from an earlier project source at commit `fc722e9` usin
 | Feature | Current implementation | Remaining limits or checks |
 | --- | --- | --- |
 | Quest 3 locomotion | Right-trigger teleport, 30-degree snap turning and classroom 401 spawn | Basic teleport confirmed by the project owner; complete packaged headset workflow still needs testing |
-| Extinguisher | Pickup, pin removal, Action/Spray switching and three-second continuous suppression | Simplified simulation; fires disappear immediately and extinguishing agent is unlimited |
+| Extinguisher | Left-hand pickup, pin removal on every re-equip and three-second continuous suppression | Simplified simulation; fires disappear immediately and extinguishing agent is unlimited |
 | Towel and facilities | Left-hand towel with wetting and toggle-to-raise controls; doors, taps and alarm interaction | Physical protective effects are not simulated |
 | Language and route introduction | English, Simplified Chinese and Traditional Chinese; fixed Route A and expandable localized map | Long translated prompts and font rendering require headset checks |
 | Directional guidance | Floor trail and scene-anchored objective/door cards | Clarity, obstruction and reliance on guidance need user evaluation |
-| Smoke and fire | Smoke on the fourth floor and elsewhere; fire effects and teleport restrictions | No smoke physiology or damage model; fire regions do not constrain physical headset movement |
-| Completion and feedback | Five recorded nodes, guarded assembly arrival, simulated 999 entry and recorded-node debrief | Records cover interactions/checkpoints; gaze and real-world competence are not measured |
-| Session and accessibility support | Session scripts, prompts and a modelled refuge room | Full reset/replay, consent flow and assisted-evacuation procedures remain incomplete |
+| Smoke and fire | Ceiling-bounded smoke, wet-raised-towel passage check on 4F, fire zones and three-fire exit gate | No smoke physiology or damage model; fire regions do not constrain physical headset movement |
+| Completion and feedback | Six recorded nodes, guarded assembly arrival, simulated 999 entry and recorded-node debrief | Records cover interactions/checkpoints; gaze and real-world competence are not measured |
+| Session and accessibility support | 401 language/start gate, wider refuge double door, ray escort, A-confirm parking and debrief restart/exit | Headset comfort, packaged restart/exit and user evaluation remain to be verified |
 
 ## Validation and known limitations
 
@@ -46,7 +56,7 @@ The download was rebuilt from an earlier project source at commit `fc722e9` usin
 | User headset feedback | The project owner confirmed basic teleportation and provided feedback during interaction iterations; this is not a controlled user study |
 | PQ604A/B/C and evaluation | Target-PC performance, the full packaged headset journey and formal participant evaluation remain unverified |
 
-The prototype supports practice rather than formal assessment. The current source records five-node progress and handles indoor towel recovery without erasing completed nodes. Headset readability, comfort, smoke visibility and performance remain evaluation priorities. Some linked reports record earlier control schemes, including hold-to-raise towel input; they are historical evidence, not validation of the current toggle behaviour. See [controller checks](Docs/ControllerValidation.txt), [towel checks](Docs/XRTowelValidation.txt), [extinguisher checks](Docs/ExtinguisherValidation.txt) and [cleanup validation](Docs/LegacySceneCleanup.md).
+The prototype supports practice rather than formal assessment. The current source records six-node progress and handles indoor towel recovery without erasing completed nodes. Headset readability, comfort, smoke visibility and performance remain evaluation priorities. Some linked reports record earlier control schemes, including hold-to-raise towel input; they are historical evidence, not validation of the current toggle behaviour. See [controller checks](Docs/ControllerValidation.txt), [towel checks](Docs/XRTowelValidation.txt), [extinguisher checks](Docs/ExtinguisherValidation.txt) and [cleanup validation](Docs/LegacySceneCleanup.md).
 
 ## Campus_XR (main branch)
 
@@ -56,24 +66,13 @@ The saved XR scene includes curved furniture, refined restroom fixtures, softer 
 
 The keyboard/mouse scene, `Assets/Scenes/TeachingBuildingCampus.unity`, now includes the same furniture, restroom and material refinements; see its [separate before/after comparison](Docs/Previews/DesktopVisualUpgrade/index.html). Stop Play mode and reopen the scene to load saved visual updates. Use **Campus Emergency → Refine desktop models and materials** to reapply them.
 
-The player starts at the fourth-floor classroom 401 spawn. Aim the right-hand ray at a valid green destination and press the **right trigger** to teleport. **A** interacts with doors, towels and taps; the **right stick** turns by 30 degrees; the **right grip** returns the held item; holding the **left grip** suspends teleport aiming when no extinguisher is held. See [all controls](Docs/XRControls.md) and [locomotion implementation](Docs/XRLocomotion.md).
+The player starts at the fourth-floor classroom 401 spawn. Aim the right-hand ray at a valid green destination and press the **right trigger** to teleport. **A** interacts with doors, towels and taps; the **right stick** turns by 30 degrees; **left X** switches items, **left trigger** uses the equipped item and **left Y** toggles help. See [all controls](Docs/XRControls.md) and [locomotion implementation](Docs/XRLocomotion.md).
 
 Editor and simulated-controller validation reports are in `Docs`. The current teleport behavior has also been confirmed working by the project owner on the headset.
 
 ### Fire extinguisher controls
 
-**Pick up → pull the pin → aim at the fire base → spray for 3 seconds.**
-
-| Input | Function |
-| --- | --- |
-| Right **A** | Pick up an extinguisher |
-| Left **grip** near the yellow pin (within 18 cm) | Remove the safety pin |
-| Right **B** | Switch **Action ↔ Spray** mode; release the trigger after switching |
-| Right **trigger** in Action mode | Teleport while carrying the extinguisher |
-| Hold right **trigger** in Spray mode | Spray at the fire base within 3 m; green aim confirms a target |
-| Right **grip** | Return the extinguisher and reset its pin; release the trigger first |
-
-Hit the **same fire continuously for 3 seconds** to extinguish it immediately. Releasing, missing or switching targets resets progress. A teleport ray touching or crossing a live fire zone cannot confirm movement; extinguishing clears that zone. A wet towel must be raised before picking up the extinguisher; it remains held in the left hand during firefighting. [Full workflow and rollback](Docs/ExtinguisherWorkflow.md).
+Switch to empty hands with **left X**, then aim with the right ray and press **A** to acquire an extinguisher in the left hand. Aim the right ray at its yellow pin and press **A** to remove it. Aim the left nozzle at the fire base and hold **left trigger** continuously for **3 seconds**. Releasing, missing, changing target or switching equipment resets progress. **Right trigger always teleports**. X stows/re-equips items while preserving towel wetness. Each re-equip restores the extinguisher pin, which must be removed again with right A. No return or B-mode step is required. At the main exit, extinguish all three fires before proceeding to the assembly point.
 
 ### Open in Unity
 
@@ -87,19 +86,16 @@ This project targets Windows PC VR, not a standalone Android build. The PC VR se
 ### Quest 3 controls
 
 | Input | Action |
-| --- | --- |
-| Aim the right controller | Point the teleport ray at a destination |
-| Right trigger | Press to teleport to a green destination in Action mode; hold to spray in extinguisher Spray mode |
-| Right A button | Interact with doors, towels and taps; holding displays the short-range interaction ray |
-| Right stick left/right | Turn by 30 degrees; return to center before turning again |
-| Right grip | Return the held towel or extinguisher; release the right trigger first |
-| Left trigger | With a wet towel held, press once to raise it below the central view; press again to lower it. Holding is not required |
-| Left X / keyboard H | Show or hide the instruction panel |
-| Left grip | Without an extinguisher: hold to suspend teleport aiming. With an extinguisher: press near its pin to remove it |
-| Right B | While holding an extinguisher, switch Action/Spray mode; release the right trigger before using the new mode |
-| Head movement | Look around using headset tracking |
+|---|---|
+| Right trigger | Teleport |
+| Right A | Scene/UI interaction, pickup, aimed pin removal, wheelchair assistance |
+| Right stick left/right | Snap turn 30 degrees |
+| Left X | Cycle acquired items: empty → towel → extinguisher → empty |
+| Left trigger | Toggle wet towel cover, or hold to spray equipped extinguisher |
+| Left Y / keyboard H | Toggle HUD |
+| Grips, B, left stick | No core gameplay binding |
 
-Green indicates a valid landing point; red indicates an invalid target. Teleportation checks obstructions, support and headroom, with a maximum ray distance of 12 metres and a maximum height difference of 4 metres. After tracking or application focus is restored, release the trigger before pressing it again. Holding the right trigger pauses turning and item return. Teleportation occurs on a new press, not on release or repeatedly while held. Left stick and Y have no campus gameplay bindings; system buttons retain their normal functions. Pick up the towel with A and use A at a tap to wet it before toggling the face-cover pose with the left trigger. Releasing the left trigger does not lower the towel; press it again. Loss of left-hand tracking or interaction focus lowers and hides it. See [left-hand towel controls](Docs/XRTowelInteraction.md).
+Items occupy the left hand. Extinguisher pickup requires empty hands. Switching stows items and preserves their state; the towel re-equips lowered. See [current controls](Docs/XRControls.md).
 
 ## Directional guidance
 
@@ -181,3 +177,7 @@ See [file organization and cleanup](Docs/ProjectFileAudit.md) and [the cleanup r
 | Li  Yisheng  |  26124143g  | LiYS-08        |  
 | Liu Tianran  |  26039772g  | LTR132322      |  
 | Mo  Jiangwei |  26104251g  | MoooJianG      |
+
+### Current source controls
+
+Right trigger teleports; right A interacts and removes the aimed-at safety pin; right stick snap-turns. Left X cycles acquired items (empty/towel/extinguisher), left trigger raises the wet towel or sprays the equipped extinguisher, and left Y toggles help. Items are carried in the left hand and retain wetness/pin state when stowed. Extinguisher pickup requires empty hands. B and grips have no core action; returning equipment is no longer required. See [controls](Docs/XRControls.md).

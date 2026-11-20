@@ -15,7 +15,12 @@ namespace CampusEmergency.Player.XR
         [SerializeField] private CampusXRFeedback feedback;
         [SerializeField] private Vector3 raisedOffset = new Vector3(-.06f, -.24f, .32f);
         [SerializeField] private float raiseDuration = .2f;
-        private InputAction returnTowel, raiseTowel;
+        private InputAction switchItem, raiseTowel;
+        public enum EquipmentSlot { Empty, Towel, Extinguisher }
+        public EquipmentSlot Equipped { get; private set; }
+        public bool IsEmpty => Equipped == EquipmentSlot.Empty;
+        public CampusTowel OwnedTowel => HeldTowel;
+        public bool TowelEquipped => Equipped == EquipmentSlot.Towel;
         private Transform head;
         private Vector3 restingPosition;
         private Quaternion restingRotation;
@@ -26,10 +31,26 @@ namespace CampusEmergency.Player.XR
         public CampusTowel HeldTowel { get; private set; }
         public Transform TowelHoldPoint => holdPoint;
         public bool IsTowelRaised { get; private set; }
-        public string Controls => LanguageSelectionUI.T(
-            "LEFT TRIGGER: TOGGLE WET TOWEL COVER\nRIGHT TRIGGER: TELEPORT / A: INTERACT / RIGHT GRIP: RETURN",
-            "左扳机：切换湿毛巾捂住口鼻\n右扳机：传送 / A键：交互 / 右握把：归还",
-            "左扳機：切換濕毛巾捂住口鼻\n右扳機：傳送 / A鍵：互動 / 右握把：歸還");
+        public bool IsProtectedFromSmoke => TowelEquipped && HeldTowel != null && HeldTowel.IsWet && IsTowelRaised;
+        public string Controls => LanguageSelectionUI.T("X: SWITCH ITEM / LEFT TRIGGER: USE / RIGHT TRIGGER: TELEPORT / A: INTERACT", "X：切换物品 / 左扳机：使用 / 右扳机：传送 / A：交互", "X：切換物品 / 左扳機：使用 / 右扳機：傳送 / A：互動");
+        public void CycleEquipment()
+        {
+            if(CampusWheelchairRescue.IsPushing)return;
+            var tool=GetComponent<CampusXRExtinguisherController>();
+            int next=(int)Equipped;
+            do { next=(next+1)%3; } while((next==1 && HeldTowel==null)||(next==2 && (tool==null||tool.Owned==null)));
+            Equip((EquipmentSlot)next);
+        }
+        public void Equip(EquipmentSlot slot)
+        {
+            if(slot==EquipmentSlot.Towel && HeldTowel==null)return;
+            var tool=GetComponent<CampusXRExtinguisherController>();
+            if(slot==EquipmentSlot.Extinguisher && (tool==null||tool.Owned==null))return;
+            Equipped=slot;IsTowelRaised=false;raisedBlend=0;ResetAnchor();
+            visible=TowelEquipped;SetVisible(visible);
+            if(tool!=null)tool.SetEquipped(slot==EquipmentSlot.Extinguisher);
+            feedback?.Notify(LanguageSelectionUI.T("Equipped: ","当前物品：","當前物品：")+(slot==EquipmentSlot.Empty?LanguageSelectionUI.T("Empty hands","空手","空手"):slot==EquipmentSlot.Towel?LanguageSelectionUI.T("Towel","毛巾","毛巾"):LanguageSelectionUI.T("Extinguisher","灭火器","滅火器")));
+        }
 
         public void Configure(CampusXRInput controls, CampusTeleportController movement,
             Transform hand, CampusXRFeedback messages)
@@ -37,18 +58,18 @@ namespace CampusEmergency.Player.XR
 
         private void OnEnable()
         {
-            if (returnTowel == null) returnTowel = new InputAction("Return towel", InputActionType.Button,
-                "<XRController>{RightHand}/gripPressed");
+            if(switchItem==null)switchItem=new InputAction("Switch equipment",InputActionType.Button,"<XRController>{LeftHand}/primaryButton");
             if (raiseTowel == null) raiseTowel = new InputAction("Raise towel", InputActionType.Button,
                 "<XRController>{LeftHand}/triggerPressed");
-            returnTowel.Enable(); raiseTowel.Enable();
+            switchItem.Enable(); raiseTowel.Enable();
             Application.onBeforeRender += BeforeRender;
         }
         private void Update() => ProcessInput(input != null && input.HasInteractionFocus);
         private void ProcessInput(bool focus)
         {
+            if(focus && input.LeftTracked && switchItem.WasPressedThisFrame())CycleEquipment();
             if (HeldTowel == null) return;
-            visible = input != null && input.LeftTracked && focus;
+            visible = input != null && input.LeftTracked && focus && TowelEquipped;
             SetVisible(visible);
             if (!visible) { IsTowelRaised = false; raisedBlend = 0f; ResetAnchor(); return; }
             if (raiseTowel.WasPressedThisFrame())
@@ -69,11 +90,7 @@ namespace CampusEmergency.Player.XR
                         : LanguageSelectionUI.T("Wet towel lowered.", "湿毛巾已放下。", "濕毛巾已放下。"));
                 }
             }
-            var extinguisher = GetComponent<CampusXRExtinguisherController>();
-            bool extinguisherHandledGrip = extinguisher != null &&
-                (extinguisher.Held != null || extinguisher.LastReturnFrame == Time.frameCount);
-            if (input.RightTracked && !input.TeleportHeld && returnTowel.WasPressedThisFrame() && !extinguisherHandledGrip)
-            { ReturnHeldTowel(); feedback.Notify(LanguageSelectionUI.T("Towel returned to the counter.", "毛巾已放回台面。", "毛巾已放回檯面。")); }
+
         }
         private void LateUpdate()
         {
@@ -113,13 +130,14 @@ namespace CampusEmergency.Player.XR
         public bool TryHoldTowel(CampusTowel towel)
         {
             var extinguisher = GetComponent<CampusXRExtinguisherController>();
-            if (towel == null || HeldTowel != null || holdPoint == null || (extinguisher != null && extinguisher.Held != null)) return false;
+            if (towel == null || HeldTowel != null || holdPoint == null || !IsEmpty) return false;
             HeldTowel = towel;
             restingPosition = holdPoint.localPosition; restingRotation = holdPoint.localRotation;
             var origin = GetComponent<XROrigin>(); head = origin != null && origin.Camera != null ? origin.Camera.transform : null;
             surfaces = towel.GetComponentsInChildren<Renderer>(); originalVisibility = new bool[surfaces.Length];
             for(int i=0;i<surfaces.Length;i++) originalVisibility[i]=surfaces[i].enabled;
             raisedBlend = 0f; IsTowelRaised = false; visible = true;
+            Equip(EquipmentSlot.Towel);
             return true;
         }
         public void ReleaseTowel(CampusTowel towel)
@@ -132,8 +150,8 @@ namespace CampusEmergency.Player.XR
         private void OnDisable()
         {
             Application.onBeforeRender -= BeforeRender;
-            returnTowel?.Disable(); raiseTowel?.Disable(); ReturnHeldTowel();
+            switchItem?.Disable(); raiseTowel?.Disable(); SetVisible(false);
         }
-        private void OnDestroy() { returnTowel?.Dispose(); raiseTowel?.Dispose(); }
+        private void OnDestroy() { switchItem?.Dispose(); raiseTowel?.Dispose(); }
     }
 }

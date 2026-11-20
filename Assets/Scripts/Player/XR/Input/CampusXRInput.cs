@@ -17,7 +17,7 @@ namespace CampusEmergency.Player.XR
         public bool TeleportHeld => Button("Teleport");
         public bool InteractionHeld => Button("Interact");
         public Vector2 TurnAxis => Read<Vector2>("Turn");
-        public bool CancelTeleport => LeftTracked && Button("CancelTeleport");
+        public bool CancelTeleport => false;
         public bool InteractPressed => Action("Interact")?.WasPressedThisFrame() == true;
         public bool HasInteractionFocus => !LanguageSelectionUI.IsBlocking && HasSessionFocus;
         public bool HasSessionFocus

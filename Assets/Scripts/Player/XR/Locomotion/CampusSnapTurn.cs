@@ -13,7 +13,7 @@ namespace CampusEmergency.Player.XR
         { input = source; teleport = target; }
         private void Update()
         {
-            if (!input.RightTracked || !input.HasInteractionFocus) { armed = false; return; }
+            if (LanguageSelectionUI.IsStartupBlocking || !input.RightTracked || !input.HasInteractionFocus) { armed = false; return; }
             var axis = input.TurnAxis;
             if (axis.magnitude < .2f) armed = true;
             if (input.TeleportHeld || !armed || Mathf.Abs(axis.x) < .7f || Mathf.Abs(axis.y) > .5f) return;

@@ -7,6 +7,8 @@ namespace CampusEmergency.Prototype
         [SerializeField] private float openAngle = -100f;
         [SerializeField] private bool startsOpen;
         private bool isOpen;
+        [SerializeField] private PrototypeDoor pairedDoor;
+        public void LinkPairedDoor(PrototypeDoor other) => pairedDoor = other;
 
         public string Prompt => isOpen ? "[E] Close door" : "[E] Open door";
         public float OpenAngle => openAngle;
@@ -34,6 +36,7 @@ namespace CampusEmergency.Prototype
         public string Interact(ICampusInteractor explorer = null)
         {
             isOpen = !isOpen;
+            if (pairedDoor != null) pairedDoor.isOpen = isOpen;
             return string.Empty;
         }
     }

@@ -18,8 +18,18 @@ PASS: A button switches to interaction ray and opens door
 PASS: A interaction never teleports
 PASS: Trigger aimed at door neither interacts nor teleports through obstacle
 PASS: Regaining focus with held trigger cannot teleport
-PASS: Left X hides HUD without disabling its input host
-PASS: Left X restores hidden HUD
+PASS: Towel pickup equips left-hand towel
+PASS: X stows towel without dropping ownership
+PASS: Empty hands pick up extinguisher
+PASS: Equipped left extinguisher permits right teleport
+PASS: B/right grip neither switch mode nor return equipment
+PASS: Left grip cannot pull pin
+PASS: X stows extinguisher
+PASS: X restores wet towel
+PASS: Left trigger raises wet towel
+PASS: X selects extinguisher and lowers towel
+PASS: Left Y hides HUD without disabling its input host
+PASS: Left Y restores hidden HUD
 PASS: Keyboard H hides HUD
 PASS: Keyboard H restores HUD
 PASS: Tracking loss hides controllers and rays safely
