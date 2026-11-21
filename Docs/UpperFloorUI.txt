@@ -1,0 +1,13 @@
+Upper-floor task and door hint update (2026-11-22)
+
+Covers the active 4F/3F journey: alarm; towel pickup, wetting and raising; Stair A descent and rerouting; 3F corridor guidance; extinguisher pickup/equip/pin removal/spraying; Stair B descent; and all upper-floor doorway prompts. The intermediate stair landings are included. Placements and frames are shared by all three languages. The radial fire countdown remains at its fire target as a progress display.
+
+CampusUpperFloorHintPlacement.cs searches upright solid wall/pier surfaces, validates the full card footprint and viewer sightlines to its centre/corners, checks protruding obstacles, and scores nearby full-width and compact cards. It synchronizes moved door colliders before searching. Normal height is 1.6m above the relevant landing; the existing authored interaction stations retain their tuned positions. Door-header support is a fallback for constrained layouts. Door poses are cached by approach side and neighbouring task-card position. If only one card location is available, the close-door instruction temporarily takes priority over the route card instead of drawing both on top of each other.
+
+CampusXRWorldHints.cs preserves the authored station anchors after item pickup, applies mounted poses to route/fire states, and enables the existing CampusHintAttention thin frame and side-view cue for both task and door cards. Compact cards use 380x480 UI units (0.475x0.6m at the existing canvas scale), preserving font size while wrapping content.
+
+Validation: 116 checks passed for 20 task-display states and 14 upper-floor doors approached from both sides. Full-route regression: 196 passed checks. Screenshots were visually reviewed, including open-door leaf occlusion; wall and corner line-of-sight checks were strengthened accordingly. These are simulated Editor checks; headset readability and comfort remain for human confirmation.
+
+Preview: E:/0_PolyU/COMP5424_XR/Project/5_Phase3/UpperFloorUI/Preview.html (48 final-run screenshots).
+Reports: Docs/UpperFloorUIValidation.txt and Docs/UpperFloorUIRouteRegression.txt.
+Rollback: restore CampusXRWorldHints.cs and CampusHintAttention.cs from BeforeUpperFloorHints.zip in that folder, then remove the newly added CampusUpperFloorHintPlacement.cs/meta. Earlier scene, refuge, locomotion and route-art work is retained by the backup.

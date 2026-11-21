@@ -1,0 +1,46 @@
+PASS Both side exits have three persisted fires
+PASS Main exit remains independently identified
+PASS After rescue default still directs to main entrance
+PASS Ground landing keeps default main route -1
+PASS Side fire does not block default corridor departure -1
+PASS Burning side exit blocks teleport -1
+PASS Looking at side doorway shows hint from safe landing -1
+PASS Side approach shows localized equipment hint -1
+PASS Side hint anchored at actual exit -1
+PASS Actual movement ray rejects burning doorway -1
+PASS Partial extinguishing does not open side gate -1
+PASS All side fires clear gate -1
+PASS blocking=none Actual movement ray reaches outdoor path after extinguishing -1 reason= hit=(-20.10, 0.00, 3.00)
+PASS Clearing alone does not switch default route -1
+PASS Actual outward crossing activates side assembly guide -1
+PASS Crossing alone does not enable phone -1
+PASS Side exit works while main fire remains -1
+PASS Outdoor guidance route found (-20.00, 0.04, 3.00) -> (-21.00, 0.00, 3.00)
+PASS Outdoor guidance route found (-21.00, 0.00, 3.00) -> (-21.00, 0.00, -10.00)
+PASS Outdoor guidance route found (-21.00, 0.00, -10.00) -> (0.00, 0.00, -11.00)
+PASS Side route enables assembly phone without main firefighting -1
+PASS Final objective is actual assembly point -1
+PASS Side route records final node -1
+PASS Direct arrival at assembly also enables phone -1
+PASS Ground landing keeps default main route 1
+PASS Side fire does not block default corridor departure 1
+PASS Burning side exit blocks teleport 1
+PASS Looking at side doorway shows hint from safe landing 1
+PASS Side approach shows localized equipment hint 1
+PASS Side hint anchored at actual exit 1
+PASS Actual movement ray rejects burning doorway 1
+PASS Partial extinguishing does not open side gate 1
+PASS All side fires clear gate 1
+PASS blocking=none Actual movement ray reaches outdoor path after extinguishing 1 reason= hit=(20.10, 0.00, 3.00)
+PASS Clearing alone does not switch default route 1
+PASS Actual outward crossing activates side assembly guide 1
+PASS Crossing alone does not enable phone 1
+PASS Side exit works while main fire remains 1
+PASS Outdoor guidance route found (20.00, 0.04, 3.00) -> (21.00, 0.00, 3.00)
+PASS Outdoor guidance route found (21.00, 0.00, 3.00) -> (21.00, 0.00, -10.00)
+PASS Outdoor guidance route found (21.00, 0.00, -10.00) -> (0.00, 0.00, -11.00)
+PASS Side route enables assembly phone without main firefighting 1
+PASS Final objective is actual assembly point 1
+PASS Side route records final node 1
+PASS Direct arrival at assembly also enables phone 1
+PASS Assembly automatically opens simulated phone after side exit

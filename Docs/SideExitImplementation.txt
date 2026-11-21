@@ -1,0 +1,29 @@
+Campus XR - optional side-exit evacuation
+Date: 2026-11-21
+
+Behavior
+- Rescue completion still starts the original Stair A / 1F corridor / main-entrance route.
+- A and B ground-floor side exits each have a three-fire checkpoint. Authored B-side ground flames are reused, avoiding duplicate blockers.
+- Looking toward a side doorway from its safe landing shows the same localized equip / pin / spray instructions as the main entrance.
+- All three fires at the chosen exit must be extinguished. Existing 3-second continuous base spraying and pin-reset rules are unchanged.
+- Clearing a side exit does not choose it. An outward ground-floor crossing through that cleared doorway selects its branch.
+- The arrows/beacon then follow the exterior side path, turn south around the building, and lead to the existing assembly point.
+- The existing assembly phone and final-node recording accept either side branch without requiring main-entrance firefighting. Direct arrival at assembly is also accepted after the outward crossing.
+- Restart reloads the scene, restoring fire and route state.
+
+Implementation
+CampusExitFireEncounter: independent main/A/B identity, target groups, analytic doorway exclusions and outward-crossing test.
+CampusRouteAFlow: default main route, optional branch selection, outdoor waypoints and assembly eligibility.
+CampusXRWorldHints: localized exit names, doorway-specific hint anchors, side-assembly card in the existing numbered/keycap style.
+TeachingBuildingCampusXR scene: saved side checkpoints and reused authored B flames.
+CampusRouteAValidation: explicitly select the main checkpoint now that multiple exit groups exist.
+
+Evidence
+Docs/SideExitValidation.txt: runtime side checks, actual movement rays before/after firefighting, guidance planning, direct assembly arrival and automatic simulated-phone opening.
+Docs/SideExitRouteRegression.txt: full original route regression.
+Quest headset confirmation is still required; automated tests simulate positions, input and firefighting, rather than a complete human headset run.
+
+Rollback
+Restore the four implementation files and the XR scene from the pre-change backup:
+E:/0_PolyU/COMP5424_XR/Project/5_Phase3/SideExit/BeforeSideExit.zip
+This backup includes the preceding stair fix in the scene/code state. Do not reset the repository: the stair locomotion changes are separate local work to preserve.

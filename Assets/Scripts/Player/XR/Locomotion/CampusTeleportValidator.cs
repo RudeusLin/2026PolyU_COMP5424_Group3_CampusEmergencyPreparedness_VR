@@ -22,11 +22,14 @@ namespace CampusEmergency.Player.XR
                 return Reject(LanguageSelectionUI.T("Surface is too steep", "目标表面坡度过大", "目標表面坡度過大"), out reason);
             if (Vector3.Distance(feet, hit.point) > maxDistance || Mathf.Abs(feet.y - hit.point.y) > maxHeightChange)
                 return Reject(LanguageSelectionUI.T("Destination is too far away", "目标位置距离过远", "目標位置距離過遠"), out reason);
+            if (!CampusStairTeleportRules.IsConnected(feet, hit.point, environmentMask, out reason)) return false;
             return HasClearance(hit.point, headHeight, out reason);
         }
 
         public bool HasClearance(Vector3 point, float headHeight, out string reason)
         {
+            if (!CampusStairTeleportRules.IsAllowedPoint(point))
+                return Reject(LanguageSelectionUI.T("Choose a stair or normal landing", "请选择楼梯或正常平台，外围地板不可传送", "請選擇樓梯或正常平台，外圍地板不可傳送"), out reason);
             float height = Mathf.Clamp(headHeight + .12f, 1.25f, 2.2f);
             Vector3 bottom = point + Vector3.up * (bodyRadius + .035f);
             Vector3 top = point + Vector3.up * (height - bodyRadius + .035f);
@@ -40,6 +43,7 @@ namespace CampusEmergency.Player.XR
                 if (!Physics.Raycast(point + offset + Vector3.up * .22f, Vector3.down, out var support, .45f,
                     environmentMask, QueryTriggerInteraction.Ignore)
                     || support.collider.GetComponent<CampusTeleportSurface>() == null
+                    || !CampusStairTeleportRules.IsAllowedPoint(support.point)
                     || Vector3.Angle(support.normal, Vector3.up) > maxSlope)
                     return Reject(LanguageSelectionUI.T("Move away from the edge", "请远离边缘", "請遠離邊緣"), out reason);
             }

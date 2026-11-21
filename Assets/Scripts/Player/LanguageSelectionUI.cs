@@ -725,7 +725,10 @@ namespace CampusEmergency.Player
         private static Image Image(Transform parent, string name, Color color)
         {
             var go = new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
-            go.transform.SetParent(parent, false); var image = go.GetComponent<Image>(); image.material = OverlayMaterial; image.color = color; return image;
+            go.transform.SetParent(parent, false); var image = go.GetComponent<Image>(); image.material = OverlayMaterial; image.color = color;
+            if(name=="Language Card"||name=="Route A Introduction"||name=="Emergency Phone"||name=="Completion Debrief Card")
+                go.AddComponent<CampusEmergency.Player.XR.CampusHintAttention>().Configure(false,null,true);
+            return image;
         }
         private static Text Text(Transform parent, string name, string value, int size, Color color,
             Vector2 position, Vector2 dimensions, FontStyle style)

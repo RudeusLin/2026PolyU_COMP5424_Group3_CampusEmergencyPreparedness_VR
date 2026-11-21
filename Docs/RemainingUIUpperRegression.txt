@@ -1,0 +1,165 @@
+PASS Classroom route board frame
+PASS F4_01_Alarm mounted frame
+PASS F4_01_Alarm vertical
+PASS F4_01_Alarm fixed orientation
+POSE F4_01_Alarm target=(-6.25, 12.15, 1.66) panel=(-5.45, 12.35, 1.62) normal=(0.00, 0.00, 1.00)
+PASS F4_02_Towel mounted frame
+PASS F4_02_Towel vertical
+PASS F4_02_Towel fixed orientation
+POSE F4_02_Towel target=(-6.30, 11.77, -1.92) panel=(-4.05, 12.35, -1.63) normal=(0.00, 0.00, -1.00)
+PASS F4_03_Wet mounted frame
+PASS F4_03_Wet vertical
+PASS F4_03_Wet fixed orientation
+POSE F4_03_Wet target=(-5.40, 11.73, -1.66) panel=(-4.05, 12.35, -1.63) normal=(0.00, 0.00, -1.00)
+PASS F4_04_Raise mounted frame
+PASS F4_04_Raise vertical
+PASS F4_04_Raise fixed orientation
+POSE F4_04_Raise target=(-6.30, 11.77, -1.92) panel=(-4.05, 12.35, -1.63) normal=(0.00, 0.00, -1.00)
+PASS F4_Route_0 mounted frame
+PASS F4_Route_0 vertical
+PASS F4_Route_0 fixed orientation
+POSE F4_Route_0 target=(-12.00, 10.80, 3.00) panel=(-10.40, 12.40, 1.63) normal=(0.00, 0.00, 1.00)
+PASS F4_Route_1 mounted frame
+PASS F4_Route_1 vertical
+PASS F4_Route_1 fixed orientation
+POSE F4_Route_1 target=(-14.42, 10.80, 1.80) panel=(-11.43, 12.40, 2.20) normal=(-1.00, 0.00, 0.00)
+PASS F4_Route_2 mounted frame
+PASS F4_Route_2 vertical
+PASS F4_Route_2 fixed orientation
+POSE F4_Route_2 target=(-14.42, 9.00, -3.00) panel=(-13.13, 10.60, -3.00) normal=(-1.00, 0.00, 0.00)
+PASS F4_Route_3 mounted frame
+PASS F4_Route_3 vertical
+PASS F4_Route_3 fixed orientation
+POSE F4_Route_3 target=(-16.58, 9.00, -1.65) panel=(-17.77, 10.60, -2.45) normal=(1.00, 0.00, 0.00)
+PASS F3_Route_4 mounted frame
+PASS F3_Route_4 vertical
+PASS F3_Route_4 fixed orientation
+POSE F3_Route_4 target=(-16.58, 7.20, 3.00) panel=(-17.77, 8.80, 4.20) normal=(1.00, 0.00, 0.00)
+PASS F3_Route_5 mounted frame
+PASS F3_Route_5 vertical
+PASS F3_Route_5 fixed orientation
+POSE F3_Route_5 target=(-10.50, 7.20, 0.00) panel=(-10.50, 8.80, -1.38) normal=(0.00, 0.00, 1.00)
+PASS F3_Route_6 mounted frame
+PASS F3_Route_6 vertical
+PASS F3_Route_6 fixed orientation
+POSE F3_Route_6 target=(9.50, 7.20, 0.00) panel=(8.70, 8.80, -1.38) normal=(0.00, 0.00, 1.00)
+PASS F3_Route_7 mounted frame
+PASS F3_Route_7 vertical
+PASS F3_Route_7 fixed orientation
+POSE F3_Route_7 target=(16.58, 7.20, 1.80) panel=(13.13, 8.80, 5.00) normal=(1.00, 0.00, 0.00)
+PASS F3_Route_8 mounted frame
+PASS F3_Route_8 vertical
+PASS F3_Route_8 fixed orientation
+POSE F3_Route_8 target=(16.58, 5.40, -3.00) panel=(17.77, 7.00, -3.00) normal=(-1.00, 0.00, 0.00)
+PASS F3_Route_9 mounted frame
+PASS F3_Route_9 vertical
+PASS F3_Route_9 fixed orientation
+POSE F3_Route_9 target=(-12.00, 7.20, 3.00) panel=(-11.43, 8.80, 3.00) normal=(-1.00, 0.00, 0.00)
+PASS F3_Route_10 mounted frame
+PASS F3_Route_10 vertical
+PASS F3_Route_10 fixed orientation
+POSE F3_Route_10 target=(12.00, 7.20, 3.00) panel=(10.40, 8.80, 1.63) normal=(0.00, 0.00, 1.00)
+PASS F3_Route_11 mounted frame
+PASS F3_Route_11 vertical
+PASS F3_Route_11 fixed orientation
+POSE F3_Route_11 target=(14.42, 5.40, -1.65) panel=(13.13, 7.00, -2.45) normal=(1.00, 0.00, 0.00)
+PASS F3_01_Pickup mounted frame
+PASS F3_01_Pickup vertical
+PASS F3_01_Pickup fixed orientation
+POSE F3_01_Pickup target=(9.30, 8.04, 1.27) panel=(10.70, 9.06, 1.37) normal=(0.00, 0.00, -1.00)
+PASS F3_02_Equip mounted frame
+PASS F3_02_Equip vertical
+PASS F3_02_Equip fixed orientation
+POSE F3_02_Equip target=(9.30, 8.04, 1.27) panel=(10.70, 9.06, 1.37) normal=(0.00, 0.00, -1.00)
+PASS F3_03_Pin mounted frame
+PASS F3_03_Pin vertical
+PASS F3_03_Pin fixed orientation
+POSE F3_03_Pin target=(9.30, 8.04, 1.27) panel=(10.70, 9.06, 1.37) normal=(0.00, 0.00, -1.00)
+PASS F3_04_Spray mounted frame
+PASS F3_04_Spray vertical
+PASS F3_04_Spray fixed orientation
+POSE F3_04_Spray target=(12.00, 7.26, 0.50) panel=(10.70, 9.10, 1.37) normal=(0.00, 0.00, -1.00)
+PASS Door Floor_04 floor=10.8 side=-1
+PASS Actual door card has frame Floor_04 -1
+DOOR_POSE Floor_04 floor=10.8 side=-1 panel=(9.00, 12.40, 1.38)
+PASS Door Floor_04 floor=10.8 side=1
+PASS Actual door card has frame Floor_04 1
+DOOR_POSE Floor_04 floor=10.8 side=1 panel=(9.40, 12.40, 1.63)
+PASS Door Restrooms floor=7.2 side=-1
+PASS Actual door card has frame Restrooms -1
+DOOR_POSE Restrooms floor=7.2 side=-1 panel=(8.60, 8.80, -1.63)
+PASS Door Restrooms floor=7.2 side=1
+PASS Actual door card has frame Restrooms 1
+DOOR_POSE Restrooms floor=7.2 side=1 panel=(8.60, 8.80, -1.38)
+PASS Door StairEntrance_A floor=10.8 side=-1
+PASS Actual door card has frame StairEntrance_A -1
+DOOR_POSE StairEntrance_A floor=10.8 side=-1 panel=(-13.13, 12.40, 5.80)
+PASS Door StairEntrance_A floor=10.8 side=1
+PASS Actual door card has frame StairEntrance_A 1
+DOOR_POSE StairEntrance_A floor=10.8 side=1 panel=(-10.70, 12.40, 1.63)
+PASS Door Floor_03 floor=7.2 side=-1
+PASS Actual door card has frame Floor_03 -1
+DOOR_POSE Floor_03 floor=7.2 side=-1 panel=(-9.40, 8.80, -1.63)
+PASS Door Floor_03 floor=7.2 side=1
+PASS Actual door card has frame Floor_03 1
+DOOR_POSE Floor_03 floor=7.2 side=1 panel=(-9.40, 8.80, -1.38)
+PASS Door Floor_03 floor=7.2 side=-1
+PASS Actual door card has frame Floor_03 -1
+DOOR_POSE Floor_03 floor=7.2 side=-1 panel=(2.50, 8.80, -1.63)
+PASS Door Floor_03 floor=7.2 side=1
+PASS Actual door card has frame Floor_03 1
+DOOR_POSE Floor_03 floor=7.2 side=1 panel=(2.50, 8.80, -1.38)
+PASS Door StairEntrance_A floor=7.2 side=-1
+PASS Actual door card has frame StairEntrance_A -1
+DOOR_POSE StairEntrance_A floor=7.2 side=-1 panel=(-13.13, 8.80, 5.80)
+PASS Door StairEntrance_A floor=7.2 side=1
+PASS Actual door card has frame StairEntrance_A 1
+DOOR_POSE StairEntrance_A floor=7.2 side=1 panel=(-10.70, 8.80, 1.63)
+PASS Door Floor_03 floor=7.2 side=-1
+PASS Actual door card has frame Floor_03 -1
+DOOR_POSE Floor_03 floor=7.2 side=-1 panel=(9.00, 8.80, 1.38)
+PASS Door Floor_03 floor=7.2 side=1
+PASS Actual door card has frame Floor_03 1
+DOOR_POSE Floor_03 floor=7.2 side=1 panel=(9.40, 8.80, 1.63)
+PASS Door Floor_04 floor=10.8 side=-1
+PASS Actual door card has frame Floor_04 -1
+DOOR_POSE Floor_04 floor=10.8 side=-1 panel=(-9.40, 12.40, 1.38)
+PASS Door Floor_04 floor=10.8 side=1
+PASS Actual door card has frame Floor_04 1
+DOOR_POSE Floor_04 floor=10.8 side=1 panel=(-9.40, 12.40, 1.63)
+PASS Door Restrooms_F04 floor=10.8 side=-1
+PASS Actual door card has frame Restrooms_F04 -1
+DOOR_POSE Restrooms_F04 floor=10.8 side=-1 panel=(-9.40, 12.40, -1.63)
+PASS Door Restrooms_F04 floor=10.8 side=1
+PASS Actual door card has frame Restrooms_F04 1
+DOOR_POSE Restrooms_F04 floor=10.8 side=1 panel=(-9.40, 12.40, -1.38)
+PASS Door StairEntrance_B floor=10.8 side=-1
+PASS Actual door card has frame StairEntrance_B -1
+DOOR_POSE StairEntrance_B floor=10.8 side=-1 panel=(9.60, 12.40, 1.63)
+PASS Door StairEntrance_B floor=10.8 side=1
+PASS Actual door card has frame StairEntrance_B 1
+DOOR_POSE StairEntrance_B floor=10.8 side=1 panel=(13.13, 12.40, 4.60)
+PASS Door Floor_03 floor=7.2 side=-1
+PASS Actual door card has frame Floor_03 -1
+DOOR_POSE Floor_03 floor=7.2 side=-1 panel=(-9.40, 8.80, 1.38)
+PASS Door Floor_03 floor=7.2 side=1
+PASS Actual door card has frame Floor_03 1
+DOOR_POSE Floor_03 floor=7.2 side=1 panel=(-9.40, 8.80, 1.63)
+PASS Door Room403 floor=10.8 side=-1
+PASS Actual door card has frame Room403 -1
+DOOR_POSE Room403 floor=10.8 side=-1 panel=(8.60, 12.40, -1.63)
+PASS Door Room403 floor=10.8 side=1
+PASS Actual door card has frame Room403 1
+DOOR_POSE Room403 floor=10.8 side=1 panel=(8.60, 12.40, -1.38)
+PASS Door Floor_04 floor=10.8 side=-1
+PASS Actual door card has frame Floor_04 -1
+DOOR_POSE Floor_04 floor=10.8 side=-1 panel=(2.50, 12.40, -1.63)
+PASS Door Floor_04 floor=10.8 side=1
+PASS Actual door card has frame Floor_04 1
+DOOR_POSE Floor_04 floor=10.8 side=1 panel=(2.50, 12.40, -1.38)
+PASS Door StairEntrance_B floor=7.2 side=-1
+PASS Actual door card has frame StairEntrance_B -1
+DOOR_POSE StairEntrance_B floor=7.2 side=-1 panel=(9.60, 8.80, 1.63)
+PASS Door StairEntrance_B floor=7.2 side=1
+PASS Actual door card has frame StairEntrance_B 1
+DOOR_POSE StairEntrance_B floor=7.2 side=1 panel=(13.13, 8.80, 4.60)

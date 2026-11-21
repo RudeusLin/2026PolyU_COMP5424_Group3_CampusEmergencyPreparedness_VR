@@ -116,7 +116,7 @@ namespace CampusEmergency.Editor
                 var map=ui.GetComponentsInChildren<CampusRouteMapUI>().Single();
                 var sharedMapTexture=map.MapTexture;
                 Check(sharedMapTexture!=null,"Localized route map texture is bundled in Resources");
-                Check(map.DisplayLanguage==CampusLanguage.English && map.LabelText("Stair A")=="Stair A · West" && map.LabelText("Assembly").Contains("Assembly"),"English selection localizes map labels including assembly and stairs");
+                Check(map.DisplayLanguage==CampusLanguage.English && map.MapTexture==Resources.Load<Texture2D>("CampusRouteMap/RouteA_Base"),"English selection uses supplied English route image");
                 typeof(LanguageSelectionUI).GetMethod("Select",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(ui,new object[]{1});
                 var enlargedMap=ui.GetComponentsInChildren<CampusRouteMapUI>().Single();
                 Check(enlargedMap.MapTexture==sharedMapTexture && Mathf.Abs(enlargedMap.transform.localScale.x-.9f)<.001f && LanguageSelectionUI.IsBlocking,"Map enlarges without starting gameplay or changing language");
@@ -126,10 +126,10 @@ namespace CampusEmergency.Editor
                 typeof(LanguageSelectionUI).GetField("<Current>k__BackingField",BindingFlags.Static|BindingFlags.NonPublic).SetValue(null,CampusLanguage.SimplifiedChinese);
                 Invoke(ui,"BuildBriefing");Capture(origin.Camera,"route-a-intro-zh.png");
                 map=ui.GetComponentsInChildren<CampusRouteMapUI>().Single();
-                Check(map.DisplayLanguage==CampusLanguage.SimplifiedChinese && map.LabelText("Stair B")=="B楼梯 · 东侧" && map.MapTexture==sharedMapTexture,"Simplified Chinese map uses localized text and identical route artwork");
+                Check(map.DisplayLanguage==CampusLanguage.SimplifiedChinese && map.MapTexture==Resources.Load<Texture2D>("CampusRouteMap/RouteA_SC") && map.MapTexture!=sharedMapTexture,"Simplified Chinese map uses supplied Simplified Chinese image");
                 typeof(LanguageSelectionUI).GetField("<Current>k__BackingField",BindingFlags.Static|BindingFlags.NonPublic).SetValue(null,CampusLanguage.TraditionalChinese);
                 map.RefreshLanguage();
-                Check(map.LabelText("Stair B")=="B樓梯 · 東側" && map.LabelText("Main Entrance")=="正門：滅三簇火","Existing map switches to Traditional Chinese without replacing artwork");
+                Check(map.DisplayLanguage==CampusLanguage.TraditionalChinese && map.MapTexture==Resources.Load<Texture2D>("CampusRouteMap/RouteA_TC"),"Existing map switches to supplied Traditional Chinese image");
                 Invoke(ui,"BuildBriefing");Capture(origin.Camera,"route-a-intro-tc.png");
                 typeof(LanguageSelectionUI).GetField("<Current>k__BackingField",BindingFlags.Static|BindingFlags.NonPublic).SetValue(null,CampusLanguage.English);
                 Invoke(ui,"BuildBriefing");
@@ -151,8 +151,8 @@ namespace CampusEmergency.Editor
                 origin.Camera.transform.localPosition+=Vector3.right*.2f;origin.Camera.transform.localRotation=Quaternion.Euler(0,90,0);
                 hints.Refresh(true);
                 Check(Vector3.Distance(fixedHintPosition,hints.InstructionPanel.position)<.001f,"Head movement does not change the instruction card position");
-                Check(Vector3.Dot(-hints.InstructionPanel.forward,(origin.Camera.transform.position-hints.InstructionPanel.position).normalized)>.999f,"Instruction card faces the user after movement");
-                Check(Quaternion.Angle(fixedHintRotation,hints.InstructionPanel.rotation)>.01f,"Instruction card rotates toward the new viewer position");
+                Check(Vector3.Dot(hints.InstructionPanel.up,Vector3.up)>.999f,"Mounted alarm card stays vertical after head movement");
+                Check(Quaternion.Angle(fixedHintRotation,hints.InstructionPanel.rotation)<.01f,"Mounted alarm card retains its wall alignment after head movement");
                 origin.Camera.transform.localPosition=oldHeadPosition;origin.Camera.transform.localRotation=oldHeadRotation;
                 var feedback=origin.GetComponentInChildren<CampusXRFeedback>(true);
                 feedback.Notify("Press A to activate alarm");feedback.SetAim("TELEPORT instructions");feedback.SetPrompt("Press A");Invoke(feedback,"LateUpdate");
@@ -287,7 +287,7 @@ namespace CampusEmergency.Editor
                 Physics.SyncTransforms();
                 Check(rescue.GetComponentsInChildren<Collider>().All(c=>!c.enabled),"Active wheelchair colliders cannot block teleport or interaction rays");
                 Check(!rescue.CanTeleport(new Vector3(4.1f,.05f,0),out _),"Escort rejects another floor");
-                var destinations=new[]{new Vector3(3.05f,3.635f,0),new Vector3(4.1f,3.635f,.9f),new Vector3(4.1f,3.635f,-1.85f)};
+                var destinations=new[]{new Vector3(3.05f,3.635f,0),new Vector3(4.1f,3.635f,.9f),new Vector3(4.1f,3.635f,-1.85f),new Vector3(4.8f,3.635f,-4.8f),new Vector3(5.5f,3.635f,-5.9f)};
                 for(int i=0;i<destinations.Length;i++)
                 {
                     origin.Camera.transform.rotation=Quaternion.LookRotation(i==0?Vector3.right:Vector3.back);
@@ -308,7 +308,7 @@ namespace CampusEmergency.Editor
                 Check(flow.Node==6 && !flow.Instruction.Contains("towel"),"Ground-floor guidance never regresses to towel pickup");
                 towel.Interact(inventory);towel.Wet();Set(inventory,"<IsTowelRaised>k__BackingField",true);
                 var exit=(Vector3[])typeof(CampusRouteAFlow).GetField("Exit",BindingFlags.Static|BindingFlags.NonPublic).GetValue(null);
-                var exitFires=Object.FindObjectOfType<CampusExitFireEncounter>();
+                var exitFires=CampusExitFireEncounter.Ensure();
                 Check(exitFires!=null && !exitFires.IsCleared,"Exit has three live fire targets");
                 origin.transform.position=new Vector3(0,0,-4.5f);Step(flow);
                 Check(!flow.CanCall && flow.Instruction.Contains("X"),"Exit guidance first prompts equipment switching");

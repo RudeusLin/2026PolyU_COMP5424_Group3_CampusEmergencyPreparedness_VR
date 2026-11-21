@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using CampusEmergency.Player;
@@ -46,7 +46,7 @@ namespace CampusEmergency.Player.XR
             label.resizeTextForBestFit=true;label.resizeTextMinSize=23;label.resizeTextMaxSize=25;
             label.horizontalOverflow=HorizontalWrapMode.Wrap;label.verticalOverflow=VerticalWrapMode.Truncate;label.raycastTarget=false;
             label.rectTransform.offsetMin=new Vector2(20,12);label.rectTransform.offsetMax=new Vector2(-20,-12);
-            var panel=label.transform.parent.GetComponent<Image>();if(panel!=null){panel.color=new Color(.025f,.055f,.09f,.64f);panel.raycastTarget=false;}
+            var panel=label.transform.parent.GetComponent<Image>();if(panel!=null){panel.color=new Color(.025f,.055f,.09f,.64f);panel.raycastTarget=false;var frame=panel.GetComponent<CampusHintAttention>()??panel.gameObject.AddComponent<CampusHintAttention>();frame.Configure(false,null,true);}
         }
         private string BuildStatus()
         {

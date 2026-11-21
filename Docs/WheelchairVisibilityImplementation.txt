@@ -1,0 +1,19 @@
+Wheelchair visibility and refuge floor checkpoint
+Date: 2026-11-22
+
+Changes
+- Escort defaults to 1.4m forward and 0.25m left. These are serialized tuning values on CampusWheelchairRescue.
+- Candidate poses first reduce lateral offset from full to half to centered, then try 1.3m spacing. Unsafe paired player/chair poses are rejected.
+- Separate planned heading from the offset position so the NPC does not turn diagonally merely because it is offset left. Head gaze does not move the chair.
+- Active wheelchair/NPC colliders remain disabled and restored on pause/completion. Right trigger still teleports; A still starts/pauses escort, operates doors and confirms parking.
+- Refuge parking moves to (4.85,3.65,-5.3), the far-left corner when looking into the room from its doorway. The parked person faces the doorway (+Z).
+- Marker is a thin floor target over the parking pose; a downward arrow floats above it. Both floor and arrow accept the same right-ray A interaction.
+- Waiting / ready / hovered / completed states remain gray / green / gold / cyan. Confirmation hides the arrow and disables both interaction targets.
+- Label retains English, Simplified Chinese and Traditional Chinese text with highlighted A key.
+- Proximity fading is deferred pending headset feedback, as proposed. Model proportions remain unchanged.
+
+Rollback
+BeforeVisibilityAndFloorMarker.zip in this folder contains the prior implementation and scene, including all earlier stair and side-exit work. Restore these files individually rather than resetting the repository.
+
+Validation
+See Docs/WheelchairVisibilityValidation.txt and Docs/WheelchairVisibilityRouteRegression.txt. Runtime screenshots in this folder show escort first-person view, ready/hovered floor target, and the final parking pose. Simulated editor input is not a complete Quest headset trial.

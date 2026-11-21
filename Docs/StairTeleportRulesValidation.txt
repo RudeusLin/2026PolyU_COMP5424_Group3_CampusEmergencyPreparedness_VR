@@ -1,0 +1,73 @@
+PASS Side=-1 floor=1 leg=0 reverse=False expected=True result=True reason=
+PASS Side=-1 floor=1 leg=0 reverse=True expected=True result=True reason=
+PASS Side=-1 floor=1 leg=1 reverse=False expected=True result=True reason=
+PASS Side=-1 floor=1 leg=1 reverse=True expected=True result=True reason=
+PASS Side=-1 floor=1 leg=2 reverse=False expected=True result=True reason=
+PASS Side=-1 floor=1 leg=2 reverse=True expected=True result=True reason=
+PASS Side=-1 floor=2 leg=0 reverse=False expected=True result=True reason=
+PASS Side=-1 floor=2 leg=0 reverse=True expected=True result=True reason=
+PASS Side=-1 floor=2 leg=1 reverse=False expected=True result=True reason=
+PASS Side=-1 floor=2 leg=1 reverse=True expected=True result=True reason=
+PASS Side=-1 floor=2 leg=2 reverse=False expected=True result=True reason=
+PASS Side=-1 floor=2 leg=2 reverse=True expected=True result=True reason=
+PASS Side=-1 floor=3 leg=0 reverse=False expected=True result=True reason=
+PASS Side=-1 floor=3 leg=0 reverse=True expected=True result=True reason=
+PASS Side=-1 floor=3 leg=1 reverse=False expected=True result=True reason=
+PASS Side=-1 floor=3 leg=1 reverse=True expected=True result=True reason=
+PASS Side=-1 floor=3 leg=2 reverse=False expected=True result=True reason=
+PASS Side=-1 floor=3 leg=2 reverse=True expected=True result=True reason=
+PASS Side=1 floor=1 leg=0 reverse=False expected=True result=True reason=
+PASS Side=1 floor=1 leg=0 reverse=True expected=True result=True reason=
+PASS Side=1 floor=1 leg=1 reverse=False expected=True result=True reason=
+PASS Side=1 floor=1 leg=1 reverse=True expected=True result=True reason=
+PASS Side=1 floor=1 leg=2 reverse=False expected=False result=False reason=Follow the connected stair flight and landing
+PASS Side=1 floor=1 leg=2 reverse=True expected=False result=False reason=Follow the connected stair flight and landing
+PASS Side=1 floor=2 leg=0 reverse=False expected=True result=True reason=
+PASS Side=1 floor=2 leg=0 reverse=True expected=True result=True reason=
+PASS Side=1 floor=2 leg=1 reverse=False expected=True result=True reason=
+PASS Side=1 floor=2 leg=1 reverse=True expected=True result=True reason=
+PASS Side=1 floor=2 leg=2 reverse=False expected=True result=True reason=
+PASS Side=1 floor=2 leg=2 reverse=True expected=True result=True reason=
+PASS Side=1 floor=3 leg=0 reverse=False expected=True result=True reason=
+PASS Side=1 floor=3 leg=0 reverse=True expected=True result=True reason=
+PASS Side=1 floor=3 leg=1 reverse=False expected=True result=True reason=
+PASS Side=1 floor=3 leg=1 reverse=True expected=True result=True reason=
+PASS Side=1 floor=3 leg=2 reverse=False expected=True result=True reason=
+PASS Side=1 floor=3 leg=2 reverse=True expected=True result=True reason=
+PASS Reject peripheral platform -1 y=0 z=-8
+PASS Reject peripheral platform -1 y=0 z=-6.6
+PASS Reject peripheral platform -1 y=0 z=6.6
+PASS Reject peripheral platform -1 y=0 z=8
+PASS Reject peripheral platform -1 y=3.6 z=-8
+PASS Reject peripheral platform -1 y=3.6 z=-6.6
+PASS Reject peripheral platform -1 y=3.6 z=6.6
+PASS Reject peripheral platform -1 y=3.6 z=8
+PASS Reject peripheral platform -1 y=7.2 z=-8
+PASS Reject peripheral platform -1 y=7.2 z=-6.6
+PASS Reject peripheral platform -1 y=7.2 z=6.6
+PASS Reject peripheral platform -1 y=7.2 z=8
+PASS Reject peripheral platform -1 y=10.8 z=-8
+PASS Reject peripheral platform -1 y=10.8 z=-6.6
+PASS Reject peripheral platform -1 y=10.8 z=6.6
+PASS Reject peripheral platform -1 y=10.8 z=8
+PASS Reject peripheral platform 1 y=0 z=-8
+PASS Reject peripheral platform 1 y=0 z=-6.6
+PASS Reject peripheral platform 1 y=0 z=6.6
+PASS Reject peripheral platform 1 y=0 z=8
+PASS Reject peripheral platform 1 y=3.6 z=-8
+PASS Reject peripheral platform 1 y=3.6 z=-6.6
+PASS Reject peripheral platform 1 y=3.6 z=6.6
+PASS Reject peripheral platform 1 y=3.6 z=8
+PASS Reject peripheral platform 1 y=7.2 z=-8
+PASS Reject peripheral platform 1 y=7.2 z=-6.6
+PASS Reject peripheral platform 1 y=7.2 z=6.6
+PASS Reject peripheral platform 1 y=7.2 z=8
+PASS Reject peripheral platform 1 y=10.8 z=-8
+PASS Reject peripheral platform 1 y=10.8 z=-6.6
+PASS Reject peripheral platform 1 y=10.8 z=6.6
+PASS Reject peripheral platform 1 y=10.8 z=8
+PASS No direct 2F-to-1F jump -1
+PASS No direct 2F-to-1F jump 1
+PASS Main outdoor assembly approach retained
+PASS Actual ray rejects former ground bypass: Choose a stair or marked landing
+Failures=0

@@ -1,0 +1,30 @@
+alarm target=(-6.25, 12.15, 1.66) parent=Alarm_401 panel=(-5.15, 12.45, 1.62) rotation=(0.00, 180.00, 0.00)
+PASS alarm panel is vertical
+PASS alarm wall backing is within 10cm
+PASS alarm panel centre near standing eye level
+PASS alarm item centre outside hint footprint
+PASS alarm head movement preserves wall alignment
+towel target=(-6.30, 11.77, -1.92) parent=WashStation panel=(-4.00, 12.45, -1.63) rotation=(0.00, 0.00, 0.00)
+PASS towel panel is vertical
+PASS towel wall backing is within 10cm
+PASS towel panel centre near standing eye level
+PASS towel item centre outside hint footprint
+PASS towel head movement preserves wall alignment
+equipment target=(9.30, 8.04, 1.27) parent=FireEquipmentPoint panel=(10.72, 9.10, 1.37) rotation=(0.00, 0.00, 0.00)
+PASS equipment panel is vertical
+PASS equipment wall backing is within 10cm
+PASS equipment panel centre near standing eye level
+PASS equipment item centre outside hint footprint
+PASS equipment head movement preserves wall alignment
+SignPanel Center: (11.00, 8.82, 1.31), Extents: (0.14, 0.05, 0.01)
+SignPanel Center: (9.10, 8.80, 1.38), Extents: (0.24, 0.11, 0.01)
+CabinetInset Center: (9.95, 8.25, 1.19), Extents: (0.31, 0.39, 0.01)
+HoseCabinetHinge Center: (9.58, 8.54, 1.17), Extents: (0.02, 0.03, 0.02)
+Cabinet Center: (9.95, 8.25, 1.29), Extents: (0.38, 0.48, 0.10)
+HoseCabinetLatch Center: (10.22, 8.25, 1.14), Extents: (0.02, 0.07, 0.02)
+HoseCabinetHinge Center: (9.58, 7.94, 1.17), Extents: (0.02, 0.03, 0.02)
+SignPanel Center: (9.95, 8.28, 1.16), Extents: (0.13, 0.10, 0.01)
+HoseCabinetDoorRim Center: (9.58, 8.25, 1.17), Extents: (0.01, 0.46, 0.01)
+HoseCabinetDoorRim Center: (10.32, 8.25, 1.17), Extents: (0.01, 0.46, 0.01)
+SignPanel Center: (9.80, 8.98, 1.16), Extents: (0.29, 0.07, 0.01)
+SignPanel Center: (9.30, 7.68, 1.15), Extents: (0.07, 0.10, 0.03)

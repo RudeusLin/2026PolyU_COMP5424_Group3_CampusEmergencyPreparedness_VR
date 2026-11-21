@@ -1,0 +1,23 @@
+Complete campus UI presentation update (2026-11-22)
+
+Scope
+- Remaining 2F/1F task and door cards, all exit-fire states at main/A/B exits, side-exit outdoor guidance and the assembly objective.
+- Refuge confirmation label now stays on the side wall, separately from the escort card. The floor target, downward arrow, colors and A confirmation are retained. Completion disables its attention cue while retaining the result frame.
+- Startup language/briefing/map views, the classroom route image, emergency phone, debrief and head-relative status share quiet frames. Interactive dialogs keep their existing usable positions and button hit areas; the status HUD keeps Y/H visibility controls.
+- Fire progress retains its target-relative ring/countdown and now frames its control caption.
+
+Placement and presentation
+CampusUpperFloorHintPlacement.cs was renamed CampusHintSurfacePlacement.cs, retaining its .meta GUID, and expanded to all floors. Doorway and route cards use the existing footprint, visibility and side-cache checks. Lower-floor candidates also avoid printed plaques; the renderer cache refreshes after scene reload/restart.
+Exit cards search around their actual doorway centres so the player reads toward the exit. Unwalled exterior legs use simple noncolliding board supports (CampusHintStand.cs). The assembly instruction uses the existing assembly signpost.
+CampusHintAttention.cs now supports frame-only displays and inherits each card's graphic material, including overlay exit/dialog cards. The grazing-angle information badge sits above the text rectangle, not over its content. It is noninteractive and obeys distance/occlusion rules.
+The three supplied route images remain byte-for-byte unchanged; only their enclosing frame is added.
+
+Validation
+153 remaining-UI checks passed, including fixed poses/frames, confirmation logic, noncolliding outdoor supports, lower door approaches, badge/text separation and dialog/HUD controls.
+117 upper-floor regression checks passed. 46 side-exit regression checks passed, including actual movement rays and automatic simulated-phone opening. Full route regression: 196 passed checks. Final Unity compilation succeeded.
+These are scripted Editor checks and visual inspection; headset readability and comfort still require human confirmation.
+Reports: Docs/RemainingUIValidation.txt, RemainingUIUpperRegression.txt, RemainingUISideRegression.txt and RemainingUIRouteRegression.txt.
+Previews: E:/0_PolyU/COMP5424_XR/Project/5_Phase3/RemainingUI/Preview.html.
+
+Rollback
+Close Unity. Remove the newly introduced CampusHintSurfacePlacement.cs/.meta and CampusHintStand.cs/.meta; then restore the source files from BeforeRemainingUI.zip in the preview folder. The archive restores the previous CampusUpperFloorHintPlacement.cs/.meta and all callers, preserving the accepted upper-floor version and prior scene/gameplay changes. No scene or input asset was intentionally changed by this update.

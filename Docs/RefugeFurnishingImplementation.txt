@@ -1,0 +1,21 @@
+2F refuge: deeper parking and furnishings (2026-11-22)
+
+Parking pose: (6.35,3.65,-7.55), facing the doorway (+Z).
+This supersedes the earlier (4.85,3.65,-5.3) pose in WheelchairVisibilityImplementation.txt.
+Measured gaps from the parked model bounds to the two adjacent walls: 0.65m and 0.77m.
+The floor marker and downward arrow follow this pose automatically.
+The inside-room predicate now covers the actual usable room depth and width, so deep-room A confirmation remains available. The existing same-floor, clear-route, minimum player-distance and escort-required checks remain active.
+
+Furnishings are isolated under Floor_02/Refuge Room Furnishings:
+- Wall-mounted emergency supplies cabinet, opposite the parking corner.
+- Short waiting bench along the same wall.
+- Refuge-area and emergency-supplies wall signs.
+The cabinet and bench have physical collision; small fittings and signs do not intercept interaction rays. These are environment decorations, not additional tasks.
+Materials are saved in Assets/Environment/RefugeRoom. The setup command is Assets/Editor/XR/CampusRefugeRoomSetup.cs and replaces only its own furnishing group when rerun.
+
+Validation: 44 targeted runtime checks, including floor/arrow A interaction, deep-room eligibility, supported placement, actual wall gaps, and the unobstructed central escort route. Original full-route regression: 196 passed checks (extended with deeper room teleports).
+Reports: Docs/RefugeFurnishingValidation.txt and Docs/RefugeFurnishingRouteRegression.txt.
+Screenshots: E:/0_PolyU/COMP5424_XR/Project/5_Phase3/RefugeFurnishing.
+Quest headset comfort remains subject to user verification.
+
+Rollback: restore files individually from BeforeDeeperParkingAndFurnishing.zip in the screenshot folder, then remove only the newly introduced CampusRefugeRoomSetup.cs/meta and Assets/Environment/RefugeRoom folder/meta if reverting this whole update. Earlier stair, side-exit and wheelchair improvements are included in the backup and should be preserved. Do not reset the repository.

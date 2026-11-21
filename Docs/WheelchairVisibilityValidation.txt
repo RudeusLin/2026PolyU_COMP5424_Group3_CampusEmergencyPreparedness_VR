@@ -1,0 +1,31 @@
+PASS A starts escort
+PASS Initial wheelchair 1.4m ahead and .25m to left
+PASS All escorted NPC/chair colliders are ray transparent
+PASS Pause/resume does not accumulate left-offset heading drift
+PASS Actual teleport ray passes through escorted model: 
+PASS Head gaze alone does not move chair
+PASS Safe paired room-entry teleport (3.05, 3.64, 0.00) blocker=
+PASS Distance remains >=1.3m after move
+PASS Chair offset is left or centered
+PASS Safe paired room-entry teleport (4.10, 3.64, 0.90) blocker=
+PASS Distance remains >=1.3m after move
+PASS Chair offset is left or centered
+PASS Closed refuge doors reject escort teleport
+PASS Safe paired room-entry teleport (4.10, 3.64, -1.85) blocker=
+PASS Distance remains >=1.3m after move
+PASS Chair offset is left or centered
+PASS Safe paired room-entry teleport (3.70, 3.64, -3.30) blocker=
+PASS Distance remains >=1.3m after move
+PASS Chair offset is left or centered
+PASS Another floor rejected
+PASS Floor checkpoint is a flat trigger
+PASS Floor marker follows corner parking pose
+PASS Downward arrow exists over floor marker
+PASS Corner parking has supported unobstructed approach:  blocker=
+PASS Actual ray hover on flat floor target turns gold
+PASS Arrow child trigger also resolves checkpoint hover
+PASS Actual A action on arrow confirms rescue
+PASS NPC parks at left rear corner viewed from doorway
+PASS Parked NPC faces doorway
+PASS Confirmed marker stops intercepting rays
+PASS Rescue completion still unlocks evacuation

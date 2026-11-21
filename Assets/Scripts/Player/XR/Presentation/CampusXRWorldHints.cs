@@ -6,17 +6,19 @@ using CampusEmergency.Interaction.FireSafety;
 
 namespace CampusEmergency.Player.XR
 {
-    /// <summary>Scene-anchored cards with fixed positions and viewer-facing orientation.</summary>
+    /// <summary>Scene-anchored cards, with wall-mounted campus task and doorway instructions.</summary>
     public sealed class CampusXRWorldHints : MonoBehaviour
     {
-        private struct Placement { public Vector3 position;public Quaternion rotation; }
-        private sealed class Card { public GameObject root;public Text text; }
+        private struct Placement { public Vector3 position;public Quaternion rotation;public bool surfaceMounted;public bool compact;public bool stand; }
+        private sealed class Card { public GameObject root;public Text text;public CampusHintAttention attention;public CampusHintStand stand; }
         private readonly Dictionary<Transform,Placement> authored=new Dictionary<Transform,Placement>();
+        private readonly Dictionary<(Transform,int,int,int,int),Placement> doorwayMounts=new Dictionary<(Transform,int,int,int,int),Placement>();
         private Card objective,door;
         private CampusXRInput input;
         private PrototypeDoor[] doors;
         private Transform head;
         private Vector3 waypoint;
+        private readonly Dictionary<Vector3,Placement> exitMounts=new Dictionary<Vector3,Placement>();
         public Transform InstructionPanel => objective!=null?objective.root.transform:null;
         private string rawInstruction;
         public string InstructionText => rawInstruction ?? string.Empty;
@@ -29,12 +31,12 @@ namespace CampusEmergency.Player.XR
         private void Start()
         {
             // Cache authored placements before items can be picked up or doors rotate.
-            foreach(var x in FindObjectsOfType<FacilityNotice>())Remember(x.transform);
-            foreach(var x in FindObjectsOfType<CampusTowel>())Remember(x.transform);
-            foreach(var x in FindObjectsOfType<CampusFaucet>())Remember(x.transform);
-            foreach(var x in FindObjectsOfType<CampusExtinguisher>())Remember(x.transform);
+            foreach(var x in FindObjectsOfType<FacilityNotice>())if(head==null||Mathf.Abs(x.transform.position.y-head.position.y)<2.5f)Remember(x.transform);
+            foreach(var x in FindObjectsOfType<CampusTowel>())if(head==null||Mathf.Abs(x.transform.position.y-head.position.y)<2.5f)Remember(x.transform);
+            foreach(var x in FindObjectsOfType<CampusFaucet>())if(head==null||Mathf.Abs(x.transform.position.y-head.position.y)<2.5f)Remember(x.transform);
+            foreach(var x in FindObjectsOfType<CampusExtinguisher>())if(head==null||Mathf.Abs(x.transform.position.y-head.position.y)<2.5f)Remember(x.transform);
             doors=FindObjectsOfType<PrototypeDoor>();
-            foreach(var x in doors)Remember(x.transform);
+            foreach(var x in doors)if(x.transform.parent==null || !CampusHintSurfacePlacement.IsSupportedFloor(x.transform.parent.position.y))Remember(x.transform);
         }
         private Card BuildCard(string name)
         {
@@ -47,7 +49,7 @@ namespace CampusEmergency.Player.XR
             text.alignment=TextAnchor.MiddleLeft;text.color=new Color(.83f,1f,.95f);text.supportRichText=false;text.raycastTarget=false;
             text.resizeTextForBestFit=true;text.resizeTextMinSize=21;text.resizeTextMaxSize=27;
             var tr=(RectTransform)text.transform;tr.anchorMin=Vector2.zero;tr.anchorMax=Vector2.one;tr.offsetMin=new Vector2(25,18);tr.offsetMax=new Vector2(-25,-18);
-            go.SetActive(false);return new Card{root=go,text=text};
+            go.SetActive(false);return new Card{root=go,text=text,attention=go.AddComponent<CampusHintAttention>(),stand=go.AddComponent<CampusHintStand>()};
         }
         private static int ExitFireStage(string source)
         {
@@ -113,13 +115,16 @@ namespace CampusEmergency.Player.XR
                 else if(source.StartsWith("A樓梯 →"))title="06 從正門撤離";
                 else if(source.StartsWith("前往室外集合點"))title="06 集合並報警";
             }
+            if (source.StartsWith("SIDE EXIT →") || source.StartsWith("侧门撤离 →") || source.StartsWith("側門撤離 →"))
+            { title = T("06 Side exit · Assemble", "06 侧门撤离 · 集合", "06 側門撤離 · 集合"); body=source.Substring(source.IndexOf('\n')+1); }
             int exitStage = ExitFireStage(source);
             if (exitStage > 0)
             {
                 title = exitStage == 1 ? T("06 Exit fire · Equip", "06 出口灭火 · 装备", "06 出口滅火 · 裝備")
                     : exitStage == 2 ? T("06 Exit fire · Remove pin", "06 出口灭火 · 拔销", "06 出口滅火 · 拔銷")
                     : T("06 Exit fire · Spray", "06 出口灭火 · 喷射", "06 出口滅火 · 噴射");
-                body = exitStage == 1 ? T("Three fires block the main entrance.\nPress X to equip your extinguisher.", "正门被三簇火焰封堵。\n按X切换出灭火器。", "正門被三簇火焰封堵。\n按X切換出滅火器。")
+                var route=GetComponent<CampusRouteAFlow>();
+                body = exitStage == 1 ? route.ActiveExitName + T(" is blocked by three fires.\nPress X to equip your extinguisher.", "被三簇火焰封堵。\n按X切换出灭火器。", "被三簇火焰封堵。\n按X切換出滅火器。")
                     : exitStage == 2 ? T("Re-equipping restores the safety pin.\nAim the RIGHT ray at the pin and press A.", "重新装备后需要再次拔销。\n右手射线对准保险销，按A拔出。", "重新裝備後需要再次拔銷。\n右手射線對準保險銷，按A拔出。")
                     : T("Aim at each fire BASE and hold LEFT TRIGGER\nfor 3 continuous seconds per fire.\nClear all three fires, then use RIGHT TRIGGER to leave.", "逐簇对准火焰根部，按住左扳机。\n每簇连续喷射3秒，扑灭全部三簇。\n通道清空后，按右扳机传送离开。", "逐簇對準火焰根部，按住左扳機。\n每簇連續噴射3秒，撲滅全部三簇。\n通道清空後，按右扳機傳送離開。");
             }
@@ -136,7 +141,7 @@ namespace CampusEmergency.Player.XR
             background.material = exitStage > 0 ? LanguageSelectionUI.OverlayMaterial : null;
             background.color = new Color(.025f, .075f, .09f, exitStage > 0 ? .98f : .95f);
             text.material = exitStage > 0 ? LanguageSelectionUI.OverlayMaterial : null;
-            if (exitStage > 0) ((RectTransform)card.root.transform).sizeDelta = new Vector2(LanguageSelectionUI.Current == CampusLanguage.English ? 1060 : 860, LanguageSelectionUI.Current == CampusLanguage.English ? 380 : 310);
+            if (exitStage > 0) ((RectTransform)card.root.transform).sizeDelta = new Vector2(LanguageSelectionUI.Current == CampusLanguage.English ? 920 : 760, LanguageSelectionUI.Current == CampusLanguage.English ? 380 : 310);
         }
         private Vector3 WallNormal(Transform anchor)
         {
@@ -154,9 +159,54 @@ namespace CampusEmergency.Player.XR
             }
             return normal;
         }
+        // Authored interaction stations keep their established empty-wall positions.
+        // UI's readable side is -Z; fixed wall rotation therefore looks opposite the room normal.
+        private bool TryStationPlacement(Transform anchor,out Placement placement)
+        {
+            placement=default;
+            var parent=anchor.parent;
+            if(parent!=null && parent.name=="Alarm_401")
+                placement=new Placement{position=parent.position+new Vector3(.8f,.2f,-.04f),rotation=Quaternion.Euler(0,180,0),surfaceMounted=true};
+            else if(parent!=null && parent.name=="WashStation" && parent.position.y>10f && parent.position.x<0f)
+                placement=new Placement{position=parent.TransformPoint(new Vector3(1.6f,1.55f,.275f)),rotation=parent.rotation,surfaceMounted=true};
+            else if(parent!=null && anchor.GetComponent<CampusExtinguisher>()!=null && parent.position.x>8f && Mathf.Abs(parent.position.y-7.2f)<.3f)
+                placement=new Placement{position=parent.position+new Vector3(.9f,1.86f,.08f),rotation=Quaternion.identity,surfaceMounted=true};
+            return placement.surfaceMounted;
+        }
+        private bool TryMountedPlacement(Transform anchor,bool isDoor,Vector3 avoid,out Placement placement)
+        {
+            placement=default;
+            var key=(anchor,head!=null&&anchor.parent!=null?System.Math.Sign(Vector3.Dot(head.position-anchor.parent.position,anchor.parent.forward)):0,0,float.IsPositiveInfinity(avoid.x)?int.MaxValue:Mathf.RoundToInt(avoid.x),float.IsPositiveInfinity(avoid.x)?int.MaxValue:Mathf.RoundToInt(avoid.z));
+            if(isDoor && doorwayMounts.TryGetValue(key,out placement))return true;
+            if(!isDoor && anchor.GetComponent<FacilityNotice>() is FacilityNotice notice && notice.Kind!=FacilityNotice.FacilityKind.Alarm)return false;
+            // A moving pin stays at its cached equipment station through ResolveAnchor.
+            float floorY=anchor.position.y;
+            if(isDoor){var frame=anchor.parent;if(frame!=null)floorY=frame.position.y;}
+            else if(anchor.name!="Route A Current Objective" && anchor.GetComponent<CampusFireTarget>()==null)
+                floorY=Mathf.Round(anchor.position.y/3.6f)*3.6f;
+            if(anchor.GetComponent<CampusWheelchairRescue>()!=null)
+            {placement=new Placement{position=new Vector3(1.8f,5.2f,-1.375f),rotation=Quaternion.Euler(0,180,0),surfaceMounted=true};return true;}
+            if(anchor.GetComponent<CampusRefugeCheckpoint>()!=null)
+            {placement=new Placement{position=new Vector3(7.355f,5.2f,-5.8f),rotation=Quaternion.Euler(0,90,0),surfaceMounted=true};return true;}
+            if(floorY<.65f && (Mathf.Abs(anchor.position.x)>18.5f || anchor.position.z< -9.5f))
+            {
+                bool assembly=anchor.name.Contains("Assembly");float sign=Mathf.Sign(anchor.position.x);
+                var pos=assembly?new Vector3(3.4f,1.6f,-25.08f):Mathf.Abs(anchor.position.x)>18.5f?new Vector3(sign*22.4f,1.6f,anchor.position.z):new Vector3(2.8f,1.6f,anchor.position.z);
+                var normal=!assembly&&Mathf.Abs(anchor.position.x)>18.5f?Vector3.left*sign:Vector3.forward;
+                placement=new Placement{position=pos,rotation=Quaternion.LookRotation(-normal),surfaceMounted=true,stand=!assembly};return true;
+            }
+            if(!CampusHintSurfacePlacement.IsSupportedFloor(floorY))return false;
+            if(anchor.GetComponent<CampusFireTarget>()!=null && Mathf.Abs(anchor.position.y-7.2f)<.5f && anchor.position.x>8f)
+            {placement=new Placement{position=new Vector3(10.7f,9.1f,1.37f),rotation=Quaternion.identity,surfaceMounted=true};return true;}
+            if(!CampusHintSurfacePlacement.TryFind(isDoor&&anchor.parent!=null?anchor.parent.position:anchor.position,floorY,head,isDoor,avoid,out var mount))return false;
+            placement=new Placement{position=mount.position,rotation=mount.rotation,surfaceMounted=true,compact=mount.compact};if(isDoor)doorwayMounts[key]=placement;return true;
+        }
         private Placement Remember(Transform anchor)
         {
+            if(anchor.GetComponent<PrototypeDoor>()!=null && TryMountedPlacement(anchor,true,Vector3.positiveInfinity,out var doorway))return doorway;
             if(authored.TryGetValue(anchor,out var cached))return cached;
+            if(TryStationPlacement(anchor,out var mounted)){authored[anchor]=mounted;return mounted;}
+            if(TryMountedPlacement(anchor,false,Vector3.positiveInfinity,out var upper)){authored[anchor]=upper;return upper;}
             Vector3 normal,position;
             if(anchor.parent!=null&&anchor.parent.name=="WashStation")
             {
@@ -188,7 +238,7 @@ namespace CampusEmergency.Player.XR
         {
             var away=placement.position-head.position;
             var rotation=placement.rotation;
-            if(away.sqrMagnitude>.0001f)
+            if(!placement.surfaceMounted && away.sqrMagnitude>.0001f)
             {
                 var up=Mathf.Abs(Vector3.Dot(away.normalized,Vector3.up))>.99f ? Vector3.forward : Vector3.up;
                 // UI's readable front is its local -Z side.
@@ -202,14 +252,30 @@ namespace CampusEmergency.Player.XR
             if(!visible||head==null||flow==null||flow.Target==null){objective.root.SetActive(false);door.root.SetActive(false);return;}
             var target=flow.ReturnHintAnchor!=null ? flow.ReturnHintAnchor : ResolveAnchor(flow.Target);
             if(target.name=="Route A Current Objective" && Vector3.Distance(waypoint,target.position)>.1f){authored.Remove(target);waypoint=target.position;}
-            var placement = ExitFireStage(flow.Instruction) > 0
-                ? new Placement { position = new Vector3(-1.4f, 1.85f, -6.1f), rotation = Quaternion.identity }
-                : Remember(target);
+            Placement placement;
+            if(ExitFireStage(flow.Instruction)>0)
+            {
+                var exitPoint=flow.ExitHintPosition;var token=new Vector3(Mathf.Sign(exitPoint.x)*Mathf.Abs(exitPoint.x),0f,exitPoint.z);
+                if(!exitMounts.TryGetValue(token,out placement))
+                {
+                    var doorCentre=Mathf.Abs(exitPoint.x)>10f?new Vector3(Mathf.Sign(exitPoint.x)*18f,0,3f):new Vector3(0,0,-9f);
+                    if(CampusHintSurfacePlacement.TryFind(doorCentre,0f,head,false,Vector3.positiveInfinity,out var mount))placement=new Placement{position=mount.position,rotation=mount.rotation,surfaceMounted=true,compact=mount.compact};
+                    else {var normal=Mathf.Abs(exitPoint.x)>10f?Vector3.left*Mathf.Sign(exitPoint.x):Vector3.forward;placement=new Placement{position=exitPoint,rotation=Quaternion.LookRotation(-normal),surfaceMounted=true,stand=true};}
+                    exitMounts[token]=placement;
+                }
+            }
+            else placement=Remember(target);
             FaceUser(objective,placement);
             objective.text.font=LanguageSelectionUI.CurrentFont;objective.text.text=flow.Instruction;
             if(target.name=="Route A Current Objective")objective.text.text+="\n"+T("Right trigger: teleport · right stick: turn","右扳机：传送 · 右摇杆：转向","右扳機：傳送 · 右搖桿：轉向");
             rawInstruction=objective.text.text;StyleCard(objective,rawInstruction);
+            // Keep the 3F card within the narrow blank strip beside the fire equipment and above the alarm sign.
+            if(placement.surfaceMounted && target.GetComponent<CampusExtinguisher>()!=null && ExitFireStage(flow.Instruction)==0)
+            {var rect=(RectTransform)objective.root.transform;rect.sizeDelta=new Vector2(760,240);}
+            if(placement.compact){var rect=(RectTransform)objective.root.transform;rect.sizeDelta=new Vector2(380,Mathf.Max(480,rect.sizeDelta.y));}
             objective.root.SetActive(true);
+            objective.attention.Configure(placement.surfaceMounted,head);
+            objective.stand.Configure(placement.stand);
             PrototypeDoor nearest=null;float distance=3.2f;
             if(doors!=null)foreach(var candidate in doors)
             {
@@ -220,9 +286,12 @@ namespace CampusEmergency.Player.XR
             door.root.SetActive(nearest!=null);
             if(nearest!=null)
             {
-                var p=Remember(nearest.transform);FaceUser(door,p);
+                var p=TryMountedPlacement(nearest.transform,true,placement.position,out var separated)?separated:Remember(nearest.transform);FaceUser(door,p);
                 door.text.font=LanguageSelectionUI.CurrentFont;door.text.text=T("DOOR\nPoint at the door and press right A to open.","开门\n右手指向门，按 A 键打开。","開門\n右手指向門，按 A 鍵打開。");
                 StyleCard(door,door.text.text);
+                if(p.compact){var rect=(RectTransform)door.root.transform;rect.sizeDelta=new Vector2(380,480);}
+                door.attention.Configure(p.surfaceMounted,head);
+                if(p.surfaceMounted && placement.surfaceMounted && Vector3.Distance(p.position,placement.position)<1.05f)objective.root.SetActive(false);
             }
         }
         private void LateUpdate()=>Refresh(input!=null&&input.HeadTracked&&input.HasSessionFocus&&!LanguageSelectionUI.IsBlocking);

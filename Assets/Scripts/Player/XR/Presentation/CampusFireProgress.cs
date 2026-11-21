@@ -34,7 +34,7 @@ namespace CampusEmergency.Player.XR
             fill.type=Image.Type.Filled;fill.fillMethod=Image.FillMethod.Radial360;fill.fillOrigin=(int)Image.Origin360.Top;fill.fillClockwise=true;
             countdown=Label("Seconds remaining",0,46,150,65);
             caption=Label("Progress caption",126,27,360,48);caption.color=new Color(.4f,.89f,.82f);
-            control=Label("Progress control",-140,24,520,100);control.fontStyle=FontStyle.Normal;control.lineSpacing=1.2f;
+            control=Label("Progress control",-140,24,520,100);control.fontStyle=FontStyle.Normal;control.lineSpacing=1.2f;control.gameObject.AddComponent<CampusHintAttention>().Configure(false,null,true);
             root.SetActive(false);
         }
         private static Texture2D MakeTexture(bool ring)

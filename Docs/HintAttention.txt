@@ -1,0 +1,12 @@
+Wall hint frame and attention cue (2026-11-22)
+
+Updates the same three pilot stations: 401 alarm, 4F towel/tap and 3F B extinguisher.
+Alarm card is moved 0.3m closer horizontally to the button and 0.1m down. Wash-station card is moved 0.05m closer and 0.1m down, retaining mirror clearance. Extinguisher card is moved slightly inward/down; its compact 760x240 layout leaves the alarm sign below visible.
+Centres: (-5.45,12.35,1.62), (-4.05,12.35,-1.625), (10.7,9.06,1.37).
+
+A 4-pixel teal frame outlines each mounted card. A small, noninteractive information badge projects 0.16m from the panel at its edge. When the viewer is at a grazing angle, or the hint is peripheral within the forward hemisphere, it faces the viewer and gently pulses at 0.65Hz with up to 8% scale variation. It hides for front-on reading, beyond 5.5m, behind the wall face, or behind solid occlusion. The text card itself retains its fixed wall alignment. All added graphics have raycastTarget=false and no colliders.
+
+Implementation: CampusXRWorldHints.cs applies placements and enables the shared CampusHintAttention.cs presentation component. No control bindings or task conditions change.
+Validation: 28 targeted checks passed, including the three station poses, border visibility, normal/grazing badge states, nonintercepting graphics and solid-obstacle rejection. Full-route regression: 196 passed checks. Actual runtime frontal and side-view screenshots are in the UIHintAttention folder. Headset noticeability and pulse comfort remain for user verification.
+
+Rollback: restore CampusXRWorldHints.cs from BeforeAttentionUpdate.zip in this folder, then remove the newly introduced CampusHintAttention.cs and its .meta. Earlier wall-pilot and project work are retained by that backup.

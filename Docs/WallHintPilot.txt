@@ -1,0 +1,15 @@
+Wall-mounted hint pilot (2026-11-22)
+
+Three stations updated, using fixed upright wall alignment instead of viewer-facing rotation:
+1. 401 alarm: blank wall beside the button, centre (-5.15,12.45,1.62), approximately 1.65m above the floor.
+2. 4F towel/tap station: wall to the right of the mirror, centre (-4,12.45,-1.625). Pickup, wetting and raising instructions retain this station anchor after the towel is held.
+3. 3F B extinguisher: blank wall to the right/above the cabinet, centre (10.72,9.1,1.37). Approximately 1.9m above the floor to leave the lower alarm sign visible. This card is limited to .95m width in all languages to fit the narrow wall area. Held extinguisher/pin prompts retain the equipment-station anchor.
+
+Placements are cached before pickup; original buttons, controls and rich-text styles remain unchanged. The shared placements apply to all three languages. Other world hints keep their existing placement pending user review of this pilot.
+
+Source: Assets/Scripts/Player/XR/Presentation/CampusXRWorldHints.cs.
+Validation: 15 targeted checks passed (vertical alignment, wall gap, approximate standing eye height, item-centre separation and stable pose under head movement). These point/pose checks are supplemented by actual before/after scene image inspection of the alarm, mirror, towel, tap, extinguisher, cabinet and adjacent door/signs.
+Full route regression: 196 passed checks. Headset comfort/readability remains subject to user verification.
+Preview_1_alarm.png, Preview_2_towel.png and Preview_3_equipment.png are actual Unity scene captures at 65-degree camera FOV for review. Before_/After_ captures use the same 80-degree view for comparison.
+
+Rollback: restore the two files in E:/0_PolyU/COMP5424_XR/Project/5_Phase3/UIWallPlacement/BeforeWallHintPilot.zip. This preserves all previous stair, side-exit, wheelchair, refuge and route-art changes.

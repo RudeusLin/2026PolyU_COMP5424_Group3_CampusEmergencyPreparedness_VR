@@ -1,0 +1,19 @@
+Stair teleport repair, 2026-11-21
+
+Scope and findings
+Visually inspected A/B stairs on floors 1-4. Audit screenshots temporarily hide upper-floor renderers to expose each floor; no scene geometry was deleted or saved. Existing Landing bounds: z 1.8 to 4.2. Front/back FloorSlab extensions span z 4.2 to 9 and -9 to -4.2 and were selectable.
+
+Implementation
+Assets/Scripts/Player/XR/Locomotion/CampusStairTeleportRules.cs contains the campus-specific rules. CampusTeleportValidator calls them before accepting destinations and checks peripheral support points as well. The stair envelope is abs(x) 13-18.2, abs(z)<=9.2 and y -0.2 to 11.2. Stair destinations/supports must remain within z -4.18 to 4.18. Height change is <=2.05m, requiring the half landing rather than a full 3.6m drop. The travel segment is sampled every 0.18m for supported walkable surfaces within 0.62m of interpolated height; a 0.12m sphere cast at body height rejects rail/wall/door shortcuts. Normal stairs, half landings, and non-stair outdoor destinations retain their existing physics checks. Fire, smoke, inventory and wheelchair rules remain in force.
+
+Verification
+72 targeted checks passed: both sides/all storeys, ascending/descending legs, half-landing turns, broken B lower flight rejection, all sampled outer platforms, whole-storey drop rejection, outdoor assembly approach and actual Trace at a former ground bypass.
+Post-fix actual Trace scan: 2760 trials from supported starts, 21 accepted ground hits. All 21 are lower-flight-to-normal-ground-landing transitions; none targets abs(z)>4.18 and none starts at a whole second-storey height. Before/After scan totals must not be used as matched failure-rate statistics: the earlier diagnostic included synthetic starts, while the final scan snaps starts onto actual supporting surfaces.
+Full Route A regression: 192 assertions passed, including wheelchair/refuge, exit three-fire gate, assembly and call completion. See StairTeleportRulesValidation.txt and StairTeleportRouteRegression.txt.
+
+Evidence and rollback
+Actual screenshots and audit scripts: E:/0_PolyU/COMP5424_XR/Project/5_Phase3/StairFix.
+Original validator backed up there as Before_CampusTeleportValidator.cs. To reverse only this change, restore that validator and remove CampusStairTeleportRules.cs plus its meta, preserving subsequent edits. No scene or model changes are required by this fix.
+
+Limitations
+Editor and simulated poses only; Quest 3 verification remains required, including controller/head reach near railings, turn comfort and performance. This reproduces selectable ground/peripheral regions consistent with the feedback, not the exact unrecorded P5 headset session. No automatic relocation of a physically walked-out-of-bounds user was added. No Git commit or push performed.

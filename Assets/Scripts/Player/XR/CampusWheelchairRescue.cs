@@ -17,13 +17,15 @@ namespace CampusEmergency.Player.XR
         private bool[] colliderStates;
         private bool pending,started;
         public CampusRefugeCheckpoint Checkpoint { get; private set; }
-        private Vector3 pendingFeet,pendingChair;
+        private Vector3 pendingFeet,pendingChair,pendingHeading;
         private CampusXRInventory inventory;
         private CampusXRInventory.EquipmentSlot savedSlot;
         private Vector3 heading;
 
-        public static Vector3 ParkingPosition => new Vector3(3.75f,3.65f,-5.5f);
-        private const float Separation=1.05f;
+        public static Vector3 ParkingPosition => new Vector3(6.35f,3.65f,-7.55f);
+        [SerializeField, Range(1.3f,1.5f)] private float followDistance=1.4f;
+        [SerializeField, Range(0f,.35f)] private float leftOffset=.25f;
+        private Vector3 plannedHeading;
         public string Prompt => Rescued ? T("Person safe in refuge room", "已送达安全房") : T("[A button] Start / pause wheelchair assistance", "[A] 开始 / 暂停轮椅护送");
         private static string T(string en,string zh) => LanguageSelectionUI.T(en,zh,zh);
         private void OnDisable(){StopEscort();}
@@ -33,9 +35,12 @@ namespace CampusEmergency.Player.XR
             if(flow==null || flow.Node!=5)return T("Complete the preceding route steps first.","请先完成前面的疏散节点。");
             if(Escorting){StopEscort();return T("Assistance paused. Teleport restored.","护送已暂停，恢复传送。");}
             var feet=Feet;
-            heading=started?Vector3.ProjectOnPlane(transform.position-feet,Vector3.up).normalized:Vector3.right;
+            heading=started?Vector3.ProjectOnPlane(transform.forward,Vector3.up).normalized:Vector3.right;
             if(heading.sqrMagnitude<.5f)heading=Vector3.forward;
-            Vector3 stand=transform.position-heading*Separation;
+            Vector3 left=Vector3.Cross(heading,Vector3.up);
+            Vector3 stand=transform.position-heading*followDistance-left*leftOffset;
+            if(!Supported(stand) || !Clear(feet,stand,.23f,1.7f))
+                stand=transform.position-heading*followDistance;
             if(Mathf.Abs(feet.y-transform.position.y)>.45f || !Supported(stand) || !Clear(feet,stand,.23f,1.7f))
                 return T("Approach on the same floor with clear space behind the chair.","请从同层靠近，确保轮椅后方有足够推行空间。");
             player.position+=stand-feet;transform.rotation=Quaternion.LookRotation(heading);
@@ -61,7 +66,7 @@ namespace CampusEmergency.Player.XR
             if(!started&&!Rescued)transform.rotation=Quaternion.LookRotation(Vector3.right);
             if(Application.isPlaying && player!=null && Checkpoint==null)Checkpoint=CampusRefugeCheckpoint.Create(this);
         }
-        public bool PlayerInRefuge => player!=null && Mathf.Abs(Feet.y-3.65f)<.5f && Feet.z< -1.8f && Feet.z> -5.8f && Feet.x>2.8f && Feet.x<5.4f;
+        public bool PlayerInRefuge => player!=null && Mathf.Abs(Feet.y-3.65f)<.5f && Feet.z< -1.8f && Feet.z> -8.35f && Feet.x>.45f && Feet.x<7.05f;
         public bool CanConfirmParking(out string reason)
         {
             var goal = ParkingPosition;
@@ -98,7 +103,7 @@ namespace CampusEmergency.Player.XR
             if(pending && Vector3.Distance(Feet,pendingFeet)<.15f)
             {
                 transform.position=pendingChair;
-                heading=(pendingChair-pendingFeet).normalized;transform.rotation=Quaternion.LookRotation(heading);
+                heading=pendingHeading;transform.rotation=Quaternion.LookRotation(heading);
                 pending=false;
 
             }
@@ -118,10 +123,20 @@ namespace CampusEmergency.Player.XR
         }
         private bool TryEscortPair(Vector3 destination, Vector3 direction, out Vector3 chair)
         {
-            chair = destination + direction * Separation; chair.y = 3.65f;
-            return Supported(destination) && Supported(chair) && ClearEscortPath(Feet, destination, .23f, 1.7f)
-                && ClearEscortPath(transform.position, chair, .43f, 1.65f) && Clear(destination, chair, .2f, 1.65f);
+            direction=Vector3.ProjectOnPlane(direction,Vector3.up).normalized;
+            var left=Vector3.Cross(direction,Vector3.up);
+            // Prefer a clear view over the right shoulder; narrow passages reduce only the offset.
+            foreach(float distance in new[]{followDistance,1.3f})
+                foreach(float offset in new[]{leftOffset,leftOffset*.5f,0f})
+                {
+                    chair=destination+direction*distance+left*offset;chair.y=3.65f;
+                    if(Supported(destination) && Supported(chair) && ClearEscortPath(Feet,destination,.23f,1.7f)
+                        && ClearEscortPath(transform.position,chair,.43f,1.65f) && Clear(destination,chair,.2f,1.65f))
+                    { plannedHeading=direction;Blocker=null;return true; }
+                }
+            chair=transform.position;return false;
         }
+
         private bool ClearEscortPath(Vector3 from, Vector3 to, float radius, float height)
         {
             if (Clear(from, to, radius, height)) return true;
@@ -143,7 +158,7 @@ namespace CampusEmergency.Player.XR
         public void QueueEscortTeleport(Vector3 destination)
         {
             if(!CanTeleport(destination,out var chair))return;
-            pendingFeet=destination;pendingChair=chair;pending=true;
+            pendingFeet=destination;pendingChair=chair;pendingHeading=plannedHeading;pending=true;
         }
         private bool Ignore(Collider c)=>c.transform.IsChildOf(transform)||c.transform.IsChildOf(player);
         private bool Supported(Vector3 p)

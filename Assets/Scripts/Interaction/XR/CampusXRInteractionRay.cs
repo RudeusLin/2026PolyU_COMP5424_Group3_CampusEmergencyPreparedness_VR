@@ -50,7 +50,7 @@ namespace CampusEmergency.Interaction
                 foreach (var hit in hits)
                 {
                     if (CampusWheelchairRescue.IsPushing && hit.collider.transform.IsChildOf(CampusWheelchairRescue.Active.transform)) continue;
-                    var checkpoint = hit.collider.GetComponent<CampusRefugeCheckpoint>();
+                    var checkpoint = hit.collider.GetComponentInParent<CampusRefugeCheckpoint>();
                     if (hit.collider.isTrigger && checkpoint == null
                         && hit.collider.GetComponent<CampusEmergency.Interaction.FireSafety.CampusFireTarget>() == null) continue;
                     if (checkpoint != null && !CampusEmergency.Interaction.FireSafety.CampusFireBarrier.TryIntersect(rayOrigin.position, hit.point, out _)) next = checkpoint;
@@ -80,7 +80,7 @@ namespace CampusEmergency.Interaction
             foreach (var hit in hits)
             {
                 if(CampusWheelchairRescue.IsPushing && hit.collider.transform.IsChildOf(CampusWheelchairRescue.Active.transform))continue;
-                if (hit.collider.isTrigger && hit.collider.GetComponent<CampusEmergency.Interaction.FireSafety.CampusFireTarget>() == null && hit.collider.GetComponent<CampusRefugeCheckpoint>()==null) continue;
+                if (hit.collider.isTrigger && hit.collider.GetComponent<CampusEmergency.Interaction.FireSafety.CampusFireTarget>() == null && hit.collider.GetComponentInParent<CampusRefugeCheckpoint>()==null) continue;
                 end = hit.point;
                 foreach (var component in hit.collider.GetComponentsInParent<MonoBehaviour>())
                     if (component is IPrototypeInteractable found) { target = found; break; }

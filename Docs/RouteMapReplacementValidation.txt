@@ -1,0 +1,12 @@
+PASS Correct image in briefing EN
+PASS 401 board follows language selection EN
+PASS No old text overlays EN
+PASS Original image dimensions preserved EN
+PASS Correct image in briefing SC
+PASS 401 board follows language selection SC
+PASS No old text overlays SC
+PASS Original image dimensions preserved SC
+PASS Correct image in briefing TC
+PASS 401 board follows language selection TC
+PASS No old text overlays TC
+PASS Original image dimensions preserved TC

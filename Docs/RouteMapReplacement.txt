@@ -1,0 +1,13 @@
+Route map replacement (2026-11-22)
+
+User-supplied images copied byte-for-byte:
+English: Assets/Resources/CampusRouteMap/RouteA_Base.png (existing asset GUID retained).
+Simplified Chinese: Assets/Resources/CampusRouteMap/RouteA_SC.png.
+Traditional Chinese: Assets/Resources/CampusRouteMap/RouteA_TC.png.
+
+CampusRouteMapUI selects the matching image when the language changes. The old dynamic label overlay is removed because each supplied image already includes its labels. The initial briefing, expanded map and classroom board all use this shared component.
+Original 1199x1312 pixels and aspect ratio are preserved. Texture import uses no NPOT resizing and no texture compression, with clamp sampling and a 2048 size limit.
+
+12 image-selection/dimension/overlay checks passed; full route regression passed. The supplied artwork remains a schematic of the default main-entrance Route A; gameplay also permits the existing optional side-exit branch.
+Reports: RouteMapReplacementValidation.txt and RouteMapReplacementRouteRegression.txt in Docs.
+Backup: E:/0_PolyU/COMP5424_XR/Project/5_Phase3/RouteMapReplacement/BeforeRouteMapReplacement.zip.

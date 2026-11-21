@@ -1,0 +1,44 @@
+PASS A starts escort
+PASS Initial wheelchair 1.4m ahead and .25m to left
+PASS All escorted NPC/chair colliders are ray transparent
+PASS Pause/resume does not accumulate left-offset heading drift
+PASS Actual teleport ray passes through escorted model: 
+PASS Head gaze alone does not move chair
+PASS Safe paired room-entry teleport (3.05, 3.64, 0.00) blocker=
+PASS Distance remains >=1.3m after move
+PASS Chair offset is left or centered
+PASS Safe paired room-entry teleport (4.10, 3.64, 0.90) blocker=
+PASS Distance remains >=1.3m after move
+PASS Chair offset is left or centered
+PASS Closed refuge doors reject escort teleport
+PASS Safe paired room-entry teleport (4.10, 3.64, -1.85) blocker=
+PASS Distance remains >=1.3m after move
+PASS Chair offset is left or centered
+PASS Safe paired room-entry teleport (3.70, 3.64, -3.30) blocker=
+PASS Distance remains >=1.3m after move
+PASS Chair offset is left or centered
+PASS Safe paired room-entry teleport (4.80, 3.64, -4.80) blocker=
+PASS Distance remains >=1.3m after move
+PASS Chair offset is left or centered
+PASS Safe paired room-entry teleport (5.50, 3.64, -5.90) blocker=
+PASS Distance remains >=1.3m after move
+PASS Chair offset is left or centered
+PASS Another floor rejected
+PASS Floor checkpoint is a flat trigger
+PASS Floor marker follows corner parking pose
+PASS Downward arrow exists over floor marker
+PASS Deep room position counts as inside refuge
+PASS Corner parking has supported unobstructed approach:  blocker=
+PASS Cabinet, bench and two wall signs persisted
+PASS Central room route remains open after furnishing
+PASS Actual ray hover on flat floor target turns gold
+PASS Arrow child trigger also resolves checkpoint hover
+PASS Actual A action on arrow confirms rescue
+PASS NPC parks at left rear corner viewed from doorway
+PASS Parked NPC faces doorway
+PASS Actual corner wall found (1.00, 0.00, 0.00)
+PASS Parked model wall gap=0.65m toward (1.00, 0.00, 0.00)
+PASS Actual corner wall found (0.00, 0.00, -1.00)
+PASS Parked model wall gap=0.77m toward (0.00, 0.00, -1.00)
+PASS Confirmed marker stops intercepting rays
+PASS Rescue completion still unlocks evacuation

@@ -1,0 +1,181 @@
+PASS 00_Language frame present
+PASS 01_Briefing frame present
+PASS 02_ExpandedMap frame present
+PASS F2_01_Rescue frame
+PASS F2_01_Rescue upright
+PASS F2_01_Rescue fixed orientation
+POSE F2_01_Rescue (1.80, 5.20, -1.38)
+PASS F2_02_Escort frame
+PASS F2_02_Escort upright
+PASS F2_02_Escort fixed orientation
+POSE F2_02_Escort (7.36, 5.20, -5.80)
+PASS Refuge confirmation label frame
+PASS Confirmation label fixed to side wall
+PASS Floor target position unchanged
+PASS Corner parking still available 
+PASS Hover color feedback retained
+PASS A confirmation logic retained
+PASS Completed arrow hides
+PASS F2_Route_0 frame
+PASS F2_Route_0 upright
+PASS F2_Route_0 fixed orientation
+PASS F2_Route_0 information badge stays outside text card
+POSE F2_Route_0 (0.00, 5.20, -1.38)
+PASS F2_Route_1 frame
+PASS F2_Route_1 upright
+PASS F2_Route_1 fixed orientation
+POSE F2_Route_1 (-10.50, 5.20, -1.38)
+PASS F2_Route_2 frame
+PASS F2_Route_2 upright
+PASS F2_Route_2 fixed orientation
+POSE F2_Route_2 (-10.40, 5.20, 1.63)
+PASS F2_Route_3 frame
+PASS F2_Route_3 upright
+PASS F2_Route_3 fixed orientation
+PASS F2_Route_3 information badge stays outside text card
+POSE F2_Route_3 (-11.43, 5.20, 2.20)
+PASS F2_Route_4 frame
+PASS F2_Route_4 upright
+PASS F2_Route_4 fixed orientation
+POSE F2_Route_4 (-13.13, 3.40, -3.00)
+PASS F2_Route_5 frame
+PASS F2_Route_5 upright
+PASS F2_Route_5 fixed orientation
+POSE F2_Route_5 (-17.77, 3.40, -2.45)
+PASS F1_Route_6 frame
+PASS F1_Route_6 upright
+PASS F1_Route_6 fixed orientation
+POSE F1_Route_6 (-17.77, 1.60, 4.20)
+PASS F1_Route_7 frame
+PASS F1_Route_7 upright
+PASS F1_Route_7 fixed orientation
+POSE F1_Route_7 (-11.43, 1.60, 3.00)
+PASS F1_Route_8 frame
+PASS F1_Route_8 upright
+PASS F1_Route_8 fixed orientation
+POSE F1_Route_8 (-10.50, 1.60, -1.38)
+PASS F1_Route_9 frame
+PASS F1_Route_9 upright
+PASS F1_Route_9 fixed orientation
+PASS F1_Route_9 information badge stays outside text card
+POSE F1_Route_9 (2.80, 1.60, 1.38)
+PASS F1_Route_10 frame
+PASS F1_Route_10 upright
+PASS F1_Route_10 fixed orientation
+POSE F1_Route_10 (1.60, 1.60, -8.88)
+PASS F1_Route_11 frame
+PASS F1_Route_11 upright
+PASS F1_Route_11 fixed orientation
+POSE F1_Route_11 (2.80, 1.60, -11.00)
+PASS F1_Exit_-1_0 frame
+PASS F1_Exit_-1_0 upright
+PASS F1_Exit_-1_0 fixed orientation
+PASS F1_Exit_-1_0 information badge stays outside text card
+POSE F1_Exit_-1_0 (-17.77, 1.60, 4.20)
+PASS F1_Exit_-1_1 frame
+PASS F1_Exit_-1_1 upright
+PASS F1_Exit_-1_1 fixed orientation
+PASS F1_Exit_-1_1 information badge stays outside text card
+POSE F1_Exit_-1_1 (-17.77, 1.60, 4.20)
+PASS F1_Exit_-1_2 frame
+PASS F1_Exit_-1_2 upright
+PASS F1_Exit_-1_2 fixed orientation
+PASS F1_Exit_-1_2 information badge stays outside text card
+POSE F1_Exit_-1_2 (-17.77, 1.60, 4.20)
+PASS F1_Exit_1_0 frame
+PASS F1_Exit_1_0 upright
+PASS F1_Exit_1_0 fixed orientation
+PASS F1_Exit_1_0 information badge stays outside text card
+POSE F1_Exit_1_0 (17.77, 1.60, 4.20)
+PASS F1_Exit_1_1 frame
+PASS F1_Exit_1_1 upright
+PASS F1_Exit_1_1 fixed orientation
+PASS F1_Exit_1_1 information badge stays outside text card
+POSE F1_Exit_1_1 (17.77, 1.60, 4.20)
+PASS F1_Exit_1_2 frame
+PASS F1_Exit_1_2 upright
+PASS F1_Exit_1_2 fixed orientation
+PASS F1_Exit_1_2 information badge stays outside text card
+POSE F1_Exit_1_2 (17.77, 1.60, 4.20)
+PASS F1_Exit_0_0 frame
+PASS F1_Exit_0_0 upright
+PASS F1_Exit_0_0 fixed orientation
+POSE F1_Exit_0_0 (1.60, 1.60, -8.88)
+PASS F1_Exit_0_1 frame
+PASS F1_Exit_0_1 upright
+PASS F1_Exit_0_1 fixed orientation
+POSE F1_Exit_0_1 (1.60, 1.60, -8.88)
+PASS F1_Exit_0_2 frame
+PASS F1_Exit_0_2 upright
+PASS F1_Exit_0_2 fixed orientation
+POSE F1_Exit_0_2 (1.60, 1.60, -8.88)
+PASS Outside_-1_3 frame
+PASS Outside_-1_3 upright
+PASS Outside_-1_3 fixed orientation
+POSE Outside_-1_3 (-22.40, 1.60, 3.00)
+PASS Outdoor board has backing and two supports
+PASS Outdoor support cannot block movement ray
+PASS Outside_-1_-10 frame
+PASS Outside_-1_-10 upright
+PASS Outside_-1_-10 fixed orientation
+POSE Outside_-1_-10 (-22.40, 1.60, -10.00)
+PASS Outdoor board has backing and two supports
+PASS Outdoor support cannot block movement ray
+PASS Outside_1_3 frame
+PASS Outside_1_3 upright
+PASS Outside_1_3 fixed orientation
+POSE Outside_1_3 (22.40, 1.60, 3.00)
+PASS Outdoor board has backing and two supports
+PASS Outdoor support cannot block movement ray
+PASS Outside_1_-10 frame
+PASS Outside_1_-10 upright
+PASS Outside_1_-10 fixed orientation
+POSE Outside_1_-10 (22.40, 1.60, -10.00)
+PASS Outdoor board has backing and two supports
+PASS Outdoor support cannot block movement ray
+PASS Outside_Assembly frame
+PASS Outside_Assembly upright
+PASS Outside_Assembly fixed orientation
+PASS Outside_Assembly information badge stays outside text card
+POSE Outside_Assembly (3.40, 1.60, -25.08)
+PASS Door floor=3.6 StairEntrance_A side=-1
+PASS Door floor=3.6 StairEntrance_A side=1
+PASS Door floor=0 Floor_01 side=-1
+PASS Door floor=0 Floor_01 side=1
+PASS Door floor=0 Floor_01 side=-1
+PASS Door floor=0 Floor_01 side=1
+PASS Door floor=3.6 StairEntrance_B side=-1
+PASS Door floor=3.6 StairEntrance_B side=1
+PASS Door floor=3.6 Restrooms side=-1
+PASS Door floor=3.6 Restrooms side=1
+PASS Door floor=0 Restrooms side=-1
+PASS Door floor=0 Restrooms side=1
+PASS Door floor=0 Floor_01 side=-1
+PASS Door floor=0 Floor_01 side=1
+PASS Door floor=0 StairExit_A side=-1
+PASS Door floor=0 StairExit_A side=1
+PASS Door floor=0 StairExit_B side=-1
+PASS Door floor=0 StairExit_B side=1
+PASS Door floor=3.6 Floor_02 side=-1
+PASS Door floor=3.6 Floor_02 side=1
+PASS Door floor=3.6 Floor_02 side=-1
+PASS Door floor=3.6 Floor_02 side=1
+PASS Door floor=0 MainEntrance side=-1
+PASS Door floor=0 MainEntrance side=1
+PASS Door floor=0 StairEntrance_A side=-1
+PASS Door floor=0 StairEntrance_A side=1
+PASS Door floor=0 Floor_01 side=-1
+PASS Door floor=0 Floor_01 side=1
+PASS Door floor=0 StairEntrance_B side=-1
+PASS Door floor=0 StairEntrance_B side=1
+PASS Door floor=3.6 Floor_02 side=-1
+PASS Door floor=3.6 Floor_02 side=1
+PASS Door floor=3.6 Floor_02 side=-1
+PASS Door floor=3.6 Floor_02 side=1
+PASS Door floor=3.6 Floor_02 side=-1
+PASS Door floor=3.6 Floor_02 side=1
+PASS Status HUD frame
+PASS Y/H visibility toggle retained
+PASS Phone frame present
+PASS Debrief frame present
+PASS Debrief retains two action buttons
