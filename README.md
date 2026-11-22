@@ -17,13 +17,15 @@ Current evidence includes [72 stair checks](Docs/StairTeleportRulesValidation.tx
 
 **The downloadable Phase 2 ZIP below has not been rebuilt for this source baseline.** Use the current Unity project to access these changes; the updated packaged headset workflow and PQ604A/B/C performance still need verification.
 
+### Current route map (English)
+
+![Current six-step evacuation route with wheelchair assistance and exit firefighting](Assets/Resources/CampusRouteMap/RouteA_Base.png)
+
 ## Major update and integration — 20 November 2026
 
 The current source integrates the full six-node XR journey, virtual hands and simplified left-hand equipment controls, ray-teleport wheelchair escort, a cleared refuge with a wider linked double door and explicit parking confirmation, ceiling-bounded smoke and wet-towel passage checks, and three extinguishable fires at the main exit. Re-equipping the extinguisher restores its safety pin. The final debrief now offers **Restart** (reset to 401 and language selection) and **Exit practice**.
 
 All three languages use structured step headings and highlighted button labels, including exit firefighting. Alarm, fire and tap audio are integrated from Effects. Read the **[detailed update record](Docs/Updates/MajorIntegration_2026-11-20.md)** for each change, implementation files, validation evidence, screenshots and rollback guidance.
-
-![Updated six-step route overview](Docs/Previews/MajorIntegration20261120/RouteOverview.png)
 
 **Historical integration:** this section records the 20 November source update. Its earlier checks included 192 full-route assertions, 20 exit-fire checks, 16 smoke-passage checks, restart/exit checks and 39 exit-UI checks. See the Phase 3 section above for the current baseline and newer regression results.
 
