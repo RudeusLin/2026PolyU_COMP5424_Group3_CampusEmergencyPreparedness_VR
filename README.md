@@ -4,15 +4,16 @@ A VR fire evacuation preparedness practice prototype for international students 
 
 ## Final source version — 26 November 2026
 
-**Version: [FINAL-20261126](https://github.com/RudeusLin/2026PolyU_COMP5424_Group3_CampusEmergencyPreparedness_VR/tree/FINAL-20261126)**. Open the XR scene in **Unity 2022.3.62f3** for Windows PC VR with Quest 3 through Link/Air Link and OpenXR.
+**Final approved version: [FINAL-20261126-R2](https://github.com/RudeusLin/2026PolyU_COMP5424_Group3_CampusEmergencyPreparedness_VR/tree/FINAL-20261126-R2)**. This is the final source version accepted by the project owner after testing; it supersedes `FINAL-20261126`, which remains a historical snapshot. Open the XR scene in **Unity 2022.3.62f3** for Windows PC VR with Quest 3 through Link/Air Link and OpenXR.
 
-- **Startup guidance:** language → route overview → localized controller guide → begin practice, with movement locked until confirmation.
+- **Startup guidance:** language → route overview → localized controller guide → begin practice, with movement locked until confirmation. All three guide images now label the right-hand **B** button and its **Continue / Restart / Exit** pause menu.
 - **Educational review:** six selectable steps with localized illustrations, explanations and cautions; restart or exit after review.
 - **Right B menu:** pause, continue, restart or exit during practice; restart/exit require confirmation. Player position is fixed while modal panels are open.
 - **Elevator warnings:** all four call panels explain why lifts must not be used during a fire; acknowledge to continue.
 - **Smoke guidance:** localized grey haze near 401 and a framed, three-language warning facing Block B: wet the towel, then raise it with the left trigger before entering.
+- **Project cleanup:** removed approximately **6.1 MiB** of unreferenced legacy Refined lighting data. Recursive dependencies stayed unchanged and **2,354** protected asset/metadata files remained byte-identical. Local caches and temporary files were also cleared; these were already excluded from Git. See the [cleanup record](Docs/FinalProjectCleanup.md).
 
-See the [final integration record and rollback instructions](Docs/Updates/Final_2026-11-26.md) and [current controls](Docs/XRControls.md). Editor and simulated-input checks passed; final headset comfort/readability and target-PC verification remain outstanding. The historical ZIP below has **not** been rebuilt for this source version.
+See the [final integration record and rollback instructions](Docs/Updates/Final_2026-11-26.md) and [current controls](Docs/XRControls.md). Editor and simulated-input checks passed, including the updated three-language startup guides. The project owner confirmed that final testing met expectations. This acceptance does not establish formal participant retest results or PQ604A/B/C compatibility. The historical ZIP below has **not** been rebuilt for this source version.
 
 ## Phase 3 evaluation improvements — 22 November 2026
 
