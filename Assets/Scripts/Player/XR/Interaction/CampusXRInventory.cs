@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.XR.CoreUtils;
 using CampusEmergency.Prototype;
@@ -67,6 +67,8 @@ namespace CampusEmergency.Player.XR
         private void Update() => ProcessInput(input != null && input.HasInteractionFocus);
         private void ProcessInput(bool focus)
         {
+            // Hide the towel during the menu without losing its raised/lowered state.
+            if (LanguageSelectionUI.IsPauseMenuOpen) { visible = false; SetVisible(false); return; }
             if(focus && input.LeftTracked && switchItem.WasPressedThisFrame())CycleEquipment();
             if (HeldTowel == null) return;
             visible = input != null && input.LeftTracked && focus && TowelEquipped;

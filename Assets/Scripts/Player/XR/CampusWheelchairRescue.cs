@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using CampusEmergency.Prototype;
 
 namespace CampusEmergency.Player.XR
@@ -98,6 +98,7 @@ namespace CampusEmergency.Player.XR
         }
         private void LateUpdate()
         {
+            if (LanguageSelectionUI.IsPauseMenuOpen) return;
             if(!Escorting || player==null)return;
             if(flow.Node!=5 || Rescued){StopEscort();return;}
             if(pending && Vector3.Distance(Feet,pendingFeet)<.15f)

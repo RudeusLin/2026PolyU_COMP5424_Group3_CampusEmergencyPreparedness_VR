@@ -1,0 +1,5 @@
+PASS: one XR doorway haze emitter.
+PASS: local clipping stays on 4F and inside protected passage.
+PASS: stair profiles unchanged.
+Captures: same seeded particles; ceiling-only versus added local veil.
+RESULT: PASS. Headset comfort remains to be checked on device.

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using CampusEmergency.Interaction.FireSafety;
@@ -67,6 +67,7 @@ namespace CampusEmergency.Player.XR
             triggerReleased=sprayTrigger!=null && !sprayTrigger.IsPressed();
             return LanguageSelectionUI.T("PIN REMOVED. Hold LEFT TRIGGER to spray.","保险销已拔出，按住左扳机喷射。","保險銷已拔出，按住左扳機噴射。");
         }
+        public void SuspendForMenu() { triggerReleased = false; StopSpray(); }
         private void Update() => ProcessInput(input != null && input.HasInteractionFocus);
         private void ProcessInput(bool focus)
         {

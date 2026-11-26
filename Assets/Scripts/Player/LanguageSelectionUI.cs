@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,11 +13,11 @@ namespace CampusEmergency.Player
 
     /// <summary>First-run language gate shared by desktop and XR scenes.</summary>
     [DefaultExecutionOrder(-200)]
-    public sealed class LanguageSelectionUI : MonoBehaviour
+    public sealed partial class LanguageSelectionUI : MonoBehaviour
     {
         private static LanguageSelectionUI instance;
         public static bool IsBlocking => instance != null &&
-            (!instance.selectionComplete || instance.emergencyCallVisible || instance.completionVisible);
+            (!instance.selectionComplete || instance.emergencyCallVisible || instance.completionVisible || instance.pauseMenuVisible);
         public static CampusLanguage Current { get; private set; } = CampusLanguage.English;
         public static int SelectedRoute => 0;
         public static string SelectedRouteName => T("ROUTE A · WEST STAIR", "路线 A · 西侧楼梯", "路線 A · 西側樓梯");
@@ -50,9 +50,19 @@ namespace CampusEmergency.Player
         private readonly System.Collections.Generic.Dictionary<Image,Color> buttonColors=new System.Collections.Generic.Dictionary<Image,Color>();
         public static bool IsStartupBlocking => instance!=null && !instance.selectionComplete;
         public void CaptureStartupPose(){startupPosition=transform.position;startupRotation=transform.rotation;}
-        private void LateUpdate(){if(xrMode && !selectionComplete){transform.SetPositionAndRotation(startupPosition,startupRotation);if(canvas!=null)canvas.transform.SetPositionAndRotation(startupCanvasPosition,startupCanvasRotation);}}
+        private void LateUpdate()
+        {
+            if (!xrMode) return;
+            if (!selectionComplete)
+            {
+                transform.SetPositionAndRotation(startupPosition, startupRotation);
+                if (canvas != null) canvas.transform.SetPositionAndRotation(startupCanvasPosition, startupCanvasRotation);
+            }
+            else if (completionVisible || pauseMenuVisible) LockFixedPanelPose();
+        }
 
         private bool briefingVisible;
+        private bool controlsGuideVisible;
         private bool mapExpanded;
         private bool emergencyCallVisible;
         private bool completionVisible;
@@ -159,8 +169,9 @@ namespace CampusEmergency.Player
 
         private void Update()
         {
-            if ((selectionComplete && !emergencyCallVisible && !completionVisible) || leavingDebrief || !xrMode) return;
             var controls = GetComponent<CampusXRInput>();
+            ProcessPauseInput(controls != null && controls.RightTracked && controls.HasSessionFocus);
+            if ((selectionComplete && !emergencyCallVisible && !completionVisible && !pauseMenuVisible) || leavingDebrief || !xrMode) return;
             if (controls == null || !controls.RightTracked || !controls.HasSessionFocus)
             {
                 hover = -1; clickArmed = false;
@@ -215,10 +226,20 @@ namespace CampusEmergency.Player
         }
         private void Select(int index)
         {
+            if (pauseMenuVisible)
+            {
+                SelectPauseChoice(index);
+                return;
+            }
             if (completionVisible)
             {
                 if (leavingDebrief) return;
-                if (index == 0) RestartPractice();
+                if (debriefDetail >= 0)
+                {
+                    if (index == DebriefBack) BuildCompletionDebrief();
+                }
+                else if (index >= 2 && index < 2 + CampusDebriefContent.Count) BuildDebriefDetail(index - 2);
+                else if (index == 0) RestartPractice();
                 else if (index == 1) ExitPractice();
                 return;
             }
@@ -227,10 +248,27 @@ namespace CampusEmergency.Player
                 HandlePhoneKey(index);
                 return;
             }
+            if (controlsGuideVisible)
+            {
+                if (index == 1)
+                {
+                    controlsGuideVisible = false;
+                    briefingVisible = true;
+                    mapExpanded = false;
+                    BuildBriefing();
+                }
+                else if (index == 0) BeginExperience();
+                return;
+            }
             if (briefingVisible)
             {
-                if (index==1) { mapExpanded=!mapExpanded; BuildBriefing(); }
-                else BeginExperience();
+                if (index == 1) { mapExpanded = !mapExpanded; BuildBriefing(); }
+                else if (index == 0)
+                {
+                    briefingVisible = false;
+                    controlsGuideVisible = true;
+                    BuildControlsGuide();
+                }
                 return;
             }
             Current = (CampusLanguage)Mathf.Clamp(index, 0, 2);
@@ -273,6 +311,7 @@ namespace CampusEmergency.Player
             if (xrMode && canvas != null) { ((RectTransform)canvas.transform).sizeDelta = new Vector2(920, 600); canvas.transform.localScale = Vector3.one * .00125f; }
             selectionComplete = true;
             briefingVisible = false;
+            controlsGuideVisible = false;
             if(pointer!=null){pointer.enabled=false;Destroy(pointer.gameObject);pointer=null;}
             if(canvas!=null){foreach(Transform child in canvas.transform){child.gameObject.SetActive(false);Destroy(child.gameObject);}canvas.gameObject.SetActive(false);}
             for(int i=0;i<choices.Length;i++){choices[i]=null;choiceImages[i]=null;}
@@ -294,7 +333,7 @@ namespace CampusEmergency.Player
             if (instance.pointer != null) instance.pointer.enabled = false;
             if (instance.canvas != null)
             {
-                instance.PrepareLaterCanvas();
+                instance.CaptureFixedPanelPose();
                 instance.canvas.gameObject.SetActive(true);
                 instance.BuildCompletionDebrief();
             }
@@ -416,62 +455,7 @@ namespace CampusEmergency.Player
             ShowCompletionDebrief();
         }
 
-        private void BuildCompletionDebrief()
-        {
-            for (int i = 0; i < choices.Length; i++) { choices[i] = null; choiceImages[i] = null; }
-            buttonColors.Clear(); hover = -1; clickArmed = false;
-            Transform root = canvas.transform;
-            if(xrMode && pointer==null)BuildPointer();
-            foreach (Transform child in root){child.gameObject.SetActive(false);Destroy(child.gameObject);}
-
-            Image veil = Image(root, "Completion Background", new Color(.01f, .03f, .05f, xrMode ? .88f : .74f));
-            Stretch(veil.rectTransform);
-            Image card = Image(root, "Completion Debrief Card", new Color(.025f, .10f, .125f, .96f));
-            SetRect(card.rectTransform, 850, 570, 0, 0);
-            Outline outline = card.gameObject.AddComponent<Outline>();
-            outline.effectColor = new Color(.28f, .95f, .70f, .65f);
-            outline.effectDistance = new Vector2(2, -2);
-
-            Text(root, "Completion Eyebrow", T("PRACTICE COMPLETE", "演练完成", "演練完成"),
-                17, new Color(.40f, .95f, .76f), new Vector2(0, 247), new Vector2(740, 28), FontStyle.Bold);
-            Text(root, "Completion Title", T("Congratulations! You have completed the practice",
-                    "恭喜你已完成练习", "恭喜你已完成練習"),
-                31, Color.white, new Vector2(0, 204), new Vector2(760, 50), FontStyle.Bold);
-
-            Image reviewPanel = Image(root, "Debrief Panel", new Color(.045f, .15f, .17f, .92f));
-            SetRect(reviewPanel.rectTransform, 760, 365, 0, -18);
-            Text heading = Text(reviewPanel.transform, "Debrief Heading", T("REVIEW: REASON & RISK", "复盘：原因与风险", "復盤：原因與風險"),
-                19, new Color(.48f, .96f, .78f), new Vector2(0, 157), new Vector2(690, 30), FontStyle.Bold);
-            heading.alignment = TextAnchor.MiddleLeft;
-            var flow = FindObjectOfType<CampusRouteAFlow>();
-            Text review = Text(reviewPanel.transform, "Debrief Content", flow != null ? flow.Debrief() : T(
-                "Route A walkthrough ended. Individual actions were not recorded in this mode.",
-                "路线A漫游结束，本模式未记录逐项操作。", "路線A漫遊結束，本模式未記錄逐項操作。"),
-                16, new Color(.90f, .96f, .96f), new Vector2(0, -18), new Vector2(690, 300), FontStyle.Normal);
-            review.alignment = TextAnchor.UpperLeft;
-            review.lineSpacing = 1.15f;
-            review.resizeTextForBestFit = true;
-            review.resizeTextMinSize = 11;
-            review.resizeTextMaxSize = 14;
-
-            Text(root, "Debrief Reminder", T(
-                    "In a real emergency: raise the alarm, follow staff instructions, use stairs, and never re-enter the building.",
-                    "真实火灾中：立即报警、服从现场指引、使用楼梯疏散，切勿重新进入建筑。",
-                    "真實火災中：立即報警、服從現場指引、使用樓梯疏散，切勿重新進入建築。"),
-                13, new Color(.70f, .82f, .84f), new Vector2(0, -250), new Vector2(740, 40), FontStyle.Normal);
-
-            StyleSecondaryScreen(root,true);
-            float buttonY = xrMode ? -395f : -218f;
-            if (!xrMode)
-            {
-                SetRect(reviewPanel.rectTransform, 760, 315, 0, 7);
-                SetRect(heading.rectTransform, 690, 30, 0, 130);
-                SetRect(review.rectTransform, 690, 250, 0, -15);
-            }
-            CreateBriefingButton(root, 0, T("RESTART", "重新开始", "重新開始"), -200, buttonY, new Color(.05f,.52f,.43f,.98f), 320);
-            CreateBriefingButton(root, 1, T("EXIT PRACTICE", "退出演习", "退出演習"), 200, buttonY, new Color(.45f,.16f,.18f,.98f), 320);
-            ApplyCurrentFontToAllUI();
-        }
+        private void BuildCompletionDebrief() => BuildDebriefOverview();
 
         private void StyleSecondaryScreen(Transform root,bool debrief=false)
         {
@@ -560,7 +544,7 @@ namespace CampusEmergency.Player
                     var divider=Image(root,"Step "+(i+1)+" Divider",new Color(.4f,.61f,.64f,.4f));SetRect(divider.rectTransform,680,1,430,top-heights[i]+8);
                     top-=heights[i];
                 }
-                CreateBriefingButton(root,0,T("Begin practice","开始演练","開始演練"),430,Current==CampusLanguage.English?-645:-585,new Color(.05f,.52f,.43f,.98f),320);
+                CreateBriefingButton(root,0,T("Next: controls","下一步：操作指南","下一步：操作指南"),430,Current==CampusLanguage.English?-645:-585,new Color(.05f,.52f,.43f,.98f),320);
                 CreateBriefingButton(root,1,T("Enlarge map","放大地图","放大地圖"),-350,Current==CampusLanguage.English?-645:-585,new Color(.07f,.34f,.48f,.98f),320);
                 ApplyCurrentFontToAllUI();return;
             }
@@ -577,11 +561,55 @@ namespace CampusEmergency.Player
             body.resizeTextForBestFit = true;
             body.resizeTextMinSize = 19;
             body.resizeTextMaxSize = 24;
-            CreateBriefingButton(root, 0, T("BEGIN PRACTICE", "开始演练", "開始演練"), 355, -415,
+            CreateBriefingButton(root, 0, T("NEXT: CONTROLS", "下一步：操作指南", "下一步：操作指南"), 355, -415,
                 new Color(.05f, .52f, .43f, .98f), 280);
             CreateBriefingButton(root,1,T("ENLARGE MAP","放大地图","放大地圖"),-280,-415,new Color(.07f,.34f,.48f,.98f),280);
             ApplyCurrentFontToAllUI();
         }
+        /// <summary>Last startup gate; reuses the fixed canvas and right-ray A confirmation.</summary>
+        private void BuildControlsGuide()
+        {
+            Transform root = canvas.transform;
+            if (xrMode)
+            {
+                ((RectTransform)root).sizeDelta = new Vector2(1640, 1120);
+                root.localScale = Vector3.one * .001f;
+            }
+            foreach (Transform child in root) { child.gameObject.SetActive(false); Destroy(child.gameObject); }
+            Array.Clear(choices, 0, choices.Length);
+            Array.Clear(choiceImages, 0, choiceImages.Length);
+            buttonColors.Clear();
+            Stretch(Image(root, "Controls Guide Background", new Color(.015f, .035f, .055f, .94f)).rectTransform);
+
+            string resource = T("Controls_EN", "Controls_SC", "Controls_TC");
+            Texture2D texture = Resources.Load<Texture2D>("CampusControls/" + resource);
+            var panel = new GameObject("Localized Controls Guide", typeof(RectTransform), typeof(CanvasRenderer), typeof(RawImage));
+            panel.transform.SetParent(root, false);
+            var image = panel.GetComponent<RawImage>();
+            image.material = OverlayMaterial;
+            image.texture = texture;
+            image.raycastTarget = false;
+            // Preserve the supplied image aspect ratio, including its footer.
+            float height = texture != null ? 1560f * texture.height / texture.width : 878f;
+            SetRect(image.rectTransform, 1560, height, 0, 45);
+            if (texture == null) Debug.LogError("Missing localized controls image: " + resource);
+
+            CreateBriefingButton(root, 1, T("BACK TO ROUTE MAP", "返回流程图", "返回流程圖"), -350, -470,
+                new Color(.07f, .34f, .48f, .98f), 420);
+            CreateBriefingButton(root, 0, T("BEGIN PRACTICE", "开始演练", "開始演練"), 350, -470,
+                new Color(.05f, .52f, .43f, .98f), 420);
+            foreach (var choice in choiceImages)
+            {
+                if (choice == null) continue;
+                var label = choice.GetComponentInChildren<Text>();
+                if (label != null) label.fontSize = 24;
+            }
+            var menuHint = Text(root, "Controls Pause Menu Hint", T("During practice: B opens the menu", "演练中按 B 打开菜单", "演練中按 B 開啟選單"), 22,
+                new Color(.7f, .82f, .84f), new Vector2(0, -414), new Vector2(1300, 30), FontStyle.Normal);
+            CampusUIKeycaps.Apply(menuHint, menuHint.text, 22);
+            ApplyCurrentFontToAllUI();
+        }
+
         private void CreateBriefingButton(Transform root, int index, string label, float x, float y, Color color, float width = 175)
         {
             Image image = Image(root, "Briefing Choice " + index, color);
@@ -744,6 +772,6 @@ namespace CampusEmergency.Player
         private static void Stretch(RectTransform rect)
         { rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one; rect.offsetMin = rect.offsetMax = Vector2.zero; }
         private void OnDestroy()
-        { if (instance == this) instance = null; if (pointerMaterial != null) Destroy(pointerMaterial); }
+        { RestorePauseState(); pauseToggle?.Dispose(); if (instance == this) instance = null; if (pointerMaterial != null) Destroy(pointerMaterial); }
     }
 }

@@ -1,0 +1,1035 @@
+Educational debrief: Editor Play Mode checks without headset.
+PASS: Live XR scene and language gate loaded
+PASS: EN review is independent of headset transform
+PASS: EN centre matches startup 1.65m height
+PASS: EN panel is vertical without head pitch
+PASS: EN review locks player origin
+PASS: EN head movement leaves review anchored
+PASS: EN natural head rotation remains available
+PASS: EN overview has six detail rows plus restart and exit
+PASS: EN no completion record labels displayed
+PASS: EN every node has a detail arrow
+PASS: EN row hover feedback retained
+PASS: EN row confirmation feedback retained
+PASS: EN overview text fits: Completion Eyebrow
+PASS: EN overview text stays inside panel: Completion Eyebrow
+PASS: EN overview text stays inside panel: Completion Eyebrow
+PASS: EN overview text stays inside panel: Completion Eyebrow
+PASS: EN overview text stays inside panel: Completion Eyebrow
+PASS: EN overview text fits: Completion Title
+PASS: EN overview text stays inside panel: Completion Title
+PASS: EN overview text stays inside panel: Completion Title
+PASS: EN overview text stays inside panel: Completion Title
+PASS: EN overview text stays inside panel: Completion Title
+PASS: EN overview text fits: Debrief List Hint
+PASS: EN overview text stays inside panel: Debrief List Hint
+PASS: EN overview text stays inside panel: Debrief List Hint
+PASS: EN overview text stays inside panel: Debrief List Hint
+PASS: EN overview text stays inside panel: Debrief List Hint
+PASS: EN overview text fits: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text fits: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text fits: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text fits: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text fits: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text fits: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text fits: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text fits: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text fits: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text fits: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text fits: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text stays inside panel: Node Title
+PASS: EN overview text fits: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text stays inside panel: Open Detail Arrow
+PASS: EN overview text fits: Label
+PASS: EN overview text stays inside panel: Label
+PASS: EN overview text stays inside panel: Label
+PASS: EN overview text stays inside panel: Label
+PASS: EN overview text stays inside panel: Label
+PASS: EN overview text fits: Label
+PASS: EN overview text stays inside panel: Label
+PASS: EN overview text stays inside panel: Label
+PASS: EN overview text stays inside panel: Label
+PASS: EN overview text stays inside panel: Label
+PASS: EN overview text fits: Debrief Safety Reminder
+PASS: EN overview text stays inside panel: Debrief Safety Reminder
+PASS: EN overview text stays inside panel: Debrief Safety Reminder
+PASS: EN overview text stays inside panel: Debrief Safety Reminder
+PASS: EN overview text stays inside panel: Debrief Safety Reminder
+PASS: EN node 1 opens while gameplay blocked
+PASS: EN node 1 uses correct localized image
+PASS: EN illustration aspect preserved
+PASS: EN detail exposes one runtime back button
+PASS: EN node 1 text fits: Detail Title
+PASS: EN node 1 text stays inside panel: Detail Title
+PASS: EN node 1 text stays inside panel: Detail Title
+PASS: EN node 1 text stays inside panel: Detail Title
+PASS: EN node 1 text stays inside panel: Detail Title
+PASS: EN node 1 text fits: Detail Reason Heading
+PASS: EN node 1 text stays inside panel: Detail Reason Heading
+PASS: EN node 1 text stays inside panel: Detail Reason Heading
+PASS: EN node 1 text stays inside panel: Detail Reason Heading
+PASS: EN node 1 text stays inside panel: Detail Reason Heading
+PASS: EN node 1 text fits: Detail Reason
+PASS: EN node 1 text stays inside panel: Detail Reason
+PASS: EN node 1 text stays inside panel: Detail Reason
+PASS: EN node 1 text stays inside panel: Detail Reason
+PASS: EN node 1 text stays inside panel: Detail Reason
+PASS: EN node 1 text fits: Detail Caution Heading
+PASS: EN node 1 text stays inside panel: Detail Caution Heading
+PASS: EN node 1 text stays inside panel: Detail Caution Heading
+PASS: EN node 1 text stays inside panel: Detail Caution Heading
+PASS: EN node 1 text stays inside panel: Detail Caution Heading
+PASS: EN node 1 text fits: Detail Caution
+PASS: EN node 1 text stays inside panel: Detail Caution
+PASS: EN node 1 text stays inside panel: Detail Caution
+PASS: EN node 1 text stays inside panel: Detail Caution
+PASS: EN node 1 text stays inside panel: Detail Caution
+PASS: EN node 1 text fits: Label
+PASS: EN node 1 text stays inside panel: Label
+PASS: EN node 1 text stays inside panel: Label
+PASS: EN node 1 text stays inside panel: Label
+PASS: EN node 1 text stays inside panel: Label
+PASS: EN node 1 text fits: Detail Input Hint
+PASS: EN node 1 text stays inside panel: Detail Input Hint
+PASS: EN node 1 text stays inside panel: Detail Input Hint
+PASS: EN node 1 text stays inside panel: Detail Input Hint
+PASS: EN node 1 text stays inside panel: Detail Input Hint
+PASS: EN back returns to overview and clears stale detail target
+PASS: EN node 2 opens while gameplay blocked
+PASS: EN node 2 uses correct localized image
+PASS: EN illustration aspect preserved
+PASS: EN detail exposes one runtime back button
+PASS: EN node 2 text fits: Detail Title
+PASS: EN node 2 text stays inside panel: Detail Title
+PASS: EN node 2 text stays inside panel: Detail Title
+PASS: EN node 2 text stays inside panel: Detail Title
+PASS: EN node 2 text stays inside panel: Detail Title
+PASS: EN node 2 text fits: Detail Reason Heading
+PASS: EN node 2 text stays inside panel: Detail Reason Heading
+PASS: EN node 2 text stays inside panel: Detail Reason Heading
+PASS: EN node 2 text stays inside panel: Detail Reason Heading
+PASS: EN node 2 text stays inside panel: Detail Reason Heading
+PASS: EN node 2 text fits: Detail Reason
+PASS: EN node 2 text stays inside panel: Detail Reason
+PASS: EN node 2 text stays inside panel: Detail Reason
+PASS: EN node 2 text stays inside panel: Detail Reason
+PASS: EN node 2 text stays inside panel: Detail Reason
+PASS: EN node 2 text fits: Detail Caution Heading
+PASS: EN node 2 text stays inside panel: Detail Caution Heading
+PASS: EN node 2 text stays inside panel: Detail Caution Heading
+PASS: EN node 2 text stays inside panel: Detail Caution Heading
+PASS: EN node 2 text stays inside panel: Detail Caution Heading
+PASS: EN node 2 text fits: Detail Caution
+PASS: EN node 2 text stays inside panel: Detail Caution
+PASS: EN node 2 text stays inside panel: Detail Caution
+PASS: EN node 2 text stays inside panel: Detail Caution
+PASS: EN node 2 text stays inside panel: Detail Caution
+PASS: EN node 2 text fits: Label
+PASS: EN node 2 text stays inside panel: Label
+PASS: EN node 2 text stays inside panel: Label
+PASS: EN node 2 text stays inside panel: Label
+PASS: EN node 2 text stays inside panel: Label
+PASS: EN node 2 text fits: Detail Input Hint
+PASS: EN node 2 text stays inside panel: Detail Input Hint
+PASS: EN node 2 text stays inside panel: Detail Input Hint
+PASS: EN node 2 text stays inside panel: Detail Input Hint
+PASS: EN node 2 text stays inside panel: Detail Input Hint
+PASS: EN back returns to overview and clears stale detail target
+PASS: EN node 3 opens while gameplay blocked
+PASS: EN node 3 uses correct localized image
+PASS: EN illustration aspect preserved
+PASS: EN detail exposes one runtime back button
+PASS: EN node 3 text fits: Detail Title
+PASS: EN node 3 text stays inside panel: Detail Title
+PASS: EN node 3 text stays inside panel: Detail Title
+PASS: EN node 3 text stays inside panel: Detail Title
+PASS: EN node 3 text stays inside panel: Detail Title
+PASS: EN node 3 text fits: Detail Reason Heading
+PASS: EN node 3 text stays inside panel: Detail Reason Heading
+PASS: EN node 3 text stays inside panel: Detail Reason Heading
+PASS: EN node 3 text stays inside panel: Detail Reason Heading
+PASS: EN node 3 text stays inside panel: Detail Reason Heading
+PASS: EN node 3 text fits: Detail Reason
+PASS: EN node 3 text stays inside panel: Detail Reason
+PASS: EN node 3 text stays inside panel: Detail Reason
+PASS: EN node 3 text stays inside panel: Detail Reason
+PASS: EN node 3 text stays inside panel: Detail Reason
+PASS: EN node 3 text fits: Detail Caution Heading
+PASS: EN node 3 text stays inside panel: Detail Caution Heading
+PASS: EN node 3 text stays inside panel: Detail Caution Heading
+PASS: EN node 3 text stays inside panel: Detail Caution Heading
+PASS: EN node 3 text stays inside panel: Detail Caution Heading
+PASS: EN node 3 text fits: Detail Caution
+PASS: EN node 3 text stays inside panel: Detail Caution
+PASS: EN node 3 text stays inside panel: Detail Caution
+PASS: EN node 3 text stays inside panel: Detail Caution
+PASS: EN node 3 text stays inside panel: Detail Caution
+PASS: EN node 3 text fits: Label
+PASS: EN node 3 text stays inside panel: Label
+PASS: EN node 3 text stays inside panel: Label
+PASS: EN node 3 text stays inside panel: Label
+PASS: EN node 3 text stays inside panel: Label
+PASS: EN node 3 text fits: Detail Input Hint
+PASS: EN node 3 text stays inside panel: Detail Input Hint
+PASS: EN node 3 text stays inside panel: Detail Input Hint
+PASS: EN node 3 text stays inside panel: Detail Input Hint
+PASS: EN node 3 text stays inside panel: Detail Input Hint
+PASS: EN back returns to overview and clears stale detail target
+PASS: EN node 4 opens while gameplay blocked
+PASS: EN node 4 uses correct localized image
+PASS: EN illustration aspect preserved
+PASS: EN detail exposes one runtime back button
+PASS: EN node 4 text fits: Detail Title
+PASS: EN node 4 text stays inside panel: Detail Title
+PASS: EN node 4 text stays inside panel: Detail Title
+PASS: EN node 4 text stays inside panel: Detail Title
+PASS: EN node 4 text stays inside panel: Detail Title
+PASS: EN node 4 text fits: Detail Reason Heading
+PASS: EN node 4 text stays inside panel: Detail Reason Heading
+PASS: EN node 4 text stays inside panel: Detail Reason Heading
+PASS: EN node 4 text stays inside panel: Detail Reason Heading
+PASS: EN node 4 text stays inside panel: Detail Reason Heading
+PASS: EN node 4 text fits: Detail Reason
+PASS: EN node 4 text stays inside panel: Detail Reason
+PASS: EN node 4 text stays inside panel: Detail Reason
+PASS: EN node 4 text stays inside panel: Detail Reason
+PASS: EN node 4 text stays inside panel: Detail Reason
+PASS: EN node 4 text fits: Detail Caution Heading
+PASS: EN node 4 text stays inside panel: Detail Caution Heading
+PASS: EN node 4 text stays inside panel: Detail Caution Heading
+PASS: EN node 4 text stays inside panel: Detail Caution Heading
+PASS: EN node 4 text stays inside panel: Detail Caution Heading
+PASS: EN node 4 text fits: Detail Caution
+PASS: EN node 4 text stays inside panel: Detail Caution
+PASS: EN node 4 text stays inside panel: Detail Caution
+PASS: EN node 4 text stays inside panel: Detail Caution
+PASS: EN node 4 text stays inside panel: Detail Caution
+PASS: EN node 4 text fits: Label
+PASS: EN node 4 text stays inside panel: Label
+PASS: EN node 4 text stays inside panel: Label
+PASS: EN node 4 text stays inside panel: Label
+PASS: EN node 4 text stays inside panel: Label
+PASS: EN node 4 text fits: Detail Input Hint
+PASS: EN node 4 text stays inside panel: Detail Input Hint
+PASS: EN node 4 text stays inside panel: Detail Input Hint
+PASS: EN node 4 text stays inside panel: Detail Input Hint
+PASS: EN node 4 text stays inside panel: Detail Input Hint
+PASS: EN back returns to overview and clears stale detail target
+PASS: EN node 5 opens while gameplay blocked
+PASS: EN node 5 uses correct localized image
+PASS: EN illustration aspect preserved
+PASS: EN detail exposes one runtime back button
+PASS: EN node 5 text fits: Detail Title
+PASS: EN node 5 text stays inside panel: Detail Title
+PASS: EN node 5 text stays inside panel: Detail Title
+PASS: EN node 5 text stays inside panel: Detail Title
+PASS: EN node 5 text stays inside panel: Detail Title
+PASS: EN node 5 text fits: Detail Reason Heading
+PASS: EN node 5 text stays inside panel: Detail Reason Heading
+PASS: EN node 5 text stays inside panel: Detail Reason Heading
+PASS: EN node 5 text stays inside panel: Detail Reason Heading
+PASS: EN node 5 text stays inside panel: Detail Reason Heading
+PASS: EN node 5 text fits: Detail Reason
+PASS: EN node 5 text stays inside panel: Detail Reason
+PASS: EN node 5 text stays inside panel: Detail Reason
+PASS: EN node 5 text stays inside panel: Detail Reason
+PASS: EN node 5 text stays inside panel: Detail Reason
+PASS: EN node 5 text fits: Detail Caution Heading
+PASS: EN node 5 text stays inside panel: Detail Caution Heading
+PASS: EN node 5 text stays inside panel: Detail Caution Heading
+PASS: EN node 5 text stays inside panel: Detail Caution Heading
+PASS: EN node 5 text stays inside panel: Detail Caution Heading
+PASS: EN node 5 text fits: Detail Caution
+PASS: EN node 5 text stays inside panel: Detail Caution
+PASS: EN node 5 text stays inside panel: Detail Caution
+PASS: EN node 5 text stays inside panel: Detail Caution
+PASS: EN node 5 text stays inside panel: Detail Caution
+PASS: EN node 5 text fits: Label
+PASS: EN node 5 text stays inside panel: Label
+PASS: EN node 5 text stays inside panel: Label
+PASS: EN node 5 text stays inside panel: Label
+PASS: EN node 5 text stays inside panel: Label
+PASS: EN node 5 text fits: Detail Input Hint
+PASS: EN node 5 text stays inside panel: Detail Input Hint
+PASS: EN node 5 text stays inside panel: Detail Input Hint
+PASS: EN node 5 text stays inside panel: Detail Input Hint
+PASS: EN node 5 text stays inside panel: Detail Input Hint
+PASS: EN back returns to overview and clears stale detail target
+PASS: EN node 6 opens while gameplay blocked
+PASS: EN node 6 uses correct localized image
+PASS: EN illustration aspect preserved
+PASS: EN detail exposes one runtime back button
+PASS: EN node 6 text fits: Detail Title
+PASS: EN node 6 text stays inside panel: Detail Title
+PASS: EN node 6 text stays inside panel: Detail Title
+PASS: EN node 6 text stays inside panel: Detail Title
+PASS: EN node 6 text stays inside panel: Detail Title
+PASS: EN node 6 text fits: Detail Reason Heading
+PASS: EN node 6 text stays inside panel: Detail Reason Heading
+PASS: EN node 6 text stays inside panel: Detail Reason Heading
+PASS: EN node 6 text stays inside panel: Detail Reason Heading
+PASS: EN node 6 text stays inside panel: Detail Reason Heading
+PASS: EN node 6 text fits: Detail Reason
+PASS: EN node 6 text stays inside panel: Detail Reason
+PASS: EN node 6 text stays inside panel: Detail Reason
+PASS: EN node 6 text stays inside panel: Detail Reason
+PASS: EN node 6 text stays inside panel: Detail Reason
+PASS: EN node 6 text fits: Detail Caution Heading
+PASS: EN node 6 text stays inside panel: Detail Caution Heading
+PASS: EN node 6 text stays inside panel: Detail Caution Heading
+PASS: EN node 6 text stays inside panel: Detail Caution Heading
+PASS: EN node 6 text stays inside panel: Detail Caution Heading
+PASS: EN node 6 text fits: Detail Caution
+PASS: EN node 6 text stays inside panel: Detail Caution
+PASS: EN node 6 text stays inside panel: Detail Caution
+PASS: EN node 6 text stays inside panel: Detail Caution
+PASS: EN node 6 text stays inside panel: Detail Caution
+PASS: EN node 6 text fits: Label
+PASS: EN node 6 text stays inside panel: Label
+PASS: EN node 6 text stays inside panel: Label
+PASS: EN node 6 text stays inside panel: Label
+PASS: EN node 6 text stays inside panel: Label
+PASS: EN node 6 text fits: Detail Input Hint
+PASS: EN node 6 text stays inside panel: Detail Input Hint
+PASS: EN node 6 text stays inside panel: Detail Input Hint
+PASS: EN node 6 text stays inside panel: Detail Input Hint
+PASS: EN node 6 text stays inside panel: Detail Input Hint
+PASS: EN back returns to overview and clears stale detail target
+PASS: EN browsing does not change internal route records
+PASS: SC review is independent of headset transform
+PASS: SC centre matches startup 1.65m height
+PASS: SC panel is vertical without head pitch
+PASS: SC review locks player origin
+PASS: SC head movement leaves review anchored
+PASS: SC natural head rotation remains available
+PASS: SC overview has six detail rows plus restart and exit
+PASS: SC no completion record labels displayed
+PASS: SC every node has a detail arrow
+PASS: SC row hover feedback retained
+PASS: SC row confirmation feedback retained
+PASS: SC overview text fits: Completion Eyebrow
+PASS: SC overview text stays inside panel: Completion Eyebrow
+PASS: SC overview text stays inside panel: Completion Eyebrow
+PASS: SC overview text stays inside panel: Completion Eyebrow
+PASS: SC overview text stays inside panel: Completion Eyebrow
+PASS: SC overview text fits: Completion Title
+PASS: SC overview text stays inside panel: Completion Title
+PASS: SC overview text stays inside panel: Completion Title
+PASS: SC overview text stays inside panel: Completion Title
+PASS: SC overview text stays inside panel: Completion Title
+PASS: SC overview text fits: Debrief List Hint
+PASS: SC overview text stays inside panel: Debrief List Hint
+PASS: SC overview text stays inside panel: Debrief List Hint
+PASS: SC overview text stays inside panel: Debrief List Hint
+PASS: SC overview text stays inside panel: Debrief List Hint
+PASS: SC overview text fits: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text fits: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text fits: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text fits: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text fits: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text fits: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text fits: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text fits: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text fits: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text fits: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text fits: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text stays inside panel: Node Title
+PASS: SC overview text fits: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text stays inside panel: Open Detail Arrow
+PASS: SC overview text fits: Label
+PASS: SC overview text stays inside panel: Label
+PASS: SC overview text stays inside panel: Label
+PASS: SC overview text stays inside panel: Label
+PASS: SC overview text stays inside panel: Label
+PASS: SC overview text fits: Label
+PASS: SC overview text stays inside panel: Label
+PASS: SC overview text stays inside panel: Label
+PASS: SC overview text stays inside panel: Label
+PASS: SC overview text stays inside panel: Label
+PASS: SC overview text fits: Debrief Safety Reminder
+PASS: SC overview text stays inside panel: Debrief Safety Reminder
+PASS: SC overview text stays inside panel: Debrief Safety Reminder
+PASS: SC overview text stays inside panel: Debrief Safety Reminder
+PASS: SC overview text stays inside panel: Debrief Safety Reminder
+PASS: SC node 1 opens while gameplay blocked
+PASS: SC node 1 uses correct localized image
+PASS: SC illustration aspect preserved
+PASS: SC detail exposes one runtime back button
+PASS: SC node 1 text fits: Detail Title
+PASS: SC node 1 text stays inside panel: Detail Title
+PASS: SC node 1 text stays inside panel: Detail Title
+PASS: SC node 1 text stays inside panel: Detail Title
+PASS: SC node 1 text stays inside panel: Detail Title
+PASS: SC node 1 text fits: Detail Reason Heading
+PASS: SC node 1 text stays inside panel: Detail Reason Heading
+PASS: SC node 1 text stays inside panel: Detail Reason Heading
+PASS: SC node 1 text stays inside panel: Detail Reason Heading
+PASS: SC node 1 text stays inside panel: Detail Reason Heading
+PASS: SC node 1 text fits: Detail Reason
+PASS: SC node 1 text stays inside panel: Detail Reason
+PASS: SC node 1 text stays inside panel: Detail Reason
+PASS: SC node 1 text stays inside panel: Detail Reason
+PASS: SC node 1 text stays inside panel: Detail Reason
+PASS: SC node 1 text fits: Detail Caution Heading
+PASS: SC node 1 text stays inside panel: Detail Caution Heading
+PASS: SC node 1 text stays inside panel: Detail Caution Heading
+PASS: SC node 1 text stays inside panel: Detail Caution Heading
+PASS: SC node 1 text stays inside panel: Detail Caution Heading
+PASS: SC node 1 text fits: Detail Caution
+PASS: SC node 1 text stays inside panel: Detail Caution
+PASS: SC node 1 text stays inside panel: Detail Caution
+PASS: SC node 1 text stays inside panel: Detail Caution
+PASS: SC node 1 text stays inside panel: Detail Caution
+PASS: SC node 1 text fits: Label
+PASS: SC node 1 text stays inside panel: Label
+PASS: SC node 1 text stays inside panel: Label
+PASS: SC node 1 text stays inside panel: Label
+PASS: SC node 1 text stays inside panel: Label
+PASS: SC node 1 text fits: Detail Input Hint
+PASS: SC node 1 text stays inside panel: Detail Input Hint
+PASS: SC node 1 text stays inside panel: Detail Input Hint
+PASS: SC node 1 text stays inside panel: Detail Input Hint
+PASS: SC node 1 text stays inside panel: Detail Input Hint
+PASS: SC back returns to overview and clears stale detail target
+PASS: SC node 2 opens while gameplay blocked
+PASS: SC node 2 uses correct localized image
+PASS: SC illustration aspect preserved
+PASS: SC detail exposes one runtime back button
+PASS: SC node 2 text fits: Detail Title
+PASS: SC node 2 text stays inside panel: Detail Title
+PASS: SC node 2 text stays inside panel: Detail Title
+PASS: SC node 2 text stays inside panel: Detail Title
+PASS: SC node 2 text stays inside panel: Detail Title
+PASS: SC node 2 text fits: Detail Reason Heading
+PASS: SC node 2 text stays inside panel: Detail Reason Heading
+PASS: SC node 2 text stays inside panel: Detail Reason Heading
+PASS: SC node 2 text stays inside panel: Detail Reason Heading
+PASS: SC node 2 text stays inside panel: Detail Reason Heading
+PASS: SC node 2 text fits: Detail Reason
+PASS: SC node 2 text stays inside panel: Detail Reason
+PASS: SC node 2 text stays inside panel: Detail Reason
+PASS: SC node 2 text stays inside panel: Detail Reason
+PASS: SC node 2 text stays inside panel: Detail Reason
+PASS: SC node 2 text fits: Detail Caution Heading
+PASS: SC node 2 text stays inside panel: Detail Caution Heading
+PASS: SC node 2 text stays inside panel: Detail Caution Heading
+PASS: SC node 2 text stays inside panel: Detail Caution Heading
+PASS: SC node 2 text stays inside panel: Detail Caution Heading
+PASS: SC node 2 text fits: Detail Caution
+PASS: SC node 2 text stays inside panel: Detail Caution
+PASS: SC node 2 text stays inside panel: Detail Caution
+PASS: SC node 2 text stays inside panel: Detail Caution
+PASS: SC node 2 text stays inside panel: Detail Caution
+PASS: SC node 2 text fits: Label
+PASS: SC node 2 text stays inside panel: Label
+PASS: SC node 2 text stays inside panel: Label
+PASS: SC node 2 text stays inside panel: Label
+PASS: SC node 2 text stays inside panel: Label
+PASS: SC node 2 text fits: Detail Input Hint
+PASS: SC node 2 text stays inside panel: Detail Input Hint
+PASS: SC node 2 text stays inside panel: Detail Input Hint
+PASS: SC node 2 text stays inside panel: Detail Input Hint
+PASS: SC node 2 text stays inside panel: Detail Input Hint
+PASS: SC back returns to overview and clears stale detail target
+PASS: SC node 3 opens while gameplay blocked
+PASS: SC node 3 uses correct localized image
+PASS: SC illustration aspect preserved
+PASS: SC detail exposes one runtime back button
+PASS: SC node 3 text fits: Detail Title
+PASS: SC node 3 text stays inside panel: Detail Title
+PASS: SC node 3 text stays inside panel: Detail Title
+PASS: SC node 3 text stays inside panel: Detail Title
+PASS: SC node 3 text stays inside panel: Detail Title
+PASS: SC node 3 text fits: Detail Reason Heading
+PASS: SC node 3 text stays inside panel: Detail Reason Heading
+PASS: SC node 3 text stays inside panel: Detail Reason Heading
+PASS: SC node 3 text stays inside panel: Detail Reason Heading
+PASS: SC node 3 text stays inside panel: Detail Reason Heading
+PASS: SC node 3 text fits: Detail Reason
+PASS: SC node 3 text stays inside panel: Detail Reason
+PASS: SC node 3 text stays inside panel: Detail Reason
+PASS: SC node 3 text stays inside panel: Detail Reason
+PASS: SC node 3 text stays inside panel: Detail Reason
+PASS: SC node 3 text fits: Detail Caution Heading
+PASS: SC node 3 text stays inside panel: Detail Caution Heading
+PASS: SC node 3 text stays inside panel: Detail Caution Heading
+PASS: SC node 3 text stays inside panel: Detail Caution Heading
+PASS: SC node 3 text stays inside panel: Detail Caution Heading
+PASS: SC node 3 text fits: Detail Caution
+PASS: SC node 3 text stays inside panel: Detail Caution
+PASS: SC node 3 text stays inside panel: Detail Caution
+PASS: SC node 3 text stays inside panel: Detail Caution
+PASS: SC node 3 text stays inside panel: Detail Caution
+PASS: SC node 3 text fits: Label
+PASS: SC node 3 text stays inside panel: Label
+PASS: SC node 3 text stays inside panel: Label
+PASS: SC node 3 text stays inside panel: Label
+PASS: SC node 3 text stays inside panel: Label
+PASS: SC node 3 text fits: Detail Input Hint
+PASS: SC node 3 text stays inside panel: Detail Input Hint
+PASS: SC node 3 text stays inside panel: Detail Input Hint
+PASS: SC node 3 text stays inside panel: Detail Input Hint
+PASS: SC node 3 text stays inside panel: Detail Input Hint
+PASS: SC back returns to overview and clears stale detail target
+PASS: SC node 4 opens while gameplay blocked
+PASS: SC node 4 uses correct localized image
+PASS: SC illustration aspect preserved
+PASS: SC detail exposes one runtime back button
+PASS: SC node 4 text fits: Detail Title
+PASS: SC node 4 text stays inside panel: Detail Title
+PASS: SC node 4 text stays inside panel: Detail Title
+PASS: SC node 4 text stays inside panel: Detail Title
+PASS: SC node 4 text stays inside panel: Detail Title
+PASS: SC node 4 text fits: Detail Reason Heading
+PASS: SC node 4 text stays inside panel: Detail Reason Heading
+PASS: SC node 4 text stays inside panel: Detail Reason Heading
+PASS: SC node 4 text stays inside panel: Detail Reason Heading
+PASS: SC node 4 text stays inside panel: Detail Reason Heading
+PASS: SC node 4 text fits: Detail Reason
+PASS: SC node 4 text stays inside panel: Detail Reason
+PASS: SC node 4 text stays inside panel: Detail Reason
+PASS: SC node 4 text stays inside panel: Detail Reason
+PASS: SC node 4 text stays inside panel: Detail Reason
+PASS: SC node 4 text fits: Detail Caution Heading
+PASS: SC node 4 text stays inside panel: Detail Caution Heading
+PASS: SC node 4 text stays inside panel: Detail Caution Heading
+PASS: SC node 4 text stays inside panel: Detail Caution Heading
+PASS: SC node 4 text stays inside panel: Detail Caution Heading
+PASS: SC node 4 text fits: Detail Caution
+PASS: SC node 4 text stays inside panel: Detail Caution
+PASS: SC node 4 text stays inside panel: Detail Caution
+PASS: SC node 4 text stays inside panel: Detail Caution
+PASS: SC node 4 text stays inside panel: Detail Caution
+PASS: SC node 4 text fits: Label
+PASS: SC node 4 text stays inside panel: Label
+PASS: SC node 4 text stays inside panel: Label
+PASS: SC node 4 text stays inside panel: Label
+PASS: SC node 4 text stays inside panel: Label
+PASS: SC node 4 text fits: Detail Input Hint
+PASS: SC node 4 text stays inside panel: Detail Input Hint
+PASS: SC node 4 text stays inside panel: Detail Input Hint
+PASS: SC node 4 text stays inside panel: Detail Input Hint
+PASS: SC node 4 text stays inside panel: Detail Input Hint
+PASS: SC back returns to overview and clears stale detail target
+PASS: SC node 5 opens while gameplay blocked
+PASS: SC node 5 uses correct localized image
+PASS: SC illustration aspect preserved
+PASS: SC detail exposes one runtime back button
+PASS: SC node 5 text fits: Detail Title
+PASS: SC node 5 text stays inside panel: Detail Title
+PASS: SC node 5 text stays inside panel: Detail Title
+PASS: SC node 5 text stays inside panel: Detail Title
+PASS: SC node 5 text stays inside panel: Detail Title
+PASS: SC node 5 text fits: Detail Reason Heading
+PASS: SC node 5 text stays inside panel: Detail Reason Heading
+PASS: SC node 5 text stays inside panel: Detail Reason Heading
+PASS: SC node 5 text stays inside panel: Detail Reason Heading
+PASS: SC node 5 text stays inside panel: Detail Reason Heading
+PASS: SC node 5 text fits: Detail Reason
+PASS: SC node 5 text stays inside panel: Detail Reason
+PASS: SC node 5 text stays inside panel: Detail Reason
+PASS: SC node 5 text stays inside panel: Detail Reason
+PASS: SC node 5 text stays inside panel: Detail Reason
+PASS: SC node 5 text fits: Detail Caution Heading
+PASS: SC node 5 text stays inside panel: Detail Caution Heading
+PASS: SC node 5 text stays inside panel: Detail Caution Heading
+PASS: SC node 5 text stays inside panel: Detail Caution Heading
+PASS: SC node 5 text stays inside panel: Detail Caution Heading
+PASS: SC node 5 text fits: Detail Caution
+PASS: SC node 5 text stays inside panel: Detail Caution
+PASS: SC node 5 text stays inside panel: Detail Caution
+PASS: SC node 5 text stays inside panel: Detail Caution
+PASS: SC node 5 text stays inside panel: Detail Caution
+PASS: SC node 5 text fits: Label
+PASS: SC node 5 text stays inside panel: Label
+PASS: SC node 5 text stays inside panel: Label
+PASS: SC node 5 text stays inside panel: Label
+PASS: SC node 5 text stays inside panel: Label
+PASS: SC node 5 text fits: Detail Input Hint
+PASS: SC node 5 text stays inside panel: Detail Input Hint
+PASS: SC node 5 text stays inside panel: Detail Input Hint
+PASS: SC node 5 text stays inside panel: Detail Input Hint
+PASS: SC node 5 text stays inside panel: Detail Input Hint
+PASS: SC back returns to overview and clears stale detail target
+PASS: SC node 6 opens while gameplay blocked
+PASS: SC node 6 uses correct localized image
+PASS: SC illustration aspect preserved
+PASS: SC detail exposes one runtime back button
+PASS: SC node 6 text fits: Detail Title
+PASS: SC node 6 text stays inside panel: Detail Title
+PASS: SC node 6 text stays inside panel: Detail Title
+PASS: SC node 6 text stays inside panel: Detail Title
+PASS: SC node 6 text stays inside panel: Detail Title
+PASS: SC node 6 text fits: Detail Reason Heading
+PASS: SC node 6 text stays inside panel: Detail Reason Heading
+PASS: SC node 6 text stays inside panel: Detail Reason Heading
+PASS: SC node 6 text stays inside panel: Detail Reason Heading
+PASS: SC node 6 text stays inside panel: Detail Reason Heading
+PASS: SC node 6 text fits: Detail Reason
+PASS: SC node 6 text stays inside panel: Detail Reason
+PASS: SC node 6 text stays inside panel: Detail Reason
+PASS: SC node 6 text stays inside panel: Detail Reason
+PASS: SC node 6 text stays inside panel: Detail Reason
+PASS: SC node 6 text fits: Detail Caution Heading
+PASS: SC node 6 text stays inside panel: Detail Caution Heading
+PASS: SC node 6 text stays inside panel: Detail Caution Heading
+PASS: SC node 6 text stays inside panel: Detail Caution Heading
+PASS: SC node 6 text stays inside panel: Detail Caution Heading
+PASS: SC node 6 text fits: Detail Caution
+PASS: SC node 6 text stays inside panel: Detail Caution
+PASS: SC node 6 text stays inside panel: Detail Caution
+PASS: SC node 6 text stays inside panel: Detail Caution
+PASS: SC node 6 text stays inside panel: Detail Caution
+PASS: SC node 6 text fits: Label
+PASS: SC node 6 text stays inside panel: Label
+PASS: SC node 6 text stays inside panel: Label
+PASS: SC node 6 text stays inside panel: Label
+PASS: SC node 6 text stays inside panel: Label
+PASS: SC node 6 text fits: Detail Input Hint
+PASS: SC node 6 text stays inside panel: Detail Input Hint
+PASS: SC node 6 text stays inside panel: Detail Input Hint
+PASS: SC node 6 text stays inside panel: Detail Input Hint
+PASS: SC node 6 text stays inside panel: Detail Input Hint
+PASS: SC back returns to overview and clears stale detail target
+PASS: SC browsing does not change internal route records
+PASS: TC review is independent of headset transform
+PASS: TC centre matches startup 1.65m height
+PASS: TC panel is vertical without head pitch
+PASS: TC review locks player origin
+PASS: TC head movement leaves review anchored
+PASS: TC natural head rotation remains available
+PASS: TC overview has six detail rows plus restart and exit
+PASS: TC no completion record labels displayed
+PASS: TC every node has a detail arrow
+PASS: TC row hover feedback retained
+PASS: TC row confirmation feedback retained
+PASS: TC overview text fits: Completion Eyebrow
+PASS: TC overview text stays inside panel: Completion Eyebrow
+PASS: TC overview text stays inside panel: Completion Eyebrow
+PASS: TC overview text stays inside panel: Completion Eyebrow
+PASS: TC overview text stays inside panel: Completion Eyebrow
+PASS: TC overview text fits: Completion Title
+PASS: TC overview text stays inside panel: Completion Title
+PASS: TC overview text stays inside panel: Completion Title
+PASS: TC overview text stays inside panel: Completion Title
+PASS: TC overview text stays inside panel: Completion Title
+PASS: TC overview text fits: Debrief List Hint
+PASS: TC overview text stays inside panel: Debrief List Hint
+PASS: TC overview text stays inside panel: Debrief List Hint
+PASS: TC overview text stays inside panel: Debrief List Hint
+PASS: TC overview text stays inside panel: Debrief List Hint
+PASS: TC overview text fits: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text fits: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text fits: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text fits: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text fits: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text fits: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text fits: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text fits: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text fits: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text fits: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text fits: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text stays inside panel: Node Title
+PASS: TC overview text fits: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text stays inside panel: Open Detail Arrow
+PASS: TC overview text fits: Label
+PASS: TC overview text stays inside panel: Label
+PASS: TC overview text stays inside panel: Label
+PASS: TC overview text stays inside panel: Label
+PASS: TC overview text stays inside panel: Label
+PASS: TC overview text fits: Label
+PASS: TC overview text stays inside panel: Label
+PASS: TC overview text stays inside panel: Label
+PASS: TC overview text stays inside panel: Label
+PASS: TC overview text stays inside panel: Label
+PASS: TC overview text fits: Debrief Safety Reminder
+PASS: TC overview text stays inside panel: Debrief Safety Reminder
+PASS: TC overview text stays inside panel: Debrief Safety Reminder
+PASS: TC overview text stays inside panel: Debrief Safety Reminder
+PASS: TC overview text stays inside panel: Debrief Safety Reminder
+PASS: TC node 1 opens while gameplay blocked
+PASS: TC node 1 uses correct localized image
+PASS: TC illustration aspect preserved
+PASS: TC detail exposes one runtime back button
+PASS: TC node 1 text fits: Detail Title
+PASS: TC node 1 text stays inside panel: Detail Title
+PASS: TC node 1 text stays inside panel: Detail Title
+PASS: TC node 1 text stays inside panel: Detail Title
+PASS: TC node 1 text stays inside panel: Detail Title
+PASS: TC node 1 text fits: Detail Reason Heading
+PASS: TC node 1 text stays inside panel: Detail Reason Heading
+PASS: TC node 1 text stays inside panel: Detail Reason Heading
+PASS: TC node 1 text stays inside panel: Detail Reason Heading
+PASS: TC node 1 text stays inside panel: Detail Reason Heading
+PASS: TC node 1 text fits: Detail Reason
+PASS: TC node 1 text stays inside panel: Detail Reason
+PASS: TC node 1 text stays inside panel: Detail Reason
+PASS: TC node 1 text stays inside panel: Detail Reason
+PASS: TC node 1 text stays inside panel: Detail Reason
+PASS: TC node 1 text fits: Detail Caution Heading
+PASS: TC node 1 text stays inside panel: Detail Caution Heading
+PASS: TC node 1 text stays inside panel: Detail Caution Heading
+PASS: TC node 1 text stays inside panel: Detail Caution Heading
+PASS: TC node 1 text stays inside panel: Detail Caution Heading
+PASS: TC node 1 text fits: Detail Caution
+PASS: TC node 1 text stays inside panel: Detail Caution
+PASS: TC node 1 text stays inside panel: Detail Caution
+PASS: TC node 1 text stays inside panel: Detail Caution
+PASS: TC node 1 text stays inside panel: Detail Caution
+PASS: TC node 1 text fits: Label
+PASS: TC node 1 text stays inside panel: Label
+PASS: TC node 1 text stays inside panel: Label
+PASS: TC node 1 text stays inside panel: Label
+PASS: TC node 1 text stays inside panel: Label
+PASS: TC node 1 text fits: Detail Input Hint
+PASS: TC node 1 text stays inside panel: Detail Input Hint
+PASS: TC node 1 text stays inside panel: Detail Input Hint
+PASS: TC node 1 text stays inside panel: Detail Input Hint
+PASS: TC node 1 text stays inside panel: Detail Input Hint
+PASS: TC back returns to overview and clears stale detail target
+PASS: TC node 2 opens while gameplay blocked
+PASS: TC node 2 uses correct localized image
+PASS: TC illustration aspect preserved
+PASS: TC detail exposes one runtime back button
+PASS: TC node 2 text fits: Detail Title
+PASS: TC node 2 text stays inside panel: Detail Title
+PASS: TC node 2 text stays inside panel: Detail Title
+PASS: TC node 2 text stays inside panel: Detail Title
+PASS: TC node 2 text stays inside panel: Detail Title
+PASS: TC node 2 text fits: Detail Reason Heading
+PASS: TC node 2 text stays inside panel: Detail Reason Heading
+PASS: TC node 2 text stays inside panel: Detail Reason Heading
+PASS: TC node 2 text stays inside panel: Detail Reason Heading
+PASS: TC node 2 text stays inside panel: Detail Reason Heading
+PASS: TC node 2 text fits: Detail Reason
+PASS: TC node 2 text stays inside panel: Detail Reason
+PASS: TC node 2 text stays inside panel: Detail Reason
+PASS: TC node 2 text stays inside panel: Detail Reason
+PASS: TC node 2 text stays inside panel: Detail Reason
+PASS: TC node 2 text fits: Detail Caution Heading
+PASS: TC node 2 text stays inside panel: Detail Caution Heading
+PASS: TC node 2 text stays inside panel: Detail Caution Heading
+PASS: TC node 2 text stays inside panel: Detail Caution Heading
+PASS: TC node 2 text stays inside panel: Detail Caution Heading
+PASS: TC node 2 text fits: Detail Caution
+PASS: TC node 2 text stays inside panel: Detail Caution
+PASS: TC node 2 text stays inside panel: Detail Caution
+PASS: TC node 2 text stays inside panel: Detail Caution
+PASS: TC node 2 text stays inside panel: Detail Caution
+PASS: TC node 2 text fits: Label
+PASS: TC node 2 text stays inside panel: Label
+PASS: TC node 2 text stays inside panel: Label
+PASS: TC node 2 text stays inside panel: Label
+PASS: TC node 2 text stays inside panel: Label
+PASS: TC node 2 text fits: Detail Input Hint
+PASS: TC node 2 text stays inside panel: Detail Input Hint
+PASS: TC node 2 text stays inside panel: Detail Input Hint
+PASS: TC node 2 text stays inside panel: Detail Input Hint
+PASS: TC node 2 text stays inside panel: Detail Input Hint
+PASS: TC back returns to overview and clears stale detail target
+PASS: TC node 3 opens while gameplay blocked
+PASS: TC node 3 uses correct localized image
+PASS: TC illustration aspect preserved
+PASS: TC detail exposes one runtime back button
+PASS: TC node 3 text fits: Detail Title
+PASS: TC node 3 text stays inside panel: Detail Title
+PASS: TC node 3 text stays inside panel: Detail Title
+PASS: TC node 3 text stays inside panel: Detail Title
+PASS: TC node 3 text stays inside panel: Detail Title
+PASS: TC node 3 text fits: Detail Reason Heading
+PASS: TC node 3 text stays inside panel: Detail Reason Heading
+PASS: TC node 3 text stays inside panel: Detail Reason Heading
+PASS: TC node 3 text stays inside panel: Detail Reason Heading
+PASS: TC node 3 text stays inside panel: Detail Reason Heading
+PASS: TC node 3 text fits: Detail Reason
+PASS: TC node 3 text stays inside panel: Detail Reason
+PASS: TC node 3 text stays inside panel: Detail Reason
+PASS: TC node 3 text stays inside panel: Detail Reason
+PASS: TC node 3 text stays inside panel: Detail Reason
+PASS: TC node 3 text fits: Detail Caution Heading
+PASS: TC node 3 text stays inside panel: Detail Caution Heading
+PASS: TC node 3 text stays inside panel: Detail Caution Heading
+PASS: TC node 3 text stays inside panel: Detail Caution Heading
+PASS: TC node 3 text stays inside panel: Detail Caution Heading
+PASS: TC node 3 text fits: Detail Caution
+PASS: TC node 3 text stays inside panel: Detail Caution
+PASS: TC node 3 text stays inside panel: Detail Caution
+PASS: TC node 3 text stays inside panel: Detail Caution
+PASS: TC node 3 text stays inside panel: Detail Caution
+PASS: TC node 3 text fits: Label
+PASS: TC node 3 text stays inside panel: Label
+PASS: TC node 3 text stays inside panel: Label
+PASS: TC node 3 text stays inside panel: Label
+PASS: TC node 3 text stays inside panel: Label
+PASS: TC node 3 text fits: Detail Input Hint
+PASS: TC node 3 text stays inside panel: Detail Input Hint
+PASS: TC node 3 text stays inside panel: Detail Input Hint
+PASS: TC node 3 text stays inside panel: Detail Input Hint
+PASS: TC node 3 text stays inside panel: Detail Input Hint
+PASS: TC back returns to overview and clears stale detail target
+PASS: TC node 4 opens while gameplay blocked
+PASS: TC node 4 uses correct localized image
+PASS: TC illustration aspect preserved
+PASS: TC detail exposes one runtime back button
+PASS: TC node 4 text fits: Detail Title
+PASS: TC node 4 text stays inside panel: Detail Title
+PASS: TC node 4 text stays inside panel: Detail Title
+PASS: TC node 4 text stays inside panel: Detail Title
+PASS: TC node 4 text stays inside panel: Detail Title
+PASS: TC node 4 text fits: Detail Reason Heading
+PASS: TC node 4 text stays inside panel: Detail Reason Heading
+PASS: TC node 4 text stays inside panel: Detail Reason Heading
+PASS: TC node 4 text stays inside panel: Detail Reason Heading
+PASS: TC node 4 text stays inside panel: Detail Reason Heading
+PASS: TC node 4 text fits: Detail Reason
+PASS: TC node 4 text stays inside panel: Detail Reason
+PASS: TC node 4 text stays inside panel: Detail Reason
+PASS: TC node 4 text stays inside panel: Detail Reason
+PASS: TC node 4 text stays inside panel: Detail Reason
+PASS: TC node 4 text fits: Detail Caution Heading
+PASS: TC node 4 text stays inside panel: Detail Caution Heading
+PASS: TC node 4 text stays inside panel: Detail Caution Heading
+PASS: TC node 4 text stays inside panel: Detail Caution Heading
+PASS: TC node 4 text stays inside panel: Detail Caution Heading
+PASS: TC node 4 text fits: Detail Caution
+PASS: TC node 4 text stays inside panel: Detail Caution
+PASS: TC node 4 text stays inside panel: Detail Caution
+PASS: TC node 4 text stays inside panel: Detail Caution
+PASS: TC node 4 text stays inside panel: Detail Caution
+PASS: TC node 4 text fits: Label
+PASS: TC node 4 text stays inside panel: Label
+PASS: TC node 4 text stays inside panel: Label
+PASS: TC node 4 text stays inside panel: Label
+PASS: TC node 4 text stays inside panel: Label
+PASS: TC node 4 text fits: Detail Input Hint
+PASS: TC node 4 text stays inside panel: Detail Input Hint
+PASS: TC node 4 text stays inside panel: Detail Input Hint
+PASS: TC node 4 text stays inside panel: Detail Input Hint
+PASS: TC node 4 text stays inside panel: Detail Input Hint
+PASS: TC back returns to overview and clears stale detail target
+PASS: TC node 5 opens while gameplay blocked
+PASS: TC node 5 uses correct localized image
+PASS: TC illustration aspect preserved
+PASS: TC detail exposes one runtime back button
+PASS: TC node 5 text fits: Detail Title
+PASS: TC node 5 text stays inside panel: Detail Title
+PASS: TC node 5 text stays inside panel: Detail Title
+PASS: TC node 5 text stays inside panel: Detail Title
+PASS: TC node 5 text stays inside panel: Detail Title
+PASS: TC node 5 text fits: Detail Reason Heading
+PASS: TC node 5 text stays inside panel: Detail Reason Heading
+PASS: TC node 5 text stays inside panel: Detail Reason Heading
+PASS: TC node 5 text stays inside panel: Detail Reason Heading
+PASS: TC node 5 text stays inside panel: Detail Reason Heading
+PASS: TC node 5 text fits: Detail Reason
+PASS: TC node 5 text stays inside panel: Detail Reason
+PASS: TC node 5 text stays inside panel: Detail Reason
+PASS: TC node 5 text stays inside panel: Detail Reason
+PASS: TC node 5 text stays inside panel: Detail Reason
+PASS: TC node 5 text fits: Detail Caution Heading
+PASS: TC node 5 text stays inside panel: Detail Caution Heading
+PASS: TC node 5 text stays inside panel: Detail Caution Heading
+PASS: TC node 5 text stays inside panel: Detail Caution Heading
+PASS: TC node 5 text stays inside panel: Detail Caution Heading
+PASS: TC node 5 text fits: Detail Caution
+PASS: TC node 5 text stays inside panel: Detail Caution
+PASS: TC node 5 text stays inside panel: Detail Caution
+PASS: TC node 5 text stays inside panel: Detail Caution
+PASS: TC node 5 text stays inside panel: Detail Caution
+PASS: TC node 5 text fits: Label
+PASS: TC node 5 text stays inside panel: Label
+PASS: TC node 5 text stays inside panel: Label
+PASS: TC node 5 text stays inside panel: Label
+PASS: TC node 5 text stays inside panel: Label
+PASS: TC node 5 text fits: Detail Input Hint
+PASS: TC node 5 text stays inside panel: Detail Input Hint
+PASS: TC node 5 text stays inside panel: Detail Input Hint
+PASS: TC node 5 text stays inside panel: Detail Input Hint
+PASS: TC node 5 text stays inside panel: Detail Input Hint
+PASS: TC back returns to overview and clears stale detail target
+PASS: TC node 6 opens while gameplay blocked
+PASS: TC node 6 uses correct localized image
+PASS: TC illustration aspect preserved
+PASS: TC detail exposes one runtime back button
+PASS: TC node 6 text fits: Detail Title
+PASS: TC node 6 text stays inside panel: Detail Title
+PASS: TC node 6 text stays inside panel: Detail Title
+PASS: TC node 6 text stays inside panel: Detail Title
+PASS: TC node 6 text stays inside panel: Detail Title
+PASS: TC node 6 text fits: Detail Reason Heading
+PASS: TC node 6 text stays inside panel: Detail Reason Heading
+PASS: TC node 6 text stays inside panel: Detail Reason Heading
+PASS: TC node 6 text stays inside panel: Detail Reason Heading
+PASS: TC node 6 text stays inside panel: Detail Reason Heading
+PASS: TC node 6 text fits: Detail Reason
+PASS: TC node 6 text stays inside panel: Detail Reason
+PASS: TC node 6 text stays inside panel: Detail Reason
+PASS: TC node 6 text stays inside panel: Detail Reason
+PASS: TC node 6 text stays inside panel: Detail Reason
+PASS: TC node 6 text fits: Detail Caution Heading
+PASS: TC node 6 text stays inside panel: Detail Caution Heading
+PASS: TC node 6 text stays inside panel: Detail Caution Heading
+PASS: TC node 6 text stays inside panel: Detail Caution Heading
+PASS: TC node 6 text stays inside panel: Detail Caution Heading
+PASS: TC node 6 text fits: Detail Caution
+PASS: TC node 6 text stays inside panel: Detail Caution
+PASS: TC node 6 text stays inside panel: Detail Caution
+PASS: TC node 6 text stays inside panel: Detail Caution
+PASS: TC node 6 text stays inside panel: Detail Caution
+PASS: TC node 6 text fits: Label
+PASS: TC node 6 text stays inside panel: Label
+PASS: TC node 6 text stays inside panel: Label
+PASS: TC node 6 text stays inside panel: Label
+PASS: TC node 6 text stays inside panel: Label
+PASS: TC node 6 text fits: Detail Input Hint
+PASS: TC node 6 text stays inside panel: Detail Input Hint
+PASS: TC node 6 text stays inside panel: Detail Input Hint
+PASS: TC node 6 text stays inside panel: Detail Input Hint
+PASS: TC node 6 text stays inside panel: Detail Input Hint
+PASS: TC back returns to overview and clears stale detail target
+PASS: TC browsing does not change internal route records
+PASS: Restart reinstalls language/startup gate
+PASS: Restart clears previous language
+PASS: Restart clears checkpoint records and returns to first node
+PASS: Restart returns player to 401 spawn
+PASS: Restart still requires controls guide confirmation
+PASS: Exit action stops Editor Play Mode
+RESULT: PASS. Headset readability and physical input remain to be verified on device.

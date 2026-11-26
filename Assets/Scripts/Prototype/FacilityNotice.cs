@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CampusEmergency.Prototype
 {
@@ -32,6 +32,7 @@ namespace CampusEmergency.Prototype
             switch (kind)
             {
                 case FacilityKind.Lift:
+                    CampusEmergency.Player.LanguageSelectionUI.ShowElevatorWarning();
                     return "LIFT OUT OF SERVICE\nDo not use the lift in case of fire. Use the stairs.";
                 case FacilityKind.Alarm:
                     CampusDrillAtmosphere atmosphere = FindObjectOfType<CampusDrillAtmosphere>(true);

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Rendering;
 
 namespace CampusEmergency.Prototype
@@ -14,6 +14,7 @@ namespace CampusEmergency.Prototype
         [SerializeField, Range(0f, 1f)] private float opacity = 1f;
         [SerializeField, Range(0f, 1f)] private float emissionMultiplier = 1f;
         [SerializeField] private bool ceilingLayer;
+        [SerializeField] private bool doorwayHaze;
 
         public Bounds SmokeBounds { get; private set; }
         public bool IsStairProfile { get; private set; }
@@ -52,8 +53,30 @@ namespace CampusEmergency.Prototype
             }
             if (ceilingLayer)
             {
-                CreateLayer("Ceiling Haze", emitterBox, 0f, 0f, IsStairProfile?.8f:1.7f, IsStairProfile?1.3f:2.4f, 4f, 6f, IsStairProfile?7f:12f, IsStairProfile?44:80,
+                if (doorwayHaze && !IsStairProfile) opacity *= 1.25f;
+                CreateLayer("Ceiling Haze", emitterBox, 0f, 0f, IsStairProfile?.8f:1.7f, IsStairProfile?1.3f:2.4f, 4f, 6f,
+                    (IsStairProfile?7f:12f) * (doorwayHaze && !IsStairProfile ? 1.15f : 1f), IsStairProfile?44:80,
                     billboardHeight: new Vector2(.26f,.42f));
+                if (doorwayHaze && !IsStairProfile)
+                {
+                    // A small, low-opacity local veil; retain ceiling/floor clipping elsewhere.
+                    float floor = transform.position.y - 2.85f;
+                    var bounds = new Bounds(new Vector3(-10.875f, floor + 1.85f, 0), new Vector3(2.75f, 1.3f, 2.6f));
+                    var haze = CreateLayer("401 Doorway Light Haze", new Vector3(2.3f, .2f, 2.1f), 0, .015f,
+                        .85f, 1.3f, 4f, 6f, 8f, 48, new Vector2(.75f, 1.15f), opacityScale: .5f, clipBounds: bounds);
+                    haze.transform.position = bounds.center;
+                    CampusEmergency.Player.XR.CampusSmokeWarningSign.Install(floor);
+                    var grey = new Gradient();
+                    grey.SetKeys(new[] {
+                        new GradientColorKey(new Color(.28f, .29f, .30f), 0),
+                        new GradientColorKey(new Color(.38f, .39f, .40f), .45f),
+                        new GradientColorKey(new Color(.46f, .47f, .48f), 1)
+                    }, new[] {
+                        new GradientAlphaKey(0, 0), new GradientAlphaKey(.32f, .16f),
+                        new GradientAlphaKey(.20f, .7f), new GradientAlphaKey(0, 1)
+                    });
+                    var lifetimeColour = haze.colorOverLifetime; lifetimeColour.color = grey;
+                }
             }
             else
             {
@@ -62,9 +85,9 @@ namespace CampusEmergency.Prototype
             }
         }
 
-        private void CreateLayer(string name, Vector3 box, float minRise, float maxRise,
+        private ParticleSystem CreateLayer(string name, Vector3 box, float minRise, float maxRise,
             float minSize, float maxSize, float minLife, float maxLife, float rate, int maxParticles,
-            Vector2 billboardHeight = default, float heightOffset = 0f, float opacityScale = 1f)
+            Vector2 billboardHeight = default, float heightOffset = 0f, float opacityScale = 1f, Bounds? clipBounds = null)
         {
             GameObject emitter = new GameObject(name);
             emitter.transform.SetParent(transform, false);
@@ -140,7 +163,8 @@ namespace CampusEmergency.Prototype
             ParticleSystemRenderer renderer = particles.GetComponent<ParticleSystemRenderer>();
             renderer.sharedMaterial = material;
             var properties=new MaterialPropertyBlock();properties.SetFloat("_ClipBoundsEnabled",1);
-            properties.SetVector("_ClipMin",SmokeBounds.min);properties.SetVector("_ClipMax",SmokeBounds.max);properties.SetFloat("_ClipFade",.13f);renderer.SetPropertyBlock(properties);
+            var clipping = clipBounds ?? SmokeBounds;
+            properties.SetVector("_ClipMin",clipping.min);properties.SetVector("_ClipMax",clipping.max);properties.SetFloat("_ClipFade",.13f);renderer.SetPropertyBlock(properties);
             renderer.renderMode = ParticleSystemRenderMode.Billboard;
             renderer.shadowCastingMode = ShadowCastingMode.Off;
             renderer.receiveShadows = false;
@@ -149,6 +173,7 @@ namespace CampusEmergency.Prototype
             renderer.maxParticleSize = 2f;
             renderer.sortingFudge = 1f;
             particles.Play();
+            return particles;
         }
 
         private Gradient SmokeGradient()

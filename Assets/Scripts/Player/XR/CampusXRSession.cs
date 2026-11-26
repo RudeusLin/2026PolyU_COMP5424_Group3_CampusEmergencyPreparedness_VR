@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Unity.XR.CoreUtils;
 using CampusEmergency.Player;
 
@@ -33,6 +33,7 @@ namespace CampusEmergency.Player.XR
         { origin = o; input = i; spawn = start; assembly = goal; feedback = f; ConfigureEyeHeight(); }
         private void Update()
         {
+            if (LanguageSelectionUI.IsPauseMenuOpen) return;
             if (!input.HeadTracked) { trackingReadySince = -1f; return; }
             if (!positioned)
             {

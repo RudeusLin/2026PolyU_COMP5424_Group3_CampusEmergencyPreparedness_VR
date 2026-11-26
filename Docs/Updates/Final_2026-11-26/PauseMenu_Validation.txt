@@ -1,0 +1,385 @@
+Pause menu: Editor Play Mode with simulated Oculus Touch B input, no headset.
+PASS: XR scene and startup loaded
+PASS: B binding resolves to right Oculus Touch secondary button
+PASS: B cannot bypass startup gates
+PASS: Focus/tracking gate rejects menu input
+DEBUG menu=True block=True startup=False scale=0 audio=True B=True edge=True confirming=False complete=True xr=True
+PASS: EN B opens menu, blocks actions and pauses simulation/audio
+PASS: EN shared input gate blocks teleport, turn, interactions and item switching
+PASS: EN menu has continue/restart/exit choices
+PASS: EN B menu locks player position like startup
+PASS: EN B menu matches startup centre height
+PASS: EN panel stays fixed while head turns
+PASS: EN menu text fits: Pause Eyebrow
+PASS: EN menu text remains within panel: Pause Eyebrow
+PASS: EN menu text fits: Pause Title
+PASS: EN menu text remains within panel: Pause Title
+PASS: EN menu text fits: Label
+PASS: EN menu text remains within panel: Label
+PASS: EN menu text fits: Label
+PASS: EN menu text remains within panel: Label
+PASS: EN menu text fits: Label
+PASS: EN menu text remains within panel: Label
+PASS: EN menu text fits: Pause Message
+PASS: EN menu text remains within panel: Pause Message
+PASS: EN menu text fits: Pause Input Hint
+PASS: EN menu text remains within panel: Pause Input Hint
+PASS: EN restart opens confirmation without restarting
+PASS: EN restart confirmation text fits: Pause Eyebrow
+PASS: EN restart confirmation text remains within panel: Pause Eyebrow
+PASS: EN restart confirmation text fits: Pause Title
+PASS: EN restart confirmation text remains within panel: Pause Title
+PASS: EN restart confirmation text fits: Pause Confirmation Message
+PASS: EN restart confirmation text remains within panel: Pause Confirmation Message
+PASS: EN restart confirmation text fits: Label
+PASS: EN restart confirmation text remains within panel: Label
+PASS: EN restart confirmation text fits: Label
+PASS: EN restart confirmation text remains within panel: Label
+PASS: EN restart confirmation text fits: Pause Input Hint
+PASS: EN restart confirmation text remains within panel: Pause Input Hint
+PASS: EN cancel returns to paused menu
+PASS: EN exit opens confirmation without quitting
+PASS: EN exit confirmation text fits: Pause Eyebrow
+PASS: EN exit confirmation text remains within panel: Pause Eyebrow
+PASS: EN exit confirmation text fits: Pause Title
+PASS: EN exit confirmation text remains within panel: Pause Title
+PASS: EN exit confirmation text fits: Pause Confirmation Message
+PASS: EN exit confirmation text remains within panel: Pause Confirmation Message
+PASS: EN exit confirmation text fits: Label
+PASS: EN exit confirmation text remains within panel: Label
+PASS: EN exit confirmation text fits: Label
+PASS: EN exit confirmation text remains within panel: Label
+PASS: EN exit confirmation text fits: Pause Input Hint
+PASS: EN exit confirmation text remains within panel: Pause Input Hint
+PASS: EN B resumes and hides all menu targets
+PASS: EN held B does not reopen menu
+PASS: EN cancel/resume preserves checkpoint progress
+DEBUG menu=True block=True startup=False scale=0 audio=True B=True edge=True confirming=False complete=True xr=True
+PASS: SC B opens menu, blocks actions and pauses simulation/audio
+PASS: SC shared input gate blocks teleport, turn, interactions and item switching
+PASS: SC menu has continue/restart/exit choices
+PASS: SC B menu locks player position like startup
+PASS: SC B menu matches startup centre height
+PASS: SC panel stays fixed while head turns
+PASS: SC menu text fits: Pause Eyebrow
+PASS: SC menu text remains within panel: Pause Eyebrow
+PASS: SC menu text fits: Pause Title
+PASS: SC menu text remains within panel: Pause Title
+PASS: SC menu text fits: Label
+PASS: SC menu text remains within panel: Label
+PASS: SC menu text fits: Label
+PASS: SC menu text remains within panel: Label
+PASS: SC menu text fits: Label
+PASS: SC menu text remains within panel: Label
+PASS: SC menu text fits: Pause Message
+PASS: SC menu text remains within panel: Pause Message
+PASS: SC menu text fits: Pause Input Hint
+PASS: SC menu text remains within panel: Pause Input Hint
+PASS: SC restart opens confirmation without restarting
+PASS: SC restart confirmation text fits: Pause Eyebrow
+PASS: SC restart confirmation text remains within panel: Pause Eyebrow
+PASS: SC restart confirmation text fits: Pause Title
+PASS: SC restart confirmation text remains within panel: Pause Title
+PASS: SC restart confirmation text fits: Pause Confirmation Message
+PASS: SC restart confirmation text remains within panel: Pause Confirmation Message
+PASS: SC restart confirmation text fits: Label
+PASS: SC restart confirmation text remains within panel: Label
+PASS: SC restart confirmation text fits: Label
+PASS: SC restart confirmation text remains within panel: Label
+PASS: SC restart confirmation text fits: Pause Input Hint
+PASS: SC restart confirmation text remains within panel: Pause Input Hint
+PASS: SC cancel returns to paused menu
+PASS: SC exit opens confirmation without quitting
+PASS: SC exit confirmation text fits: Pause Eyebrow
+PASS: SC exit confirmation text remains within panel: Pause Eyebrow
+PASS: SC exit confirmation text fits: Pause Title
+PASS: SC exit confirmation text remains within panel: Pause Title
+PASS: SC exit confirmation text fits: Pause Confirmation Message
+PASS: SC exit confirmation text remains within panel: Pause Confirmation Message
+PASS: SC exit confirmation text fits: Label
+PASS: SC exit confirmation text remains within panel: Label
+PASS: SC exit confirmation text fits: Label
+PASS: SC exit confirmation text remains within panel: Label
+PASS: SC exit confirmation text fits: Pause Input Hint
+PASS: SC exit confirmation text remains within panel: Pause Input Hint
+PASS: SC B resumes and hides all menu targets
+PASS: SC held B does not reopen menu
+PASS: SC cancel/resume preserves checkpoint progress
+DEBUG menu=True block=True startup=False scale=0 audio=True B=True edge=True confirming=False complete=True xr=True
+PASS: TC B opens menu, blocks actions and pauses simulation/audio
+PASS: TC shared input gate blocks teleport, turn, interactions and item switching
+PASS: TC menu has continue/restart/exit choices
+PASS: TC B menu locks player position like startup
+PASS: TC B menu matches startup centre height
+PASS: TC panel stays fixed while head turns
+PASS: TC menu text fits: Pause Eyebrow
+PASS: TC menu text remains within panel: Pause Eyebrow
+PASS: TC menu text fits: Pause Title
+PASS: TC menu text remains within panel: Pause Title
+PASS: TC menu text fits: Label
+PASS: TC menu text remains within panel: Label
+PASS: TC menu text fits: Label
+PASS: TC menu text remains within panel: Label
+PASS: TC menu text fits: Label
+PASS: TC menu text remains within panel: Label
+PASS: TC menu text fits: Pause Message
+PASS: TC menu text remains within panel: Pause Message
+PASS: TC menu text fits: Pause Input Hint
+PASS: TC menu text remains within panel: Pause Input Hint
+PASS: TC restart opens confirmation without restarting
+PASS: TC restart confirmation text fits: Pause Eyebrow
+PASS: TC restart confirmation text remains within panel: Pause Eyebrow
+PASS: TC restart confirmation text fits: Pause Title
+PASS: TC restart confirmation text remains within panel: Pause Title
+PASS: TC restart confirmation text fits: Pause Confirmation Message
+PASS: TC restart confirmation text remains within panel: Pause Confirmation Message
+PASS: TC restart confirmation text fits: Label
+PASS: TC restart confirmation text remains within panel: Label
+PASS: TC restart confirmation text fits: Label
+PASS: TC restart confirmation text remains within panel: Label
+PASS: TC restart confirmation text fits: Pause Input Hint
+PASS: TC restart confirmation text remains within panel: Pause Input Hint
+PASS: TC cancel returns to paused menu
+PASS: TC exit opens confirmation without quitting
+PASS: TC exit confirmation text fits: Pause Eyebrow
+PASS: TC exit confirmation text remains within panel: Pause Eyebrow
+PASS: TC exit confirmation text fits: Pause Title
+PASS: TC exit confirmation text remains within panel: Pause Title
+PASS: TC exit confirmation text fits: Pause Confirmation Message
+PASS: TC exit confirmation text remains within panel: Pause Confirmation Message
+PASS: TC exit confirmation text fits: Label
+PASS: TC exit confirmation text remains within panel: Label
+PASS: TC exit confirmation text fits: Label
+PASS: TC exit confirmation text remains within panel: Label
+PASS: TC exit confirmation text fits: Pause Input Hint
+PASS: TC exit confirmation text remains within panel: Pause Input Hint
+PASS: TC B resumes and hides all menu targets
+PASS: TC held B does not reopen menu
+PASS: TC cancel/resume preserves checkpoint progress
+PASS: All four elevator call panels are interactive
+PASS: Call panels cover all four floors
+PASS: EN lift 0 opens blocking warning
+PASS: EN warning matches startup height and stays vertical
+PASS: EN warning locks player pose
+PASS: EN warning panel remains fixed during head motion
+PASS: EN elevator warning text fits: Elevator Warning Title
+PASS: EN elevator warning text remains within panel: Elevator Warning Title
+PASS: EN elevator warning text fits: Elevator Warning Reason
+PASS: EN elevator warning text remains within panel: Elevator Warning Reason
+PASS: EN elevator warning text fits: Elevator Warning Instruction
+PASS: EN elevator warning text remains within panel: Elevator Warning Instruction
+PASS: EN elevator warning text fits: Label
+PASS: EN elevator warning text remains within panel: Label
+PASS: EN elevator warning text fits: Elevator Warning Hint
+PASS: EN elevator warning text remains within panel: Elevator Warning Hint
+PASS: B does not bypass elevator acknowledgement
+PASS: EN acknowledgement restores gameplay
+PASS: EN warning preserves route progress
+PASS: EN lift 1 opens blocking warning
+PASS: EN warning matches startup height and stays vertical
+PASS: EN warning locks player pose
+PASS: EN warning panel remains fixed during head motion
+PASS: EN elevator warning text fits: Elevator Warning Title
+PASS: EN elevator warning text remains within panel: Elevator Warning Title
+PASS: EN elevator warning text fits: Elevator Warning Reason
+PASS: EN elevator warning text remains within panel: Elevator Warning Reason
+PASS: EN elevator warning text fits: Elevator Warning Instruction
+PASS: EN elevator warning text remains within panel: Elevator Warning Instruction
+PASS: EN elevator warning text fits: Label
+PASS: EN elevator warning text remains within panel: Label
+PASS: EN elevator warning text fits: Elevator Warning Hint
+PASS: EN elevator warning text remains within panel: Elevator Warning Hint
+PASS: B does not bypass elevator acknowledgement
+PASS: EN acknowledgement restores gameplay
+PASS: EN warning preserves route progress
+PASS: EN lift 2 opens blocking warning
+PASS: EN warning matches startup height and stays vertical
+PASS: EN warning locks player pose
+PASS: EN warning panel remains fixed during head motion
+PASS: EN elevator warning text fits: Elevator Warning Title
+PASS: EN elevator warning text remains within panel: Elevator Warning Title
+PASS: EN elevator warning text fits: Elevator Warning Reason
+PASS: EN elevator warning text remains within panel: Elevator Warning Reason
+PASS: EN elevator warning text fits: Elevator Warning Instruction
+PASS: EN elevator warning text remains within panel: Elevator Warning Instruction
+PASS: EN elevator warning text fits: Label
+PASS: EN elevator warning text remains within panel: Label
+PASS: EN elevator warning text fits: Elevator Warning Hint
+PASS: EN elevator warning text remains within panel: Elevator Warning Hint
+PASS: B does not bypass elevator acknowledgement
+PASS: EN acknowledgement restores gameplay
+PASS: EN warning preserves route progress
+PASS: EN lift 3 opens blocking warning
+PASS: EN warning matches startup height and stays vertical
+PASS: EN warning locks player pose
+PASS: EN warning panel remains fixed during head motion
+PASS: EN elevator warning text fits: Elevator Warning Title
+PASS: EN elevator warning text remains within panel: Elevator Warning Title
+PASS: EN elevator warning text fits: Elevator Warning Reason
+PASS: EN elevator warning text remains within panel: Elevator Warning Reason
+PASS: EN elevator warning text fits: Elevator Warning Instruction
+PASS: EN elevator warning text remains within panel: Elevator Warning Instruction
+PASS: EN elevator warning text fits: Label
+PASS: EN elevator warning text remains within panel: Label
+PASS: EN elevator warning text fits: Elevator Warning Hint
+PASS: EN elevator warning text remains within panel: Elevator Warning Hint
+PASS: B does not bypass elevator acknowledgement
+PASS: EN acknowledgement restores gameplay
+PASS: EN warning preserves route progress
+PASS: SC lift 0 opens blocking warning
+PASS: SC warning matches startup height and stays vertical
+PASS: SC warning locks player pose
+PASS: SC warning panel remains fixed during head motion
+PASS: SC elevator warning text fits: Elevator Warning Title
+PASS: SC elevator warning text remains within panel: Elevator Warning Title
+PASS: SC elevator warning text fits: Elevator Warning Reason
+PASS: SC elevator warning text remains within panel: Elevator Warning Reason
+PASS: SC elevator warning text fits: Elevator Warning Instruction
+PASS: SC elevator warning text remains within panel: Elevator Warning Instruction
+PASS: SC elevator warning text fits: Label
+PASS: SC elevator warning text remains within panel: Label
+PASS: SC elevator warning text fits: Elevator Warning Hint
+PASS: SC elevator warning text remains within panel: Elevator Warning Hint
+PASS: B does not bypass elevator acknowledgement
+PASS: SC acknowledgement restores gameplay
+PASS: SC warning preserves route progress
+PASS: SC lift 1 opens blocking warning
+PASS: SC warning matches startup height and stays vertical
+PASS: SC warning locks player pose
+PASS: SC warning panel remains fixed during head motion
+PASS: SC elevator warning text fits: Elevator Warning Title
+PASS: SC elevator warning text remains within panel: Elevator Warning Title
+PASS: SC elevator warning text fits: Elevator Warning Reason
+PASS: SC elevator warning text remains within panel: Elevator Warning Reason
+PASS: SC elevator warning text fits: Elevator Warning Instruction
+PASS: SC elevator warning text remains within panel: Elevator Warning Instruction
+PASS: SC elevator warning text fits: Label
+PASS: SC elevator warning text remains within panel: Label
+PASS: SC elevator warning text fits: Elevator Warning Hint
+PASS: SC elevator warning text remains within panel: Elevator Warning Hint
+PASS: B does not bypass elevator acknowledgement
+PASS: SC acknowledgement restores gameplay
+PASS: SC warning preserves route progress
+PASS: SC lift 2 opens blocking warning
+PASS: SC warning matches startup height and stays vertical
+PASS: SC warning locks player pose
+PASS: SC warning panel remains fixed during head motion
+PASS: SC elevator warning text fits: Elevator Warning Title
+PASS: SC elevator warning text remains within panel: Elevator Warning Title
+PASS: SC elevator warning text fits: Elevator Warning Reason
+PASS: SC elevator warning text remains within panel: Elevator Warning Reason
+PASS: SC elevator warning text fits: Elevator Warning Instruction
+PASS: SC elevator warning text remains within panel: Elevator Warning Instruction
+PASS: SC elevator warning text fits: Label
+PASS: SC elevator warning text remains within panel: Label
+PASS: SC elevator warning text fits: Elevator Warning Hint
+PASS: SC elevator warning text remains within panel: Elevator Warning Hint
+PASS: B does not bypass elevator acknowledgement
+PASS: SC acknowledgement restores gameplay
+PASS: SC warning preserves route progress
+PASS: SC lift 3 opens blocking warning
+PASS: SC warning matches startup height and stays vertical
+PASS: SC warning locks player pose
+PASS: SC warning panel remains fixed during head motion
+PASS: SC elevator warning text fits: Elevator Warning Title
+PASS: SC elevator warning text remains within panel: Elevator Warning Title
+PASS: SC elevator warning text fits: Elevator Warning Reason
+PASS: SC elevator warning text remains within panel: Elevator Warning Reason
+PASS: SC elevator warning text fits: Elevator Warning Instruction
+PASS: SC elevator warning text remains within panel: Elevator Warning Instruction
+PASS: SC elevator warning text fits: Label
+PASS: SC elevator warning text remains within panel: Label
+PASS: SC elevator warning text fits: Elevator Warning Hint
+PASS: SC elevator warning text remains within panel: Elevator Warning Hint
+PASS: B does not bypass elevator acknowledgement
+PASS: SC acknowledgement restores gameplay
+PASS: SC warning preserves route progress
+PASS: TC lift 0 opens blocking warning
+PASS: TC warning matches startup height and stays vertical
+PASS: TC warning locks player pose
+PASS: TC warning panel remains fixed during head motion
+PASS: TC elevator warning text fits: Elevator Warning Title
+PASS: TC elevator warning text remains within panel: Elevator Warning Title
+PASS: TC elevator warning text fits: Elevator Warning Reason
+PASS: TC elevator warning text remains within panel: Elevator Warning Reason
+PASS: TC elevator warning text fits: Elevator Warning Instruction
+PASS: TC elevator warning text remains within panel: Elevator Warning Instruction
+PASS: TC elevator warning text fits: Label
+PASS: TC elevator warning text remains within panel: Label
+PASS: TC elevator warning text fits: Elevator Warning Hint
+PASS: TC elevator warning text remains within panel: Elevator Warning Hint
+PASS: B does not bypass elevator acknowledgement
+PASS: TC acknowledgement restores gameplay
+PASS: TC warning preserves route progress
+PASS: TC lift 1 opens blocking warning
+PASS: TC warning matches startup height and stays vertical
+PASS: TC warning locks player pose
+PASS: TC warning panel remains fixed during head motion
+PASS: TC elevator warning text fits: Elevator Warning Title
+PASS: TC elevator warning text remains within panel: Elevator Warning Title
+PASS: TC elevator warning text fits: Elevator Warning Reason
+PASS: TC elevator warning text remains within panel: Elevator Warning Reason
+PASS: TC elevator warning text fits: Elevator Warning Instruction
+PASS: TC elevator warning text remains within panel: Elevator Warning Instruction
+PASS: TC elevator warning text fits: Label
+PASS: TC elevator warning text remains within panel: Label
+PASS: TC elevator warning text fits: Elevator Warning Hint
+PASS: TC elevator warning text remains within panel: Elevator Warning Hint
+PASS: B does not bypass elevator acknowledgement
+PASS: TC acknowledgement restores gameplay
+PASS: TC warning preserves route progress
+PASS: TC lift 2 opens blocking warning
+PASS: TC warning matches startup height and stays vertical
+PASS: TC warning locks player pose
+PASS: TC warning panel remains fixed during head motion
+PASS: TC elevator warning text fits: Elevator Warning Title
+PASS: TC elevator warning text remains within panel: Elevator Warning Title
+PASS: TC elevator warning text fits: Elevator Warning Reason
+PASS: TC elevator warning text remains within panel: Elevator Warning Reason
+PASS: TC elevator warning text fits: Elevator Warning Instruction
+PASS: TC elevator warning text remains within panel: Elevator Warning Instruction
+PASS: TC elevator warning text fits: Label
+PASS: TC elevator warning text remains within panel: Label
+PASS: TC elevator warning text fits: Elevator Warning Hint
+PASS: TC elevator warning text remains within panel: Elevator Warning Hint
+PASS: B does not bypass elevator acknowledgement
+PASS: TC acknowledgement restores gameplay
+PASS: TC warning preserves route progress
+PASS: TC lift 3 opens blocking warning
+PASS: TC warning matches startup height and stays vertical
+PASS: TC warning locks player pose
+PASS: TC warning panel remains fixed during head motion
+PASS: TC elevator warning text fits: Elevator Warning Title
+PASS: TC elevator warning text remains within panel: Elevator Warning Title
+PASS: TC elevator warning text fits: Elevator Warning Reason
+PASS: TC elevator warning text remains within panel: Elevator Warning Reason
+PASS: TC elevator warning text fits: Elevator Warning Instruction
+PASS: TC elevator warning text remains within panel: Elevator Warning Instruction
+PASS: TC elevator warning text fits: Label
+PASS: TC elevator warning text remains within panel: Label
+PASS: TC elevator warning text fits: Elevator Warning Hint
+PASS: TC elevator warning text remains within panel: Elevator Warning Hint
+PASS: B does not bypass elevator acknowledgement
+PASS: TC acknowledgement restores gameplay
+PASS: TC warning preserves route progress
+PASS: B leaves emergencyCallVisible unchanged
+PASS: B leaves completionVisible unchanged
+PASS: Seed acquired towel
+PASS: Menu preserves held wet towel and raised state
+PASS: Continue preserves towel cover pose state
+PASS: Seed acquired extinguisher
+PASS: Menu preserves equipment and pin state
+PASS: Pause interrupts spray timer and requires a fresh trigger release
+PASS: Menu preserves escort and pending chair position
+PASS: Resume restores the prior time scale instead of forcing one
+PASS: B dismisses exit confirmation without exiting
+PASS: Disabling menu owner restores time and audio
+PASS: Confirmed restart restores language selection
+PASS: Restart restores simulation and audio
+PASS: Restart clears node progress
+PASS: Restart clears acquired equipment
+PASS: Restart resets wheelchair rescue
+PASS: Restart returns to 401
+PASS: Restart retains the controls guide gate
+PASS: Confirmed exit stops Play Mode and restores time/audio
+RESULT: PASS. Physical headset readability/input require device verification.

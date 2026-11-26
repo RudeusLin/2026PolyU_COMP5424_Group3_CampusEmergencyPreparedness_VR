@@ -2,6 +2,18 @@
 
 A VR fire evacuation preparedness practice prototype for international students at fictional Harbourview University. The experience supports practice rather than formal assessment and does not replace official emergency training.
 
+## Final source version — 26 November 2026
+
+**Version: [FINAL-20261126](https://github.com/RudeusLin/2026PolyU_COMP5424_Group3_CampusEmergencyPreparedness_VR/tree/FINAL-20261126)**. Open the XR scene in **Unity 2022.3.62f3** for Windows PC VR with Quest 3 through Link/Air Link and OpenXR.
+
+- **Startup guidance:** language → route overview → localized controller guide → begin practice, with movement locked until confirmation.
+- **Educational review:** six selectable steps with localized illustrations, explanations and cautions; restart or exit after review.
+- **Right B menu:** pause, continue, restart or exit during practice; restart/exit require confirmation. Player position is fixed while modal panels are open.
+- **Elevator warnings:** all four call panels explain why lifts must not be used during a fire; acknowledge to continue.
+- **Smoke guidance:** localized grey haze near 401 and a framed, three-language warning facing Block B: wet the towel, then raise it with the left trigger before entering.
+
+See the [final integration record and rollback instructions](Docs/Updates/Final_2026-11-26.md) and [current controls](Docs/XRControls.md). Editor and simulated-input checks passed; final headset comfort/readability and target-PC verification remain outstanding. The historical ZIP below has **not** been rebuilt for this source version.
+
 ## Phase 3 evaluation improvements — 22 November 2026
 
 **Source baseline: [P3-20261122-01](https://github.com/RudeusLin/2026PolyU_COMP5424_Group3_CampusEmergencyPreparedness_VR/tree/P3-20261122-01)** (`6780b45`). Five initial anonymous questionnaires informed the following changes. The project owner has accepted the updated behaviour and presentation; formal participant retesting remains outstanding.
@@ -31,11 +43,11 @@ All three languages use structured step headings and highlighted button labels, 
 
 ## Experience overview
 
-1. Select English, Simplified Chinese or Traditional Chinese, read the fixed Route A introduction and route map, and begin in fourth-floor classroom 401.
+1. Select English, Simplified Chinese or Traditional Chinese, read the fixed Route A introduction, route map and controller guide, and begin in fourth-floor classroom 401.
 2. Use teleportation and snap turning to navigate the building. Follow exit signs, the floor trail and scene-anchored instruction cards toward the current objective.
 3. Explore facility interactions: activate an alarm, open doors, pick up and wet a towel, or use an extinguisher when appropriate to the practice situation. The route records its required interaction and location checkpoints; these records do not assess real-world competence.
 4. Respond to smoke and fire cues, choose a usable route and reach the outdoor assembly point. Active fire zones prevent teleport rays from crossing them; extinguishing a fire clears its zone.
-5. The source tracks six Route A nodes: alarm, raised wet towel, Stair A to 3F, B-side firefighting and descent to 2F, wheelchair assistance into the 2F refuge, then Stair A to 1F, exit firefighting and assembly. The main entrance is the default exit; cleared side exits also support completion. The simulated 999 call leads to a recorded-node debrief with restart/exit buttons; no real call is placed. The downloadable ZIP predates these source changes.
+5. The source tracks six Route A nodes: alarm, raised wet towel, Stair A to 3F, B-side firefighting and descent to 2F, wheelchair assistance into the 2F refuge, then Stair A to 1F, exit firefighting and assembly. The main entrance is the default exit; cleared side exits also support completion. The simulated 999 call leads to a six-step illustrated educational debrief with restart/exit buttons; no real call is placed. The downloadable ZIP predates these source changes.
 
 ## Download and run
 
@@ -56,10 +68,10 @@ The download was rebuilt from an earlier project source at commit `fc722e9` usin
 | Quest 3 locomotion | Right-trigger teleport, connected-stair checks, 30° snap turning and 401 rear-centre spawn | Updated source accepted by the project owner; complete packaged headset workflow still needs testing |
 | Extinguisher | Left-hand pickup, pin removal on every re-equip and three-second continuous suppression | Simplified simulation; fires disappear immediately and extinguishing agent is unlimited |
 | Towel and facilities | Left-hand towel with wetting and toggle-to-raise controls; doors, taps and alarm interaction | Physical protective effects are not simulated |
-| Language and route introduction | Three languages; updated route images in the briefing, expanded view and 401 board | Full English UI review and participant readability retest remain pending |
+| Language and route introduction | Three languages; route images, startup controller guide and illustrated review | Full English UI review and participant readability retest remain pending |
 | Directional guidance | Floor trail, wall-aligned cards, frames, peripheral cues and side-exit outdoor guidance | Next-step/completion explanations need further review and retesting |
 | Smoke and fire | Ceiling-bounded smoke, wet-raised-towel check on 4F and three-fire gates at the main and both side exits | No smoke physiology or damage model; fire regions do not constrain physical headset movement |
-| Completion and feedback | Six recorded nodes, guarded assembly arrival, simulated 999 entry and recorded-node debrief | Records cover interactions/checkpoints; gaze and real-world competence are not measured |
+| Completion and feedback | Six recorded nodes, guarded assembly arrival, simulated 999 entry and illustrated six-step educational debrief | Records cover interactions/checkpoints; gaze and real-world competence are not measured |
 | Session and accessibility support | 401 start gate, wider refuge double door, ray escort, floor/arrow A-confirm parking and debrief restart/exit | Wheelchair appearance, participant retest and packaged comfort/restart/exit checks remain pending |
 
 ## Validation and known limitations
@@ -110,7 +122,8 @@ This project targets Windows PC VR, not a standalone Android build. The PC VR se
 | Left X | Cycle acquired items: empty → towel → extinguisher → empty |
 | Left trigger | Toggle wet towel cover, or hold to spray equipped extinguisher |
 | Left Y / keyboard H | Toggle HUD |
-| Grips, B, left stick | No core gameplay binding |
+| Right B | Pause menu: continue, restart or exit (confirmation for restart/exit) |
+| Grips, left stick | No core gameplay binding |
 
 Items occupy the left hand. Extinguisher pickup requires empty hands. Towel wetness persists and the towel re-equips lowered; the extinguisher pin resets on every re-equip. Equipment switching is suspended during wheelchair escort and resumes after pause/delivery. See [current controls](Docs/XRControls.md).
 

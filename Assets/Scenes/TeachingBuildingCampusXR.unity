@@ -603253,6 +603253,7 @@ MonoBehaviour:
   opacity: 0.56
   emissionMultiplier: 0.78
   ceilingLayer: 0
+  doorwayHaze: 1
 --- !u!1 &1877746081
 GameObject:
   m_ObjectHideFlags: 0

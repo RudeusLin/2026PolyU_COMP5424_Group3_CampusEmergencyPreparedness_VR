@@ -1,0 +1,33 @@
+Editor Play Mode startup controls validation (no headset).
+PASS: XR scene and startup gate are running
+PASS: EN language opens route overview with movement blocked
+PASS: EN enlarge map does not skip to guide or start practice
+PASS: EN route confirmation opens guide while gameplay stays blocked
+PASS: EN guide loads matching language texture
+PASS: EN image aspect ratio preserved
+PASS: EN begin and back use existing ray-compatible buttons
+PASS: EN startup position remains locked
+PASS: EN guide stays on fixed world anchor
+PASS: EN back returns to route overview without releasing movement
+PASS: EN guide confirmation hides startup UI and unlocks practice
+PASS: SC language opens route overview with movement blocked
+PASS: SC enlarge map does not skip to guide or start practice
+PASS: SC route confirmation opens guide while gameplay stays blocked
+PASS: SC guide loads matching language texture
+PASS: SC image aspect ratio preserved
+PASS: SC begin and back use existing ray-compatible buttons
+PASS: SC startup position remains locked
+PASS: SC guide stays on fixed world anchor
+PASS: SC back returns to route overview without releasing movement
+PASS: SC guide confirmation hides startup UI and unlocks practice
+PASS: TC language opens route overview with movement blocked
+PASS: TC enlarge map does not skip to guide or start practice
+PASS: TC route confirmation opens guide while gameplay stays blocked
+PASS: TC guide loads matching language texture
+PASS: TC image aspect ratio preserved
+PASS: TC begin and back use existing ray-compatible buttons
+PASS: TC startup position remains locked
+PASS: TC guide stays on fixed world anchor
+PASS: TC back returns to route overview without releasing movement
+PASS: TC guide confirmation hides startup UI and unlocks practice
+RESULT: PASS. Captures use the live XR scene camera in Editor Play Mode; headset verification remains separate.
